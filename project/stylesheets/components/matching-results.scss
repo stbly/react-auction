@@ -1,0 +1,56 @@
+.matching-results {
+	position: absolute;
+	display: none;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow: auto;
+    overflow-x: hidden;
+
+    border: 2px solid grey;
+    background: white;
+
+    z-index: 2;
+
+    &.active {
+    	display:block;
+    }
+
+    li {
+    	cursor: pointer;
+		padding: 6px;
+		text-align: left;
+	}
+
+	border-color: $batterAlt;
+
+	li {
+		background-color: $batter;
+
+		&:nth-child(odd) {
+			background-color: $batterAlt;
+		}
+
+		&.selected {
+			background-color: $batterHighlight;
+		}
+	}
+
+
+    .pitchers & {
+    	border-color: $pitcherAlt;
+
+    	li {
+			background-color: $pitcher;
+
+			&:nth-child(odd) {
+				background-color: $pitcherAlt;
+			}
+
+			&.selected {
+				background-color: $pitcherHighlight;
+			}
+		}
+	}
+}

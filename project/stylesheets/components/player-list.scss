@@ -1,0 +1,139 @@
+@import '../init';
+
+.player-list-container {
+	position: relative;
+}
+
+.player-list {
+	width: 100%;
+	height: auto;
+	min-height: 30px;
+	margin-bottom: 10px;
+
+	table-layout: fixed;
+
+	font-size: 12px;
+
+	tr {
+		text-align: center;
+		padding: 10px;
+
+		&:hover {
+			.position {
+				background: inherit;
+			}
+
+		}
+	}
+
+	td {
+		vertical-align: middle;
+		padding: 6px 3px;
+		border: solid;
+		border-width: 0;
+	}
+
+	.position {
+		&.catcher { background: $catcher; }
+		&.first-base { background: $first-base; }
+		&.second-base { background: $second-base; }
+		&.third-base { background: $third-base; }
+		&.short-stop { background: $short-stop; }
+		&.outfield { background: $outfield; }
+		&.starting-pitcher { background: $starting-pitcher; }
+		&.closer { background: $closer; }
+		&.relief-pitcher { background: $relief-pitcher; }
+	}
+
+	 &.batter {
+
+		.player {
+			background: $batter;
+
+			&:nth-child(odd) {
+				background: $batterAlt;
+			}
+			&:hover {
+				background: $batterHighlight;
+			}
+		}
+		tr,
+		td {
+			border-color: $batterDark;
+		}
+	}
+
+	&.pitcher {
+
+		.player {
+			background: $pitcher;
+
+			&:nth-child(odd) {
+				background: $pitcherAlt;
+			}
+			&:hover {
+				background: $pitcherHighlight;
+			}
+		}
+		tr,
+		td {
+			border-color: $pitcherDark;
+		}
+	}
+
+	textarea,
+	input {
+		outline: none;
+	}
+
+	.categories{
+		text-align: center;
+	}
+
+	.player-info {
+		background: $gray;
+	}
+
+	.name {
+		width: 20%;
+	}
+
+	.number,
+	.value-info {
+		width: 5%;
+	}
+
+	.value-info {
+	}
+
+	.is-complete {
+		background: $success;
+		color: $success;
+	}
+
+	.favorite-toggle {
+		background-image:url('~!file!../../images/star.png');
+	    background-size: 50%;
+	    background-repeat: no-repeat;
+	    background-position: center;
+	    cursor: pointer;
+
+	    &.favorited {
+	    	background-image: url('~!file!../../images/star.png');
+	    }
+	}
+
+	.combined-rankings & {
+		width: calc(50% - 25px);
+		float: left;
+
+		&:not(:first-child) {
+			margin-left: 50px;
+		}
+
+		.player-rankings {
+			width: 100%;
+			margin-left: 0;
+		}
+	}
+}

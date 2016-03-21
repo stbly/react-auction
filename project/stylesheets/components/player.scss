@@ -1,0 +1,47 @@
+@import '../init';
+
+.player {
+
+	.slot-price,
+	.slot-budget, {
+		&:before {
+			@include super-script('$');
+		}
+
+		.cost-selected & {
+			color: $batterDark;
+		}
+	}
+
+	input {
+		width: 100%;
+		height: 100%;
+		background: inherit;
+	}
+
+	::-webkit-input-placeholder {
+		vertical-align: middle;
+		font-size: 14px;
+	}
+
+	.batters & {
+		::-webkit-input-placeholder {
+			color: $batterDark;
+		}
+	}
+	.pitchers & {
+		::-webkit-input-placeholder {
+			color: $pitcherDark;
+		}
+	}
+
+	&.cost-selected {
+		.batters & {
+			background: $batterDark;
+		}
+		.pitchers & {
+			background: $pitcherDark;
+		}
+	}
+
+}

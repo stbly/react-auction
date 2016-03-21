@@ -1,0 +1,53 @@
+
+.selection-number {
+	width:100%;
+	padding: 2px;
+	background: grey;
+
+	font-size: .6em;
+	color: darkgrey;
+}
+
+.round-value {
+	display: inline-block;
+	margin-bottom:5px;
+	padding: 5px;
+	cursor: pointer;
+
+	.batter & {
+		background: $batter;
+	}
+	.pitcher & {
+		background: $pitcher;
+	}
+}
+
+.edit-slots {
+	vertical-align: top;
+	padding: 7px 20px;
+    background: white;
+    cursor: pointer;
+    border: solid 5px grey;
+    box-sizing: border-box;
+}
+
+.is-editing {
+	.selection-number {
+		cursor: pointer;
+
+		&:hover {
+			color: black;
+			background: $neutral;
+		}
+	}
+}
+
+.too-much, .too-little {
+	.total-value {
+		color: red;
+	}
+	.edit-slots {
+		background: grey;
+		cursor: not-allowed;
+	}
+}
