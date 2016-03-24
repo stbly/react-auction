@@ -11,13 +11,13 @@ import settings from '../data/settings';
 
 class App extends Component {
 	constructor(props) {
-			super(props)
+		super(props)
 	}
 
 	render() {
 		return (
 			<div className='app'>
-				{this.props.children}|| "No Child Route yet"}
+				{this.props.children || "No Child Route yet"}
 			</div>
 		)
 	}

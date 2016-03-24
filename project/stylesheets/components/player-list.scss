@@ -2,6 +2,22 @@
 
 .player-list-container {
 	position: relative;
+
+	.combined-rankings & {
+		width: 50%;
+		float: left;
+		padding: 3%;
+		padding-right: 0;
+
+		&:not(:first-child) {
+			padding-left: 0;
+			padding-right: 3%;
+		}
+
+		.player-rankings {
+			width: 100%;
+		}
+	}
 }
 
 .player-list {
@@ -18,9 +34,34 @@
 		text-align: center;
 		padding: 10px;
 
-		&:hover {
+		&:not(.selected) {
 			.position {
-				background: inherit;
+				&.catcher { background: $catcher; }
+				&.first-base { background: $first-base; }
+				&.second-base { background: $second-base; }
+				&.third-base { background: $third-base; }
+				&.short-stop { background: $short-stop; }
+				&.outfield { background: $outfield; }
+				&.starting-pitcher { background: $starting-pitcher; }
+				&.closer { background: $closer; }
+				&.relief-pitcher { background: $relief-pitcher; }
+			}
+
+			&:hover {
+				.position {
+					background: inherit;
+				}
+
+				&.catcher,
+				&.first-base,
+				&.second-base,
+				&.third-base,
+				&.short-stop,
+				&.outfield,
+				&.starting-pitcher,
+				&.closer,
+				&.relief-pitcher { background: inherit; }
+
 			}
 
 		}
@@ -31,18 +72,12 @@
 		padding: 6px 3px;
 		border: solid;
 		border-width: 0;
-	}
 
-	.position {
-		&.catcher { background: $catcher; }
-		&.first-base { background: $first-base; }
-		&.second-base { background: $second-base; }
-		&.third-base { background: $third-base; }
-		&.short-stop { background: $short-stop; }
-		&.outfield { background: $outfield; }
-		&.starting-pitcher { background: $starting-pitcher; }
-		&.closer { background: $closer; }
-		&.relief-pitcher { background: $relief-pitcher; }
+		&.can-edit {
+			&:hover {
+				background: white
+			}
+		}
 	}
 
 	 &.batter {
@@ -53,13 +88,62 @@
 			&:nth-child(odd) {
 				background: $batterAlt;
 			}
+
+			.dark {
+				background: $batterMuted;
+
+				&.can-edit{
+					&:hover {
+						background: white
+					}
+				}
+			}
+
+			&.is-editing {
+				background: $batterHighlight;
+				/*border: 2px solid $batterHighlight;
+				z-index: 5;
+				box-shadow: 0 0 5px $batterDark;*/
+
+				.dark {
+					background: $batterHighlight;
+				}
+
+				&.selected {
+					td {
+						background: $batterHighlight;
+					}
+
+				}
+			}
+
 			&:hover {
 				background: $batterHighlight;
+
+				.dark {
+					background: $batterHighlight;
+				}
 			}
 		}
 		tr,
 		td {
 			border-color: $batterDark;
+		}
+
+		.selected {
+			td {
+				background: $batterDark;
+			}
+
+			.dark {
+				background: $batterDark;
+			}
+
+			&:hover {
+				.dark {
+					background: $batterDark;
+				}
+			}
 		}
 	}
 
@@ -71,13 +155,37 @@
 			&:nth-child(odd) {
 				background: $pitcherAlt;
 			}
+
+			.dark {
+				background: $pitcherMuted;
+			}
+
 			&:hover {
 				background: $pitcherHighlight;
+
+				.dark {
+					background: $pitcherHighlight;
+				}
 			}
 		}
 		tr,
 		td {
 			border-color: $pitcherDark;
+		}
+		.selected {
+			td {
+				background: $pitcherDark;
+			}
+
+			.dark {
+				background: $pitcherDark;
+			}
+
+			&:hover {
+				.dark {
+					background: $pitcherDark;
+				}
+			}
 		}
 	}
 
@@ -92,6 +200,11 @@
 
 	.player-info {
 		background: $gray;
+		cursor: pointer;
+
+		&:hover {
+			background: lightgrey;
+		}
 	}
 
 	.name {
@@ -121,19 +234,5 @@
 	    &.favorited {
 	    	background-image: url('~!file!../../images/star.png');
 	    }
-	}
-
-	.combined-rankings & {
-		width: calc(50% - 25px);
-		float: left;
-
-		&:not(:first-child) {
-			margin-left: 50px;
-		}
-
-		.player-rankings {
-			width: 100%;
-			margin-left: 0;
-		}
 	}
 }

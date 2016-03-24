@@ -17,6 +17,14 @@ class PlayerList extends Component {
 		super(props)
 	}
 
+	sortList (e) {
+		var param = e.target.getAttribute('data-name');
+		if (param === 'name' || param === 'cost' || param === 'pos') {
+			param = [param, 'value'];
+		}
+		this.props.sortPlayers(param);
+	}
+
 	getCategories () {
 		var categories = [];
 
@@ -24,7 +32,7 @@ class PlayerList extends Component {
 			if (this.props.categories.hasOwnProperty(key)) {
 				var category = this.props.categories[key];
 				categories.push(
-					<td key={key} className='stat'>{category.abbreviation}</td>
+					<td onClick={this.sortList.bind(this)} data-name={category.abbreviation} key={key} className='player-info stat'>{category.abbreviation}</td>
 				)
 			}
 		}
@@ -34,14 +42,18 @@ class PlayerList extends Component {
 
 	getPlayers () {
 		var players = [];
-		var index = 1;
 		for(var key in this.props.players) {
 			if (this.props.players.hasOwnProperty(key)) {
 				var player = this.props.players[key]
+				// console.log(key);
 				players.push(
-					<Player key={key} id={key} player={player} rank={index} categories={this.props.categories}/>
+					<Player
+						key={key}
+						player={player}
+						categories={this.props.categories}
+						updateStat={this.props.updateStat}
+						updateCost={this.props.updateCost} />
 				)
-				index++
 			}
 		}
 
@@ -54,24 +66,26 @@ class PlayerList extends Component {
 			'width': '5%'
 		};
 		return (
-			<table className={listClass}>
-				<tbody>
+			<div className='player-list-container'>
+				<table className={listClass}>
+					<tbody>
+						<tr className='headings'>
+							<td className='player-info' style={smallCell} onClick={this.sortList.bind(this)} data-name='rank'>Rank</td>
+							<td className='player-info favorite-toggle' style={smallCell}>Star</td>
+							<td className='player-info name' onClick={this.sortList.bind(this)} data-name='name'>Name</td>
+							<td className='player-info' onClick={this.sortList.bind(this)} data-name='pos'>Position</td>
+							<td className='player-info value-info' onClick={this.sortList.bind(this)} data-name='inflatedValue'>Bid Price</td>
+							<td className='player-info value-info' onClick={this.sortList.bind(this)} data-name='cost'>Cost</td>
+							<td className='player-info value' onClick={this.sortList.bind(this)} data-name='value'>Value</td>
+							<td className='player-info value' onClick={this.sortList.bind(this)} data-name='inflatedValue'>Inflation Value</td>
+							{this.getCategories()}
+						</tr>
 
-					<tr className='headings'>
-						<td className='player-info' style={smallCell}>Rank</td>
-						<td className='player-info favorite-toggle' style={smallCell}>Star</td>
-						<td className='player-info name'>Name</td>
-						<td className='player-info position'>Position</td>
-						<td className='player-info value-info'>Cost</td>
-						<td className='player-info value'>Value</td>
-						<td className='player-info value'>Inflation Value</td>
-						{this.getCategories()}
-					</tr>
+						{this.getPlayers()}
 
-					{this.getPlayers()}
-
-				</tbody>
-			</table>
+					</tbody>
+				</table>
+			</div>
 
 		)
 	}

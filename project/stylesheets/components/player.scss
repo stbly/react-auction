@@ -1,6 +1,7 @@
 @import '../init';
 
 .player {
+	position: relative;
 
 	.slot-price,
 	.slot-budget, {
@@ -28,20 +29,21 @@
 		::-webkit-input-placeholder {
 			color: $batterDark;
 		}
+
+
 	}
 	.pitchers & {
 		::-webkit-input-placeholder {
 			color: $pitcherDark;
 		}
+
+
 	}
 
-	&.cost-selected {
-		.batters & {
-			background: $batterDark;
-		}
-		.pitchers & {
-			background: $pitcherDark;
+	.edit-player {
+		cursor: pointer;
+		&:hover {
+			background: red;
 		}
 	}
-
 }
