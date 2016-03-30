@@ -12,14 +12,17 @@ class Player extends Component {
 			super(props)
 			this.state = {
 				hovered: false,
-				isEditing: false
+				isEditing: false,
+				isFavorited: false,
 			}
 	}
 
 	componentWillReceiveProps (nextProps) {
+		this.setState({isFavorited:nextProps.player.isFavorited})
 	}
 
 	componentDidMount() {
+		this.setState({isFavorited:this.props.player.isFavorited})
 	}
 
 	componentDidUpdate() {
@@ -27,29 +30,16 @@ class Player extends Component {
 		// this.setState({showCost:this.props.player.cost > 0});
 	}
 
-	getStats () {
-		var stats = [];
-
-		var _this = this;
-		for(var key in this.props.categories) {
-			if (this.props.categories.hasOwnProperty(key)) {
-				var category = this.props.categories[key].abbreviation;
-				var stat = this.props.player[category];
-				var ratioStat = (category === 'AVG' || category === 'OBP' || category === 'SLG' || category === 'OPS' || category === 'ERA' || category === 'WHIP');
-				var decimalPlaces = ratioStat ? 3 : 0;
-
-				var statEl = <ValueInput
-					key={key}
-					value={stat}
-					stat={category}
-					currentEditElement={this.state.currentEditElement}
-					didStartEditing={this.setEditState.bind(this)}
-					valueDidChange={this.updatePlayerStat.bind(this)} />
-
-				stats.push(statEl)
-			}
+	getCheckbox () {
+		var el;
+		if (!this.props.player.selected) {
+			el = <input
+				ref={(ref) => this.favorited = ref}
+				type="checkbox"
+				checked={this.state.isFavorited}
+				onChange={this.togglePlayerFavorited.bind(this)} />
 		}
-		return stats;
+		return el;
 	}
 
 	getPosition () {
@@ -92,12 +82,12 @@ class Player extends Component {
 	}
 
 	editStats (e) {
-		console.log('editStats');
+		// console.log('editStats');
 		this.setState({isEditing:true})
 	}
 
 	stopEditing (e) {
-		console.log('stop editing');
+		// console.log('stop editing');
 		if (this.state.isEditing) {
 			this.setState({isEditing:false})
 		}
@@ -116,26 +106,14 @@ class Player extends Component {
 
 	}
 
-	getRankView () {
-		var el;
-
-		if (this.state.hover) {
-			// onClick={this.editStats.bind(this)}
-			el = <td className='edit-player'>Edit</td>
-		} else {
-			el = <td>{this.props.player.rank}</td>
-		}
-		return el;
-	}
-
 	setEditState (dispatcher) {
 		this.setState({isEditing: true});
 		this.setState({currentEditElement: dispatcher})
 	}
 
 	updatePlayerStat (value, e) {
+		// console.log('updatedPlayerStat()')
 		// var stat = e.target.getAttribute('data-name');
-
 		this.setState({isEditing: false});
 		this.setState({hover: false});
 		this.setState({currentEditElement: null})
@@ -154,31 +132,105 @@ class Player extends Component {
 		this.setState({currentEditElement: null})
 
 		if (this.props.updateCost) {
-			console.log(cost, this.props.player.id);
+			// console.log(cost, this.props.player.id);
 			this.props.updateCost(cost, this.props.player.id);
 		}
 	}
 
+	togglePlayerFavorited (e) {
+		// console.log('update');
+		var newSetting = !this.state.isFavorited;
+		this.setState({isFavorited: newSetting})
+		if (this.props.updateFavorited) {
+			this.props.updateFavorited(newSetting, this.props.player.id);
+		}
+	}
+
+	getMetaInfo () {
+		var els = [];
+		if (!this.props.hideMetaInfo) {
+			els.push(<td key={this.props.player.rank}>{this.props.player.rank}</td>);
+			els.push(
+				<td key={this.props.player.rank + 'favorite-toggle'} className='favorite-toggle'>
+					{this.getCheckbox()}
+				</td>
+			);
+		}
+		return els;
+	}
+
+	selectPlayer () {
+		if (this.props.playerSelected) {
+			this.props.playerSelected(this.props.player.id)
+		}
+	}
+
+	getValueInfo () {
+		var els = [];
+
+		var costInputClasses = classNames('can-edit','position',this.getPosition());
+		if (!this.props.hideCostInput) {
+			els.push(
+				<td key={'cost-input-td'} className={costInputClasses}>
+					<ValueInput
+						classNames={['dollar-amount']}
+						value={this.props.player.cost}
+						currentEditElement={this.state.currentEditElement}
+						didStartEditing={this.setEditState.bind(this)}
+						valueDidChange={this.updatePlayerCost.bind(this)} />
+				</td>
+			);
+		}
+
+		if (!this.props.hideValueInfo) {
+			els.push(<td key={'display-valuet-td'} className='dark'><span className='dollar-amount'>{this.props.player.displayValue}</span></td>);
+			els.push(<td key={'inflated-display-value-td'} className='dark'><span className='dollar-amount'>{this.props.player.displayInflatedValue}</span></td>);
+		}
+		return els;
+	}
+
+	getStats () {
+		var stats = [];
+
+		var _this = this;
+
+		if (!this.props.hideStats) {
+			for(var key in this.props.categories) {
+				if (this.props.categories.hasOwnProperty(key)) {
+					var category = this.props.categories[key].abbreviation;
+					var stat = this.props.player[category];
+					var ratioStat = (category === 'AVG' || category === 'OBP' || category === 'SLG' || category === 'OPS' || category === 'ERA' || category === 'WHIP');
+					var decimalPlaces = ratioStat ? 3 : 0;
+
+					stat = Number(stat).toFixed(decimalPlaces);
+
+					var statEl = <td key={key} className='can-edit'>
+						<ValueInput
+							value={stat}
+							stat={category}
+							currentEditElement={this.state.currentEditElement}
+							didStartEditing={this.setEditState.bind(this)}
+							valueDidChange={this.updatePlayerStat.bind(this)} />
+						</td>
+
+					stats.push(statEl)
+				}
+			}
+		}
+		return stats;
+	}
+
 	render () {
 		var playerClasses = classNames('player', {'selected':this.props.player.selected}, {'is-editing':this.state.isEditing});
-		var positionClasses = classNames('position', this.getPosition())
+		var positionClasses = classNames('position', this.getPosition());
 
 		return (
 			<tr onMouseOver={this.handleMouseOver.bind(this)} onMouseOut={this.handleMouseOut.bind(this)} className={playerClasses}>
-				{this.getRankView()}
-				<td className='favorite-toggle'></td>
-				<td>{this.props.player.name}</td>
+				{this.getMetaInfo()}
 				<td className={positionClasses}>{this.props.player.pos}</td>
-				<td><span className='dollar-amount'>{this.props.player.bidPrice}</span></td>
-				<ValueInput
-					classNames={['dollar-amount']}
-					value={this.props.player.cost}
-					currentEditElement={this.state.currentEditElement}
-					didStartEditing={this.setEditState.bind(this)}
-					valueDidChange={this.updatePlayerCost.bind(this)}
-				/>
-				<td className='dark'><span className='dollar-amount'>{this.props.player.displayValue}</span></td>
-				<td className='dark'><span className='dollar-amount'>{this.props.player.displayInflatedValue}</span></td>
+				<td onClick={this.selectPlayer.bind(this)} className={positionClasses}>{this.props.player.name}</td>
+				<td className={positionClasses}><span className='dollar-amount'>{this.props.player.bidPrice}</span></td>
+				{this.getValueInfo()}
 				{this.getStats()}
 			</tr>
 		)

@@ -1,0 +1,77 @@
+@import '../init';
+
+.player-input {
+	width: 100%;
+	background: $batterDark;
+	form {
+		display: block;
+		margin: auto;
+		/*margin-bottom: 10px;*/
+		padding:10px;
+		text-align: center
+		::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+		    color: $batterDark;
+		}
+
+		& > * {
+			&:not(:last-child) {
+				margin-right: 10px;
+			}
+		}
+	}
+
+	input {
+		outline: none;
+		background: none;
+	}
+
+	.player-input-box {
+		min-width: 225px;
+	}
+
+	.player-input-box,
+	.cost-container {
+
+		position: relative;
+		display: inline-block;
+		padding: 10px 50px;
+
+		background: $batter;
+
+		font-size: 12px;
+		text-align: center;
+		text-transform: uppercase;
+
+		&.cost-input {
+			padding: 10px;
+			min-width: 0;
+		}
+
+		&:focus {
+	    	background: $batterHighlight;
+	    }
+	}
+
+	.cost-container {
+		padding: 10px;
+		width: 50px;
+		 &.is-editing {
+	    	background: $batterHighlight;
+		}
+		.player-input-box.cost-input {
+			padding: 0;
+		}
+	}
+
+	.submit {
+		min-width: inherit;
+		padding-top: 11px;
+		padding-bottom: 11px;
+	    cursor: pointer;
+	    &:hover,
+	    &:focus {
+	    	background: $batterHighlight;
+	    }
+	}
+}
+

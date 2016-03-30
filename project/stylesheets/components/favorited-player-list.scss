@@ -1,0 +1,41 @@
+@import '../init';
+
+.favorited-player-list {
+	margin-bottom: 0;
+	.player {
+		cursor: pointer;
+	}
+
+	.name {
+		width: 70%;
+	}
+	.number,
+	.value-info {
+		width: 10%;
+	}
+
+	 &.batter {
+		background: $batter;
+		.player-info,
+		.player-type {
+			background: $batterDark;
+		}
+		.player-info {
+			&:hover {
+				background: $batterHighlight;
+			}
+		}
+	}
+	 &.pitcher {
+		background: $pitcher;
+		.player-info,
+		.player-type {
+			background: $pitcherDark;
+		}
+		.player-info {
+			&:hover {
+				background: $pitcherHighlight;
+			}
+		}
+	}
+}

@@ -1,5 +1,8 @@
-.suggested-search {
+@import '../init';
+
+.suggested-search-box {
 	position: relative;
+	display: inline-block;
 
 	&.is-editing {
 		&:before {
@@ -12,6 +15,11 @@
 			pointer-events: none;
 			border: 3px solid $batterDark;
 		}
+	}
+
+	.search-results {
+		position: absolute;
+		width: 100%;
 	}
 }
 

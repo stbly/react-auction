@@ -6,27 +6,32 @@ import { Router, RouteHandler, Link, browserHistory } from 'react-router'
 // import { browserHistory } from 'react-router'
 
 import ValueList from '../components/ValueList'
+import Player from '../components/Player'
+import PlayerList from '../components/PlayerList'
+import PlayerInput from '../components/PlayerInput'
+import FavoritedPlayerList from '../components/FavoritedPlayerList.js'
 import {players} from '../data/players'
 import {settings} from '../data/settings'
+import {teams} from '../data/teams'
 
 import '../../stylesheets/components/app.scss'
+import '../../stylesheets/components/players.scss'
 
 import {sortBy} from '../utils/sortUtils';
 import {filterByPosition} from '../utils/filterUtils';
+import classNames from 'classnames';
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			toggleBatterSortDirection: true,
-			togglePitcherSortDirection: true,
-			currentPitcherSortOption: '',
-			currentBatterSortOption: '',
 			draftableBatters:[],
 			draftablePitchers:[],
 			rankedBatters:[],
 			rankedPitchers:[],
+			favoritedPlayers:[],
+			activePlayer:null
 		}
 	}
 
@@ -65,7 +70,11 @@ class App extends Component {
 			averagePlateAppearances = 540 * playerSpots,
 			playerSpotRatio = ((playerSpots - 1) / playerSpots);
 
-		this.getCategories('batter').forEach(function (category) {
+		var categories = this.getCategories('batter').filter(function (category) {
+			return category.sgpd;
+		});
+
+		categories.forEach(function (category) {
 			var sgp = 0,
 				sgpd = category.sgpd,
 				categoryStat = category.abbreviation,
@@ -119,7 +128,11 @@ class App extends Component {
 			averageInningsPitched = 160 * playerSpots,
 			playerSpotRatio = ((playerSpots - 1) / playerSpots);
 
-		this.getCategories('pitcher').forEach(function (category) {
+		var categories = this.getCategories('pitcher').filter(function (category) {
+			return category.sgpd;
+		});
+
+		categories.forEach(function (category) {
 			var sgp = 0,
 				sgpd = category.sgpd,
 				categoryStat = category.abbreviation.toString(),
@@ -220,8 +233,13 @@ class App extends Component {
 		});
 
 		// console.log(draftablePlayers);
-
 		this.assignPlayerValues(draftablePlayers,type);
+
+		var favoritedPlayers = this.getPlayers().filter(function (player) {
+			return player.isFavorited;
+		})
+
+		this.setFavoritedPlayers(favoritedPlayers);
 	}
 
 	assignPlayerValues (playersToValue, type) {
@@ -401,10 +419,21 @@ class App extends Component {
 		assignValues();
 
 		var remainingDollars = dollarsToSpend;
+		var totalSpent = 0;
+		var playersDrafted = 0;
 		playerList.forEach(function (player) {
 			var subtractValue = (player.cost || 0)
 			remainingDollars -= subtractValue;
+			totalSpent+=subtractValue;
+			if (player.selected) {
+				playersDrafted++;
+			}
 		});
+
+		console.log('total to spend:',type,dollarsToSpend)
+		console.log('dollars spent:',type,totalSpent)
+		console.log('players to draft',type,playersToDraft)
+		console.log('players drafted',type,playersDrafted);
 
 		var remainingValue = dollarsToSpend;
 		draftablePlayers.forEach(function (player) {
@@ -413,6 +442,7 @@ class App extends Component {
 			}
 		});
 
+		console.log(type,remainingDollars,remainingValue)
 		var inflationRate = remainingDollars / remainingValue;
 		// console.log(remainingDollars, remainingValue, inflationRate)
 
@@ -431,12 +461,7 @@ class App extends Component {
 			player.rank = index++;
 		});
 
-		if (type === 'batter') {
-			this.updateBatters(draftablePlayers);
-		} else {
-			this.updatePitchers(draftablePlayers);
-		}
-
+		this.updatePlayers(draftablePlayers,type);
 	}
 
 
@@ -458,13 +483,41 @@ class App extends Component {
 
 		for(var key in players) {
 			var player = players[key];
-			if (player.type === type) {
+			var typeMatch = true;
+			if (type) {
+				typeMatch = (player.type === type);
+			}
+			if (typeMatch) {
 				player.id = key;
 				playerList.push(player);
 			}
 		}
 
 		return playerList;
+	}
+
+	getUnusedPlayers () {
+		var unusedPlayers = [];
+
+		for(var key in players) {
+			var player = players[key];
+			if (!player.selected) {
+				player.id = key;
+				unusedPlayers.push(player);
+			}
+		}
+
+		return unusedPlayers;
+	}
+
+	getTeams () {
+		var teamNames = [];
+
+		for (var key in teams) {
+			teamNames.push(key);
+		}
+
+		return teamNames
 	}
 
 	getTotalSalary () {
@@ -501,42 +554,62 @@ class App extends Component {
 		return scarcePositions;
 	}
 
-	sortBatters (param) {
-		var playersToSort = this.state.rankedBatters;
-		var sortDirection = this.state.toggleBatterSortDirection;
-		var currentSortOption = this.state.currentBatterSortOption;
-
-		if (param.toString() === currentSortOption.toString()) {
-			sortDirection = !sortDirection;
-			this.setState({toggleBatterSortDirection: sortDirection});
-		}
-
-		this.setState({currentBatterSortOption: param});
-
-		playersToSort = sortBy(playersToSort, param, sortDirection);
-
-		this.updateBatters(playersToSort, false);
+	setFavoritedPlayers (players) {
+		console.log(players);
+		this.setState({favoritedPlayers: players});
 	}
 
-	sortPitchers (param) {
-		var playersToSort = this.state.rankedPitchers;
-		var sortDirection = this.state.togglePitcherSortDirection;
-		var currentSortOption = this.state.currentPitcherSortOption;
+	getFavoritedPlayers(type) {
 
-		if (param.toString() === currentSortOption.toString()) {
-			sortDirection = !sortDirection;
-			this.setState({togglePitcherSortDirection: sortDirection});
+		var playerList = [];
+		var favoritedPlayers = this.state.favoritedPlayers.filter(function (player) {
+			return player.type === type;
+		});
+
+		// console.log('getFavoritedPlayers',favoritedPlayers)
+
+		for (var key in favoritedPlayers) {
+			var player = favoritedPlayers[key];
+			if (player.isFavorited && !player.selected) {
+				playerList.push(player);
+			}
 		}
 
-		this.setState({currentPitcherSortOption: param});
+		return playerList;
+	}
 
-		playersToSort = sortBy(playersToSort, param, sortDirection);
+	updateActivePlayer (player) {
+		var playerToUpdate = players[Number(player)];
+		this.setState({activePlayer: playerToUpdate});
+	}
 
-		this.updatePitchers(playersToSort, false);
+	getActivePlayer () {
+		if (!this.state.activePlayer) {
+			return;
+		}
+
+		var el;
+		var type = this.state.activePlayer.type;
+		var activePlayerClasses = classNames('active-player',type);
+		var tableClasses = classNames('player-list',type);
+		if (this.state.activePlayer) {
+			var categories = type === 'batter' ? this.getCategories('batter') : this.getCategories('pitcher');
+			el = <div className={activePlayerClasses}>
+					<table className={tableClasses}>
+						<tbody>
+							<Player
+								hideMetaInfo={true}
+								player={this.state.activePlayer}
+								categories={categories}/>
+						</tbody>
+					</table>
+				</div>
+		}
+
+		return el;
 	}
 
 	updateBatterStat (stat, value, player) {
-		console.log('--- stat update',stat,player)
 		var playerToUpdate = players[Number(player)];
 		playerToUpdate[stat] = value;
 
@@ -544,11 +617,35 @@ class App extends Component {
 
 		this.calculateSGP(playerToUpdate.type);
 		this.setDraftablePlayerLists(playerToUpdate.type);
+	}
+
+	updatePlayerFavorited (makeFavorite, player) {
+		var playerToUpdate = players[Number(player)];
+
+		playerToUpdate.isFavorited = makeFavorite
+
+		if (makeFavorite) {
+			this.state.favoritedPlayers.push(playerToUpdate);
+		} else {
+			this.state.favoritedPlayers.splice(this.state.favoritedPlayers.indexOf(playerToUpdate), 1)
+		}
+
+		this.setFavoritedPlayers(this.state.favoritedPlayers);
+
+		// this.calculateSGP(playerToUpdate.type);
+		// this.setDraftablePlayerLists(playerToUpdate.type);
+	}
+
+	assignPlayer (playerId, cost, team) {
+		// console.log(playerId, players);
+		var playerToUpdate = players[Number(playerId)];
+		playerToUpdate.team = team;
+		this.updatePlayerCost(cost, playerId);
 
 	}
 
-	updateBatterCost (cost, player) {
-		console.log('---cost update',cost,player)
+	updatePlayerCost (cost, player) {
+
 		var playerToUpdate = players[Number(player)];
 		playerToUpdate.cost = cost;
 		if (cost > 0) {
@@ -561,44 +658,66 @@ class App extends Component {
 
 		this.calculateSGP(playerToUpdate.type);
 		this.setDraftablePlayerLists(playerToUpdate.type);
-
 	}
 
-	updateBatters (players, sort) {
-		console.log(sort);
-		(sort === null || sort === undefined) ? sort = true : sort = sort;
-
-		if (sort && this.state.currentBatterSortOption) {
-			console.log('--1',this.state.currentBatterSortOption);
-			console.log ('--2',this.state.toggleBatterSortDirection);
-			players = sortBy(players, this.state.currentBatterSortOption, this.state.toggleBatterSortDirection)
+	updatePlayers (players, type) {
+		if (type === 'batter') {
+			this.setState({rankedBatters:players});
+		} else if (type === 'pitcher') {
+			this.setState({rankedPitchers:players});
 		}
-		this.setState({rankedBatters:players});
-	}
-
-	updatePitchers (players) {
-		if (this.state.currentPitcherSortOption) {
-			players = sortBy(players, this.state.currentPitcherSortOption, this.state.togglePitcherSortDirection)
-		}
-		this.setState({rankedPitchers:players});
 	}
 
 	render() {
 		return (
-			<div className='players-route combined-rankings'>
-				<ValueList type='batter'
-					players={this.state.rankedBatters}
-					categories={this.getCategories('batter')}
-					sortPlayers={this.sortBatters.bind(this)}
-					updateStat={this.updateBatterStat.bind(this)}
-					updateCost={this.updateBatterCost.bind(this)}
-				/>
-				<ValueList type='pitcher'
-					players={this.state.rankedPitchers}
-					categories={this.getCategories('pitcher')}
-					sortPlayers={this.sortPitchers.bind(this)}
-					updateCost={this.updateBatterCost.bind(this)}
-				/>
+
+			<div className='players-route'>
+				<div>
+					<div className='favorited-players'>
+						<FavoritedPlayerList
+							type='batter'
+							players={this.getFavoritedPlayers('batter')}
+							playerSelected={this.updateActivePlayer.bind(this)}
+							categories={this.getCategories('batter')}
+							updateFavorited={this.updatePlayerFavorited.bind(this)} />
+
+						<FavoritedPlayerList
+							type='pitcher'
+							players={this.getFavoritedPlayers('pitcher')}
+							playerSelected={this.updateActivePlayer.bind(this)}
+							categories={this.getCategories('pitcher')}
+							updateFavorited={this.updatePlayerFavorited.bind(this)} />
+						<div className='clear-both'></div>
+					</div>
+
+					<div className='combined-rankings'>
+						<PlayerInput
+							searchablePlayers={this.getUnusedPlayers()}
+							searchableTeams={this.getTeams()}
+							playerEntered={this.assignPlayer.bind(this)} />
+
+						{this.getActivePlayer()}
+
+						<ValueList type='batter'
+							players={this.state.rankedBatters}
+							categories={this.getCategories('batter')}
+							playerSelected={this.updateActivePlayer.bind(this)}
+							updateStat={this.updateBatterStat.bind(this)}
+							updateCost={this.updatePlayerCost.bind(this)}
+							updateFavorited={this.updatePlayerFavorited.bind(this)} />
+
+						<ValueList type='pitcher'
+							players={this.state.rankedPitchers}
+							categories={this.getCategories('pitcher')}
+							playerSelected={this.updateActivePlayer.bind(this)}
+							updateCost={this.updatePlayerCost.bind(this)}
+							updateFavorited={this.updatePlayerFavorited.bind(this)} />
+
+						<div className='clear-both'></div>
+					</div>
+
+					<div className='clear-both'></div>
+				</div>
 			</div>
 		)
 	}

@@ -27,7 +27,7 @@
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
 15 verbose pkgid auction-tool-react@1.0.0
 16 verbose cwd /Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react
-17 error Darwin 15.2.0
+17 error Darwin 15.4.0
 18 error argv "/Users/conor.britain/.nvm/v5.5.0/bin/node" "/Users/conor.britain/.nvm/v5.5.0/bin/npm" "start"
 19 error node v5.5.0
 20 error npm  v3.5.3

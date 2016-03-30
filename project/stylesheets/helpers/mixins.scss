@@ -234,7 +234,7 @@ $ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);
 @mixin border-box-sizing() {
    -moz-box-sizing:    border-box;
    -webkit-box-sizing: border-box;
-    box-sizing:        border-box; 
+    box-sizing:        border-box;
 }
 
 @mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){
@@ -284,7 +284,7 @@ $ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);
 @mixin super-script ($content) {
     position: relative;
     margin-left: 0.3em;
-    &:before {
+    &:after {
         content: $content;
         position: absolute;
         top: .2em;
@@ -294,7 +294,7 @@ $ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);
 
 @mixin dollar-amount {
     @include super-script('$');
-    &:before {
+    &:after {
         right: 100%;
     }
 }

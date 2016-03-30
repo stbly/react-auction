@@ -6,12 +6,12 @@
 	.combined-rankings & {
 		width: 50%;
 		float: left;
-		padding: 3%;
+		/*padding: 3%;*/
 		padding-right: 0;
 
 		&:not(:first-child) {
 			padding-left: 0;
-			padding-right: 3%;
+			/*padding-right: 3%;*/
 		}
 
 		.player-rankings {
@@ -20,7 +20,8 @@
 	}
 }
 
-.player-list {
+.player-list,
+.favorited-player-list {
 	width: 100%;
 	height: auto;
 	min-height: 30px;
@@ -30,12 +31,17 @@
 
 	font-size: 12px;
 
+	.position {
+		cursor: pointer;
+	}
+
 	tr {
 		text-align: center;
 		padding: 10px;
 
 		&:not(.selected) {
 			.position {
+
 				&.catcher { background: $catcher; }
 				&.first-base { background: $first-base; }
 				&.second-base { background: $second-base; }
@@ -75,7 +81,7 @@
 
 		&.can-edit {
 			&:hover {
-				background: white
+				background: $batterEditHover
 			}
 		}
 	}
@@ -94,7 +100,7 @@
 
 				&.can-edit{
 					&:hover {
-						background: white
+						background: $batterEditHover
 					}
 				}
 			}

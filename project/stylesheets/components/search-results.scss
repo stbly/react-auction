@@ -1,4 +1,6 @@
-.matching-results {
+@import '../init';
+
+.search-results {
 	position: absolute;
 	display: none;
     top: 100%;
@@ -20,7 +22,10 @@
     li {
     	cursor: pointer;
 		padding: 6px;
-		text-align: left;
+
+	    font-size: 12px;
+	    text-transform: uppercase;
+	    text-align: center;
 	}
 
 	border-color: $batterAlt;

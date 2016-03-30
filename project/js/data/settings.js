@@ -2,7 +2,7 @@ const settings = {
 	numTeams: 14,
 	teamSalary: 270,
 	startingSalary: 270,
-	battingPercentage: 65,
+	battingPercentage: 63,
 	rosterSpots: 24,
 	numBatters: 13,
 	prices: [45,33,26,22,19,17,15,13,12,11,10,8,7,6,6,5,4,3,2,2,1,1,1,1],
@@ -23,7 +23,7 @@ const settings = {
 			{ position: 'SP' },
 			{
 				position: 'RP',
-				minimum: 20
+				minimum: 30
 			},
 			{
 				position: 'CP',
@@ -32,6 +32,14 @@ const settings = {
 		]
 	},
 	categories: {
+		'Plate Appearances': {
+			abbreviation: 'PA',
+			type: 'batter'
+		},
+		'At Bats': {
+			abbreviation: 'AB',
+			type: 'batter'
+		},
 		'Runs': {
 			abbreviation: 'R',
 			type: 'batter',
@@ -74,6 +82,10 @@ const settings = {
 			sgpd: .0053,
 			goal: .465
 		},
+		'Innings Pitched': {
+			abbreviation: 'IP',
+			type: 'pitcher'
+		},
 		'Wins': {
 			abbreviation: 'W',
 			type: 'pitcher',
@@ -86,17 +98,17 @@ const settings = {
 			sgpd: 7.868,
 			goal: 100
 		},
-		'Holds': {
-			abbreviation: 'HD',
-			type: 'pitcher',
-			sgpd: 20.01,
-			goal: 60
-		},
 		'Strikeouts': {
 			abbreviation: 'K',
 			type: 'pitcher',
 			sgpd: 50.048,
 			goal: 1550
+		},
+		'Holds': {
+			abbreviation: 'HD',
+			type: 'pitcher',
+			sgpd: 20.01,
+			goal: 60
 		},
 		'ERA': {
 			abbreviation: 'ERA',

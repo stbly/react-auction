@@ -24,8 +24,11 @@ class ValueList extends Component {
 				players={this.props.players}
 				categories={this.props.categories}
 				sortPlayers={this.props.sortPlayers}
+				playerSelected={this.props.playerSelected}
+				hideValueInfo={false}
 				updateStat={this.props.updateStat}
-				updateCost={this.props.updateCost} />
+				updateCost={this.props.updateCost}
+				updateFavorited={this.props.updateFavorited} />
 				/*<table className={listClass}>
 					<tbody>
 
