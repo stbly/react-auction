@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Router, RouteHandler, Link, browserHistory } from 'react-router'
+import { connect } from 'react-redux';
+
 
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
@@ -10,9 +12,10 @@ import Player from '../components/Player'
 import PlayerList from '../components/PlayerList'
 import PlayerInput from '../components/PlayerInput'
 import FavoritedPlayerList from '../components/FavoritedPlayerList.js'
-import {players} from '../data/players'
 import {settings} from '../data/settings'
 import {teams} from '../data/teams'
+import * as actions from '../actions/PlayerActions';
+
 
 import '../../stylesheets/components/app.scss'
 import '../../stylesheets/components/players.scss'
@@ -21,25 +24,26 @@ import {sortBy} from '../utils/sortUtils';
 import {filterByPosition} from '../utils/filterUtils';
 import classNames from 'classnames';
 
-class App extends Component {
+class Players extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			draftableBatters:[],
-			draftablePitchers:[],
-			rankedBatters:[],
-			rankedPitchers:[],
-			favoritedPlayers:[],
-			activePlayer:null
+			draftableBatters: [],
+			draftablePitchers: [],
+			rankedBatters: [],
+			rankedPitchers: [],
+			favoritedPlayers: [],
+			activePlayer: null
 		}
 	}
 
-	componentDidMount () {
-		this.calculateSGP('batter');
-		this.calculateSGP('pitcher');
-		this.setDraftablePlayerLists('batter');
-		this.setDraftablePlayerLists('pitcher');
+	componentWillMount() {
+		this.props.dispatch(actions.receivePlayers());
+	}
+
+	componentDidUpdate () {
+		console.log('hey')
 	}
 
 	calculateSGP (type) {
@@ -172,6 +176,7 @@ class App extends Component {
 	setDraftablePlayerLists (type) {
 		var playersToDraft = this.getPlayersToDraft(type),
 			playerList = this.getPlayers(type);
+
 
 		var playersSortedBySGP = sortBy(playerList, 'sgp').reverse();
 
@@ -480,9 +485,9 @@ class App extends Component {
 
 	getPlayers (type) {
 		var playerList = [];
-
-		for(var key in players) {
-			var player = players[key];
+		console.log('-----',this.props.players);
+		for(var key in this.props.players) {
+			var player = this.props.players[key];
 			var typeMatch = true;
 			if (type) {
 				typeMatch = (player.type === type);
@@ -498,9 +503,8 @@ class App extends Component {
 
 	getUnusedPlayers () {
 		var unusedPlayers = [];
-
-		for(var key in players) {
-			var player = players[key];
+		for(var key in this.props.players) {
+			var player = this.props.players[key];
 			if (!player.selected) {
 				player.id = key;
 				unusedPlayers.push(player);
@@ -555,7 +559,6 @@ class App extends Component {
 	}
 
 	setFavoritedPlayers (players) {
-		console.log(players);
 		this.setState({favoritedPlayers: players});
 	}
 
@@ -579,7 +582,7 @@ class App extends Component {
 	}
 
 	updateActivePlayer (player) {
-		var playerToUpdate = players[Number(player)];
+		var playerToUpdate = this.props.players[Number(player)];
 		this.setState({activePlayer: playerToUpdate});
 	}
 
@@ -610,7 +613,7 @@ class App extends Component {
 	}
 
 	updateBatterStat (stat, value, player) {
-		var playerToUpdate = players[Number(player)];
+		var playerToUpdate = this.props.players[Number(player)];
 		playerToUpdate[stat] = value;
 
 		// console.log(playerToUpdate);
@@ -620,7 +623,7 @@ class App extends Component {
 	}
 
 	updatePlayerFavorited (makeFavorite, player) {
-		var playerToUpdate = players[Number(player)];
+		var playerToUpdate = this.props.players[Number(player)];
 
 		playerToUpdate.isFavorited = makeFavorite
 
@@ -638,7 +641,7 @@ class App extends Component {
 
 	assignPlayer (playerId, cost, team) {
 		// console.log(playerId, players);
-		var playerToUpdate = players[Number(playerId)];
+		var playerToUpdate = this.props.players[Number(playerId)];
 		playerToUpdate.team = team;
 		this.updatePlayerCost(cost, playerId);
 
@@ -646,7 +649,7 @@ class App extends Component {
 
 	updatePlayerCost (cost, player) {
 
-		var playerToUpdate = players[Number(player)];
+		var playerToUpdate = this.props.players[Number(player)];
 		playerToUpdate.cost = cost;
 		if (cost > 0) {
 			playerToUpdate.selected = true;
@@ -723,4 +726,9 @@ class App extends Component {
 	}
 }
 
-export default App;
+function mapStateToProps (state,ownProps) {
+	console.log('mapStateToProps()',state,ownProps);
+	return { players: state.players };
+}
+
+export default connect(mapStateToProps)(Players);
