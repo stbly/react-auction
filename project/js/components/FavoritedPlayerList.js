@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import Player from './Player.js'
 import PlayerList from './PlayerList.js'
-import {sortBy} from '../utils/sortUtils';
+import {sortBy} from '../helpers/sortUtils';
 
 import '../../stylesheets/components/favorited-player-list.scss'
 
@@ -23,6 +23,11 @@ class FavoritedPlayerList extends PlayerList {
 		var players = [];
 		// console.log('sorted:',this.state.sortedPlayers)
 		var playerList = this.state.sortedPlayers || this.props.players;
+
+		if (!playerList) {
+			return;
+		}
+
 		for(var key in playerList) {
 			if (playerList.hasOwnProperty(key)) {
 				var player = playerList[key]

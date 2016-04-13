@@ -32,9 +32,9 @@ class Player extends Component {
 
 	getCheckbox () {
 		var el;
-		if (!this.props.player.selected) {
+		if (!this.props.player.isSelected) {
 			el = <input
-				ref={(ref) => this.favorited = ref}
+				ref={(ref) => this.isFavorited = ref}
 				type="checkbox"
 				checked={this.state.isFavorited}
 				onChange={this.togglePlayerFavorited.bind(this)} />
@@ -142,7 +142,7 @@ class Player extends Component {
 		var newSetting = !this.state.isFavorited;
 		this.setState({isFavorited: newSetting})
 		if (this.props.updateFavorited) {
-			this.props.updateFavorited(newSetting, this.props.player.id);
+			this.props.updateFavorited(this.props.player.id);
 		}
 	}
 
@@ -221,7 +221,7 @@ class Player extends Component {
 	}
 
 	render () {
-		var playerClasses = classNames('player', {'selected':this.props.player.selected}, {'is-editing':this.state.isEditing});
+		var playerClasses = classNames('player', {'selected':this.props.player.isSelected}, {'is-editing':this.state.isEditing});
 		var positionClasses = classNames('position', this.getPosition());
 
 		return (

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 // import { browserHistory } from 'react-router'
 
 import Player from './Player.js'
-import {sortBy} from '../utils/sortUtils';
+import {sortBy} from '../helpers/sortUtils';
 
 import '../../stylesheets/components/player-list.scss'
 
@@ -93,28 +93,28 @@ class PlayerList extends Component {
 	}
 
 	getPlayers () {
-		var players = [];
 		// console.log('sorted:',this.state.sortedPlayers)
 		var playerList = this.state.sortedPlayers || this.props.players;
-		for(var key in playerList) {
-			if (playerList.hasOwnProperty(key)) {
-				var player = playerList[key]
-				// console.log(key);
-				players.push(
-					<Player
-						key={key}
-						player={player}
-						categories={this.props.categories}
-						playerSelected={this.props.playerSelected}
-						hideValueInfo={this.props.hideValueInfo}
-						updateStat={this.props.updateStat}
-						updateCost={this.props.updateCost}
-						updateFavorited={this.props.updateFavorited} />
-				)
-			}
+
+		if (!playerList) {
+			return;
 		}
 
-		return players;
+		var props = this.props;
+
+		return playerList.map(function (player, index) {
+			return (
+				<Player
+					key={index}
+					player={player}
+					categories={props.categories}
+					playerSelected={props.playerSelected}
+					hideValueInfo={props.hideValueInfo}
+					updateStat={props.updateStat}
+					updateCost={props.updateCost}
+					updateFavorited={props.updateFavorited} />
+			)
+		})
 	}
 
 	getValueInfo () {

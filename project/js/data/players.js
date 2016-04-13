@@ -1,9 +1,10 @@
-const players = {
-  "1": {
+const players = [
+  {
+    "id":1,
     "name":"Mike Trout",
-    "favorited":"",
+    "isFavorited":true,
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":643,
@@ -30,11 +31,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "2": {
+  {
+    "id":2,
     "name":"Bryce Harper",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":42,
     "pos":"OF",
     "PA":621,
@@ -61,11 +63,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "3": {
+  {
+    "id":3,
     "name":"Paul Goldschmidt",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":49,
     "pos":"1B",
     "PA":653,
@@ -92,11 +95,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "4": {
+  {
+    "id":4,
     "name":"Anthony Rizzo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":644,
@@ -123,11 +127,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "5": {
+  {
+    "id":5,
     "name":"Manny Machado",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":664,
@@ -154,11 +159,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "6": {
+  {
+    "id":6,
     "name":"Giancarlo Stanton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":563,
@@ -185,11 +191,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "7": {
+  {
+    "id":7,
     "name":"Miguel Cabrera",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":602,
@@ -216,11 +223,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "8": {
+  {
+    "id":8,
     "name":"Mookie Betts",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":6,
     "pos":"OF",
     "PA":665,
@@ -247,11 +255,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "9": {
+  {
+    "id":9,
     "name":"Andrew McCutchen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":654,
@@ -278,11 +287,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "10": {
+  {
+    "id":10,
     "name":"Jose Altuve",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":21,
     "pos":"2B",
     "PA":685,
@@ -309,11 +319,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "11": {
+  {
+    "id":11,
     "name":"Kris Bryant",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":9,
     "pos":"3B",
     "PA":632,
@@ -340,11 +351,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "12": {
+  {
+    "id":12,
     "name":"Jose Abreu",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":25,
     "pos":"1B",
     "PA":646,
@@ -371,11 +383,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "13": {
+  {
+    "id":13,
     "name":"Joey Votto",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":620,
@@ -402,11 +415,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "14": {
+  {
+    "id":14,
     "name":"Carlos Correa",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":2,
     "pos":"SS",
     "PA":632,
@@ -433,11 +447,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "15": {
+  {
+    "id":15,
     "name":"Nolan Arenado",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":24,
     "pos":"3B",
     "PA":629,
@@ -464,11 +479,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "16": {
+  {
+    "id":16,
     "name":"Starling Marte",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":627,
@@ -495,11 +511,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "17": {
+  {
+    "id":17,
     "name":"George Springer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":9,
     "pos":"OF",
     "PA":583,
@@ -526,11 +543,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "18": {
+  {
+    "id":18,
     "name":"Justin Upton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":632,
@@ -557,11 +575,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "19": {
+  {
+    "id":19,
     "name":"Josh Donaldson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":25,
     "pos":"3B",
     "PA":659,
@@ -588,11 +607,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "20": {
+  {
+    "id":20,
     "name":"Dee Gordon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":14,
     "pos":"2B",
     "PA":632,
@@ -619,11 +639,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "21": {
+  {
+    "id":21,
     "name":"A.J. Pollock",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":17,
     "pos":"OF",
     "PA":662,
@@ -650,11 +671,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "22": {
+  {
+    "id":22,
     "name":"Charlie Blackmon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":17,
     "pos":"OF",
     "PA":626,
@@ -681,11 +703,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "23": {
+  {
+    "id":23,
     "name":"Jose Bautista",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":590,
@@ -712,11 +735,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "24": {
+  {
+    "id":24,
     "name":"Ryan Braun",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":580,
@@ -743,11 +767,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "25": {
+  {
+    "id":25,
     "name":"Jason Heyward",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":657,
@@ -774,11 +799,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "26": {
+  {
+    "id":26,
     "name":"Edwin Encarnacion",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":540,
@@ -805,11 +831,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "27": {
+  {
+    "id":27,
     "name":"Chris Davis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":623,
@@ -836,11 +863,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "28": {
+  {
+    "id":28,
     "name":"Prince Fielder",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":639,
@@ -867,11 +895,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "29": {
+  {
+    "id":29,
     "name":"Freddie Freeman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":620,
@@ -898,11 +927,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "30": {
+  {
+    "id":30,
     "name":"J.D. Martinez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":609,
@@ -929,11 +959,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "31": {
+  {
+    "id":31,
     "name":"Xander Bogaerts",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":15,
     "pos":"SS",
     "PA":635,
@@ -960,11 +991,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "32": {
+  {
+    "id":32,
     "name":"Lorenzo Cain",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":8,
     "pos":"OF",
     "PA":584,
@@ -991,11 +1023,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "33": {
+  {
+    "id":33,
     "name":"Eric Hosmer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":11,
     "pos":"1B",
     "PA":638,
@@ -1022,11 +1055,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "34": {
+  {
+    "id":34,
     "name":"Miguel Sano",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":2,
     "pos":"3B",
     "PA":588,
@@ -1053,11 +1087,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "35": {
+  {
+    "id":35,
     "name":"Buster Posey",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":559,
@@ -1084,11 +1119,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "36": {
+  {
+    "id":36,
     "name":"Christian Yelich",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":594,
@@ -1115,11 +1151,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "37": {
+  {
+    "id":37,
     "name":"Carlos Gonzalez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":538,
@@ -1146,11 +1183,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "38": {
+  {
+    "id":38,
     "name":"Billy Hamilton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":591,
@@ -1177,11 +1215,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "39": {
+  {
+    "id":39,
     "name":"Yasiel Puig",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":16,
     "pos":"OF",
     "PA":574,
@@ -1208,11 +1247,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "40": {
+  {
+    "id":40,
     "name":"Todd Frazier",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":23,
     "pos":"3B",
     "PA":635,
@@ -1239,11 +1279,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "41": {
+  {
+    "id":41,
     "name":"Nelson Cruz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":25,
     "pos":"OF",
     "PA":612,
@@ -1270,11 +1311,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "42": {
+  {
+    "id":42,
     "name":"Adam Jones",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":637,
@@ -1301,11 +1343,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "43": {
+  {
+    "id":43,
     "name":"David Ortiz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":544,
@@ -1332,11 +1375,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "44": {
+  {
+    "id":44,
     "name":"Adrian Beltre",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":584,
@@ -1363,11 +1407,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "45": {
+  {
+    "id":45,
     "name":"Gregory Polanco",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":9,
     "pos":"OF",
     "PA":637,
@@ -1394,11 +1439,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "46": {
+  {
+    "id":46,
     "name":"Delino Deshields",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":637,
@@ -1425,11 +1471,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "47": {
+  {
+    "id":47,
     "name":"Robinson Cano",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":648,
@@ -1456,11 +1503,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "48": {
+  {
+    "id":48,
     "name":"Brandon Belt",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":526,
@@ -1487,11 +1535,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "49": {
+  {
+    "id":49,
     "name":"Albert Pujols",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":584,
@@ -1518,11 +1567,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "50": {
+  {
+    "id":50,
     "name":"Adam Eaton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":636,
@@ -1549,11 +1599,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "51": {
+  {
+    "id":51,
     "name":"Yoenis Cespedes",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":593,
@@ -1580,11 +1631,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "52": {
+  {
+    "id":52,
     "name":"Adrian Gonzalez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":622,
@@ -1611,11 +1663,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "53": {
+  {
+    "id":53,
     "name":"Matt Carpenter",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":674,
@@ -1642,11 +1695,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "54": {
+  {
+    "id":54,
     "name":"Kyle Seager",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":634,
@@ -1673,11 +1727,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "55": {
+  {
+    "id":55,
     "name":"Rougned Odor",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":578,
@@ -1704,11 +1759,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "56": {
+  {
+    "id":56,
     "name":"Kyle Schwarber",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":2,
     "pos":"C",
     "PA":544,
@@ -1735,11 +1791,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "57": {
+  {
+    "id":57,
     "name":"Gerardo Parra",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":547,
@@ -1766,11 +1823,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "58": {
+  {
+    "id":58,
     "name":"Hanley Ramirez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":476,
@@ -1797,11 +1855,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "59": {
+  {
+    "id":59,
     "name":"Matt Kemp",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":580,
@@ -1828,11 +1887,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "60": {
+  {
+    "id":60,
     "name":"Maikel Franco",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":5,
     "pos":"3B",
     "PA":567,
@@ -1859,11 +1919,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "61": {
+  {
+    "id":61,
     "name":"Alex Gordon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":609,
@@ -1890,11 +1951,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "62": {
+  {
+    "id":62,
     "name":"Anthony Rendon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":7,
     "pos":"2B",
     "PA":584,
@@ -1921,11 +1983,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "63": {
+  {
+    "id":63,
     "name":"Khris Davis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":576,
@@ -1952,11 +2015,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "64": {
+  {
+    "id":64,
     "name":"Carlos Gomez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":553,
@@ -1983,11 +2047,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "65": {
+  {
+    "id":65,
     "name":"Jacoby Ellsbury",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":575,
@@ -2014,11 +2079,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "66": {
+  {
+    "id":66,
     "name":"Ben Revere",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":573,
@@ -2045,11 +2111,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "67": {
+  {
+    "id":67,
     "name":"Carlos Santana",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":611,
@@ -2076,11 +2143,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "68": {
+  {
+    "id":68,
     "name":"Jason Kipnis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":621,
@@ -2107,11 +2175,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "69": {
+  {
+    "id":69,
     "name":"Matt Holliday",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":542,
@@ -2138,11 +2207,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "70": {
+  {
+    "id":70,
     "name":"Evan Longoria",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":650,
@@ -2169,11 +2239,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "71": {
+  {
+    "id":71,
     "name":"Francisco Lindor",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":2,
     "pos":"SS",
     "PA":644,
@@ -2200,11 +2271,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "72": {
+  {
+    "id":72,
     "name":"Daniel Murphy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":565,
@@ -2231,11 +2303,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "73": {
+  {
+    "id":73,
     "name":"Mike Moustakas",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":588,
@@ -2262,11 +2335,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "74": {
+  {
+    "id":74,
     "name":"David Peralta",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":604,
@@ -2293,11 +2367,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "75": {
+  {
+    "id":75,
     "name":"Hunter Pence",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":596,
@@ -2324,11 +2399,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "76": {
+  {
+    "id":76,
     "name":"Shin-Soo Choo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":614,
@@ -2355,11 +2431,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "77": {
+  {
+    "id":77,
     "name":"Wil Myers",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":563,
@@ -2386,11 +2463,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "78": {
+  {
+    "id":78,
     "name":"Ian Kinsler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":649,
@@ -2417,11 +2495,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "79": {
+  {
+    "id":79,
     "name":"Matt Duffy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":586,
@@ -2448,11 +2527,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "80": {
+  {
+    "id":80,
     "name":"Kevin Pillar",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":531,
@@ -2479,11 +2559,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "81": {
+  {
+    "id":81,
     "name":"Ben Zobrist",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":555,
@@ -2510,11 +2591,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "82": {
+  {
+    "id":82,
     "name":"Jose Reyes",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":400,
@@ -2541,11 +2623,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "83": {
+  {
+    "id":83,
     "name":"Brian Dozier",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":673,
@@ -2572,11 +2655,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "84": {
+  {
+    "id":84,
     "name":"Joc Pederson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":5,
     "pos":"OF",
     "PA":587,
@@ -2603,11 +2687,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "85": {
+  {
+    "id":85,
     "name":"Josh Reddick",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":574,
@@ -2634,11 +2719,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "86": {
+  {
+    "id":86,
     "name":"Mark Trumbo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":556,
@@ -2665,11 +2751,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "87": {
+  {
+    "id":87,
     "name":"Victor Martinez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":526,
@@ -2696,11 +2783,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "88": {
+  {
+    "id":88,
     "name":"Troy Tulowitzki",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":528,
@@ -2727,11 +2815,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "89": {
+  {
+    "id":89,
     "name":"Lucas Duda",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":545,
@@ -2758,11 +2847,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "90": {
+  {
+    "id":90,
     "name":"Melky Cabrera",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":628,
@@ -2789,11 +2879,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "91": {
+  {
+    "id":91,
     "name":"Dexter Fowler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":584,
@@ -2820,11 +2911,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "92": {
+  {
+    "id":92,
     "name":"Brett Gardner",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":599,
@@ -2851,11 +2943,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "93": {
+  {
+    "id":93,
     "name":"Josh Harrison",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":577,
@@ -2882,11 +2975,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "94": {
+  {
+    "id":94,
     "name":"DJ LeMahieu",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":603,
@@ -2913,11 +3007,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "95": {
+  {
+    "id":95,
     "name":"Billy Burns",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":622,
@@ -2944,11 +3039,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "96": {
+  {
+    "id":96,
     "name":"Kendrys Morales",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":584,
@@ -2975,11 +3071,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "97": {
+  {
+    "id":97,
     "name":"Byung Ho Park",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":430,
@@ -3006,11 +3103,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "98": {
+  {
+    "id":98,
     "name":"Corey Seager",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":589,
@@ -3037,11 +3135,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "99": {
+  {
+    "id":99,
     "name":"Dustin Pedroia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":558,
@@ -3068,11 +3167,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "100": {
+  {
+    "id":100,
     "name":"Randal Grichuk",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":527,
@@ -3099,11 +3199,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "101": {
+  {
+    "id":101,
     "name":"Denard Span",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":550,
@@ -3130,11 +3231,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "102": {
+  {
+    "id":102,
     "name":"Nick Castellanos",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":566,
@@ -3161,11 +3263,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "103": {
+  {
+    "id":103,
     "name":"Steven Souza",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":540,
@@ -3192,11 +3295,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "104": {
+  {
+    "id":104,
     "name":"Ender Inciarte",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":554,
@@ -3223,11 +3327,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "105": {
+  {
+    "id":105,
     "name":"Kole Calhoun",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":621,
@@ -3254,11 +3359,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "106": {
+  {
+    "id":106,
     "name":"Stephen Piscotty",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":535,
@@ -3285,11 +3391,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "107": {
+  {
+    "id":107,
     "name":"Jay Bruce",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":591,
@@ -3316,11 +3423,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "108": {
+  {
+    "id":108,
     "name":"Elvis Andrus",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":593,
@@ -3347,11 +3455,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "109": {
+  {
+    "id":109,
     "name":"Marcus Semien",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":586,
@@ -3378,11 +3487,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "110": {
+  {
+    "id":110,
     "name":"Marcell Ozuna",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":537,
@@ -3409,11 +3519,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "111": {
+  {
+    "id":111,
     "name":"Corey Dickerson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":500,
@@ -3440,11 +3551,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "112": {
+  {
+    "id":112,
     "name":"Brett Lawrie",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":544,
@@ -3471,11 +3583,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "113": {
+  {
+    "id":113,
     "name":"Curtis Granderson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":639,
@@ -3502,11 +3615,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "114": {
+  {
+    "id":114,
     "name":"David Wright",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":520,
@@ -3533,11 +3647,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "115": {
+  {
+    "id":115,
     "name":"Starlin Castro",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":573,
@@ -3564,11 +3679,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "116": {
+  {
+    "id":116,
     "name":"Evan Gattis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":534,
@@ -3595,11 +3711,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "117": {
+  {
+    "id":117,
     "name":"Michael Conforto",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":534,
@@ -3626,11 +3743,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "118": {
+  {
+    "id":118,
     "name":"Pablo Sandoval",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":554,
@@ -3657,11 +3775,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "119": {
+  {
+    "id":119,
     "name":"Neil Walker",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":564,
@@ -3688,11 +3807,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "120": {
+  {
+    "id":120,
     "name":"Kolten Wong",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":579,
@@ -3719,11 +3839,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "121": {
+  {
+    "id":121,
     "name":"Michael Brantley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":19,
     "pos":"OF",
     "PA":450,
@@ -3750,11 +3871,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "122": {
+  {
+    "id":122,
     "name":"Eddie Rosario",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":536,
@@ -3781,11 +3903,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "123": {
+  {
+    "id":123,
     "name":"Mark Teixeira",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":5,
     "pos":"1B",
     "PA":477,
@@ -3812,11 +3935,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "124": {
+  {
+    "id":124,
     "name":"Jonathan Schoop",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":545,
@@ -3843,11 +3967,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "125": {
+  {
+    "id":125,
     "name":"Jarrod Dyson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":377,
@@ -3874,11 +3999,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "126": {
+  {
+    "id":126,
     "name":"Jorge Soler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":470,
@@ -3905,11 +4031,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "127": {
+  {
+    "id":127,
     "name":"Ketel Marte",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":546,
@@ -3936,11 +4063,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "128": {
+  {
+    "id":128,
     "name":"Trea Turner",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":436,
@@ -3967,11 +4095,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "129": {
+  {
+    "id":129,
     "name":"Jean Segura",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":513,
@@ -3998,11 +4127,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "130": {
+  {
+    "id":130,
     "name":"Howie Kendrick",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":513,
@@ -4029,11 +4159,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "131": {
+  {
+    "id":131,
     "name":"Justin Turner",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":496,
@@ -4060,11 +4191,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "132": {
+  {
+    "id":132,
     "name":"Yasmany Tomas",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":510,
@@ -4091,11 +4223,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "133": {
+  {
+    "id":133,
     "name":"Ian Desmond",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":578,
@@ -4122,11 +4255,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "134": {
+  {
+    "id":134,
     "name":"Desmond Jennings",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":531,
@@ -4153,11 +4287,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "135": {
+  {
+    "id":135,
     "name":"Cory Spangenberg",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":617,
@@ -4184,11 +4319,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "136": {
+  {
+    "id":136,
     "name":"Brandon Phillips",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":572,
@@ -4215,11 +4351,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "137": {
+  {
+    "id":137,
     "name":"Russell Martin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":455,
@@ -4246,11 +4383,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "138": {
+  {
+    "id":138,
     "name":"Chase Headley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":552,
@@ -4277,11 +4415,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "139": {
+  {
+    "id":139,
     "name":"Jung-ho Kang",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":507,
@@ -4308,11 +4447,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "140": {
+  {
+    "id":140,
     "name":"Jonathan Lucroy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":519,
@@ -4339,11 +4479,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "141": {
+  {
+    "id":141,
     "name":"Alcides Escobar",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":651,
@@ -4370,11 +4511,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "142": {
+  {
+    "id":142,
     "name":"Kevin Kiermaier",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":568,
@@ -4401,11 +4543,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "143": {
+  {
+    "id":143,
     "name":"Brian McCann",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":497,
@@ -4432,11 +4575,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "144": {
+  {
+    "id":144,
     "name":"Alex Rodriguez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":527,
@@ -4463,11 +4607,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "145": {
+  {
+    "id":145,
     "name":"Adam Lind",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":470,
@@ -4494,11 +4639,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "146": {
+  {
+    "id":146,
     "name":"Joe Mauer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":573,
@@ -4525,11 +4671,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "147": {
+  {
+    "id":147,
     "name":"Justin Bour",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":524,
@@ -4556,11 +4703,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "148": {
+  {
+    "id":148,
     "name":"Nori Aoki",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":549,
@@ -4587,11 +4735,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "149": {
+  {
+    "id":149,
     "name":"Mitch Moreland",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":530,
@@ -4618,11 +4767,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "150": {
+  {
+    "id":150,
     "name":"Matt Adams",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":392,
@@ -4649,11 +4799,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "151": {
+  {
+    "id":151,
     "name":"Avisail Garcia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":418,
@@ -4680,11 +4831,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "152": {
+  {
+    "id":152,
     "name":"Jhonny Peralta",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":558,
@@ -4711,11 +4863,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "153": {
+  {
+    "id":153,
     "name":"Trevor Plouffe",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":555,
@@ -4742,11 +4895,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "154": {
+  {
+    "id":154,
     "name":"Logan Forsythe",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":577,
@@ -4773,11 +4927,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "155": {
+  {
+    "id":155,
     "name":"Anthony Gose",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":380,
@@ -4804,11 +4959,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "156": {
+  {
+    "id":156,
     "name":"Addison Russell",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":true,
+    "isSelected":true,
     "cost":5,
     "pos":"2B",
     "PA":560,
@@ -4835,11 +4991,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "157": {
+  {
+    "id":157,
     "name":"Rusney Castillo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":414,
@@ -4866,11 +5023,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "158": {
+  {
+    "id":158,
     "name":"Erick Aybar",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":609,
@@ -4897,11 +5055,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "159": {
+  {
+    "id":159,
     "name":"Billy Butler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":556,
@@ -4928,11 +5087,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "160": {
+  {
+    "id":160,
     "name":"Odubel Herrera",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":612,
@@ -4959,11 +5119,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "161": {
+  {
+    "id":161,
     "name":"C.J. Cron",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":475,
@@ -4990,11 +5151,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "162": {
+  {
+    "id":162,
     "name":"Nick Markakis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":655,
@@ -5021,11 +5183,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "163": {
+  {
+    "id":163,
     "name":"Aaron Altherr",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":582,
@@ -5052,11 +5215,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "164": {
+  {
+    "id":164,
     "name":"Ryan Zimmerman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":410,
@@ -5083,11 +5247,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "165": {
+  {
+    "id":165,
     "name":"Nick Hundley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":366,
@@ -5114,11 +5279,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "166": {
+  {
+    "id":166,
     "name":"Yonder Alonso",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":475,
@@ -5145,11 +5311,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "167": {
+  {
+    "id":167,
     "name":"Jose Iglesias",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":477,
@@ -5176,11 +5343,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "168": {
+  {
+    "id":168,
     "name":"Salvador Perez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":476,
@@ -5207,11 +5375,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "169": {
+  {
+    "id":169,
     "name":"Andre Ethier",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":448,
@@ -5238,11 +5407,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "170": {
+  {
+    "id":170,
     "name":"Joe Panik",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":566,
@@ -5269,11 +5439,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "171": {
+  {
+    "id":171,
     "name":"Derek Norris",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":472,
@@ -5300,11 +5471,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "172": {
+  {
+    "id":172,
     "name":"Domingo Santana",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":413,
@@ -5331,11 +5503,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "173": {
+  {
+    "id":173,
     "name":"Stephen Vogt",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":490,
@@ -5362,11 +5535,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "174": {
+  {
+    "id":174,
     "name":"Chris Carter",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":414,
@@ -5393,11 +5567,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "175": {
+  {
+    "id":175,
     "name":"Javier Baez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":333,
@@ -5424,11 +5599,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "176": {
+  {
+    "id":176,
     "name":"Travis d'Arnaud",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":426,
@@ -5455,11 +5631,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "177": {
+  {
+    "id":177,
     "name":"Leonys Martin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":500,
@@ -5486,11 +5663,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "178": {
+  {
+    "id":178,
     "name":"Mark Canha",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":445,
@@ -5517,11 +5695,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "179": {
+  {
+    "id":179,
     "name":"Carlos Beltran",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":416,
@@ -5548,11 +5727,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "180": {
+  {
+    "id":180,
     "name":"Cameron Maybin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":385,
@@ -5579,11 +5759,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "181": {
+  {
+    "id":181,
     "name":"Rajai Davis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":324,
@@ -5610,11 +5791,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "182": {
+  {
+    "id":182,
     "name":"Jackie Bradley Jr.",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":450,
@@ -5641,11 +5823,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "183": {
+  {
+    "id":183,
     "name":"Mark Reynolds",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":336,
@@ -5672,11 +5855,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "184": {
+  {
+    "id":184,
     "name":"Devin Mesoraco",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":447,
@@ -5703,11 +5887,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "185": {
+  {
+    "id":185,
     "name":"Scott Schebler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":400,
@@ -5734,11 +5919,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "186": {
+  {
+    "id":186,
     "name":"Brad Miller",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":462,
@@ -5765,11 +5951,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "187": {
+  {
+    "id":187,
     "name":"Jayson Werth",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":437,
@@ -5796,11 +5983,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "188": {
+  {
+    "id":188,
     "name":"Byron Buxton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":505,
@@ -5827,11 +6015,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "189": {
+  {
+    "id":189,
     "name":"Logan Morrison",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":457,
@@ -5858,11 +6047,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "190": {
+  {
+    "id":190,
     "name":"Martin Prado",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":541,
@@ -5889,11 +6079,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "191": {
+  {
+    "id":191,
     "name":"Eugenio Suarez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":459,
@@ -5920,11 +6111,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "192": {
+  {
+    "id":192,
     "name":"J.T. Realmuto",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":433,
@@ -5951,11 +6143,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "193": {
+  {
+    "id":193,
     "name":"Brandon Moss",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":412,
@@ -5982,11 +6175,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "194": {
+  {
+    "id":194,
     "name":"David Freese",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":482,
@@ -6013,11 +6207,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "195": {
+  {
+    "id":195,
     "name":"Devon Travis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":351,
@@ -6044,11 +6239,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "196": {
+  {
+    "id":196,
     "name":"Austin Jackson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":463,
@@ -6075,11 +6271,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "197": {
+  {
+    "id":197,
     "name":"Joey Gallo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":390,
@@ -6106,11 +6303,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "198": {
+  {
+    "id":198,
     "name":"Matt Wieters",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":444,
@@ -6137,11 +6335,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "199": {
+  {
+    "id":199,
     "name":"Yasmani Grandal",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":419,
@@ -6168,11 +6367,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "200": {
+  {
+    "id":200,
     "name":"Ben Paulsen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":308,
@@ -6199,11 +6399,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "201": {
+  {
+    "id":201,
     "name":"Oswaldo Arcia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":341,
@@ -6230,11 +6431,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "202": {
+  {
+    "id":202,
     "name":"Lonnie Chisenhall",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":432,
@@ -6261,11 +6463,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "203": {
+  {
+    "id":203,
     "name":"Brandon Crawford",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":526,
@@ -6292,11 +6495,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "204": {
+  {
+    "id":204,
     "name":"Colby Rasmus",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":506,
@@ -6323,11 +6527,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "205": {
+  {
+    "id":205,
     "name":"Luis Valbuena",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":460,
@@ -6354,11 +6559,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "206": {
+  {
+    "id":206,
     "name":"Blake Swihart",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":350,
@@ -6385,11 +6591,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "207": {
+  {
+    "id":207,
     "name":"Josh Hamilton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":360,
@@ -6416,11 +6623,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "208": {
+  {
+    "id":208,
     "name":"Didi Gregorius",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":535,
@@ -6447,11 +6655,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "209": {
+  {
+    "id":209,
     "name":"Danny Valencia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":464,
@@ -6478,11 +6687,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "210": {
+  {
+    "id":210,
     "name":"Hector Olivera",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":494,
@@ -6509,11 +6719,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "211": {
+  {
+    "id":211,
     "name":"Welington Castillo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":463,
@@ -6540,11 +6751,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "212": {
+  {
+    "id":212,
     "name":"Adam Duvall",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":435,
@@ -6571,11 +6783,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "213": {
+  {
+    "id":213,
     "name":"Chris Colabello",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":329,
@@ -6602,11 +6815,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "214": {
+  {
+    "id":214,
     "name":"Seth Smith",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":459,
@@ -6633,11 +6847,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "215": {
+  {
+    "id":215,
     "name":"Yunel Escobar",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":565,
@@ -6664,11 +6879,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "216": {
+  {
+    "id":216,
     "name":"Gregory Bird",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":0,
@@ -6695,11 +6911,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "217": {
+  {
+    "id":217,
     "name":"Steve Pearce",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":372,
@@ -6726,11 +6943,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "218": {
+  {
+    "id":218,
     "name":"Pedro Alvarez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":298,
@@ -6757,11 +6975,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "219": {
+  {
+    "id":219,
     "name":"Adonis Garcia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":457,
@@ -6788,11 +7007,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "220": {
+  {
+    "id":220,
     "name":"Zack Cozart",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":499,
@@ -6819,11 +7039,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "221": {
+  {
+    "id":221,
     "name":"John Jaso",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":363,
@@ -6850,11 +7071,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "222": {
+  {
+    "id":222,
     "name":"Dalton Pompey",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":283,
@@ -6881,11 +7103,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "223": {
+  {
+    "id":223,
     "name":"Yadier Molina",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":424,
@@ -6912,11 +7135,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "224": {
+  {
+    "id":224,
     "name":"Asdrubal Cabrera",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":500,
@@ -6943,11 +7167,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "225": {
+  {
+    "id":225,
     "name":"Yan Gomes",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":442,
@@ -6974,11 +7199,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "226": {
+  {
+    "id":226,
     "name":"Scooter Gennett",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":414,
@@ -7005,11 +7231,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "227": {
+  {
+    "id":227,
     "name":"Andrelton Simmons",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":543,
@@ -7036,11 +7263,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "228": {
+  {
+    "id":228,
     "name":"Jed Lowrie",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":483,
@@ -7067,11 +7295,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "229": {
+  {
+    "id":229,
     "name":"Aaron Hicks",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":279,
@@ -7098,11 +7327,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "230": {
+  {
+    "id":230,
     "name":"Alexei Ramirez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":539,
@@ -7129,11 +7359,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "231": {
+  {
+    "id":231,
     "name":"Jake Lamb",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"3B",
     "PA":376,
@@ -7160,11 +7391,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "232": {
+  {
+    "id":232,
     "name":"Jon Singleton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":347,
@@ -7191,11 +7423,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "233": {
+  {
+    "id":233,
     "name":"Johnny Giavotella",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":445,
@@ -7222,11 +7455,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "234": {
+  {
+    "id":234,
     "name":"Ryan Howard",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":456,
@@ -7253,11 +7487,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "235": {
+  {
+    "id":235,
     "name":"Chris Young",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":297,
@@ -7284,11 +7519,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "236": {
+  {
+    "id":236,
     "name":"Mike Napoli",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":380,
@@ -7315,11 +7551,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "237": {
+  {
+    "id":237,
     "name":"Eduardo Escobar",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":417,
@@ -7346,11 +7583,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "238": {
+  {
+    "id":238,
     "name":"Cesar Hernandez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":472,
@@ -7377,11 +7615,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "239": {
+  {
+    "id":239,
     "name":"Adam LaRoche",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":407,
@@ -7408,11 +7647,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "240": {
+  {
+    "id":240,
     "name":"Francisco Cervelli",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":428,
@@ -7439,11 +7679,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "241": {
+  {
+    "id":241,
     "name":"Wilmer Flores",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":358,
@@ -7470,11 +7711,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "242": {
+  {
+    "id":242,
     "name":"Wilson Ramos",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"C",
     "PA":404,
@@ -7501,11 +7743,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "243": {
+  {
+    "id":243,
     "name":"Justin Morneau",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"1B",
     "PA":332,
@@ -7532,11 +7775,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "244": {
+  {
+    "id":244,
     "name":"Jose Ramirez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"2B",
     "PA":300,
@@ -7563,11 +7807,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "245": {
+  {
+    "id":245,
     "name":"Michael Taylor",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"OF",
     "PA":337,
@@ -7594,11 +7839,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "246": {
+  {
+    "id":246,
     "name":"Jimmy Rollins",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":413,
@@ -7625,11 +7871,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "247": {
+  {
+    "id":247,
     "name":"Michael Saunders",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":298,
@@ -7656,11 +7903,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "248": {
+  {
+    "id":248,
     "name":"Jonathan Villar",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":255,
@@ -7687,11 +7935,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "249": {
+  {
+    "id":249,
     "name":"Brandon Guyer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":302,
@@ -7718,11 +7967,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "250": {
+  {
+    "id":250,
     "name":"Jace Peterson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":508,
@@ -7749,11 +7999,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "251": {
+  {
+    "id":251,
     "name":"Jordy Mercer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":464,
@@ -7780,11 +8031,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "252": {
+  {
+    "id":252,
     "name":"Yangervis Solarte",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":392,
@@ -7811,11 +8063,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "253": {
+  {
+    "id":253,
     "name":"Preston Tucker",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":264,
@@ -7842,11 +8095,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "254": {
+  {
+    "id":254,
     "name":"Scott Van Slyke",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":285,
@@ -7873,11 +8127,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "255": {
+  {
+    "id":255,
     "name":"Brock Holt",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":347,
@@ -7904,11 +8159,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "256": {
+  {
+    "id":256,
     "name":"Miguel Montero",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":358,
@@ -7935,11 +8191,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "257": {
+  {
+    "id":257,
     "name":"J.P. Crawford",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":346,
@@ -7966,11 +8223,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "258": {
+  {
+    "id":258,
     "name":"Abraham Almonte",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":338,
@@ -7997,11 +8255,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "259": {
+  {
+    "id":259,
     "name":"Marlon Byrd",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":381,
@@ -8028,11 +8287,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "260": {
+  {
+    "id":260,
     "name":"Darin Ruf",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":328,
@@ -8059,11 +8319,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "261": {
+  {
+    "id":261,
     "name":"Gregor Blanco",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":299,
@@ -8090,11 +8351,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "262": {
+  {
+    "id":262,
     "name":"Will Venable",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":305,
@@ -8121,11 +8383,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "263": {
+  {
+    "id":263,
     "name":"Chris Coghlan",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":307,
@@ -8152,11 +8415,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "264": {
+  {
+    "id":264,
     "name":"Derek Dietrich",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":280,
@@ -8183,11 +8447,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "265": {
+  {
+    "id":265,
     "name":"Carl Crawford",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":230,
@@ -8214,11 +8479,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "266": {
+  {
+    "id":266,
     "name":"Jose Peraza",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":224,
@@ -8245,11 +8511,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "267": {
+  {
+    "id":267,
     "name":"Henry Urrutia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":262,
@@ -8276,11 +8543,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "268": {
+  {
+    "id":268,
     "name":"Kennys Vargas",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":227,
@@ -8307,11 +8575,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "269": {
+  {
+    "id":269,
     "name":"A.J. Reed",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":236,
@@ -8338,11 +8607,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "270": {
+  {
+    "id":270,
     "name":"Justin Smoak",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":285,
@@ -8369,11 +8639,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "271": {
+  {
+    "id":271,
     "name":"James Loney",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":321,
@@ -8400,11 +8671,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "272": {
+  {
+    "id":272,
     "name":"Adeiny Hechavarria",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":509,
@@ -8431,11 +8703,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "273": {
+  {
+    "id":273,
     "name":"Cody Asche",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":304,
@@ -8462,11 +8735,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "274": {
+  {
+    "id":274,
     "name":"Marwin Gonzalez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":324,
@@ -8493,11 +8767,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "275": {
+  {
+    "id":275,
     "name":"Enrique Hernandez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":362,
@@ -8524,11 +8799,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "276": {
+  {
+    "id":276,
     "name":"Jake Marisnick",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":233,
@@ -8555,11 +8831,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "277": {
+  {
+    "id":277,
     "name":"Juan Uribe",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":292,
@@ -8586,11 +8863,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "278": {
+  {
+    "id":278,
     "name":"Danny Santana",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":259,
@@ -8617,11 +8895,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "279": {
+  {
+    "id":279,
     "name":"Matt Joyce",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":281,
@@ -8648,11 +8927,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "280": {
+  {
+    "id":280,
     "name":"Robinson Chirinos",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":326,
@@ -8679,11 +8959,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "281": {
+  {
+    "id":281,
     "name":"Coco Crisp",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":310,
@@ -8710,11 +8991,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "282": {
+  {
+    "id":282,
     "name":"David Murphy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":309,
@@ -8741,11 +9023,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "283": {
+  {
+    "id":283,
     "name":"Angel Pagan",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":348,
@@ -8772,11 +9055,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "284": {
+  {
+    "id":284,
     "name":"Alex Rios",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":324,
@@ -8803,11 +9087,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "285": {
+  {
+    "id":285,
     "name":"Dustin Ackley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":209,
@@ -8834,11 +9119,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "286": {
+  {
+    "id":286,
     "name":"Travis Shaw",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":212,
@@ -8865,11 +9151,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "287": {
+  {
+    "id":287,
     "name":"Nolan Reimold",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":282,
@@ -8896,11 +9183,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "288": {
+  {
+    "id":288,
     "name":"Jesus Montero",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":207,
@@ -8927,11 +9215,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "289": {
+  {
+    "id":289,
     "name":"Tommy Pham",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":210,
@@ -8958,11 +9247,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "290": {
+  {
+    "id":290,
     "name":"Justin Ruggiano",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":185,
@@ -8989,11 +9279,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "291": {
+  {
+    "id":291,
     "name":"Ike Davis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":234,
@@ -9020,11 +9311,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "292": {
+  {
+    "id":292,
     "name":"Freddy Galvis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":435,
@@ -9051,11 +9343,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "293": {
+  {
+    "id":293,
     "name":"Tim Anderson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":208,
@@ -9082,11 +9375,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "294": {
+  {
+    "id":294,
     "name":"Darnell Sweeney",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":296,
@@ -9113,11 +9407,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "295": {
+  {
+    "id":295,
     "name":"James McCann",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":513,
@@ -9144,11 +9439,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "296": {
+  {
+    "id":296,
     "name":"Juan Lagares",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":334,
@@ -9175,11 +9471,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "297": {
+  {
+    "id":297,
     "name":"Michael Morse",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":269,
@@ -9206,11 +9503,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "298": {
+  {
+    "id":298,
     "name":"Travis Snider",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":232,
@@ -9237,11 +9535,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "299": {
+  {
+    "id":299,
     "name":"Christian Colon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":246,
@@ -9268,11 +9567,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "300": {
+  {
+    "id":300,
     "name":"Jon Jay",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":300,
@@ -9299,11 +9599,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "301": {
+  {
+    "id":301,
     "name":"A.J. Pierzynski",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":337,
@@ -9330,11 +9631,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "302": {
+  {
+    "id":302,
     "name":"Jason Castro",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":360,
@@ -9361,11 +9663,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "303": {
+  {
+    "id":303,
     "name":"Tyler Saladino",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":216,
@@ -9392,11 +9695,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "304": {
+  {
+    "id":304,
     "name":"Efren Navarro",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":294,
@@ -9423,11 +9727,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "305": {
+  {
+    "id":305,
     "name":"Max Kepler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":218,
@@ -9454,11 +9759,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "306": {
+  {
+    "id":306,
     "name":"J.J. Hardy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":453,
@@ -9485,11 +9791,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "307": {
+  {
+    "id":307,
     "name":"Peter O'Brien",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":196,
@@ -9516,11 +9823,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "308": {
+  {
+    "id":308,
     "name":"Chris Owings",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":274,
@@ -9547,11 +9855,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "309": {
+  {
+    "id":309,
     "name":"Giovanny Urshela",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":335,
@@ -9578,11 +9887,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "310": {
+  {
+    "id":310,
     "name":"Paulo Orlando",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":237,
@@ -9609,11 +9919,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "311": {
+  {
+    "id":311,
     "name":"Dioner Navarro",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":219,
@@ -9640,11 +9951,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "312": {
+  {
+    "id":312,
     "name":"Will Middlebrooks",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":248,
@@ -9671,11 +9983,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "313": {
+  {
+    "id":313,
     "name":"Michael Bourn",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":357,
@@ -9702,11 +10015,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "314": {
+  {
+    "id":314,
     "name":"Brandon Barnes",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":218,
@@ -9733,11 +10047,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "315": {
+  {
+    "id":315,
     "name":"Daniel Nava",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":311,
@@ -9764,11 +10079,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "316": {
+  {
+    "id":316,
     "name":"Shane Victorino",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":264,
@@ -9795,11 +10111,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "317": {
+  {
+    "id":317,
     "name":"Jarrod Saltalamacchia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":232,
@@ -9826,11 +10143,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "318": {
+  {
+    "id":318,
     "name":"Jedd Gyorko",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":178,
@@ -9857,11 +10175,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "319": {
+  {
+    "id":319,
     "name":"Domonic Brown",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":209,
@@ -9888,11 +10207,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "320": {
+  {
+    "id":320,
     "name":"David DeJesus",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":254,
@@ -9919,11 +10239,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "321": {
+  {
+    "id":321,
     "name":"Melvin Upton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":294,
@@ -9950,11 +10271,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "322": {
+  {
+    "id":322,
     "name":"Travis Jankowski",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":182,
@@ -9981,11 +10303,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "323": {
+  {
+    "id":323,
     "name":"Chase Utley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":272,
@@ -10012,11 +10335,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "324": {
+  {
+    "id":324,
     "name":"Franklin Gutierrez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":234,
@@ -10043,11 +10367,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "325": {
+  {
+    "id":325,
     "name":"Jimmy Paredes",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":224,
@@ -10074,11 +10399,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "326": {
+  {
+    "id":326,
     "name":"Tyler Moore",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":182,
@@ -10105,11 +10431,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "327": {
+  {
+    "id":327,
     "name":"Chris Iannetta",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":296,
@@ -10136,11 +10463,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "328": {
+  {
+    "id":328,
     "name":"Tommy La Stella",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":180,
@@ -10167,11 +10495,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "329": {
+  {
+    "id":329,
     "name":"Conor Gillaspie",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":256,
@@ -10198,11 +10527,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "330": {
+  {
+    "id":330,
     "name":"Ezequiel Carrera",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":178,
@@ -10229,11 +10559,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "331": {
+  {
+    "id":331,
     "name":"Danny Espinosa",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":295,
@@ -10260,11 +10591,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "332": {
+  {
+    "id":332,
     "name":"Clint Robinson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":166,
@@ -10291,11 +10623,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "333": {
+  {
+    "id":333,
     "name":"Omar Infante",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":333,
@@ -10322,11 +10655,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "334": {
+  {
+    "id":334,
     "name":"Matt McBride",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":127,
@@ -10353,11 +10687,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "335": {
+  {
+    "id":335,
     "name":"Eduardo Nunez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":158,
@@ -10384,11 +10719,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "336": {
+  {
+    "id":336,
     "name":"Ryan Raburn",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"",
     "PA":169,
@@ -10415,11 +10751,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "337": {
+  {
+    "id":337,
     "name":"Trevor Story",
-    "favorited":"",
+    "isFavorited":"",
     "type":"batter",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SS",
     "PA":450,
@@ -10446,11 +10783,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "338": {
+  {
+    "id":338,
     "name":"Clayton Kershaw",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -10477,11 +10815,12 @@ const players = {
     "H":164.5,
     "H + BB":""
   },
-  "339": {
+  {
+    "id":339,
     "name":"Max Scherzer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":39,
     "pos":"SP",
     "PA":null,
@@ -10508,11 +10847,12 @@ const players = {
     "H":177.9670588,
     "H + BB":""
   },
-  "340": {
+  {
+    "id":340,
     "name":"Chris Sale",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -10539,11 +10879,12 @@ const players = {
     "H":165.2,
     "H + BB":""
   },
-  "341": {
+  {
+    "id":341,
     "name":"Jake Arrieta",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":20,
     "pos":"SP",
     "PA":null,
@@ -10570,11 +10911,12 @@ const players = {
     "H":184.758485,
     "H + BB":""
   },
-  "342": {
+  {
+    "id":342,
     "name":"Madison Bumgarner",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -10601,11 +10943,12 @@ const players = {
     "H":182.3495702,
     "H + BB":""
   },
-  "343": {
+  {
+    "id":343,
     "name":"David Price",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -10632,11 +10975,12 @@ const players = {
     "H":193.3929412,
     "H + BB":""
   },
-  "344": {
+  {
+    "id":344,
     "name":"Jacob deGrom",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":16,
     "pos":"SP",
     "PA":null,
@@ -10663,11 +11007,12 @@ const players = {
     "H":179.5180112,
     "H + BB":""
   },
-  "345": {
+  {
+    "id":345,
     "name":"Gerrit Cole",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":16,
     "pos":"SP",
     "PA":null,
@@ -10694,11 +11039,12 @@ const players = {
     "H":194.4974227,
     "H + BB":""
   },
-  "346": {
+  {
+    "id":346,
     "name":"Corey Kluber",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -10725,11 +11071,12 @@ const players = {
     "H":183.4,
     "H + BB":""
   },
-  "347": {
+  {
+    "id":347,
     "name":"Jose Fernandez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":10,
     "pos":"SP",
     "PA":null,
@@ -10756,11 +11103,12 @@ const players = {
     "H":143.0966952,
     "H + BB":""
   },
-  "348": {
+  {
+    "id":348,
     "name":"Carlos Carrasco",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -10787,11 +11135,12 @@ const players = {
     "H":166.6684407,
     "H + BB":""
   },
-  "349": {
+  {
+    "id":349,
     "name":"Matt Harvey",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":20,
     "pos":"SP",
     "PA":null,
@@ -10818,11 +11167,12 @@ const players = {
     "H":175.9747102,
     "H + BB":""
   },
-  "350": {
+  {
+    "id":350,
     "name":"Stephen Strasburg",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -10849,11 +11199,12 @@ const players = {
     "H":152.6371447,
     "H + BB":""
   },
-  "351": {
+  {
+    "id":351,
     "name":"Noah Syndergaard",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":2,
     "pos":"SP",
     "PA":null,
@@ -10880,11 +11231,12 @@ const players = {
     "H":156.4,
     "H + BB":""
   },
-  "352": {
+  {
+    "id":352,
     "name":"Zack Greinke",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -10911,11 +11263,12 @@ const players = {
     "H":190.7142857,
     "H + BB":""
   },
-  "353": {
+  {
+    "id":353,
     "name":"Chris Archer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":15,
     "pos":"SP",
     "PA":null,
@@ -10942,11 +11295,12 @@ const players = {
     "H":170.6806283,
     "H + BB":""
   },
-  "354": {
+  {
+    "id":354,
     "name":"Jon Lester",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -10973,11 +11327,12 @@ const players = {
     "H":181.5981735,
     "H + BB":""
   },
-  "355": {
+  {
+    "id":355,
     "name":"Dallas Keuchel",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":3,
     "pos":"SP",
     "PA":null,
@@ -11004,11 +11359,12 @@ const players = {
     "H":203,
     "H + BB":""
   },
-  "356": {
+  {
+    "id":356,
     "name":"Danny Salazar",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11035,11 +11391,12 @@ const players = {
     "H":170.395288,
     "H + BB":""
   },
-  "357": {
+  {
+    "id":357,
     "name":"Johnny Cueto",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11066,11 +11423,12 @@ const players = {
     "H":185.4,
     "H + BB":""
   },
-  "358": {
+  {
+    "id":358,
     "name":"Felix Hernandez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11097,11 +11455,12 @@ const players = {
     "H":170.8291708,
     "H + BB":""
   },
-  "359": {
+  {
+    "id":359,
     "name":"Jeff Samardzija",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11128,11 +11487,12 @@ const players = {
     "H":198.2994186,
     "H + BB":""
   },
-  "360": {
+  {
+    "id":360,
     "name":"Cole Hamels",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11159,11 +11519,12 @@ const players = {
     "H":192,
     "H + BB":""
   },
-  "361": {
+  {
+    "id":361,
     "name":"Tyson Ross",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11190,11 +11551,12 @@ const players = {
     "H":163.7550784,
     "H + BB":""
   },
-  "362": {
+  {
+    "id":362,
     "name":"Masahiro Tanaka",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11221,11 +11583,12 @@ const players = {
     "H":158.1105471,
     "H + BB":""
   },
-  "363": {
+  {
+    "id":363,
     "name":"Garrett Richards",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11252,11 +11615,12 @@ const players = {
     "H":187.6,
     "H + BB":""
   },
-  "364": {
+  {
+    "id":364,
     "name":"Wei-Yin Chen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11283,11 +11647,12 @@ const players = {
     "H":184.4067797,
     "H + BB":""
   },
-  "365": {
+  {
+    "id":365,
     "name":"Steven Matz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11314,11 +11679,12 @@ const players = {
     "H":158.7962963,
     "H + BB":""
   },
-  "366": {
+  {
+    "id":366,
     "name":"Yordano Ventura",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11345,11 +11711,12 @@ const players = {
     "H":165.7792208,
     "H + BB":""
   },
-  "367": {
+  {
+    "id":367,
     "name":"Francisco Liriano",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11376,11 +11743,12 @@ const players = {
     "H":150.1,
     "H + BB":""
   },
-  "368": {
+  {
+    "id":368,
     "name":"Taijuan Walker",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":8,
     "pos":"SP",
     "PA":null,
@@ -11407,11 +11775,12 @@ const players = {
     "H":169.9291617,
     "H + BB":""
   },
-  "369": {
+  {
+    "id":369,
     "name":"Jose Quintana",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11438,11 +11807,12 @@ const players = {
     "H":195.5352613,
     "H + BB":""
   },
-  "370": {
+  {
+    "id":370,
     "name":"Michael Pineda",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11469,11 +11839,12 @@ const players = {
     "H":151.7208183,
     "H + BB":""
   },
-  "371": {
+  {
+    "id":371,
     "name":"Sonny Gray",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":29,
     "pos":"SP",
     "PA":null,
@@ -11500,11 +11871,12 @@ const players = {
     "H":201,
     "H + BB":""
   },
-  "372": {
+  {
+    "id":372,
     "name":"Adam Wainwright",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11531,11 +11903,12 @@ const players = {
     "H":178.3190217,
     "H + BB":""
   },
-  "373": {
+  {
+    "id":373,
     "name":"Collin McHugh",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11562,11 +11935,12 @@ const players = {
     "H":190.2,
     "H + BB":""
   },
-  "374": {
+  {
+    "id":374,
     "name":"Scott Kazmir",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11593,11 +11967,12 @@ const players = {
     "H":159.9,
     "H + BB":""
   },
-  "375": {
+  {
+    "id":375,
     "name":"Lance McCullers",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11624,11 +11999,12 @@ const players = {
     "H":142.059949,
     "H + BB":""
   },
-  "376": {
+  {
+    "id":376,
     "name":"Jake Odorizzi",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11655,11 +12031,12 @@ const players = {
     "H":170.7692308,
     "H + BB":""
   },
-  "377": {
+  {
+    "id":377,
     "name":"Kyle Hendricks",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11686,11 +12063,12 @@ const players = {
     "H":164.1493506,
     "H + BB":""
   },
-  "378": {
+  {
+    "id":378,
     "name":"John Lackey",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11717,11 +12095,12 @@ const players = {
     "H":176.9417808,
     "H + BB":""
   },
-  "379": {
+  {
+    "id":379,
     "name":"Patrick Corbin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11748,11 +12127,12 @@ const players = {
     "H":156.3662791,
     "H + BB":""
   },
-  "380": {
+  {
+    "id":380,
     "name":"Mike Fiers",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11779,11 +12159,12 @@ const players = {
     "H":167.0219436,
     "H + BB":""
   },
-  "381": {
+  {
+    "id":381,
     "name":"James Shields",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11810,11 +12191,12 @@ const players = {
     "H":174.8,
     "H + BB":""
   },
-  "382": {
+  {
+    "id":382,
     "name":"Raisel Iglesias",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11841,11 +12223,12 @@ const players = {
     "H":138.6739812,
     "H + BB":""
   },
-  "383": {
+  {
+    "id":383,
     "name":"Drew Smyly",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11872,11 +12255,12 @@ const players = {
     "H":137.1,
     "H + BB":""
   },
-  "384": {
+  {
+    "id":384,
     "name":"Aroldis Chapman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -11903,11 +12287,12 @@ const players = {
     "H":38.8,
     "H + BB":""
   },
-  "385": {
+  {
+    "id":385,
     "name":"Jordan Zimmermann",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11934,11 +12319,12 @@ const players = {
     "H":197.6221394,
     "H + BB":""
   },
-  "386": {
+  {
+    "id":386,
     "name":"Hisashi Iwakuma",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11965,11 +12351,12 @@ const players = {
     "H":157.0659026,
     "H + BB":""
   },
-  "387": {
+  {
+    "id":387,
     "name":"Jason Hammel",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -11996,11 +12383,12 @@ const players = {
     "H":150.7997356,
     "H + BB":""
   },
-  "388": {
+  {
+    "id":388,
     "name":"Julio Teheran",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12027,11 +12415,12 @@ const players = {
     "H":190.623736,
     "H + BB":""
   },
-  "389": {
+  {
+    "id":389,
     "name":"Michael Wacha",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12058,11 +12447,12 @@ const players = {
     "H":165.6,
     "H + BB":""
   },
-  "390": {
+  {
+    "id":390,
     "name":"Aaron Nola",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12089,11 +12479,12 @@ const players = {
     "H":177.3287671,
     "H + BB":""
   },
-  "391": {
+  {
+    "id":391,
     "name":"Carlos Martinez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12120,11 +12511,12 @@ const players = {
     "H":143.9030303,
     "H + BB":""
   },
-  "392": {
+  {
+    "id":392,
     "name":"Justin Verlander",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12151,11 +12543,12 @@ const players = {
     "H":178.1,
     "H + BB":""
   },
-  "393": {
+  {
+    "id":393,
     "name":"Luis Severino",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12182,11 +12575,12 @@ const players = {
     "H":155.7397959,
     "H + BB":""
   },
-  "394": {
+  {
+    "id":394,
     "name":"Carlos Rodon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12213,11 +12607,12 @@ const players = {
     "H":150.6018809,
     "H + BB":""
   },
-  "395": {
+  {
+    "id":395,
     "name":"Marcus Stroman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12244,11 +12639,12 @@ const players = {
     "H":156.803653,
     "H + BB":""
   },
-  "396": {
+  {
+    "id":396,
     "name":"Mike Leake",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12275,11 +12671,12 @@ const players = {
     "H":213.4956875,
     "H + BB":""
   },
-  "397": {
+  {
+    "id":397,
     "name":"Ian Kennedy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12306,11 +12703,12 @@ const players = {
     "H":166.546087,
     "H + BB":""
   },
-  "398": {
+  {
+    "id":398,
     "name":"Rick Porcello",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12337,11 +12735,12 @@ const players = {
     "H":181.6,
     "H + BB":""
   },
-  "399": {
+  {
+    "id":399,
     "name":"Gio Gonzalez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12368,11 +12767,12 @@ const players = {
     "H":158.5763098,
     "H + BB":""
   },
-  "400": {
+  {
+    "id":400,
     "name":"Andrew Cashner",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12399,11 +12799,12 @@ const players = {
     "H":168.3,
     "H + BB":""
   },
-  "401": {
+  {
+    "id":401,
     "name":"Clay Buchholz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12430,11 +12831,12 @@ const players = {
     "H":150.3668478,
     "H + BB":""
   },
-  "402": {
+  {
+    "id":402,
     "name":"Shelby Miller",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12461,11 +12863,12 @@ const players = {
     "H":186.3,
     "H + BB":""
   },
-  "403": {
+  {
+    "id":403,
     "name":"Yu Darvish",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12492,11 +12895,12 @@ const players = {
     "H":111.6398104,
     "H + BB":""
   },
-  "404": {
+  {
+    "id":404,
     "name":"Nate Karns",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12523,11 +12927,12 @@ const players = {
     "H":150.1192982,
     "H + BB":""
   },
-  "405": {
+  {
+    "id":405,
     "name":"Nathan Eovaldi",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12554,11 +12959,12 @@ const players = {
     "H":182.1811224,
     "H + BB":""
   },
-  "406": {
+  {
+    "id":406,
     "name":"Eduardo Rodriguez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12585,11 +12991,12 @@ const players = {
     "H":156.7,
     "H + BB":""
   },
-  "407": {
+  {
+    "id":407,
     "name":"Erasmo Ramirez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12616,11 +13023,12 @@ const players = {
     "H":161.6825863,
     "H + BB":""
   },
-  "408": {
+  {
+    "id":408,
     "name":"David Robertson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -12647,11 +13055,12 @@ const players = {
     "H":52.6,
     "H + BB":""
   },
-  "409": {
+  {
+    "id":409,
     "name":"Cody Allen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":15,
     "pos":"CP",
     "PA":null,
@@ -12678,11 +13087,12 @@ const players = {
     "H":49.5,
     "H + BB":""
   },
-  "410": {
+  {
+    "id":410,
     "name":"Derek Holland",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12709,11 +13119,12 @@ const players = {
     "H":171.4,
     "H + BB":""
   },
-  "411": {
+  {
+    "id":411,
     "name":"Craig Kimbrel",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -12740,11 +13151,12 @@ const players = {
     "H":44.4,
     "H + BB":""
   },
-  "412": {
+  {
+    "id":412,
     "name":"Zach Britton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -12771,11 +13183,12 @@ const players = {
     "H":53.5,
     "H + BB":""
   },
-  "413": {
+  {
+    "id":413,
     "name":"Wade Davis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":10,
     "pos":"CP",
     "PA":null,
@@ -12802,11 +13215,12 @@ const players = {
     "H":51.8,
     "H + BB":""
   },
-  "414": {
+  {
+    "id":414,
     "name":"Anthony DeSclafani",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12833,11 +13247,12 @@ const players = {
     "H":171.5,
     "H + BB":""
   },
-  "415": {
+  {
+    "id":415,
     "name":"Wade Miley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12864,11 +13279,12 @@ const players = {
     "H":188.8,
     "H + BB":""
   },
-  "416": {
+  {
+    "id":416,
     "name":"Kevin Gausman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12895,11 +13311,12 @@ const players = {
     "H":137.3,
     "H + BB":""
   },
-  "417": {
+  {
+    "id":417,
     "name":"Trevor Bauer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12926,11 +13343,12 @@ const players = {
     "H":166.8,
     "H + BB":""
   },
-  "418": {
+  {
+    "id":418,
     "name":"Hyun-Jin Ryu",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12957,11 +13375,12 @@ const players = {
     "H":119.2307692,
     "H + BB":""
   },
-  "419": {
+  {
+    "id":419,
     "name":"Jimmy Nelson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -12988,11 +13407,12 @@ const players = {
     "H":174.0591991,
     "H + BB":""
   },
-  "420": {
+  {
+    "id":420,
     "name":"Andrew Heaney",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13019,11 +13439,12 @@ const players = {
     "H":136.6317992,
     "H + BB":""
   },
-  "421": {
+  {
+    "id":421,
     "name":"Alex Wood",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13050,11 +13471,12 @@ const players = {
     "H":160.7,
     "H + BB":""
   },
-  "422": {
+  {
+    "id":422,
     "name":"Kenley Jansen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -13081,11 +13503,12 @@ const players = {
     "H":41.2,
     "H + BB":""
   },
-  "423": {
+  {
+    "id":423,
     "name":"Phil Hughes",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13112,11 +13535,12 @@ const players = {
     "H":195.2,
     "H + BB":""
   },
-  "424": {
+  {
+    "id":424,
     "name":"J.A. Happ",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13143,11 +13567,12 @@ const players = {
     "H":147.5,
     "H + BB":""
   },
-  "425": {
+  {
+    "id":425,
     "name":"Anibal Sanchez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13174,11 +13599,12 @@ const players = {
     "H":135.3689567,
     "H + BB":""
   },
-  "426": {
+  {
+    "id":426,
     "name":"Joe Ross",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13205,11 +13631,12 @@ const players = {
     "H":137,
     "H + BB":""
   },
-  "427": {
+  {
+    "id":427,
     "name":"Ubaldo Jimenez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13236,11 +13663,12 @@ const players = {
     "H":170.3,
     "H + BB":""
   },
-  "428": {
+  {
+    "id":428,
     "name":"Ervin Santana",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13267,11 +13695,12 @@ const players = {
     "H":205.3,
     "H + BB":""
   },
-  "429": {
+  {
+    "id":429,
     "name":"Brad Boxberger",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -13298,11 +13727,12 @@ const players = {
     "H":45.9,
     "H + BB":""
   },
-  "430": {
+  {
+    "id":430,
     "name":"Mark Melancon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -13329,11 +13759,12 @@ const players = {
     "H":52.8,
     "H + BB":""
   },
-  "431": {
+  {
+    "id":431,
     "name":"Jaime Garcia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13360,11 +13791,12 @@ const players = {
     "H":122.9852838,
     "H + BB":""
   },
-  "432": {
+  {
+    "id":432,
     "name":"Daniel Norris",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13391,11 +13823,12 @@ const players = {
     "H":145.9793814,
     "H + BB":""
   },
-  "433": {
+  {
+    "id":433,
     "name":"R.A. Dickey",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13422,11 +13855,12 @@ const players = {
     "H":190.3,
     "H + BB":""
   },
-  "434": {
+  {
+    "id":434,
     "name":"Jake Peavy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13453,11 +13887,12 @@ const players = {
     "H":141.4,
     "H + BB":""
   },
-  "435": {
+  {
+    "id":435,
     "name":"Rubby de la Rosa",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13484,11 +13919,12 @@ const players = {
     "H":159,
     "H + BB":""
   },
-  "436": {
+  {
+    "id":436,
     "name":"Edinson Volquez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13515,11 +13951,12 @@ const players = {
     "H":184.5,
     "H + BB":""
   },
-  "437": {
+  {
+    "id":437,
     "name":"Dellin Betances",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -13546,11 +13983,12 @@ const players = {
     "H":47.6,
     "H + BB":""
   },
-  "438": {
+  {
+    "id":438,
     "name":"Vincent Velasquez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13577,11 +14015,12 @@ const players = {
     "H":89.31623932,
     "H + BB":""
   },
-  "439": {
+  {
+    "id":439,
     "name":"Kyle Gibson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13608,11 +14047,12 @@ const players = {
     "H":199.1,
     "H + BB":""
   },
-  "440": {
+  {
+    "id":440,
     "name":"Hector Santiago",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13639,11 +14079,12 @@ const players = {
     "H":141.7,
     "H + BB":""
   },
-  "441": {
+  {
+    "id":441,
     "name":"Kenta Maeda",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13670,11 +14111,12 @@ const players = {
     "H":0,
     "H + BB":""
   },
-  "442": {
+  {
+    "id":442,
     "name":"Hector Rondon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -13701,11 +14143,12 @@ const players = {
     "H":49.6,
     "H + BB":""
   },
-  "443": {
+  {
+    "id":443,
     "name":"Trevor Rosenthal",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -13732,11 +14175,12 @@ const players = {
     "H":43.3,
     "H + BB":""
   },
-  "444": {
+  {
+    "id":444,
     "name":"Brett Anderson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13763,11 +14207,12 @@ const players = {
     "H":145.4,
     "H + BB":""
   },
-  "445": {
+  {
+    "id":445,
     "name":"Jeff Locke",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13794,11 +14239,12 @@ const players = {
     "H":164,
     "H + BB":""
   },
-  "446": {
+  {
+    "id":446,
     "name":"Marco Estrada",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13825,11 +14271,12 @@ const players = {
     "H":179.5,
     "H + BB":""
   },
-  "447": {
+  {
+    "id":447,
     "name":"C.J. Wilson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13856,11 +14303,12 @@ const players = {
     "H":148.6,
     "H + BB":""
   },
-  "448": {
+  {
+    "id":448,
     "name":"Matt Moore",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13887,11 +14335,12 @@ const players = {
     "H":118.1,
     "H + BB":""
   },
-  "449": {
+  {
+    "id":449,
     "name":"Glen Perkins",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -13918,11 +14367,12 @@ const players = {
     "H":54.5,
     "H + BB":""
   },
-  "450": {
+  {
+    "id":450,
     "name":"Chase Anderson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -13949,11 +14399,12 @@ const players = {
     "H":137.2,
     "H + BB":""
   },
-  "451": {
+  {
+    "id":451,
     "name":"Ken Giles",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -13980,11 +14431,12 @@ const players = {
     "H":46.8,
     "H + BB":""
   },
-  "452": {
+  {
+    "id":452,
     "name":"Drew Storen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -14011,11 +14463,12 @@ const players = {
     "H":50,
     "H + BB":""
   },
-  "453": {
+  {
+    "id":453,
     "name":"Jeremy Hellickson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -14042,11 +14495,12 @@ const players = {
     "H":148,
     "H + BB":""
   },
-  "454": {
+  {
+    "id":454,
     "name":"Jesse Hahn",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -14073,11 +14527,12 @@ const players = {
     "H":146.2,
     "H + BB":""
   },
-  "455": {
+  {
+    "id":455,
     "name":"Chris Tillman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -14104,11 +14559,12 @@ const players = {
     "H":177,
     "H + BB":""
   },
-  "456": {
+  {
+    "id":456,
     "name":"A.J. Ramos",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -14135,11 +14591,12 @@ const players = {
     "H":52.6,
     "H + BB":""
   },
-  "457": {
+  {
+    "id":457,
     "name":"Andrew Miller",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14166,11 +14623,12 @@ const players = {
     "H":40.9,
     "H + BB":""
   },
-  "458": {
+  {
+    "id":458,
     "name":"Jeurys Familia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":true,
+    "isSelected":true,
     "cost":2,
     "pos":"CP",
     "PA":null,
@@ -14197,11 +14655,12 @@ const players = {
     "H":48.9,
     "H + BB":""
   },
-  "459": {
+  {
+    "id":459,
     "name":"Jonathan Papelbon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -14228,11 +14687,12 @@ const players = {
     "H":61.9,
     "H + BB":""
   },
-  "460": {
+  {
+    "id":460,
     "name":"Sean Doolittle",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -14259,11 +14719,12 @@ const players = {
     "H":49.5,
     "H + BB":""
   },
-  "461": {
+  {
+    "id":461,
     "name":"Francisco Rodriguez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -14290,11 +14751,12 @@ const players = {
     "H":54,
     "H + BB":""
   },
-  "462": {
+  {
+    "id":462,
     "name":"Joaquin Benoit",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -14321,11 +14783,12 @@ const players = {
     "H":56.8,
     "H + BB":""
   },
-  "463": {
+  {
+    "id":463,
     "name":"Huston Street",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -14352,11 +14815,12 @@ const players = {
     "H":53.2,
     "H + BB":""
   },
-  "464": {
+  {
+    "id":464,
     "name":"Shawn Tolleson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -14383,11 +14847,12 @@ const players = {
     "H":51.9,
     "H + BB":""
   },
-  "465": {
+  {
+    "id":465,
     "name":"Tony Watson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14414,11 +14879,12 @@ const players = {
     "H":58.1,
     "H + BB":""
   },
-  "466": {
+  {
+    "id":466,
     "name":"Santiago Casilla",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -14445,11 +14911,12 @@ const players = {
     "H":44.8,
     "H + BB":""
   },
-  "467": {
+  {
+    "id":467,
     "name":"Will Smith",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14476,11 +14943,12 @@ const players = {
     "H":40.5,
     "H + BB":""
   },
-  "468": {
+  {
+    "id":468,
     "name":"Kevin Siegrist",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14507,11 +14975,12 @@ const players = {
     "H":46.2,
     "H + BB":""
   },
-  "469": {
+  {
+    "id":469,
     "name":"Sergio Romo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14538,11 +15007,12 @@ const players = {
     "H":43.7,
     "H + BB":""
   },
-  "470": {
+  {
+    "id":470,
     "name":"Carter Capps",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14569,11 +15039,12 @@ const players = {
     "H":null,
     "H + BB":""
   },
-  "471": {
+  {
+    "id":471,
     "name":"Pedro Strop",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14600,11 +15071,12 @@ const players = {
     "H":46.8,
     "H + BB":""
   },
-  "472": {
+  {
+    "id":472,
     "name":"Corey Knebel",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -14631,11 +15103,12 @@ const players = {
     "H":46.8,
     "H + BB":""
   },
-  "473": {
+  {
+    "id":473,
     "name":"Darren O’Day",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14662,11 +15135,12 @@ const players = {
     "H":55.7,
     "H + BB":""
   },
-  "474": {
+  {
+    "id":474,
     "name":"Jose Diaz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -14693,11 +15167,12 @@ const players = {
     "H":47,
     "H + BB":""
   },
-  "475": {
+  {
+    "id":475,
     "name":"Liam Hendriks",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14724,11 +15199,12 @@ const players = {
     "H":57.9,
     "H + BB":""
   },
-  "476": {
+  {
+    "id":476,
     "name":"Carson Smith",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14755,11 +15231,12 @@ const players = {
     "H":54.5,
     "H + BB":""
   },
-  "477": {
+  {
+    "id":477,
     "name":"Hunter Strickland",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14786,11 +15263,12 @@ const players = {
     "H":41.1,
     "H + BB":""
   },
-  "478": {
+  {
+    "id":478,
     "name":"Joe Smith",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14817,11 +15295,12 @@ const players = {
     "H":54.3,
     "H + BB":""
   },
-  "479": {
+  {
+    "id":479,
     "name":"Roberto Osuna",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14848,11 +15327,12 @@ const players = {
     "H":47.3,
     "H + BB":""
   },
-  "480": {
+  {
+    "id":480,
     "name":"Luke Gregerson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14879,11 +15359,12 @@ const players = {
     "H":59.6,
     "H + BB":""
   },
-  "481": {
+  {
+    "id":481,
     "name":"Kelvin Herrera",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14910,11 +15391,12 @@ const players = {
     "H":54.8,
     "H + BB":""
   },
-  "482": {
+  {
+    "id":482,
     "name":"Jake McGee",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14941,11 +15423,12 @@ const players = {
     "H":39,
     "H + BB":""
   },
-  "483": {
+  {
+    "id":483,
     "name":"J.J. Hoover",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -14972,11 +15455,12 @@ const players = {
     "H":57.4,
     "H + BB":""
   },
-  "484": {
+  {
+    "id":484,
     "name":"Yimi Garcia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -15003,11 +15487,12 @@ const players = {
     "H":43.2,
     "H + BB":""
   },
-  "485": {
+  {
+    "id":485,
     "name":"Brett Cecil",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -15034,11 +15519,12 @@ const players = {
     "H":45.6,
     "H + BB":""
   },
-  "486": {
+  {
+    "id":486,
     "name":"Evan Scribner",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -15065,11 +15551,12 @@ const players = {
     "H":51.7,
     "H + BB":""
   },
-  "487": {
+  {
+    "id":487,
     "name":"Jeremy Jeffress",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -15096,11 +15583,12 @@ const players = {
     "H":54.4,
     "H + BB":""
   },
-  "488": {
+  {
+    "id":488,
     "name":"Fernando Salas",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -15127,11 +15615,12 @@ const players = {
     "H":51.7,
     "H + BB":""
   },
-  "489": {
+  {
+    "id":489,
     "name":"Antonio Bastardo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -15158,11 +15647,12 @@ const players = {
     "H":46.7,
     "H + BB":""
   },
-  "490": {
+  {
+    "id":490,
     "name":"Mike Dunn",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -15189,11 +15679,12 @@ const players = {
     "H":42,
     "H + BB":""
   },
-  "491": {
+  {
+    "id":491,
     "name":"Kevin Jepsen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -15220,11 +15711,12 @@ const players = {
     "H":54.1,
     "H + BB":""
   },
-  "492": {
+  {
+    "id":492,
     "name":"Brad Brach",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -15251,11 +15743,12 @@ const players = {
     "H":62.8,
     "H + BB":""
   },
-  "493": {
+  {
+    "id":493,
     "name":"Jon Niese",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15282,11 +15775,12 @@ const players = {
     "H":176.3,
     "H + BB":""
   },
-  "494": {
+  {
+    "id":494,
     "name":"CC Sabathia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15313,11 +15807,12 @@ const players = {
     "H":135.4,
     "H + BB":""
   },
-  "495": {
+  {
+    "id":495,
     "name":"Tom Koehler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15344,11 +15839,12 @@ const players = {
     "H":190.4,
     "H + BB":""
   },
-  "496": {
+  {
+    "id":496,
     "name":"Jorge de la Rosa",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15375,11 +15871,12 @@ const players = {
     "H":157,
     "H + BB":""
   },
-  "497": {
+  {
+    "id":497,
     "name":"Martin Perez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15406,11 +15903,12 @@ const players = {
     "H":152,
     "H + BB":""
   },
-  "498": {
+  {
+    "id":498,
     "name":"Jerad Eickhoff",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15437,11 +15935,12 @@ const players = {
     "H":123.8,
     "H + BB":""
   },
-  "499": {
+  {
+    "id":499,
     "name":"Rich Hill",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15468,11 +15967,12 @@ const players = {
     "H":97.82114975,
     "H + BB":""
   },
-  "500": {
+  {
+    "id":500,
     "name":"Jesse Chavez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15499,11 +15999,12 @@ const players = {
     "H":114.5,
     "H + BB":""
   },
-  "501": {
+  {
+    "id":501,
     "name":"Matt Wisler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15530,11 +16031,12 @@ const players = {
     "H":158.6,
     "H + BB":""
   },
-  "502": {
+  {
+    "id":502,
     "name":"Tommy Milone",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15561,11 +16063,12 @@ const players = {
     "H":135.1,
     "H + BB":""
   },
-  "503": {
+  {
+    "id":503,
     "name":"Jonathan Gray",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15592,11 +16095,12 @@ const players = {
     "H":127.9,
     "H + BB":""
   },
-  "504": {
+  {
+    "id":504,
     "name":"Jered Weaver",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15623,11 +16127,12 @@ const players = {
     "H":155.4,
     "H + BB":""
   },
-  "505": {
+  {
+    "id":505,
     "name":"John Lamb",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15654,11 +16159,12 @@ const players = {
     "H":92.2,
     "H + BB":""
   },
-  "506": {
+  {
+    "id":506,
     "name":"James Paxton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15685,11 +16191,12 @@ const players = {
     "H":113.087886,
     "H + BB":""
   },
-  "507": {
+  {
+    "id":507,
     "name":"Robbie Ray",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15716,11 +16223,12 @@ const players = {
     "H":97.6,
     "H + BB":""
   },
-  "508": {
+  {
+    "id":508,
     "name":"Danny Duffy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15747,11 +16255,12 @@ const players = {
     "H":120.9,
     "H + BB":""
   },
-  "509": {
+  {
+    "id":509,
     "name":"Mike Foltynewicz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15778,11 +16287,12 @@ const players = {
     "H":99,
     "H + BB":""
   },
-  "510": {
+  {
+    "id":510,
     "name":"Colby Lewis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15809,11 +16319,12 @@ const players = {
     "H":169.5,
     "H + BB":""
   },
-  "511": {
+  {
+    "id":511,
     "name":"Josh Tomlin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15840,11 +16351,12 @@ const players = {
     "H":98,
     "H + BB":""
   },
-  "512": {
+  {
+    "id":512,
     "name":"Drew Hutchison",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15871,11 +16383,12 @@ const players = {
     "H":102.2,
     "H + BB":""
   },
-  "513": {
+  {
+    "id":513,
     "name":"Miguel Gonzalez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15902,11 +16415,12 @@ const players = {
     "H":152.9,
     "H + BB":""
   },
-  "514": {
+  {
+    "id":514,
     "name":"Charlie Morton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15933,11 +16447,12 @@ const players = {
     "H":128.9,
     "H + BB":""
   },
-  "515": {
+  {
+    "id":515,
     "name":"Chris Heston",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -15964,11 +16479,12 @@ const players = {
     "H":83.8,
     "H + BB":""
   },
-  "516": {
+  {
+    "id":516,
     "name":"Arodys Vizcaino",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -15995,11 +16511,12 @@ const players = {
     "H":41.7,
     "H + BB":""
   },
-  "517": {
+  {
+    "id":517,
     "name":"John Danks",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16026,11 +16543,12 @@ const players = {
     "H":184.6,
     "H + BB":""
   },
-  "518": {
+  {
+    "id":518,
     "name":"Homer Bailey",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16057,11 +16575,12 @@ const players = {
     "H":102.9,
     "H + BB":""
   },
-  "519": {
+  {
+    "id":519,
     "name":"Matt Shoemaker",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16088,11 +16607,12 @@ const players = {
     "H":89.2,
     "H + BB":""
   },
-  "520": {
+  {
+    "id":520,
     "name":"Tanner Roark",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16119,11 +16639,12 @@ const players = {
     "H":123.8,
     "H + BB":""
   },
-  "521": {
+  {
+    "id":521,
     "name":"Kris Medlen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16150,11 +16671,12 @@ const players = {
     "H":116.6,
     "H + BB":""
   },
-  "522": {
+  {
+    "id":522,
     "name":"Matt Garza",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16181,11 +16703,12 @@ const players = {
     "H":149.2,
     "H + BB":""
   },
-  "523": {
+  {
+    "id":523,
     "name":"Chris Bassitt",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16212,11 +16735,12 @@ const players = {
     "H":116.6,
     "H + BB":""
   },
-  "524": {
+  {
+    "id":524,
     "name":"Steve Cishek",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -16243,11 +16767,12 @@ const players = {
     "H":49.5,
     "H + BB":""
   },
-  "525": {
+  {
+    "id":525,
     "name":"Chad Bettis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16274,11 +16799,12 @@ const players = {
     "H":135.9,
     "H + BB":""
   },
-  "526": {
+  {
+    "id":526,
     "name":"Brad Ziegler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -16305,11 +16831,12 @@ const players = {
     "H":66.5,
     "H + BB":""
   },
-  "527": {
+  {
+    "id":527,
     "name":"Doug Fister",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16336,11 +16863,12 @@ const players = {
     "H":143.3,
     "H + BB":""
   },
-  "528": {
+  {
+    "id":528,
     "name":"Yusmeiro Petit",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16367,11 +16895,12 @@ const players = {
     "H":96.3,
     "H + BB":""
   },
-  "529": {
+  {
+    "id":529,
     "name":"Colin Rea",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16398,11 +16927,12 @@ const players = {
     "H":111.4,
     "H + BB":""
   },
-  "530": {
+  {
+    "id":530,
     "name":"David Phelps",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16429,11 +16959,12 @@ const players = {
     "H":108.7,
     "H + BB":""
   },
-  "531": {
+  {
+    "id":531,
     "name":"Brandon Maurer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16460,11 +16991,12 @@ const players = {
     "H":75.8,
     "H + BB":""
   },
-  "532": {
+  {
+    "id":532,
     "name":"Joe Kelly",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16491,11 +17023,12 @@ const players = {
     "H":83.8,
     "H + BB":""
   },
-  "533": {
+  {
+    "id":533,
     "name":"Wily Peralta",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16522,11 +17055,12 @@ const players = {
     "H":151.6,
     "H + BB":""
   },
-  "534": {
+  {
+    "id":534,
     "name":"Matt Cain",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16553,11 +17087,12 @@ const players = {
     "H":89.8,
     "H + BB":""
   },
-  "535": {
+  {
+    "id":535,
     "name":"Ryan Vogelsong",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16584,11 +17119,12 @@ const players = {
     "H":126.5,
     "H + BB":""
   },
-  "536": {
+  {
+    "id":536,
     "name":"Bartolo Colon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16615,11 +17151,12 @@ const players = {
     "H":85.3,
     "H + BB":""
   },
-  "537": {
+  {
+    "id":537,
     "name":"Blake Treinen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -16646,11 +17183,12 @@ const players = {
     "H":61.5,
     "H + BB":""
   },
-  "538": {
+  {
+    "id":538,
     "name":"Kendall Graveman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16677,11 +17215,12 @@ const players = {
     "H":145.5,
     "H + BB":""
   },
-  "539": {
+  {
+    "id":539,
     "name":"Taylor Jungmann",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16708,11 +17247,12 @@ const players = {
     "H":139.2,
     "H + BB":""
   },
-  "540": {
+  {
+    "id":540,
     "name":"Michael Lorenzen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16739,11 +17279,12 @@ const players = {
     "H":139.5,
     "H + BB":""
   },
-  "541": {
+  {
+    "id":541,
     "name":"David Hernandez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -16770,11 +17311,12 @@ const players = {
     "H":39.9,
     "H + BB":""
   },
-  "542": {
+  {
+    "id":542,
     "name":"Pedro Baez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -16801,11 +17343,12 @@ const players = {
     "H":43.9,
     "H + BB":""
   },
-  "543": {
+  {
+    "id":543,
     "name":"Shawn Kelley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -16832,11 +17375,12 @@ const players = {
     "H":45.7,
     "H + BB":""
   },
-  "544": {
+  {
+    "id":544,
     "name":"Tony Sipp",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -16863,11 +17407,12 @@ const players = {
     "H":45.9,
     "H + BB":""
   },
-  "545": {
+  {
+    "id":545,
     "name":"Junichi Tazawa",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -16894,11 +17439,12 @@ const players = {
     "H":56.4,
     "H + BB":""
   },
-  "546": {
+  {
+    "id":546,
     "name":"Will Harris",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -16925,11 +17471,12 @@ const players = {
     "H":58.4,
     "H + BB":""
   },
-  "547": {
+  {
+    "id":547,
     "name":"Keone Kela",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -16956,11 +17503,12 @@ const players = {
     "H":46.3,
     "H + BB":""
   },
-  "548": {
+  {
+    "id":548,
     "name":"Brad Hand",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -16987,11 +17535,12 @@ const players = {
     "H":79.8,
     "H + BB":""
   },
-  "549": {
+  {
+    "id":549,
     "name":"Jason Motte",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -17018,11 +17567,12 @@ const players = {
     "H":47.9,
     "H + BB":""
   },
-  "550": {
+  {
+    "id":550,
     "name":"Fernando Rodney",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -17049,11 +17599,12 @@ const players = {
     "H":44.2,
     "H + BB":""
   },
-  "551": {
+  {
+    "id":551,
     "name":"Steve Geltz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17080,11 +17631,12 @@ const players = {
     "H":50.7,
     "H + BB":""
   },
-  "552": {
+  {
+    "id":552,
     "name":"Ivan Nova",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -17111,11 +17663,12 @@ const players = {
     "H":114.2,
     "H + BB":""
   },
-  "553": {
+  {
+    "id":553,
     "name":"Justin Wilson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17142,11 +17695,12 @@ const players = {
     "H":44.9,
     "H + BB":""
   },
-  "554": {
+  {
+    "id":554,
     "name":"Ryan Madson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17173,11 +17727,12 @@ const players = {
     "H":50.8,
     "H + BB":""
   },
-  "555": {
+  {
+    "id":555,
     "name":"Kevin Quackenbush",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17204,11 +17759,12 @@ const players = {
     "H":51,
     "H + BB":""
   },
-  "556": {
+  {
+    "id":556,
     "name":"Chris Hatcher",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17235,11 +17791,12 @@ const players = {
     "H":38.7,
     "H + BB":""
   },
-  "557": {
+  {
+    "id":557,
     "name":"Addison Reed",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17266,11 +17823,12 @@ const players = {
     "H":50.9,
     "H + BB":""
   },
-  "558": {
+  {
+    "id":558,
     "name":"Bryan Shaw",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17297,11 +17855,12 @@ const players = {
     "H":56.7,
     "H + BB":""
   },
-  "559": {
+  {
+    "id":559,
     "name":"Jonathan Broxton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17328,11 +17887,12 @@ const players = {
     "H":53.7,
     "H + BB":""
   },
-  "560": {
+  {
+    "id":560,
     "name":"Vidal Nuno",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -17359,11 +17919,12 @@ const players = {
     "H":59.6,
     "H + BB":""
   },
-  "561": {
+  {
+    "id":561,
     "name":"Seth Maness",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17390,11 +17951,12 @@ const players = {
     "H":53.5,
     "H + BB":""
   },
-  "562": {
+  {
+    "id":562,
     "name":"Hansel Robles",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17421,11 +17983,12 @@ const players = {
     "H":43.4,
     "H + BB":""
   },
-  "563": {
+  {
+    "id":563,
     "name":"Sam Dyson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17452,11 +18015,12 @@ const players = {
     "H":57.5,
     "H + BB":""
   },
-  "564": {
+  {
+    "id":564,
     "name":"Brandon Finnegan",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -17483,11 +18047,12 @@ const players = {
     "H":66.2,
     "H + BB":""
   },
-  "565": {
+  {
+    "id":565,
     "name":"Casey Fien",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17514,11 +18079,12 @@ const players = {
     "H":61.1,
     "H + BB":""
   },
-  "566": {
+  {
+    "id":566,
     "name":"Adam Warren",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17545,11 +18111,12 @@ const players = {
     "H":50.2,
     "H + BB":""
   },
-  "567": {
+  {
+    "id":567,
     "name":"Joe Blanton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -17576,11 +18143,12 @@ const players = {
     "H":51.3,
     "H + BB":""
   },
-  "568": {
+  {
+    "id":568,
     "name":"Roenis Elias",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -17607,11 +18175,12 @@ const players = {
     "H":93.1,
     "H + BB":""
   },
-  "569": {
+  {
+    "id":569,
     "name":"Joakim Soria",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17638,11 +18207,12 @@ const players = {
     "H":45.2,
     "H + BB":""
   },
-  "570": {
+  {
+    "id":570,
     "name":"Tom Wilhelmsen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17669,11 +18239,12 @@ const players = {
     "H":63.4,
     "H + BB":""
   },
-  "571": {
+  {
+    "id":571,
     "name":"Kyle Kendrick",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -17700,11 +18271,12 @@ const players = {
     "H":153.2,
     "H + BB":""
   },
-  "572": {
+  {
+    "id":572,
     "name":"Trevor May",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17731,11 +18303,12 @@ const players = {
     "H":52.1,
     "H + BB":""
   },
-  "573": {
+  {
+    "id":573,
     "name":"Zach Duke",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17762,11 +18335,12 @@ const players = {
     "H":52.6,
     "H + BB":""
   },
-  "574": {
+  {
+    "id":574,
     "name":"Xavier Cedeno",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17793,11 +18367,12 @@ const players = {
     "H":39.8,
     "H + BB":""
   },
-  "575": {
+  {
+    "id":575,
     "name":"Arquimedes Caminero",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17824,11 +18399,12 @@ const players = {
     "H":49.8,
     "H + BB":""
   },
-  "576": {
+  {
+    "id":576,
     "name":"Oliver Perez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17855,11 +18431,12 @@ const players = {
     "H":31.9,
     "H + BB":""
   },
-  "577": {
+  {
+    "id":577,
     "name":"Robbie Erlin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -17886,11 +18463,12 @@ const players = {
     "H":72.8,
     "H + BB":""
   },
-  "578": {
+  {
+    "id":578,
     "name":"Mark Lowe",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17917,11 +18495,12 @@ const players = {
     "H":51.8,
     "H + BB":""
   },
-  "579": {
+  {
+    "id":579,
     "name":"Tyler Chatwood",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -17948,11 +18527,12 @@ const players = {
     "H":83.8,
     "H + BB":""
   },
-  "580": {
+  {
+    "id":580,
     "name":"Carlos Torres",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -17979,11 +18559,12 @@ const players = {
     "H":53.4,
     "H + BB":""
   },
-  "581": {
+  {
+    "id":581,
     "name":"Daniel Hudson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18010,11 +18591,12 @@ const players = {
     "H":41.2,
     "H + BB":""
   },
-  "582": {
+  {
+    "id":582,
     "name":"George Kontos",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18041,11 +18623,12 @@ const players = {
     "H":54.3,
     "H + BB":""
   },
-  "583": {
+  {
+    "id":583,
     "name":"Fernando Rodriguez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18072,11 +18655,12 @@ const players = {
     "H":49.1,
     "H + BB":""
   },
-  "584": {
+  {
+    "id":584,
     "name":"Jake Diekman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18103,11 +18687,12 @@ const players = {
     "H":43,
     "H + BB":""
   },
-  "585": {
+  {
+    "id":585,
     "name":"Randall Delgado",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18134,11 +18719,12 @@ const players = {
     "H":47.8,
     "H + BB":""
   },
-  "586": {
+  {
+    "id":586,
     "name":"Travis Wood",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18165,11 +18751,12 @@ const players = {
     "H":51.4,
     "H + BB":""
   },
-  "587": {
+  {
+    "id":587,
     "name":"Zach McAllister",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18196,11 +18783,12 @@ const players = {
     "H":47.4,
     "H + BB":""
   },
-  "588": {
+  {
+    "id":588,
     "name":"Koji Uehara",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18227,11 +18815,12 @@ const players = {
     "H":33.9,
     "H + BB":""
   },
-  "589": {
+  {
+    "id":589,
     "name":"Luis Avilan",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18258,11 +18847,12 @@ const players = {
     "H":42,
     "H + BB":""
   },
-  "590": {
+  {
+    "id":590,
     "name":"Tyler Lyons",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -18289,11 +18879,12 @@ const players = {
     "H":45,
     "H + BB":""
   },
-  "591": {
+  {
+    "id":591,
     "name":"Alex Colome",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18320,11 +18911,12 @@ const players = {
     "H":50,
     "H + BB":""
   },
-  "592": {
+  {
+    "id":592,
     "name":"Aaron Sanchez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18351,11 +18943,12 @@ const players = {
     "H":60.1,
     "H + BB":""
   },
-  "593": {
+  {
+    "id":593,
     "name":"Bud Norris",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -18382,11 +18975,12 @@ const players = {
     "H":63.3,
     "H + BB":""
   },
-  "594": {
+  {
+    "id":594,
     "name":"Nate Jones",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18413,11 +19007,12 @@ const players = {
     "H":32.9,
     "H + BB":""
   },
-  "595": {
+  {
+    "id":595,
     "name":"Dan Straily",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -18444,11 +19039,12 @@ const players = {
     "H":49.3,
     "H + BB":""
   },
-  "596": {
+  {
+    "id":596,
     "name":"Aaron Loup",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18475,11 +19071,12 @@ const players = {
     "H":38,
     "H + BB":""
   },
-  "597": {
+  {
+    "id":597,
     "name":"Henry Owens",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -18506,11 +19103,12 @@ const players = {
     "H":84.3,
     "H + BB":""
   },
-  "598": {
+  {
+    "id":598,
     "name":"Chad Qualls",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18537,11 +19135,12 @@ const players = {
     "H":48.6,
     "H + BB":""
   },
-  "599": {
+  {
+    "id":599,
     "name":"Chris Young",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -18568,11 +19167,12 @@ const players = {
     "H":96.3,
     "H + BB":""
   },
-  "600": {
+  {
+    "id":600,
     "name":"Andrew Chafin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18599,11 +19199,12 @@ const players = {
     "H":59.3,
     "H + BB":""
   },
-  "601": {
+  {
+    "id":601,
     "name":"Josh Fields",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18630,11 +19231,12 @@ const players = {
     "H":40,
     "H + BB":""
   },
-  "602": {
+  {
+    "id":602,
     "name":"Jose Alvarez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18661,11 +19263,12 @@ const players = {
     "H":52.6,
     "H + BB":""
   },
-  "603": {
+  {
+    "id":603,
     "name":"Juan Nicasio",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18692,11 +19295,12 @@ const players = {
     "H":51.1,
     "H + BB":""
   },
-  "604": {
+  {
+    "id":604,
     "name":"Williams Perez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -18723,11 +19327,12 @@ const players = {
     "H":116.8,
     "H + BB":""
   },
-  "605": {
+  {
+    "id":605,
     "name":"Pat Neshek",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18754,11 +19359,12 @@ const players = {
     "H":42.8,
     "H + BB":""
   },
-  "606": {
+  {
+    "id":606,
     "name":"Tyler Duffey",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -18785,11 +19391,12 @@ const players = {
     "H":79.1,
     "H + BB":""
   },
-  "607": {
+  {
+    "id":607,
     "name":"Chasen Shreve",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18816,11 +19423,12 @@ const players = {
     "H":51,
     "H + BB":""
   },
-  "608": {
+  {
+    "id":608,
     "name":"Robbie Ross",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18847,11 +19455,12 @@ const players = {
     "H":56.6,
     "H + BB":""
   },
-  "609": {
+  {
+    "id":609,
     "name":"Rafael Montero",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -18878,11 +19487,12 @@ const players = {
     "H":61,
     "H + BB":""
   },
-  "610": {
+  {
+    "id":610,
     "name":"Zack Wheeler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -18909,11 +19519,12 @@ const players = {
     "H":48.6,
     "H + BB":""
   },
-  "611": {
+  {
+    "id":611,
     "name":"Tyler Clippard",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18940,11 +19551,12 @@ const players = {
     "H":43.2,
     "H + BB":""
   },
-  "612": {
+  {
+    "id":612,
     "name":"J.P. Howell",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -18971,11 +19583,12 @@ const players = {
     "H":42.7,
     "H + BB":""
   },
-  "613": {
+  {
+    "id":613,
     "name":"Brian Matusz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19002,11 +19615,12 @@ const players = {
     "H":39.6,
     "H + BB":""
   },
-  "614": {
+  {
+    "id":614,
     "name":"Jim Johnson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19033,11 +19647,12 @@ const players = {
     "H":57.8,
     "H + BB":""
   },
-  "615": {
+  {
+    "id":615,
     "name":"Tony Cingrani",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19064,11 +19679,12 @@ const players = {
     "H":29.1,
     "H + BB":""
   },
-  "616": {
+  {
+    "id":616,
     "name":"Bryan Morris",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19095,11 +19711,12 @@ const players = {
     "H":50.8,
     "H + BB":""
   },
-  "617": {
+  {
+    "id":617,
     "name":"Blaine Hardy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19126,11 +19743,12 @@ const players = {
     "H":55.5,
     "H + BB":""
   },
-  "618": {
+  {
+    "id":618,
     "name":"Vance Worley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19157,11 +19775,12 @@ const players = {
     "H":81.6,
     "H + BB":""
   },
-  "619": {
+  {
+    "id":619,
     "name":"Lucas Giolito",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19188,11 +19807,12 @@ const players = {
     "H":52.4,
     "H + BB":""
   },
-  "620": {
+  {
+    "id":620,
     "name":"Chris Rusin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19219,11 +19839,12 @@ const players = {
     "H":132.8,
     "H + BB":""
   },
-  "621": {
+  {
+    "id":621,
     "name":"Dylan Bundy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19250,11 +19871,12 @@ const players = {
     "H":62.7,
     "H + BB":""
   },
-  "622": {
+  {
+    "id":622,
     "name":"Brett Oberholtzer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19281,11 +19903,12 @@ const players = {
     "H":66.7,
     "H + BB":""
   },
-  "623": {
+  {
+    "id":623,
     "name":"Boone Logan",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19312,11 +19935,12 @@ const players = {
     "H":33,
     "H + BB":""
   },
-  "624": {
+  {
+    "id":624,
     "name":"Trevor Cahill",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19343,11 +19967,12 @@ const players = {
     "H":48.2,
     "H + BB":""
   },
-  "625": {
+  {
+    "id":625,
     "name":"Mike Pelfrey",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19374,11 +19999,12 @@ const players = {
     "H":120,
     "H + BB":""
   },
-  "626": {
+  {
+    "id":626,
     "name":"Odrisamer Despaigne",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19405,11 +20031,12 @@ const players = {
     "H":82.4,
     "H + BB":""
   },
-  "627": {
+  {
+    "id":627,
     "name":"Marco Gonzales",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19436,11 +20063,12 @@ const players = {
     "H":65,
     "H + BB":""
   },
-  "628": {
+  {
+    "id":628,
     "name":"Logan Verrett",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19467,11 +20095,12 @@ const players = {
     "H":49.5,
     "H + BB":""
   },
-  "629": {
+  {
+    "id":629,
     "name":"Erik Johnson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19498,11 +20127,12 @@ const players = {
     "H":95.5,
     "H + BB":""
   },
-  "630": {
+  {
+    "id":630,
     "name":"Matt Boyd",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19529,11 +20159,12 @@ const players = {
     "H":65.9,
     "H + BB":""
   },
-  "631": {
+  {
+    "id":631,
     "name":"Danny Farquhar",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19560,11 +20191,12 @@ const players = {
     "H":39.4,
     "H + BB":""
   },
-  "632": {
+  {
+    "id":632,
     "name":"Jarred Cosart",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19591,11 +20223,12 @@ const players = {
     "H":83.5,
     "H + BB":""
   },
-  "633": {
+  {
+    "id":633,
     "name":"Zach Putnam",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19622,11 +20255,12 @@ const players = {
     "H":42.8,
     "H + BB":""
   },
-  "634": {
+  {
+    "id":634,
     "name":"Mike Bolsinger",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19653,11 +20287,12 @@ const players = {
     "H":47.1,
     "H + BB":""
   },
-  "635": {
+  {
+    "id":635,
     "name":"Mike Morin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19684,11 +20319,12 @@ const players = {
     "H":33.8,
     "H + BB":""
   },
-  "636": {
+  {
+    "id":636,
     "name":"Luke Hochevar",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19715,11 +20351,12 @@ const players = {
     "H":43.7,
     "H + BB":""
   },
-  "637": {
+  {
+    "id":637,
     "name":"Luis Garcia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19746,11 +20383,12 @@ const players = {
     "H":46.5,
     "H + BB":""
   },
-  "638": {
+  {
+    "id":638,
     "name":"John Axford",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19777,11 +20415,12 @@ const players = {
     "H":44.8,
     "H + BB":""
   },
-  "639": {
+  {
+    "id":639,
     "name":"Justin Miller",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19808,11 +20447,12 @@ const players = {
     "H":45.5,
     "H + BB":""
   },
-  "640": {
+  {
+    "id":640,
     "name":"Alex Wilson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19839,11 +20479,12 @@ const players = {
     "H":70.9,
     "H + BB":""
   },
-  "641": {
+  {
+    "id":641,
     "name":"Cody Martin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19870,11 +20511,12 @@ const players = {
     "H":41.7,
     "H + BB":""
   },
-  "642": {
+  {
+    "id":642,
     "name":"Jared Hughes",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19901,11 +20543,12 @@ const players = {
     "H":52.6,
     "H + BB":""
   },
-  "643": {
+  {
+    "id":643,
     "name":"Jerry Blevins",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19932,11 +20575,12 @@ const players = {
     "H":29.9,
     "H + BB":""
   },
-  "644": {
+  {
+    "id":644,
     "name":"Edwin Jackson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -19963,11 +20607,12 @@ const players = {
     "H":57.2,
     "H + BB":""
   },
-  "645": {
+  {
+    "id":645,
     "name":"Frankie Montas",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -19994,11 +20639,12 @@ const players = {
     "H":43.2,
     "H + BB":""
   },
-  "646": {
+  {
+    "id":646,
     "name":"Adam Conley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20025,11 +20671,12 @@ const players = {
     "H":56.3,
     "H + BB":""
   },
-  "647": {
+  {
+    "id":647,
     "name":"Brandon McCarthy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20056,11 +20703,12 @@ const players = {
     "H":33.8,
     "H + BB":""
   },
-  "648": {
+  {
+    "id":648,
     "name":"Trevor Gott",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20087,11 +20735,12 @@ const players = {
     "H":47.7,
     "H + BB":""
   },
-  "649": {
+  {
+    "id":649,
     "name":"Steven Wright",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20118,11 +20767,12 @@ const players = {
     "H":76,
     "H + BB":""
   },
-  "650": {
+  {
+    "id":650,
     "name":"Chris Capuano",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20149,11 +20799,12 @@ const players = {
     "H":44.6,
     "H + BB":""
   },
-  "651": {
+  {
+    "id":651,
     "name":"Nick Vincent",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20180,11 +20831,12 @@ const players = {
     "H":37.9,
     "H + BB":""
   },
-  "652": {
+  {
+    "id":652,
     "name":"Ricky Nolasco",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20211,11 +20863,12 @@ const players = {
     "H":69.6,
     "H + BB":""
   },
-  "653": {
+  {
+    "id":653,
     "name":"Drew Pomeranz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20242,11 +20895,12 @@ const players = {
     "H":30.8,
     "H + BB":""
   },
-  "654": {
+  {
+    "id":654,
     "name":"Neftali Feliz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20273,11 +20927,12 @@ const players = {
     "H":45.6,
     "H + BB":""
   },
-  "655": {
+  {
+    "id":655,
     "name":"Mychal Givens",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20304,11 +20959,12 @@ const players = {
     "H":42.4,
     "H + BB":""
   },
-  "656": {
+  {
+    "id":656,
     "name":"Nicholas Tropeano",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20335,11 +20991,12 @@ const players = {
     "H":38.7,
     "H + BB":""
   },
-  "657": {
+  {
+    "id":657,
     "name":"Ian Thomas",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20366,11 +21023,12 @@ const players = {
     "H":33.6,
     "H + BB":""
   },
-  "658": {
+  {
+    "id":658,
     "name":"Cam Bedrosian",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20397,11 +21055,12 @@ const players = {
     "H":33.5,
     "H + BB":""
   },
-  "659": {
+  {
+    "id":659,
     "name":"Scott Feldman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20428,11 +21087,12 @@ const players = {
     "H":80.8,
     "H + BB":""
   },
-  "660": {
+  {
+    "id":660,
     "name":"Tyler Skaggs",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20459,11 +21119,12 @@ const players = {
     "H":36.2,
     "H + BB":""
   },
-  "661": {
+  {
+    "id":661,
     "name":"Scott Oberg",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20490,11 +21151,12 @@ const players = {
     "H":58.7,
     "H + BB":""
   },
-  "662": {
+  {
+    "id":662,
     "name":"Felipe Rivero",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20521,11 +21183,12 @@ const players = {
     "H":37.5,
     "H + BB":""
   },
-  "663": {
+  {
+    "id":663,
     "name":"Cody Anderson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20552,11 +21215,12 @@ const players = {
     "H":79.1,
     "H + BB":""
   },
-  "664": {
+  {
+    "id":664,
     "name":"Tony Zych",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20583,11 +21247,12 @@ const players = {
     "H":37.9,
     "H + BB":""
   },
-  "665": {
+  {
+    "id":665,
     "name":"Alex Meyer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20614,11 +21279,12 @@ const players = {
     "H":50.6,
     "H + BB":""
   },
-  "666": {
+  {
+    "id":666,
     "name":"Kyle Lobstein",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20645,11 +21311,12 @@ const players = {
     "H":71.8,
     "H + BB":""
   },
-  "667": {
+  {
+    "id":667,
     "name":"Shane Greene",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20676,11 +21343,12 @@ const players = {
     "H":69.8,
     "H + BB":""
   },
-  "668": {
+  {
+    "id":668,
     "name":"Tommy Layne",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20707,11 +21375,12 @@ const players = {
     "H":37.2,
     "H + BB":""
   },
-  "669": {
+  {
+    "id":669,
     "name":"Jordan Lyles",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20738,11 +21407,12 @@ const players = {
     "H":89,
     "H + BB":""
   },
-  "670": {
+  {
+    "id":670,
     "name":"T.J. House",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20769,11 +21439,12 @@ const players = {
     "H":60.5,
     "H + BB":""
   },
-  "671": {
+  {
+    "id":671,
     "name":"Fernando Abad",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20800,11 +21471,12 @@ const players = {
     "H":48.3,
     "H + BB":""
   },
-  "672": {
+  {
+    "id":672,
     "name":"Chris Withrow",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20831,11 +21503,12 @@ const players = {
     "H":32.5,
     "H + BB":""
   },
-  "673": {
+  {
+    "id":673,
     "name":"Carlos Frias",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20862,11 +21535,12 @@ const players = {
     "H":62.7,
     "H + BB":""
   },
-  "674": {
+  {
+    "id":674,
     "name":"Jake Petricka",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20893,11 +21567,12 @@ const players = {
     "H":49.6,
     "H + BB":""
   },
-  "675": {
+  {
+    "id":675,
     "name":"Jameson Taillon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20924,11 +21599,12 @@ const players = {
     "H":33.1,
     "H + BB":""
   },
-  "676": {
+  {
+    "id":676,
     "name":"Michael Blazek",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -20955,11 +21631,12 @@ const players = {
     "H":56.2,
     "H + BB":""
   },
-  "677": {
+  {
+    "id":677,
     "name":"Felix Doubront",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -20986,11 +21663,12 @@ const players = {
     "H":47.3,
     "H + BB":""
   },
-  "678": {
+  {
+    "id":678,
     "name":"Matt Andriese",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21017,11 +21695,12 @@ const players = {
     "H":52.7,
     "H + BB":""
   },
-  "679": {
+  {
+    "id":679,
     "name":"Sam Freeman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21048,11 +21727,12 @@ const players = {
     "H":34.2,
     "H + BB":""
   },
-  "680": {
+  {
+    "id":680,
     "name":"Josh Collmenter",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21079,11 +21759,12 @@ const players = {
     "H":60.4,
     "H + BB":""
   },
-  "681": {
+  {
+    "id":681,
     "name":"Dan Jennings",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21110,11 +21791,12 @@ const players = {
     "H":51.3,
     "H + BB":""
   },
-  "682": {
+  {
+    "id":682,
     "name":"Bruce Rondon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21141,11 +21823,12 @@ const players = {
     "H":31.3,
     "H + BB":""
   },
-  "683": {
+  {
+    "id":683,
     "name":"Sean Gilmartin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21172,11 +21855,12 @@ const players = {
     "H":32.7,
     "H + BB":""
   },
-  "684": {
+  {
+    "id":684,
     "name":"Manny Banuelos",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21203,11 +21887,12 @@ const players = {
     "H":64.3,
     "H + BB":""
   },
-  "685": {
+  {
+    "id":685,
     "name":"Tyler Wilson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21234,11 +21919,12 @@ const players = {
     "H":79.5,
     "H + BB":""
   },
-  "686": {
+  {
+    "id":686,
     "name":"Blake Wood",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21265,11 +21951,12 @@ const players = {
     "H":32.8,
     "H + BB":""
   },
-  "687": {
+  {
+    "id":687,
     "name":"Jeanmar Gomez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21296,11 +21983,12 @@ const players = {
     "H":63.6,
     "H + BB":""
   },
-  "688": {
+  {
+    "id":688,
     "name":"Michael Tonkin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21327,11 +22015,12 @@ const players = {
     "H":36.8,
     "H + BB":""
   },
-  "689": {
+  {
+    "id":689,
     "name":"Erik Goeddel",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21358,11 +22047,12 @@ const players = {
     "H":37.3,
     "H + BB":""
   },
-  "690": {
+  {
+    "id":690,
     "name":"Jose Urena",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21389,11 +22079,12 @@ const players = {
     "H":67.4,
     "H + BB":""
   },
-  "691": {
+  {
+    "id":691,
     "name":"Mike Montgomery",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21420,11 +22111,12 @@ const players = {
     "H":46,
     "H + BB":""
   },
-  "692": {
+  {
+    "id":692,
     "name":"Zachary Davies",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21451,11 +22143,12 @@ const players = {
     "H":56.6,
     "H + BB":""
   },
-  "693": {
+  {
+    "id":693,
     "name":"Clayton Richard",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21482,11 +22175,12 @@ const players = {
     "H":40.8,
     "H + BB":""
   },
-  "694": {
+  {
+    "id":694,
     "name":"Dan Otero",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21513,11 +22207,12 @@ const players = {
     "H":47.7,
     "H + BB":""
   },
-  "695": {
+  {
+    "id":695,
     "name":"Justin Nicolino",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21544,11 +22239,12 @@ const players = {
     "H":86.3,
     "H + BB":""
   },
-  "696": {
+  {
+    "id":696,
     "name":"Aaron Brooks",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21575,11 +22271,12 @@ const players = {
     "H":54.7,
     "H + BB":""
   },
-  "697": {
+  {
+    "id":697,
     "name":"Deolis Guerra",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21606,11 +22303,12 @@ const players = {
     "H":35.8,
     "H + BB":""
   },
-  "698": {
+  {
+    "id":698,
     "name":"Ariel Pena",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21637,11 +22335,12 @@ const players = {
     "H":44.9,
     "H + BB":""
   },
-  "699": {
+  {
+    "id":699,
     "name":"Tyler Glasnow",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21668,11 +22367,12 @@ const players = {
     "H":31.6,
     "H + BB":""
   },
-  "700": {
+  {
+    "id":700,
     "name":"J.R. Graham",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21699,11 +22399,12 @@ const players = {
     "H":48,
     "H + BB":""
   },
-  "701": {
+  {
+    "id":701,
     "name":"Dillon Gee",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21730,11 +22431,12 @@ const players = {
     "H":53.7,
     "H + BB":""
   },
-  "702": {
+  {
+    "id":702,
     "name":"Kyle Zimmer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21761,11 +22463,12 @@ const players = {
     "H":33.5,
     "H + BB":""
   },
-  "703": {
+  {
+    "id":703,
     "name":"Miguel Socolovich",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21792,11 +22495,12 @@ const players = {
     "H":32.6,
     "H + BB":""
   },
-  "704": {
+  {
+    "id":704,
     "name":"Enny Romero",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21823,11 +22527,12 @@ const players = {
     "H":32.3,
     "H + BB":""
   },
-  "705": {
+  {
+    "id":705,
     "name":"Tanner Scheppers",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21854,11 +22559,12 @@ const players = {
     "H":43,
     "H + BB":""
   },
-  "706": {
+  {
+    "id":706,
     "name":"Keyvius Sampson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21885,11 +22591,12 @@ const players = {
     "H":62.1,
     "H + BB":""
   },
-  "707": {
+  {
+    "id":707,
     "name":"Michael Feliz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21916,11 +22623,12 @@ const players = {
     "H":37.6,
     "H + BB":""
   },
-  "708": {
+  {
+    "id":708,
     "name":"Miguel Almonte",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -21947,11 +22655,12 @@ const players = {
     "H":38.4,
     "H + BB":""
   },
-  "709": {
+  {
+    "id":709,
     "name":"Matt Albers",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -21978,11 +22687,12 @@ const players = {
     "H":50.7,
     "H + BB":""
   },
-  "710": {
+  {
+    "id":710,
     "name":"Henderson Alvarez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -22009,11 +22719,12 @@ const players = {
     "H":60.7,
     "H + BB":""
   },
-  "711": {
+  {
+    "id":711,
     "name":"Justin De Fratus",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22040,11 +22751,12 @@ const players = {
     "H":49.1,
     "H + BB":""
   },
-  "712": {
+  {
+    "id":712,
     "name":"Todd Redmond",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -22071,11 +22783,12 @@ const players = {
     "H":49.2,
     "H + BB":""
   },
-  "713": {
+  {
+    "id":713,
     "name":"Matt Barnes",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22102,11 +22815,12 @@ const players = {
     "H":31.7,
     "H + BB":""
   },
-  "714": {
+  {
+    "id":714,
     "name":"Jeff Manship",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22133,11 +22847,12 @@ const players = {
     "H":37.4,
     "H + BB":""
   },
-  "715": {
+  {
+    "id":715,
     "name":"Edward Mujica",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22164,11 +22879,12 @@ const players = {
     "H":40.5,
     "H + BB":""
   },
-  "716": {
+  {
+    "id":716,
     "name":"Christian Friedrich",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22195,11 +22911,12 @@ const players = {
     "H":44.4,
     "H + BB":""
   },
-  "717": {
+  {
+    "id":717,
     "name":"Bo Schultz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22226,11 +22943,12 @@ const players = {
     "H":39.3,
     "H + BB":""
   },
-  "718": {
+  {
+    "id":718,
     "name":"Blake Snell",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -22257,11 +22975,12 @@ const players = {
     "H":36.7,
     "H + BB":""
   },
-  "719": {
+  {
+    "id":719,
     "name":"T.J. McFarland",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22288,11 +23007,12 @@ const players = {
     "H":40.1,
     "H + BB":""
   },
-  "720": {
+  {
+    "id":720,
     "name":"Nick Martinez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -22319,11 +23039,12 @@ const players = {
     "H":108.2,
     "H + BB":""
   },
-  "721": {
+  {
+    "id":721,
     "name":"Asher Wojciechowski",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -22350,11 +23071,12 @@ const players = {
     "H":59.3,
     "H + BB":""
   },
-  "722": {
+  {
+    "id":722,
     "name":"James Russell",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22381,11 +23103,12 @@ const players = {
     "H":34.1,
     "H + BB":""
   },
-  "723": {
+  {
+    "id":723,
     "name":"Mike Wright",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -22412,11 +23135,12 @@ const players = {
     "H":60.1,
     "H + BB":""
   },
-  "724": {
+  {
+    "id":724,
     "name":"Kyle Lohse",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -22443,11 +23167,12 @@ const players = {
     "H":60.2,
     "H + BB":""
   },
-  "725": {
+  {
+    "id":725,
     "name":"Scott Alexander",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22474,11 +23199,12 @@ const players = {
     "H":47.6,
     "H + BB":""
   },
-  "726": {
+  {
+    "id":726,
     "name":"Ryan Tepera",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22505,11 +23231,12 @@ const players = {
     "H":30.8,
     "H + BB":""
   },
-  "727": {
+  {
+    "id":727,
     "name":"Carlos Villanueva",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22536,11 +23263,12 @@ const players = {
     "H":34.5,
     "H + BB":""
   },
-  "728": {
+  {
+    "id":728,
     "name":"Luis Cessa",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -22567,11 +23295,12 @@ const players = {
     "H":46.1,
     "H + BB":""
   },
-  "729": {
+  {
+    "id":729,
     "name":"Elvis Araujo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22598,11 +23327,12 @@ const players = {
     "H":31.9,
     "H + BB":""
   },
-  "730": {
+  {
+    "id":730,
     "name":"Phil Klein",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22629,11 +23359,12 @@ const players = {
     "H":32,
     "H + BB":""
   },
-  "731": {
+  {
+    "id":731,
     "name":"Michael Fulmer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -22660,11 +23391,12 @@ const players = {
     "H":36.5,
     "H + BB":""
   },
-  "732": {
+  {
+    "id":732,
     "name":"Justin Masterson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -22691,11 +23423,12 @@ const players = {
     "H":41.2,
     "H + BB":""
   },
-  "733": {
+  {
+    "id":733,
     "name":"Craig Breslow",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22722,11 +23455,12 @@ const players = {
     "H":40.6,
     "H + BB":""
   },
-  "734": {
+  {
+    "id":734,
     "name":"Hector Neris",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22753,11 +23487,12 @@ const players = {
     "H":39.3,
     "H + BB":""
   },
-  "735": {
+  {
+    "id":735,
     "name":"Arnold Leon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22784,11 +23519,12 @@ const players = {
     "H":33.9,
     "H + BB":""
   },
-  "736": {
+  {
+    "id":736,
     "name":"Jonathan Aro",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22815,11 +23551,12 @@ const players = {
     "H":34.9,
     "H + BB":""
   },
-  "737": {
+  {
+    "id":737,
     "name":"Rob Scahill",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22846,11 +23583,12 @@ const players = {
     "H":41.9,
     "H + BB":""
   },
-  "738": {
+  {
+    "id":738,
     "name":"Chi Chi Gonzalez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -22877,11 +23615,12 @@ const players = {
     "H":110.2,
     "H + BB":""
   },
-  "739": {
+  {
+    "id":739,
     "name":"Stephen Johnson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22908,11 +23647,12 @@ const players = {
     "H":28.3,
     "H + BB":""
   },
-  "740": {
+  {
+    "id":740,
     "name":"Kevin Chapman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22939,11 +23679,12 @@ const players = {
     "H":31.9,
     "H + BB":""
   },
-  "741": {
+  {
+    "id":741,
     "name":"Ernesto Frieri",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -22970,11 +23711,12 @@ const players = {
     "H":32.7,
     "H + BB":""
   },
-  "742": {
+  {
+    "id":742,
     "name":"Sean Nolin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23001,11 +23743,12 @@ const players = {
     "H":42.1,
     "H + BB":""
   },
-  "743": {
+  {
+    "id":743,
     "name":"Buck Farmer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23032,11 +23775,12 @@ const players = {
     "H":52.3,
     "H + BB":""
   },
-  "744": {
+  {
+    "id":744,
     "name":"Jacob Turner",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23063,11 +23807,12 @@ const players = {
     "H":52.7,
     "H + BB":""
   },
-  "745": {
+  {
+    "id":745,
     "name":"Hector Noesi",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23094,11 +23839,12 @@ const players = {
     "H":35.1,
     "H + BB":""
   },
-  "746": {
+  {
+    "id":746,
     "name":"Adam Morgan",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23125,11 +23871,12 @@ const players = {
     "H":59.5,
     "H + BB":""
   },
-  "747": {
+  {
+    "id":747,
     "name":"David Buchanan",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23156,11 +23903,12 @@ const players = {
     "H":53.4,
     "H + BB":""
   },
-  "748": {
+  {
+    "id":748,
     "name":"Jerome Williams",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23187,11 +23935,12 @@ const players = {
     "H":43.1,
     "H + BB":""
   },
-  "749": {
+  {
+    "id":749,
     "name":"Christian Bergman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23218,11 +23967,12 @@ const players = {
     "H":43.7,
     "H + BB":""
   },
-  "750": {
+  {
+    "id":750,
     "name":"David Hale",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23249,11 +23999,12 @@ const players = {
     "H":51.5,
     "H + BB":""
   },
-  "751": {
+  {
+    "id":751,
     "name":"Anthony Bass",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23280,11 +24031,12 @@ const players = {
     "H":38.5,
     "H + BB":""
   },
-  "752": {
+  {
+    "id":752,
     "name":"Tyler Thornburg",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23311,11 +24063,12 @@ const players = {
     "H":34.2,
     "H + BB":""
   },
-  "753": {
+  {
+    "id":753,
     "name":"Jeremy Guthrie",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23342,11 +24095,12 @@ const players = {
     "H":44.6,
     "H + BB":""
   },
-  "754": {
+  {
+    "id":754,
     "name":"Kyle Ryan",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23373,11 +24127,12 @@ const players = {
     "H":35.1,
     "H + BB":""
   },
-  "755": {
+  {
+    "id":755,
     "name":"Tyler Cravy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23404,11 +24159,12 @@ const players = {
     "H":35.9,
     "H + BB":""
   },
-  "756": {
+  {
+    "id":756,
     "name":"Gonzalez Germen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23435,11 +24191,12 @@ const players = {
     "H":34.8,
     "H + BB":""
   },
-  "757": {
+  {
+    "id":757,
     "name":"Yohan Flande",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23466,11 +24223,12 @@ const players = {
     "H":49.8,
     "H + BB":""
   },
-  "758": {
+  {
+    "id":758,
     "name":"Tyler Matzek",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23497,11 +24255,12 @@ const players = {
     "H":50.1,
     "H + BB":""
   },
-  "759": {
+  {
+    "id":759,
     "name":"Daniel Webb",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23528,11 +24287,12 @@ const players = {
     "H":35.1,
     "H + BB":""
   },
-  "760": {
+  {
+    "id":760,
     "name":"Eddie Butler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23559,11 +24319,12 @@ const players = {
     "H":55,
     "H + BB":""
   },
-  "761": {
+  {
+    "id":761,
     "name":"Chris Beck",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -23590,11 +24351,12 @@ const players = {
     "H":40.2,
     "H + BB":""
   },
-  "762": {
+  {
+    "id":762,
     "name":"Scott Carroll",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23621,11 +24383,12 @@ const players = {
     "H":41.8,
     "H + BB":""
   },
-  "763": {
+  {
+    "id":763,
     "name":"Matt Reynolds",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23652,11 +24415,12 @@ const players = {
     "H":30.2,
     "H + BB":""
   },
-  "764": {
+  {
+    "id":764,
     "name":"Marc Rzepczynski",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23683,11 +24447,12 @@ const players = {
     "H":29.7,
     "H + BB":""
   },
-  "765": {
+  {
+    "id":765,
     "name":"Ryan Pressly",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23714,11 +24479,12 @@ const players = {
     "H":31.6,
     "H + BB":""
   },
-  "766": {
+  {
+    "id":766,
     "name":"Justin Grimm",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23745,11 +24511,12 @@ const players = {
     "H":26,
     "H + BB":""
   },
-  "767": {
+  {
+    "id":767,
     "name":"Josh Osich",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23776,11 +24543,12 @@ const players = {
     "H":27.5,
     "H + BB":""
   },
-  "768": {
+  {
+    "id":768,
     "name":"Chris O’Grady",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23807,11 +24575,12 @@ const players = {
     "H":29.6,
     "H + BB":""
   },
-  "769": {
+  {
+    "id":769,
     "name":"Caleb Cotham",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23838,11 +24607,12 @@ const players = {
     "H":30.2,
     "H + BB":""
   },
-  "770": {
+  {
+    "id":770,
     "name":"Ian Krol",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23869,11 +24639,12 @@ const players = {
     "H":27.9,
     "H + BB":""
   },
-  "771": {
+  {
+    "id":771,
     "name":"Ryan Mattheus",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23900,11 +24671,12 @@ const players = {
     "H":32.5,
     "H + BB":""
   },
-  "772": {
+  {
+    "id":772,
     "name":"Javier Lopez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23931,11 +24703,12 @@ const players = {
     "H":31.3,
     "H + BB":""
   },
-  "773": {
+  {
+    "id":773,
     "name":"Alexi Ogando",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23962,11 +24735,12 @@ const players = {
     "H":29.7,
     "H + BB":""
   },
-  "774": {
+  {
+    "id":774,
     "name":"Shawn Armstrong",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -23993,11 +24767,12 @@ const players = {
     "H":25.5,
     "H + BB":""
   },
-  "775": {
+  {
+    "id":775,
     "name":"Severino Gonzalez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -24024,11 +24799,12 @@ const players = {
     "H":32.6,
     "H + BB":""
   },
-  "776": {
+  {
+    "id":776,
     "name":"Bryan Mitchell",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24055,11 +24831,12 @@ const players = {
     "H":28.9,
     "H + BB":""
   },
-  "777": {
+  {
+    "id":777,
     "name":"Jason Grilli",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"CP",
     "PA":null,
@@ -24086,11 +24863,12 @@ const players = {
     "H":25.6,
     "H + BB":""
   },
-  "778": {
+  {
+    "id":778,
     "name":"Ryan Webb",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24117,11 +24895,12 @@ const players = {
     "H":31.8,
     "H + BB":""
   },
-  "779": {
+  {
+    "id":779,
     "name":"Ryan Dull",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24148,11 +24927,12 @@ const players = {
     "H":29.3,
     "H + BB":""
   },
-  "780": {
+  {
+    "id":780,
     "name":"Dalier Hinojosa",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24179,11 +24959,12 @@ const players = {
     "H":28.9,
     "H + BB":""
   },
-  "781": {
+  {
+    "id":781,
     "name":"Drew VerHagen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24210,11 +24991,12 @@ const players = {
     "H":33.2,
     "H + BB":""
   },
-  "782": {
+  {
+    "id":782,
     "name":"Adam Liberatore",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24241,11 +25023,12 @@ const players = {
     "H":26.6,
     "H + BB":""
   },
-  "783": {
+  {
+    "id":783,
     "name":"Roberto Hernandez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -24272,11 +25055,12 @@ const players = {
     "H":34.1,
     "H + BB":""
   },
-  "784": {
+  {
+    "id":784,
     "name":"Jordan Walden",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24303,11 +25087,12 @@ const players = {
     "H":25.2,
     "H + BB":""
   },
-  "785": {
+  {
+    "id":785,
     "name":"Chris Narveson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24334,11 +25119,12 @@ const players = {
     "H":28.1,
     "H + BB":""
   },
-  "786": {
+  {
+    "id":786,
     "name":"Carlos Contreras",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24365,11 +25151,12 @@ const players = {
     "H":26,
     "H + BB":""
   },
-  "787": {
+  {
+    "id":787,
     "name":"Alfredo Simon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -24396,11 +25183,12 @@ const players = {
     "H":31.5,
     "H + BB":""
   },
-  "788": {
+  {
+    "id":788,
     "name":"Dominic Leone",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24427,11 +25215,12 @@ const players = {
     "H":26.6,
     "H + BB":""
   },
-  "789": {
+  {
+    "id":789,
     "name":"Cory Rasmus",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24458,11 +25247,12 @@ const players = {
     "H":24.3,
     "H + BB":""
   },
-  "790": {
+  {
+    "id":790,
     "name":"Austin Adams",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24489,11 +25279,12 @@ const players = {
     "H":26.6,
     "H + BB":""
   },
-  "791": {
+  {
+    "id":791,
     "name":"Jairo Diaz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24520,11 +25311,12 @@ const players = {
     "H":27.5,
     "H + BB":""
   },
-  "792": {
+  {
+    "id":792,
     "name":"Alex Torres",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24551,11 +25343,12 @@ const players = {
     "H":25.1,
     "H + BB":""
   },
-  "793": {
+  {
+    "id":793,
     "name":"Jeff Hoffman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -24582,11 +25375,12 @@ const players = {
     "H":31,
     "H + BB":""
   },
-  "794": {
+  {
+    "id":794,
     "name":"Daniel Winkler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24613,11 +25407,12 @@ const players = {
     "H":26.5,
     "H + BB":""
   },
-  "795": {
+  {
+    "id":795,
     "name":"Tommy Kahnle",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24644,11 +25439,12 @@ const players = {
     "H":25.2,
     "H + BB":""
   },
-  "796": {
+  {
+    "id":796,
     "name":"Steve Delabar",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24675,11 +25471,12 @@ const players = {
     "H":25.8,
     "H + BB":""
   },
-  "797": {
+  {
+    "id":797,
     "name":"Silvino Bracho",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24706,11 +25503,12 @@ const players = {
     "H":23.9,
     "H + BB":""
   },
-  "798": {
+  {
+    "id":798,
     "name":"Jhoulys Chacin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -24737,11 +25535,12 @@ const players = {
     "H":29.9,
     "H + BB":""
   },
-  "799": {
+  {
+    "id":799,
     "name":"Aaron Harang",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -24768,11 +25567,12 @@ const players = {
     "H":31.3,
     "H + BB":""
   },
-  "800": {
+  {
+    "id":800,
     "name":"Nick Hagadone",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24799,11 +25599,12 @@ const players = {
     "H":23.9,
     "H + BB":""
   },
-  "801": {
+  {
+    "id":801,
     "name":"Joba Chamberlain",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24830,11 +25631,12 @@ const players = {
     "H":26.1,
     "H + BB":""
   },
-  "802": {
+  {
+    "id":802,
     "name":"Joe Thatcher",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24861,11 +25663,12 @@ const players = {
     "H":27,
     "H + BB":""
   },
-  "803": {
+  {
+    "id":803,
     "name":"Neil Ramirez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24892,11 +25695,12 @@ const players = {
     "H":23.6,
     "H + BB":""
   },
-  "804": {
+  {
+    "id":804,
     "name":"Brandon Morrow",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -24923,11 +25727,12 @@ const players = {
     "H":28,
     "H + BB":""
   },
-  "805": {
+  {
+    "id":805,
     "name":"Ryan Weber",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -24954,11 +25759,12 @@ const players = {
     "H":30.4,
     "H + BB":""
   },
-  "806": {
+  {
+    "id":806,
     "name":"Ryan Cook",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -24985,11 +25791,12 @@ const players = {
     "H":25.7,
     "H + BB":""
   },
-  "807": {
+  {
+    "id":807,
     "name":"Mayckol Guaipe",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25016,11 +25823,12 @@ const players = {
     "H":27.2,
     "H + BB":""
   },
-  "808": {
+  {
+    "id":808,
     "name":"Yovani Gallardo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25047,11 +25855,12 @@ const players = {
     "H":28.8,
     "H + BB":""
   },
-  "809": {
+  {
+    "id":809,
     "name":"Wandy Rodriguez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25078,11 +25887,12 @@ const players = {
     "H":28.2,
     "H + BB":""
   },
-  "810": {
+  {
+    "id":810,
     "name":"Ross Detwiler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25109,11 +25919,12 @@ const players = {
     "H":28,
     "H + BB":""
   },
-  "811": {
+  {
+    "id":811,
     "name":"Eric Stults",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25140,11 +25951,12 @@ const players = {
     "H":28.9,
     "H + BB":""
   },
-  "812": {
+  {
+    "id":812,
     "name":"Sean O’Sullivan",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25171,11 +25983,12 @@ const players = {
     "H":30.2,
     "H + BB":""
   },
-  "813": {
+  {
+    "id":813,
     "name":"Tim Hudson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25202,11 +26015,12 @@ const players = {
     "H":28.8,
     "H + BB":""
   },
-  "814": {
+  {
+    "id":814,
     "name":"Samuel Tuivailala",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25233,11 +26047,12 @@ const players = {
     "H":22.3,
     "H + BB":""
   },
-  "815": {
+  {
+    "id":815,
     "name":"Pat Venditte",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25264,11 +26079,12 @@ const players = {
     "H":25.9,
     "H + BB":""
   },
-  "816": {
+  {
+    "id":816,
     "name":"Chaz Roe",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25295,11 +26111,12 @@ const players = {
     "H":25,
     "H + BB":""
   },
-  "817": {
+  {
+    "id":817,
     "name":"Branden Pinder",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25326,11 +26143,12 @@ const players = {
     "H":25,
     "H + BB":""
   },
-  "818": {
+  {
+    "id":818,
     "name":"Esmil Rogers",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25357,11 +26175,12 @@ const players = {
     "H":25.9,
     "H + BB":""
   },
-  "819": {
+  {
+    "id":819,
     "name":"Mat Latos",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25388,11 +26207,12 @@ const players = {
     "H":25.9,
     "H + BB":""
   },
-  "820": {
+  {
+    "id":820,
     "name":"Chad Billingsley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25419,11 +26239,12 @@ const players = {
     "H":28.6,
     "H + BB":""
   },
-  "821": {
+  {
+    "id":821,
     "name":"Jason Marquis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25450,11 +26271,12 @@ const players = {
     "H":26.8,
     "H + BB":""
   },
-  "822": {
+  {
+    "id":822,
     "name":"Cesar Ramos",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25481,11 +26303,12 @@ const players = {
     "H":26,
     "H + BB":""
   },
-  "823": {
+  {
+    "id":823,
     "name":"Tom Gorzelanny",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25512,11 +26335,12 @@ const players = {
     "H":24.3,
     "H + BB":""
   },
-  "824": {
+  {
+    "id":824,
     "name":"Louis Coleman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25543,11 +26367,12 @@ const players = {
     "H":24.4,
     "H + BB":""
   },
-  "825": {
+  {
+    "id":825,
     "name":"David Carpenter",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25574,11 +26399,12 @@ const players = {
     "H":23.5,
     "H + BB":""
   },
-  "826": {
+  {
+    "id":826,
     "name":"Matt Marksberry",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25605,11 +26431,12 @@ const players = {
     "H":24.3,
     "H + BB":""
   },
-  "827": {
+  {
+    "id":827,
     "name":"Jon Edwards",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25636,11 +26463,12 @@ const players = {
     "H":20.6,
     "H + BB":""
   },
-  "828": {
+  {
+    "id":828,
     "name":"Tim Cooney",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25667,11 +26495,12 @@ const players = {
     "H":25.7,
     "H + BB":""
   },
-  "829": {
+  {
+    "id":829,
     "name":"Jorge Lopez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25698,11 +26527,12 @@ const players = {
     "H":25.7,
     "H + BB":""
   },
-  "830": {
+  {
+    "id":830,
     "name":"David Rollins",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25729,11 +26559,12 @@ const players = {
     "H":23.4,
     "H + BB":""
   },
-  "831": {
+  {
+    "id":831,
     "name":"Tim Lincecum",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25760,11 +26591,12 @@ const players = {
     "H":26,
     "H + BB":""
   },
-  "832": {
+  {
+    "id":832,
     "name":"Brian Ellington",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25791,11 +26623,12 @@ const players = {
     "H":22.3,
     "H + BB":""
   },
-  "833": {
+  {
+    "id":833,
     "name":"Spencer Patton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25822,11 +26655,12 @@ const players = {
     "H":20.6,
     "H + BB":""
   },
-  "834": {
+  {
+    "id":834,
     "name":"Radhames Liz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -25853,11 +26687,12 @@ const players = {
     "H":20.9,
     "H + BB":""
   },
-  "835": {
+  {
+    "id":835,
     "name":"Shaun Marcum",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25884,11 +26719,12 @@ const players = {
     "H":24.9,
     "H + BB":""
   },
-  "836": {
+  {
+    "id":836,
     "name":"Casey Kelly",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25915,11 +26751,12 @@ const players = {
     "H":24.6,
     "H + BB":""
   },
-  "837": {
+  {
+    "id":837,
     "name":"Allen Webster",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25946,11 +26783,12 @@ const players = {
     "H":24.6,
     "H + BB":""
   },
-  "838": {
+  {
+    "id":838,
     "name":"Jon Moscot",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -25977,11 +26815,12 @@ const players = {
     "H":25.1,
     "H + BB":""
   },
-  "839": {
+  {
+    "id":839,
     "name":"Zach Lee",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26008,11 +26847,12 @@ const players = {
     "H":25,
     "H + BB":""
   },
-  "840": {
+  {
+    "id":840,
     "name":"Randy Wolf",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26039,11 +26879,12 @@ const players = {
     "H":25.5,
     "H + BB":""
   },
-  "841": {
+  {
+    "id":841,
     "name":"A.J. Griffin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26070,11 +26911,12 @@ const players = {
     "H":25.5,
     "H + BB":""
   },
-  "842": {
+  {
+    "id":842,
     "name":"Brandon Beachy",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26101,11 +26943,12 @@ const players = {
     "H":24.6,
     "H + BB":""
   },
-  "843": {
+  {
+    "id":843,
     "name":"Robert Stephenson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26132,11 +26975,12 @@ const players = {
     "H":21.7,
     "H + BB":""
   },
-  "844": {
+  {
+    "id":844,
     "name":"Archie Bradley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26163,11 +27007,12 @@ const players = {
     "H":23.6,
     "H + BB":""
   },
-  "845": {
+  {
+    "id":845,
     "name":"Anthony Ranaudo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26194,11 +27039,12 @@ const players = {
     "H":26.5,
     "H + BB":""
   },
-  "846": {
+  {
+    "id":846,
     "name":"Josh Smith",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26225,11 +27071,12 @@ const players = {
     "H":24.6,
     "H + BB":""
   },
-  "847": {
+  {
+    "id":847,
     "name":"David Holmberg",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26256,11 +27103,12 @@ const players = {
     "H":26.6,
     "H + BB":""
   },
-  "848": {
+  {
+    "id":848,
     "name":"Tsuyoshi Wada",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26287,11 +27135,12 @@ const players = {
     "H":24.1,
     "H + BB":""
   },
-  "849": {
+  {
+    "id":849,
     "name":"A.J. Cole",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26318,11 +27167,12 @@ const players = {
     "H":25,
     "H + BB":""
   },
-  "850": {
+  {
+    "id":850,
     "name":"Alec Asher",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26349,11 +27199,12 @@ const players = {
     "H":25.1,
     "H + BB":""
   },
-  "851": {
+  {
+    "id":851,
     "name":"Adalberto Mejia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26380,11 +27231,12 @@ const players = {
     "H":23.8,
     "H + BB":""
   },
-  "852": {
+  {
+    "id":852,
     "name":"Tyler Wagner",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26411,11 +27263,12 @@ const players = {
     "H":26.7,
     "H + BB":""
   },
-  "853": {
+  {
+    "id":853,
     "name":"Zack Godley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26442,11 +27295,12 @@ const players = {
     "H":24.5,
     "H + BB":""
   },
-  "854": {
+  {
+    "id":854,
     "name":"Brad Peacock",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26473,11 +27327,12 @@ const players = {
     "H":23.1,
     "H + BB":""
   },
-  "855": {
+  {
+    "id":855,
     "name":"Kevin Correia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -26504,11 +27359,12 @@ const players = {
     "H":27.7,
     "H + BB":""
   },
-  "856": {
+  {
+    "id":856,
     "name":"Marcos Mateo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26535,11 +27391,12 @@ const players = {
     "H":20.4,
     "H + BB":""
   },
-  "857": {
+  {
+    "id":857,
     "name":"Evan Rutckyj",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26566,11 +27423,12 @@ const players = {
     "H":21.7,
     "H + BB":""
   },
-  "858": {
+  {
+    "id":858,
     "name":"Kirby Yates",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26597,11 +27455,12 @@ const players = {
     "H":21.6,
     "H + BB":""
   },
-  "859": {
+  {
+    "id":859,
     "name":"Mitch Harris",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26628,11 +27487,12 @@ const players = {
     "H":24.4,
     "H + BB":""
   },
-  "860": {
+  {
+    "id":860,
     "name":"Tommy Hunter",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26659,11 +27519,12 @@ const players = {
     "H":22.9,
     "H + BB":""
   },
-  "861": {
+  {
+    "id":861,
     "name":"Burke Badenhop",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26690,11 +27551,12 @@ const players = {
     "H":26.7,
     "H + BB":""
   },
-  "862": {
+  {
+    "id":862,
     "name":"Dale Thayer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26721,11 +27583,12 @@ const players = {
     "H":24,
     "H + BB":""
   },
-  "863": {
+  {
+    "id":863,
     "name":"Brandon Gomes",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26752,11 +27615,12 @@ const players = {
     "H":22.7,
     "H + BB":""
   },
-  "864": {
+  {
+    "id":864,
     "name":"Blaine Boyer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26783,11 +27647,12 @@ const players = {
     "H":25,
     "H + BB":""
   },
-  "865": {
+  {
+    "id":865,
     "name":"Ray Marimon",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26814,11 +27679,12 @@ const players = {
     "H":24.9,
     "H + BB":""
   },
-  "866": {
+  {
+    "id":866,
     "name":"Josh Ravin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26845,11 +27711,12 @@ const players = {
     "H":20,
     "H + BB":""
   },
-  "867": {
+  {
+    "id":867,
     "name":"Matt Belisle",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26876,11 +27743,12 @@ const players = {
     "H":24.9,
     "H + BB":""
   },
-  "868": {
+  {
+    "id":868,
     "name":"Zach Jones",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26907,11 +27775,12 @@ const players = {
     "H":21.1,
     "H + BB":""
   },
-  "869": {
+  {
+    "id":869,
     "name":"Pedro Villarreal",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26938,11 +27807,12 @@ const players = {
     "H":24,
     "H + BB":""
   },
-  "870": {
+  {
+    "id":870,
     "name":"Josh Martin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -26969,11 +27839,12 @@ const players = {
     "H":22.4,
     "H + BB":""
   },
-  "871": {
+  {
+    "id":871,
     "name":"Jean Machi",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27000,11 +27871,12 @@ const players = {
     "H":24.3,
     "H + BB":""
   },
-  "872": {
+  {
+    "id":872,
     "name":"Jacob Lindgren",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27031,11 +27903,12 @@ const players = {
     "H":21,
     "H + BB":""
   },
-  "873": {
+  {
+    "id":873,
     "name":"Kyle Barraclough",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27062,11 +27935,12 @@ const players = {
     "H":20,
     "H + BB":""
   },
-  "874": {
+  {
+    "id":874,
     "name":"R.J. Alvarez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27093,11 +27967,12 @@ const players = {
     "H":21.5,
     "H + BB":""
   },
-  "875": {
+  {
+    "id":875,
     "name":"Michael Mariot",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27124,11 +27999,12 @@ const players = {
     "H":22.3,
     "H + BB":""
   },
-  "876": {
+  {
+    "id":876,
     "name":"Jeff Francis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27155,11 +28031,12 @@ const players = {
     "H":22.4,
     "H + BB":""
   },
-  "877": {
+  {
+    "id":877,
     "name":"Cesar Jimenez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27186,11 +28063,12 @@ const players = {
     "H":22.9,
     "H + BB":""
   },
-  "878": {
+  {
+    "id":878,
     "name":"J.C. Ramirez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27217,11 +28095,12 @@ const players = {
     "H":22.1,
     "H + BB":""
   },
-  "879": {
+  {
+    "id":879,
     "name":"David Goforth",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27248,11 +28127,12 @@ const players = {
     "H":23.4,
     "H + BB":""
   },
-  "880": {
+  {
+    "id":880,
     "name":"Scott Copeland",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -27279,11 +28159,12 @@ const players = {
     "H":26.3,
     "H + BB":""
   },
-  "881": {
+  {
+    "id":881,
     "name":"Jason Garcia",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27310,11 +28191,12 @@ const players = {
     "H":22,
     "H + BB":""
   },
-  "882": {
+  {
+    "id":882,
     "name":"Charlie Furbush",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27341,11 +28223,12 @@ const players = {
     "H":19.9,
     "H + BB":""
   },
-  "883": {
+  {
+    "id":883,
     "name":"Andrew Bellatti",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27372,11 +28255,12 @@ const players = {
     "H":21.4,
     "H + BB":""
   },
-  "884": {
+  {
+    "id":884,
     "name":"Joe Beimel",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27403,11 +28287,12 @@ const players = {
     "H":23,
     "H + BB":""
   },
-  "885": {
+  {
+    "id":885,
     "name":"Jason Frasor",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27434,11 +28319,12 @@ const players = {
     "H":20.6,
     "H + BB":""
   },
-  "886": {
+  {
+    "id":886,
     "name":"Nick Rumbelow",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27465,11 +28351,12 @@ const players = {
     "H":19.9,
     "H + BB":""
   },
-  "887": {
+  {
+    "id":887,
     "name":"Frank Garces",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27496,11 +28383,12 @@ const players = {
     "H":20.8,
     "H + BB":""
   },
-  "888": {
+  {
+    "id":888,
     "name":"Brandon Cunniff",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27527,11 +28415,12 @@ const players = {
     "H":19.8,
     "H + BB":""
   },
-  "889": {
+  {
+    "id":889,
     "name":"Joel Peralta",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27558,11 +28447,12 @@ const players = {
     "H":20.6,
     "H + BB":""
   },
-  "890": {
+  {
+    "id":890,
     "name":"Franklin Morales",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27589,11 +28479,12 @@ const players = {
     "H":21.7,
     "H + BB":""
   },
-  "891": {
+  {
+    "id":891,
     "name":"Rafael Betancourt",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27620,11 +28511,12 @@ const players = {
     "H":20.8,
     "H + BB":""
   },
-  "892": {
+  {
+    "id":892,
     "name":"Angel Nesbitt",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27651,11 +28543,12 @@ const players = {
     "H":22.4,
     "H + BB":""
   },
-  "893": {
+  {
+    "id":893,
     "name":"David Aardsma",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27682,11 +28575,12 @@ const players = {
     "H":19.6,
     "H + BB":""
   },
-  "894": {
+  {
+    "id":894,
     "name":"Al Alburquerque",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27713,11 +28607,12 @@ const players = {
     "H":18.6,
     "H + BB":""
   },
-  "895": {
+  {
+    "id":895,
     "name":"Neal Cotts",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27744,11 +28639,12 @@ const players = {
     "H":20.2,
     "H + BB":""
   },
-  "896": {
+  {
+    "id":896,
     "name":"LaTroy Hawkins",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27775,11 +28671,12 @@ const players = {
     "H":21.9,
     "H + BB":""
   },
-  "897": {
+  {
+    "id":897,
     "name":"Chris Martin",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27806,11 +28703,12 @@ const players = {
     "H":20.9,
     "H + BB":""
   },
-  "898": {
+  {
+    "id":898,
     "name":"Brooks Brown",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27837,11 +28735,12 @@ const players = {
     "H":20.9,
     "H + BB":""
   },
-  "899": {
+  {
+    "id":899,
     "name":"Brian Duensing",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27868,11 +28767,12 @@ const players = {
     "H":22,
     "H + BB":""
   },
-  "900": {
+  {
+    "id":900,
     "name":"Nick Masset",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27899,11 +28799,12 @@ const players = {
     "H":22,
     "H + BB":""
   },
-  "901": {
+  {
+    "id":901,
     "name":"Enrique Burgos",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27930,11 +28831,12 @@ const players = {
     "H":17.1,
     "H + BB":""
   },
-  "902": {
+  {
+    "id":902,
     "name":"Yohan Pino",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -27961,11 +28863,12 @@ const players = {
     "H":20.8,
     "H + BB":""
   },
-  "903": {
+  {
+    "id":903,
     "name":"Tim Stauffer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -27992,11 +28895,12 @@ const players = {
     "H":21.3,
     "H + BB":""
   },
-  "904": {
+  {
+    "id":904,
     "name":"Sammy Solis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28023,11 +28927,12 @@ const players = {
     "H":20.4,
     "H + BB":""
   },
-  "905": {
+  {
+    "id":905,
     "name":"Sam LeCure",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28054,11 +28959,12 @@ const players = {
     "H":21.1,
     "H + BB":""
   },
-  "906": {
+  {
+    "id":906,
     "name":"Samuel Deduno",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -28085,11 +28991,12 @@ const players = {
     "H":21.5,
     "H + BB":""
   },
-  "907": {
+  {
+    "id":907,
     "name":"Junior Guerra",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28116,11 +29023,12 @@ const players = {
     "H":17.1,
     "H + BB":""
   },
-  "908": {
+  {
+    "id":908,
     "name":"Alex Cobb",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -28147,11 +29055,12 @@ const players = {
     "H":19.8,
     "H + BB":""
   },
-  "909": {
+  {
+    "id":909,
     "name":"Brandon Cumpton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -28178,11 +29087,12 @@ const players = {
     "H":21.5,
     "H + BB":""
   },
-  "910": {
+  {
+    "id":910,
     "name":"Andre Rienzo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28209,11 +29119,12 @@ const players = {
     "H":19.7,
     "H + BB":""
   },
-  "911": {
+  {
+    "id":911,
     "name":"Scott Atchison",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28240,11 +29151,12 @@ const players = {
     "H":21.2,
     "H + BB":""
   },
-  "912": {
+  {
+    "id":912,
     "name":"Shae Simmons",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28271,11 +29183,12 @@ const players = {
     "H":17,
     "H + BB":""
   },
-  "913": {
+  {
+    "id":913,
     "name":"Alex Reyes",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -28302,11 +29215,12 @@ const players = {
     "H":18.1,
     "H + BB":""
   },
-  "914": {
+  {
+    "id":914,
     "name":"Dustin McGowan",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28333,11 +29247,12 @@ const players = {
     "H":18.6,
     "H + BB":""
   },
-  "915": {
+  {
+    "id":915,
     "name":"Zac Rosscup",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28364,11 +29279,12 @@ const players = {
     "H":15.5,
     "H + BB":""
   },
-  "916": {
+  {
+    "id":916,
     "name":"Logan Kensing",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28395,11 +29311,12 @@ const players = {
     "H":19.1,
     "H + BB":""
   },
-  "917": {
+  {
+    "id":917,
     "name":"Bobby Parnell",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28426,11 +29343,12 @@ const players = {
     "H":19.4,
     "H + BB":""
   },
-  "918": {
+  {
+    "id":918,
     "name":"Casey Janssen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28457,11 +29375,12 @@ const players = {
     "H":20.3,
     "H + BB":""
   },
-  "919": {
+  {
+    "id":919,
     "name":"Adam Loewen",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28488,11 +29407,12 @@ const players = {
     "H":17.1,
     "H + BB":""
   },
-  "920": {
+  {
+    "id":920,
     "name":"Heath Hembree",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28519,11 +29439,12 @@ const players = {
     "H":18.4,
     "H + BB":""
   },
-  "921": {
+  {
+    "id":921,
     "name":"Manny Parra",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28550,11 +29471,12 @@ const players = {
     "H":18.1,
     "H + BB":""
   },
-  "922": {
+  {
+    "id":922,
     "name":"Matt Stites",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28581,11 +29503,12 @@ const players = {
     "H":19,
     "H + BB":""
   },
-  "923": {
+  {
+    "id":923,
     "name":"Yoervis Medina",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28612,11 +29535,12 @@ const players = {
     "H":17.5,
     "H + BB":""
   },
-  "924": {
+  {
+    "id":924,
     "name":"Ryan O’Rourke",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28643,11 +29567,12 @@ const players = {
     "H":17.5,
     "H + BB":""
   },
-  "925": {
+  {
+    "id":925,
     "name":"Aaron Thompson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28674,11 +29599,12 @@ const players = {
     "H":20.2,
     "H + BB":""
   },
-  "926": {
+  {
+    "id":926,
     "name":"Ross Ohlendorf",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28705,11 +29631,12 @@ const players = {
     "H":16.8,
     "H + BB":""
   },
-  "927": {
+  {
+    "id":927,
     "name":"Kyle Crockett",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28736,11 +29663,12 @@ const players = {
     "H":17.4,
     "H + BB":""
   },
-  "928": {
+  {
+    "id":928,
     "name":"Nate Adcock",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28767,11 +29695,12 @@ const players = {
     "H":17.3,
     "H + BB":""
   },
-  "929": {
+  {
+    "id":929,
     "name":"Parker Bridwell",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -28798,11 +29727,12 @@ const players = {
     "H":18.5,
     "H + BB":""
   },
-  "930": {
+  {
+    "id":930,
     "name":"Tim Collins",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28829,11 +29759,12 @@ const players = {
     "H":15.7,
     "H + BB":""
   },
-  "931": {
+  {
+    "id":931,
     "name":"Cory Mazzoni",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28860,11 +29791,12 @@ const players = {
     "H":15.2,
     "H + BB":""
   },
-  "932": {
+  {
+    "id":932,
     "name":"Miguel Castro",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28891,11 +29823,12 @@ const players = {
     "H":16.7,
     "H + BB":""
   },
-  "933": {
+  {
+    "id":933,
     "name":"Sergio Santos",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28922,11 +29855,12 @@ const players = {
     "H":15.6,
     "H + BB":""
   },
-  "934": {
+  {
+    "id":934,
     "name":"Chad Jenkins",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28953,11 +29887,12 @@ const players = {
     "H":19.1,
     "H + BB":""
   },
-  "935": {
+  {
+    "id":935,
     "name":"Jeremy Affeldt",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -28984,11 +29919,12 @@ const players = {
     "H":16.5,
     "H + BB":""
   },
-  "936": {
+  {
+    "id":936,
     "name":"Eric O’Flaherty",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29015,11 +29951,12 @@ const players = {
     "H":16.9,
     "H + BB":""
   },
-  "937": {
+  {
+    "id":937,
     "name":"Matt Thornton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29046,11 +29983,12 @@ const players = {
     "H":16.7,
     "H + BB":""
   },
-  "938": {
+  {
+    "id":938,
     "name":"Ryan Merritt",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29077,11 +30015,12 @@ const players = {
     "H":16.7,
     "H + BB":""
   },
-  "939": {
+  {
+    "id":939,
     "name":"Dylan Ford Baker",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29108,11 +30047,12 @@ const players = {
     "H":16.4,
     "H + BB":""
   },
-  "940": {
+  {
+    "id":940,
     "name":"Damien Magnifico",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29139,11 +30079,12 @@ const players = {
     "H":15.6,
     "H + BB":""
   },
-  "941": {
+  {
+    "id":941,
     "name":"Jandel Gustave",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29170,11 +30111,12 @@ const players = {
     "H":15.8,
     "H + BB":""
   },
-  "942": {
+  {
+    "id":942,
     "name":"Shawn Morimando",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29201,11 +30143,12 @@ const players = {
     "H":15.6,
     "H + BB":""
   },
-  "943": {
+  {
+    "id":943,
     "name":"Logan Darnell",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29232,11 +30175,12 @@ const players = {
     "H":16.2,
     "H + BB":""
   },
-  "944": {
+  {
+    "id":944,
     "name":"Jim Henderson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29263,11 +30207,12 @@ const players = {
     "H":14.8,
     "H + BB":""
   },
-  "945": {
+  {
+    "id":945,
     "name":"Curtis Partch",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29294,11 +30239,12 @@ const players = {
     "H":13.1,
     "H + BB":""
   },
-  "946": {
+  {
+    "id":946,
     "name":"Victor Alfonso Alcantara",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29325,11 +30271,12 @@ const players = {
     "H":17,
     "H + BB":""
   },
-  "947": {
+  {
+    "id":947,
     "name":"Andrew McKirahan",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29356,11 +30303,12 @@ const players = {
     "H":15,
     "H + BB":""
   },
-  "948": {
+  {
+    "id":948,
     "name":"German Andres Marquez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29387,11 +30335,12 @@ const players = {
     "H":16.7,
     "H + BB":""
   },
-  "949": {
+  {
+    "id":949,
     "name":"John Holdzkom",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29418,11 +30367,12 @@ const players = {
     "H":13.3,
     "H + BB":""
   },
-  "950": {
+  {
+    "id":950,
     "name":"Trey Haley",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29449,11 +30399,12 @@ const players = {
     "H":14.7,
     "H + BB":""
   },
-  "951": {
+  {
+    "id":951,
     "name":"Derek Law",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29480,11 +30431,12 @@ const players = {
     "H":13.8,
     "H + BB":""
   },
-  "952": {
+  {
+    "id":952,
     "name":"Daniel Burawa",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29511,11 +30463,12 @@ const players = {
     "H":14.7,
     "H + BB":""
   },
-  "953": {
+  {
+    "id":953,
     "name":"John Barbato",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29542,11 +30495,12 @@ const players = {
     "H":15.3,
     "H + BB":""
   },
-  "954": {
+  {
+    "id":954,
     "name":"Jake Faria",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29573,11 +30527,12 @@ const players = {
     "H":14.3,
     "H + BB":""
   },
-  "955": {
+  {
+    "id":955,
     "name":"Colton Murray",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29604,11 +30559,12 @@ const players = {
     "H":14.8,
     "H + BB":""
   },
-  "956": {
+  {
+    "id":956,
     "name":"Mason Melotakis",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29635,11 +30591,12 @@ const players = {
     "H":15.1,
     "H + BB":""
   },
-  "957": {
+  {
+    "id":957,
     "name":"Tayron Guerrero",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29666,11 +30623,12 @@ const players = {
     "H":14.4,
     "H + BB":""
   },
-  "958": {
+  {
+    "id":958,
     "name":"Leonel Campos",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29697,11 +30655,12 @@ const players = {
     "H":12.7,
     "H + BB":""
   },
-  "959": {
+  {
+    "id":959,
     "name":"J.T. Chargois",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29728,11 +30687,12 @@ const players = {
     "H":15.1,
     "H + BB":""
   },
-  "960": {
+  {
+    "id":960,
     "name":"Nick Lee",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29759,11 +30719,12 @@ const players = {
     "H":14.9,
     "H + BB":""
   },
-  "961": {
+  {
+    "id":961,
     "name":"Evan Marshall",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29790,11 +30751,12 @@ const players = {
     "H":15.4,
     "H + BB":""
   },
-  "962": {
+  {
+    "id":962,
     "name":"Jacob Barnes",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29821,11 +30783,12 @@ const players = {
     "H":15.5,
     "H + BB":""
   },
-  "963": {
+  {
+    "id":963,
     "name":"Matthew Bowman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29852,11 +30815,12 @@ const players = {
     "H":16.4,
     "H + BB":""
   },
-  "964": {
+  {
+    "id":964,
     "name":"Michael Jose Ynoa",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29883,11 +30847,12 @@ const players = {
     "H":16.1,
     "H + BB":""
   },
-  "965": {
+  {
+    "id":965,
     "name":"Dayan Diaz",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29914,11 +30879,12 @@ const players = {
     "H":14.4,
     "H + BB":""
   },
-  "966": {
+  {
+    "id":966,
     "name":"Buddy Boshers",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29945,11 +30911,12 @@ const players = {
     "H":14.2,
     "H + BB":""
   },
-  "967": {
+  {
+    "id":967,
     "name":"Pat Dean",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -29976,11 +30943,12 @@ const players = {
     "H":17.8,
     "H + BB":""
   },
-  "968": {
+  {
+    "id":968,
     "name":"Nick Burdi",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30007,11 +30975,12 @@ const players = {
     "H":14.6,
     "H + BB":""
   },
-  "969": {
+  {
+    "id":969,
     "name":"Zach Phillips",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30038,11 +31007,12 @@ const players = {
     "H":14.8,
     "H + BB":""
   },
-  "970": {
+  {
+    "id":970,
     "name":"Ryan Kelly",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30069,11 +31039,12 @@ const players = {
     "H":15.2,
     "H + BB":""
   },
-  "971": {
+  {
+    "id":971,
     "name":"Daniel Tillman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30100,11 +31071,12 @@ const players = {
     "H":15.1,
     "H + BB":""
   },
-  "972": {
+  {
+    "id":972,
     "name":"Daniel Stumpf",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30131,11 +31103,12 @@ const players = {
     "H":14.5,
     "H + BB":""
   },
-  "973": {
+  {
+    "id":973,
     "name":"Juan Minaya",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30162,11 +31135,12 @@ const players = {
     "H":14.9,
     "H + BB":""
   },
-  "974": {
+  {
+    "id":974,
     "name":"Dean Kiekhefer",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30193,11 +31167,12 @@ const players = {
     "H":16.3,
     "H + BB":""
   },
-  "975": {
+  {
+    "id":975,
     "name":"Andury Acevedo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30224,11 +31199,12 @@ const players = {
     "H":15.2,
     "H + BB":""
   },
-  "976": {
+  {
+    "id":976,
     "name":"Dan Runzler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30255,11 +31231,12 @@ const players = {
     "H":13.6,
     "H + BB":""
   },
-  "977": {
+  {
+    "id":977,
     "name":"Daniel Reynolds",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30286,11 +31263,12 @@ const players = {
     "H":15,
     "H + BB":""
   },
-  "978": {
+  {
+    "id":978,
     "name":"Mario Hollands",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30317,11 +31295,12 @@ const players = {
     "H":14.9,
     "H + BB":""
   },
-  "979": {
+  {
+    "id":979,
     "name":"Brandon Kintzler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30348,11 +31327,12 @@ const players = {
     "H":17.1,
     "H + BB":""
   },
-  "980": {
+  {
+    "id":980,
     "name":"Jose Ramirez",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30379,11 +31359,12 @@ const players = {
     "H":14.2,
     "H + BB":""
   },
-  "981": {
+  {
+    "id":981,
     "name":"Jake Reed",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30410,11 +31391,12 @@ const players = {
     "H":16.5,
     "H + BB":""
   },
-  "982": {
+  {
+    "id":982,
     "name":"Daniel Coulombe",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30441,11 +31423,12 @@ const players = {
     "H":15.2,
     "H + BB":""
   },
-  "983": {
+  {
+    "id":983,
     "name":"Joe Musgrove",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30472,11 +31455,12 @@ const players = {
     "H":15,
     "H + BB":""
   },
-  "984": {
+  {
+    "id":984,
     "name":"Brian Johnson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30503,11 +31487,12 @@ const players = {
     "H":15.9,
     "H + BB":""
   },
-  "985": {
+  {
+    "id":985,
     "name":"Dallas Beeler",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30534,11 +31519,12 @@ const players = {
     "H":16.7,
     "H + BB":""
   },
-  "986": {
+  {
+    "id":986,
     "name":"Ty Blach",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30565,11 +31551,12 @@ const players = {
     "H":16.8,
     "H + BB":""
   },
-  "987": {
+  {
+    "id":987,
     "name":"Jake Thompson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30596,11 +31583,12 @@ const players = {
     "H":15.7,
     "H + BB":""
   },
-  "988": {
+  {
+    "id":988,
     "name":"Kyle Crick",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30627,11 +31615,12 @@ const players = {
     "H":13.5,
     "H + BB":""
   },
-  "989": {
+  {
+    "id":989,
     "name":"Chris Stratton",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30658,11 +31647,12 @@ const players = {
     "H":15.9,
     "H + BB":""
   },
-  "990": {
+  {
+    "id":990,
     "name":"Michael Clevinger",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30689,11 +31679,12 @@ const players = {
     "H":16.1,
     "H + BB":""
   },
-  "991": {
+  {
+    "id":991,
     "name":"Nicholas Kingham",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30720,11 +31711,12 @@ const players = {
     "H":15.8,
     "H + BB":""
   },
-  "992": {
+  {
+    "id":992,
     "name":"Clayton Blackburn",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30751,11 +31743,12 @@ const players = {
     "H":15.3,
     "H + BB":""
   },
-  "993": {
+  {
+    "id":993,
     "name":"Taylor Rogers",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30782,11 +31775,12 @@ const players = {
     "H":17.5,
     "H + BB":""
   },
-  "994": {
+  {
+    "id":994,
     "name":"Tyler Anderson",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30813,11 +31807,12 @@ const players = {
     "H":15.4,
     "H + BB":""
   },
-  "995": {
+  {
+    "id":995,
     "name":"Alex Claudio",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"RP",
     "PA":null,
@@ -30844,11 +31839,12 @@ const players = {
     "H":15.9,
     "H + BB":""
   },
-  "996": {
+  {
+    "id":996,
     "name":"Raul Alcantara",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30875,11 +31871,12 @@ const players = {
     "H":16.4,
     "H + BB":""
   },
-  "997": {
+  {
+    "id":997,
     "name":"Brandon Workman",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30906,11 +31903,12 @@ const players = {
     "H":16.3,
     "H + BB":""
   },
-  "998": {
+  {
+    "id":998,
     "name":"Luis David Perdomo",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30937,11 +31935,12 @@ const players = {
     "H":16.1,
     "H + BB":""
   },
-  "999": {
+  {
+    "id":999,
     "name":"Joe Wieland",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":false,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30968,11 +31967,12 @@ const players = {
     "H":15.6,
     "H + BB":""
   },
-  "1000": {
+  {
+    "id":1000,
     "name":"Jose Berrios",
-    "favorited":"",
+    "isFavorited":"",
     "type":"pitcher",
-    "selected":false,
+    "isSelected":true,
     "cost":null,
     "pos":"SP",
     "PA":null,
@@ -30999,6 +31999,6 @@ const players = {
     "H":null,
     "H + BB":""
   }
-}
+]
 
 export { players }

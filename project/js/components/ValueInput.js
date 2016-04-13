@@ -36,7 +36,7 @@ class ValueInput extends Component {
 	}
 
 	updateInputValue (e) {
-		console.log('updateinputvalue',e.target.value);
+		// console.log('updateinputvalue',e.target.value);
 		this.setState({inputValue: e.target.value});
 		// console.log(e.target.value);
 		if (this.props.valueDidUpdate) {
@@ -66,11 +66,11 @@ class ValueInput extends Component {
 	}
 
 	handleEditStart () {
-		console.log('handleEditStart 2');
+		// console.log('handleEditStart 2');
 		if (this.state.isEditing) {
 			return;
 		}
-		console.log('is editing false')
+		// console.log('is editing false')
 		this.setState({isEditing:true})
 		if (this.props.didStartEditing) {
 			this.props.didStartEditing(this);

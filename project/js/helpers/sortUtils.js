@@ -1,5 +1,9 @@
 const sortBy = (array, param, reverse, byBoolean) => {
 
+	if (!array) {
+		return;
+	}
+
 	var paramIsArray = (Object.prototype.toString.call( param ) === '[object Array]');
 	var sortFunction;
 	var direction = reverse ? -1 : 1;
