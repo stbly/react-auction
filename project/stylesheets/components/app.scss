@@ -10,11 +10,13 @@ body {
 }
 
 .app {
-    height: 100vh;
-    overflow-y: scroll;
 }
 
 .headings {
 	@include transandina-medium;
 	text-transform: uppercase;
+}
+
+.page {
+	padding: 2.5% 100px;
 }

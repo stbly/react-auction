@@ -5,7 +5,12 @@
 
 	letter-spacing: inherit;
 	width: 100%;
-	background: $batterDark;
+
+    border-radius: 5px;
+	background: $light-grey;
+
+	margin: 10px 0;
+
 	form {
 		display: block;
 		margin: auto;
@@ -13,7 +18,7 @@
 		padding:10px;
 		text-align: center
 		::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-		    color: $batterDark;
+		    color: $batter-dark;
 		}
 
 		& > * {
@@ -26,6 +31,7 @@
 	input {
 		outline: none;
 		background: none;
+		border-radius: 3px;
 	}
 
 	.player-input-box {
@@ -37,11 +43,17 @@
 
 		position: relative;
 		display: inline-block;
-		padding: 10px 50px;
+		width: 100%;
+		padding: 10px 10px;
 
-		background: $batter;
+		border-radius: 3px;
+		background: $lightest-grey;
 
-		font-size: 12px;
+		font-size: 16px;
+	    line-height: 18px;
+
+	    letter-spacing: -1px;
+
 		text-align: center;
 		text-transform: uppercase;
 
@@ -51,7 +63,7 @@
 		}
 
 		&:focus {
-	    	background: $batterHighlight;
+	    	background: $batter-highlight;
 	    }
 	}
 
@@ -59,7 +71,7 @@
 		padding: 10px;
 		width: 50px;
 		 &.is-editing {
-	    	background: $batterHighlight;
+	    	background: $batter-highlight;
 		}
 		.player-input-box.cost-input {
 			padding: 0;
@@ -70,11 +82,23 @@
 		min-width: inherit;
 		padding-top: 11px;
 		padding-bottom: 11px;
+
+		font-size: 12px;
+
 	    cursor: pointer;
 	    &:hover,
 	    &:focus {
-	    	background: $batterHighlight;
+	    	background: $batter-highlight;
 	    }
+	}
+	.suggested-search-box {
+	    width: calc(40% - 10px);
+	}
+	.cost-container {
+		width: calc(10% - 10px);
+	}
+	.submit {
+		width: 10%;
 	}
 }
 

@@ -20,7 +20,7 @@ class PlayerList extends Component {
 		this.state = {
 			toggleSortDirection: true,
 			currentSortOption: 'value',
-			sortedPlayers: null
+			sortedPlayers: null,
 		}
 	}
 
@@ -122,7 +122,6 @@ class PlayerList extends Component {
 		var els = [];
 		if (!this.props.hideValueInfo) {
 			els.push(<td className='player-info value' key={'player-value'} onClick={this.sortList.bind(this)} data-name='value'>Val</td>);
-			els.push(<td className='player-info value' key={'player-inflated-value'} onClick={this.sortList.bind(this)} data-name='inflatedValue'>Inf Val</td>);
 		}
 		return els;
 	}
@@ -141,8 +140,8 @@ class PlayerList extends Component {
 							<td className='player-info favorite-toggle' style={smallCell}>*</td>
 							<td className='player-info' onClick={this.sortList.bind(this)} data-name='pos'>Pos</td>
 							<td className='player-info name' onClick={this.sortList.bind(this)} data-name='name'>Name</td>
-							<td className='player-info value-info' onClick={this.sortList.bind(this)} data-name='inflatedValue'>Bid</td>
 							<td className='player-info value-info' onClick={this.sortList.bind(this)} data-name='cost'>Cost</td>
+							<td className='player-info value-info' onClick={this.sortList.bind(this)} data-name='inflatedValue'>Bid</td>
 							{this.getValueInfo()}
 							{this.getCategories()}
 						</tr>

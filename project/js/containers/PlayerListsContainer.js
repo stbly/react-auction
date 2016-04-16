@@ -16,6 +16,7 @@ import * as PlayerListUtils from '../helpers/PlayerListUtils'
 
 import PlayerList from '../components/PlayerList.js'
 import PlayerInput from '../components/PlayerInput'
+import ActivePlayer from './ActivePlayer'
 
 import '../../stylesheets/components/player-list.scss'
 
@@ -29,6 +30,18 @@ class PlayerListsContainer extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.props.actions.fetchPlayersIfNeeded()
+	}
+
+
+	togglePlayerList (e) {
+		var type = e.target.getAttribute('data-type');
+
+		console.log(type);
+		if (this.state.listTypeShown === type) {
+			return;
+		}
+
+		this.setState({listTypeShown: type})
 	}
 
 	getLists () {
@@ -64,7 +77,11 @@ class PlayerListsContainer extends Component {
 		console.log('trying to update PlayerLists')
 		var stringifiedNextProps = JSON.stringify(nextProps)
 		var stringifiedProps = JSON.stringify(this.props)
-		return (stringifiedNextProps != stringifiedProps)
+		var stringifiedNextState = JSON.stringify(nextState)
+		var stringifiedState = JSON.stringify(this.state)
+
+
+		return (stringifiedNextProps != stringifiedProps || stringifiedNextState != stringifiedState)
 	}
 
 	componentDidUpdate () {
@@ -74,10 +91,26 @@ class PlayerListsContainer extends Component {
 	render () {
 		return (
 			<div>
-				<PlayerInput
-					searchablePlayers={PlayerListUtils.getUnusedPlayers(this.props.players)}
-					searchableTeams={this.props.teams}
-					playerEntered={this.props.actions.assignPlayer} />
+				<div className='player-list-header'>
+					<ActivePlayer />
+					<PlayerInput
+						searchablePlayers={PlayerListUtils.getUnusedPlayers(this.props.players)}
+						searchableTeams={this.props.teams}
+						playerEntered={this.props.actions.assignPlayer} />
+				</div>
+
+				<div className='player-list-buttons'>
+					<button className='player-list-toggle batter'
+						data-type='batter'
+						onClick={this.togglePlayerList.bind(this)} >
+							Show Batters
+					</button>
+					<button className='player-list-toggle pitcher'
+						data-type='pitcher'
+						onClick={this.togglePlayerList.bind(this)} >
+							Show Pitchers
+					</button>
+				</div>
 
 				{this.getLists()}
 			</div>

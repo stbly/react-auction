@@ -15,14 +15,14 @@
 	}
 
 	 &.batter {
-		background: $batter;
+		background: $batter-row;
 		.player-info,
 		.player-type {
-			background: $batterDark;
+			background: $batter-dark;
 		}
 		.player-info {
 			&:hover {
-				background: $batterHighlight;
+				background: $batter-highlight;
 			}
 		}
 	}
@@ -39,3 +39,15 @@
 		}
 	}
 }
+
+/*
+.favorited-players {
+    position: absolute;
+    height: 100vh;
+	width: 15%;
+    overflow-y: scroll;
+	display:inline-block;
+	float:left;
+	background: $batter-dark;
+	z-index:5;
+}*/

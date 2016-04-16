@@ -22,13 +22,9 @@ class Players extends Component {
 		console.log( 'rendering' )
 		return (
 
-			<div className='players-route'>
-
-				<FavoritePlayerListsContainer />
+			<div className='players-route page'>
 
 				<div className='combined-rankings'>
-
-					<ActivePlayer />
 
 					<PlayerListsContainer />
 

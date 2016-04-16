@@ -168,6 +168,10 @@ class Player extends Component {
 	getValueInfo () {
 		var els = [];
 
+		if (this.props.player.cost) {
+			return <td key={'display-value-td'} colSpan='3'><span className='player-cost'>Drafted: <span className='dollar-amount'>{this.props.player.cost}</span></span></td>
+		}
+
 		var costInputClasses = classNames('can-edit','position',this.getPosition());
 		if (!this.props.hideCostInput) {
 			els.push(
@@ -183,9 +187,10 @@ class Player extends Component {
 		}
 
 		if (!this.props.hideValueInfo) {
-			els.push(<td key={'display-valuet-td'} className='dark'><span className='dollar-amount'>{this.props.player.displayValue}</span></td>);
-			els.push(<td key={'inflated-display-value-td'} className='dark'><span className='dollar-amount'>{this.props.player.displayInflatedValue}</span></td>);
+			els.push(<td key={'inflated-display-value-td'} ><span className='dollar-amount'>{this.props.player.displayInflatedValue}</span></td>);
+			els.push(<td key={'display-value-td'} ><span className='dollar-amount'>{this.props.player.displayValue}</span></td>);
 		}
+
 		return els;
 	}
 
@@ -229,7 +234,6 @@ class Player extends Component {
 				{this.getMetaInfo()}
 				<td className={positionClasses}>{this.props.player.pos}</td>
 				<td onClick={this.selectPlayer.bind(this)} className={positionClasses}>{this.props.player.name}</td>
-				<td className={positionClasses}><span className='dollar-amount'>{this.props.player.bidPrice}</span></td>
 				{this.getValueInfo()}
 				{this.getStats()}
 			</tr>

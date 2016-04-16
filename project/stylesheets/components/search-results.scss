@@ -28,17 +28,17 @@
 	    text-align: center;
 	}
 
-	border-color: $batterAlt;
+	border-color: $batter-row-alt;
 
 	li {
-		background-color: $batter;
+		background-color: $batter-row;
 
 		&:nth-child(odd) {
-			background-color: $batterAlt;
+			background-color: $batter-row-alt;
 		}
 
 		&.selected {
-			background-color: $batterHighlight;
+			background-color: $batter-highlight;
 		}
 	}
 

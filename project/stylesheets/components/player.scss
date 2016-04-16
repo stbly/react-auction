@@ -11,7 +11,7 @@
 		}
 
 		.cost-selected & {
-			color: $batterDark;
+			color: $batter-dark;
 		}
 	}
 
@@ -28,7 +28,7 @@
 
 	.batters & {
 		::-webkit-input-placeholder {
-			color: $batterDark;
+			color: $batter-dark;
 		}
 
 
@@ -48,6 +48,6 @@
 		}
 	}
 	input[type="checkbox"] {
-		background-color: $batter;
+		background-color: $batter-row;
 	}
 }
