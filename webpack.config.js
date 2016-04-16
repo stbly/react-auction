@@ -11,8 +11,8 @@ module.exports = {
 
   entry: [
     'babel-polyfill',
-    'webpack/hot/dev-server',
-    'webpack-hot-middleware/client?path=http://localhost:8080/__webpack_hmr',
+    // 'webpack/hot/dev-server',
+    // 'webpack-hot-middleware/client?path=http://localhost:8080/__webpack_hmr',
     './project/js/init.js'
   ],
 

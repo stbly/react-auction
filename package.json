@@ -5,11 +5,10 @@
   "main": "entry.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "if-env NODE_ENV=prod && npm run start || npm run start",
+    "start": "node server.js",
     "build": "npm run clean && npm run build:webpack",
     "build:webpack": "cross-env NODE_ENV=prod webpack",
-    "clean": "rimraf ./project/static",
-    "start": "node server.js"
+    "clean": "rimraf ./project/static"
   },
   "author": "",
   "license": "ISC",
