@@ -7,8 +7,6 @@ import { Router, RouteHandler, Link, browserHistory } from 'react-router'
 
 import '../../stylesheets/components/app.scss'
 
-import settings from '../data/settings';
-
 class App extends Component {
 	constructor(props) {
 		super(props)
@@ -18,6 +16,8 @@ class App extends Component {
 		return (
 			<div className='app'>
 				{this.props.children || "No Child Route yet"}
+                <Link to='/players'>Go to players</Link>
+
 			</div>
 		)
 	}

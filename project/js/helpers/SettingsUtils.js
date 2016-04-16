@@ -24,7 +24,7 @@ export function getScarcePositions (positions) {
 
 export function getTeamNames (teams) {
 	var teamNames = [];
-	console.log(teams);
+
 	for (var key in teams) {
 		teamNames.push(key);
 	}

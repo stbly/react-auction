@@ -199,6 +199,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.__esModule = true;
 	exports['default'] = routerWarning;
+	exports._resetWarned = _resetWarned;
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -206,17 +207,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _warning2 = _interopRequireDefault(_warning);
 
+	var warned = {};
+
 	function routerWarning(falseToWarn, message) {
+	  // Only issue deprecation warnings once.
+	  if (message.indexOf('deprecated') !== -1) {
+	    if (warned[message]) {
+	      return;
+	    }
+
+	    warned[message] = true;
+	  }
+
 	  message = '[react-router] ' + message;
 
 	  for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
 	    args[_key - 2] = arguments[_key];
 	  }
 
-	   false ? _warning2['default'].apply(undefined, [falseToWarn, message].concat(args)) : undefined;
+	   true ? _warning2['default'].apply(undefined, [falseToWarn, message].concat(args)) : undefined;
 	}
 
-	module.exports = exports['default'];
+	function _resetWarned() {
+	  warned = {};
+	}
 
 /***/ },
 /* 2 */
@@ -251,7 +265,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var invariant = function(condition, format, a, b, c, d, e, f) {
-	  if (false) {
+	  if (true) {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
 	    }
@@ -305,7 +319,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var warning = function() {};
 
-	if (false) {
+	if (true) {
 	  warning = function(condition, format, args) {
 	    var len = arguments.length;
 	    args = new Array(len > 2 ? len - 2 : 0);
@@ -384,11 +398,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  componentName = componentName || 'UnknownComponent';
 
 	  for (var propName in propTypes) {
-	    if (propTypes.hasOwnProperty(propName)) {
+	    if (Object.prototype.hasOwnProperty.call(propTypes, propName)) {
 	      var error = propTypes[propName](props, propName, componentName);
 
 	      /* istanbul ignore if: error logging */
-	      if (error instanceof Error)  false ? _routerWarning2['default'](false, error.message) : undefined;
+	      if (error instanceof Error)  true ? _routerWarning2['default'](false, error.message) : undefined;
 	    }
 	  }
 	}
@@ -553,7 +567,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var search = '';
 	  var hash = '';
 
-	   false ? _warning2['default'](path === pathname, 'A path must be pathname + search + hash only, not a fully qualified URL like "%s"', path) : undefined;
+	   true ? _warning2['default'](path === pathname, 'A path must be pathname + search + hash only, not a fully qualified URL like "%s"', path) : undefined;
 
 	  var hashIndex = pathname.indexOf('#');
 	  if (hashIndex !== -1) {
@@ -618,13 +632,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    if (match[1]) {
-	      regexpSource += '([^/?#]+)';
+	      regexpSource += '([^/]+)';
 	      paramNames.push(match[1]);
 	    } else if (match[0] === '**') {
-	      regexpSource += '([\\s\\S]*)';
+	      regexpSource += '(.*)';
 	      paramNames.push('splat');
 	    } else if (match[0] === '*') {
-	      regexpSource += '([\\s\\S]*?)';
+	      regexpSource += '(.*?)';
 	      paramNames.push('splat');
 	    } else if (match[0] === '(') {
 	      regexpSource += '(?:';
@@ -696,39 +710,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	  regexpSource += '/*'; // Capture path separators
 
 	  // Special-case patterns like '*' for catch-all routes.
-	  var captureRemaining = tokens[tokens.length - 1] !== '*';
-
-	  if (captureRemaining) {
-	    // This will match newlines in the remaining path.
-	    regexpSource += '([\\s\\S]*?)';
+	  if (tokens[tokens.length - 1] === '*') {
+	    regexpSource += '$';
 	  }
 
-	  var match = pathname.match(new RegExp('^' + regexpSource + '$', 'i'));
+	  var match = pathname.match(new RegExp('^' + regexpSource, 'i'));
 
 	  var remainingPathname = undefined,
 	      paramValues = undefined;
 	  if (match != null) {
-	    if (captureRemaining) {
-	      remainingPathname = match.pop();
-	      var matchedPath = match[0].substr(0, match[0].length - remainingPathname.length);
+	    var matchedPath = match[0];
+	    remainingPathname = pathname.substr(matchedPath.length);
 
-	      // If we didn't match the entire pathname, then make sure that the match
-	      // we did get ends at a path separator (potentially the one we added
-	      // above at the beginning of the path, if the actual match was empty).
-	      if (remainingPathname && matchedPath.charAt(matchedPath.length - 1) !== '/') {
-	        return {
-	          remainingPathname: null,
-	          paramNames: paramNames,
-	          paramValues: null
-	        };
-	      }
-	    } else {
-	      // If this matched at all, then the match was the entire pathname.
-	      remainingPathname = '';
+	    // If we didn't match the entire pathname, then make sure that the match we
+	    // did get ends at a path separator (potentially the one we added above at
+	    // the beginning of the path, if the actual match was empty).
+	    if (remainingPathname && matchedPath.charAt(matchedPath.length - 1) !== '/') {
+	      return {
+	        remainingPathname: null,
+	        paramNames: paramNames,
+	        paramValues: null
+	      };
 	    }
 
 	    paramValues = match.slice(1).map(function (v) {
-	      return v != null ? decodeURIComponent(v) : v;
+	      return v && decodeURIComponent(v);
 	    });
 	  } else {
 	    remainingPathname = paramValues = null;
@@ -786,7 +792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (token === '*' || token === '**') {
 	      paramValue = Array.isArray(params.splat) ? params.splat[splatIndex++] : params.splat;
 
-	      !(paramValue != null || parenCount > 0) ?  false ? _invariant2['default'](false, 'Missing splat #%s for path "%s"', splatIndex, pattern) : _invariant2['default'](false) : undefined;
+	      !(paramValue != null || parenCount > 0) ?  true ? _invariant2['default'](false, 'Missing splat #%s for path "%s"', splatIndex, pattern) : _invariant2['default'](false) : undefined;
 
 	      if (paramValue != null) pathname += encodeURI(paramValue);
 	    } else if (token === '(') {
@@ -797,7 +803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      paramName = token.substring(1);
 	      paramValue = params[paramName];
 
-	      !(paramValue != null || parenCount > 0) ?  false ? _invariant2['default'](false, 'Missing "%s" parameter for path "%s"', paramName, pattern) : _invariant2['default'](false) : undefined;
+	      !(paramValue != null || parenCount > 0) ?  true ? _invariant2['default'](false, 'Missing "%s" parameter for path "%s"', paramName, pattern) : _invariant2['default'](false) : undefined;
 
 	      if (paramValue != null) pathname += encodeURIComponent(paramValue);
 	    } else {
@@ -866,8 +872,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
 	var _warning = __webpack_require__(4);
 
 	var _warning2 = _interopRequireDefault(_warning);
@@ -905,12 +909,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function useQueries(createHistory) {
 	  return function () {
 	    var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+	    var history = createHistory(options);
+
 	    var stringifyQuery = options.stringifyQuery;
 	    var parseQueryString = options.parseQueryString;
-
-	    var historyOptions = _objectWithoutProperties(options, ['stringifyQuery', 'parseQueryString']);
-
-	    var history = createHistory(historyOptions);
 
 	    if (typeof stringifyQuery !== 'function') stringifyQuery = defaultStringifyQuery;
 
@@ -939,7 +942,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return location;
 	      }
 
-	       false ? _warning2['default'](stringifyQuery !== defaultStringifyQuery || !isNestedObject(query), 'useQueries does not stringify nested query objects by default; ' + 'use a custom stringifyQuery function') : undefined;
+	       true ? _warning2['default'](stringifyQuery !== defaultStringifyQuery || !isNestedObject(query), 'useQueries does not stringify nested query objects by default; ' + 'use a custom stringifyQuery function') : undefined;
 
 	      if (typeof location === 'string') location = _PathUtils.parsePath(location);
 
@@ -983,13 +986,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function createPath(location, query) {
-	       false ? _warning2['default'](!query, 'the query argument to createPath is deprecated; use a location descriptor instead') : undefined;
+	       true ? _warning2['default'](!query, 'the query argument to createPath is deprecated; use a location descriptor instead') : undefined;
 
 	      return history.createPath(appendQuery(location, query || location.query));
 	    }
 
 	    function createHref(location, query) {
-	       false ? _warning2['default'](!query, 'the query argument to createHref is deprecated; use a location descriptor instead') : undefined;
+	       true ? _warning2['default'](!query, 'the query argument to createHref is deprecated; use a location descriptor instead') : undefined;
 
 	      return history.createHref(appendQuery(location, query || location.query));
 	    }
@@ -1208,7 +1211,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var location = _props.location;
 
 	    if (!router) {
-	       false ? _routerWarning2['default'](false, '`<RouterContext>` expects a `router` rather than a `history`') : undefined;
+	       true ? _routerWarning2['default'](false, '`<RouterContext>` expects a `router` rather than a `history`') : undefined;
 
 	      router = _extends({}, history, {
 	        setRouteLeaveHook: history.listenBeforeLeavingRoute
@@ -1216,7 +1219,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      delete router.listenBeforeLeavingRoute;
 	    }
 
-	    if (false) {
+	    if (true) {
 	      location = _deprecateObjectProperties2['default'](location, '`context.location` is deprecated, please use a route component\'s `props.location` instead. http://tiny.cc/router-accessinglocation');
 	    }
 
@@ -1258,7 +1261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          props.children = element;
 	        } else if (element) {
 	          for (var prop in element) {
-	            if (element.hasOwnProperty(prop)) props[prop] = element[prop];
+	            if (Object.prototype.hasOwnProperty.call(element, prop)) props[prop] = element[prop];
 	          }
 	        }
 
@@ -1266,7 +1269,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var elements = {};
 
 	          for (var key in components) {
-	            if (components.hasOwnProperty(key)) {
+	            if (Object.prototype.hasOwnProperty.call(components, key)) {
 	              // Pass through the key as a prop to createElement to allow
 	              // custom createElement functions to know which named component
 	              // they're rendering, for e.g. matching up to fetched data.
@@ -1282,7 +1285,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }, element);
 	    }
 
-	    !(element === null || element === false || _react2['default'].isValidElement(element)) ?  false ? _invariant2['default'](false, 'The root route must render a single element') : _invariant2['default'](false) : undefined;
+	    !(element === null || element === false || _react2['default'].isValidElement(element)) ?  true ? _invariant2['default'](false, 'The root route must render a single element') : _invariant2['default'](false) : undefined;
 
 	    return element;
 	  }
@@ -1332,7 +1335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function hasAnyProperties(object) {
 	  for (var p in object) {
-	    if (object.hasOwnProperty(p)) return true;
+	    if (Object.prototype.hasOwnProperty.call(object, p)) return true;
 	  }return false;
 	}
 
@@ -1347,7 +1350,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var indexOnly = undefined;
 	    if (indexOnlyOrDeprecatedQuery && indexOnlyOrDeprecatedQuery !== true || deprecatedIndexOnly !== null) {
-	       false ? _routerWarning2['default'](false, '`isActive(pathname, query, indexOnly) is deprecated; use `isActive(location, indexOnly)` with a location descriptor instead. http://tiny.cc/router-isActivedeprecated') : undefined;
+	       true ? _routerWarning2['default'](false, '`isActive(pathname, query, indexOnly) is deprecated; use `isActive(location, indexOnly)` with a location descriptor instead. http://tiny.cc/router-isActivedeprecated') : undefined;
 	      location = { pathname: location, query: indexOnlyOrDeprecatedQuery };
 	      indexOnly = deprecatedIndexOnly || false;
 	    } else {
@@ -1385,6 +1388,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var _computeChangedRoutes = _computeChangedRoutes3['default'](state, nextState);
 
 	    var leaveRoutes = _computeChangedRoutes.leaveRoutes;
+	    var changeRoutes = _computeChangedRoutes.changeRoutes;
 	    var enterRoutes = _computeChangedRoutes.enterRoutes;
 
 	    _TransitionUtils.runLeaveHooks(leaveRoutes);
@@ -1394,24 +1398,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return enterRoutes.indexOf(route) === -1;
 	    }).forEach(removeListenBeforeHooksForRoute);
 
-	    _TransitionUtils.runEnterHooks(enterRoutes, nextState, function (error, redirectInfo) {
-	      if (error) {
-	        callback(error);
-	      } else if (redirectInfo) {
-	        callback(null, createLocationFromRedirectInfo(redirectInfo));
-	      } else {
-	        // TODO: Fetch components after state is updated.
-	        _getComponents2['default'](nextState, function (error, components) {
-	          if (error) {
-	            callback(error);
-	          } else {
-	            // TODO: Make match a pure function and have some other API
-	            // for "match and update state".
-	            callback(null, null, state = _extends({}, nextState, { components: components }));
-	          }
-	        });
-	      }
+	    // change and enter hooks are run in series
+	    _TransitionUtils.runChangeHooks(changeRoutes, state, nextState, function (error, redirectInfo) {
+	      if (error || redirectInfo) return handleErrorOrRedirect(error, redirectInfo);
+
+	      _TransitionUtils.runEnterHooks(enterRoutes, nextState, finishEnterHooks);
 	    });
+
+	    function finishEnterHooks(error, redirectInfo) {
+	      if (error || redirectInfo) return handleErrorOrRedirect(error, redirectInfo);
+
+	      // TODO: Fetch components after state is updated.
+	      _getComponents2['default'](nextState, function (error, components) {
+	        if (error) {
+	          callback(error);
+	        } else {
+	          // TODO: Make match a pure function and have some other API
+	          // for "match and update state".
+	          callback(null, null, state = _extends({}, nextState, { components: components }));
+	        }
+	      });
+	    }
+
+	    function handleErrorOrRedirect(error, redirectInfo) {
+	      if (error) callback(error);else callback(null, createLocationFromRedirectInfo(redirectInfo));
+	    }
 	  }
 
 	  var RouteGuid = 1;
@@ -1422,7 +1433,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return route.__id__ || create && (route.__id__ = RouteGuid++);
 	  }
 
-	  var RouteHooks = {};
+	  var RouteHooks = Object.create(null);
 
 	  function getRouteHooksForRoutes(routes) {
 	    return routes.reduce(function (hooks, route) {
@@ -1534,7 +1545,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    } else {
 	      if (hooks.indexOf(hook) === -1) {
-	         false ? _routerWarning2['default'](false, 'adding multiple leave hooks for the same route is deprecated; manage multiple confirmations in your own code instead') : undefined;
+	         true ? _routerWarning2['default'](false, 'adding multiple leave hooks for the same route is deprecated; manage multiple confirmations in your own code instead') : undefined;
 
 	        hooks.push(hook);
 	      }
@@ -1577,7 +1588,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          } else if (nextState) {
 	            listener(null, nextState);
 	          } else {
-	             false ? _routerWarning2['default'](false, 'Location "%s" did not match any routes', location.pathname + location.search + location.hash) : undefined;
+	             true ? _routerWarning2['default'](false, 'Location "%s" did not match any routes', location.pathname + location.search + location.hash) : undefined;
 	          }
 	        });
 	      }
@@ -1691,7 +1702,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function deprecate(fn, message) {
 	  return function () {
-	     false ? _warning2['default'](false, '[history] ' + message) : undefined;
+	     true ? _warning2['default'](false, '[history] ' + message) : undefined;
 	    return fn.apply(this, arguments);
 	  };
 	}
@@ -1721,7 +1732,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // call the callback with the return value.
 	    callback(result);
 	  } else {
-	     false ? _warning2['default'](result === undefined, 'You should not "return" in a transition hook with a callback argument; call the callback instead') : undefined;
+	     true ? _warning2['default'](result === undefined, 'You should not "return" in a transition hook with a callback argument; call the callback instead') : undefined;
 	  }
 	}
 
@@ -1765,9 +1776,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 	}
 
+	// TODO: De-duplicate against hasAnyProperties in createTransitionManager.
 	function isEmptyObject(object) {
 	  for (var p in object) {
-	    if (object.hasOwnProperty(p)) return false;
+	    if (Object.prototype.hasOwnProperty.call(object, p)) return false;
 	  }return true;
 	}
 
@@ -1871,7 +1883,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var props = _objectWithoutProperties(_props2, ['to', 'query', 'hash', 'state', 'activeClassName', 'activeStyle', 'onlyActiveOnIndex']);
 
-	     false ? _routerWarning2['default'](!(query || hash || state), 'the `query`, `hash`, and `state` props on `<Link>` are deprecated, use `<Link to={{ pathname, query, hash, state }}/>. http://tiny.cc/router-isActivedeprecated') : undefined;
+	     true ? _routerWarning2['default'](!(query || hash || state), 'the `query`, `hash`, and `state` props on `<Link>` are deprecated, use `<Link to={{ pathname, query, hash, state }}/>. http://tiny.cc/router-isActivedeprecated') : undefined;
 
 	    // Ignore if rendered outside the context of router, simplifies unit testing.
 	    var router = this.context.router;
@@ -1997,7 +2009,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  /* istanbul ignore next: sanity check */
 	  render: function render() {
-	     true ?  false ? _invariant2['default'](false, '<Redirect> elements are for router configuration only and should not be rendered') : _invariant2['default'](false) : undefined;
+	     true ?  true ? _invariant2['default'](false, '<Redirect> elements are for router configuration only and should not be rendered') : _invariant2['default'](false) : undefined;
 	  }
 
 	});
@@ -2036,7 +2048,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function createRoutingHistory(history, transitionManager) {
 	  history = _extends({}, history, transitionManager);
 
-	  if (false) {
+	  if (true) {
 	    history = _deprecateObjectProperties2['default'](history, '`props.history` and `context.history` are deprecated. Please use `context.router`. http://tiny.cc/router-contextchanges');
 	  }
 
@@ -2123,7 +2135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var useMembrane = false;
 
-	if (false) {
+	if (true) {
 	  try {
 	    if (Object.defineProperty({}, 'x', { get: function get() {
 	        return true;
@@ -2143,7 +2155,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var _loop = function (prop) {
 	    if (typeof object[prop] === 'function') {
 	      membrane[prop] = function () {
-	         false ? _routerWarning2['default'](false, message) : undefined;
+	         true ? _routerWarning2['default'](false, message) : undefined;
 	        return object[prop].apply(object, arguments);
 	      };
 	    } else {
@@ -2151,7 +2163,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        configurable: false,
 	        enumerable: false,
 	        get: function get() {
-	           false ? _routerWarning2['default'](false, message) : undefined;
+	           true ? _routerWarning2['default'](false, message) : undefined;
 	          return object[prop];
 	        }
 	      });
@@ -2233,14 +2245,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (error.name === SecurityError) {
 	      // Blocking cookies in Chrome/Firefox/Safari throws SecurityError on any
 	      // attempt to access window.sessionStorage.
-	       false ? _warning2['default'](false, '[history] Unable to save state; sessionStorage is not available due to security settings') : undefined;
+	       true ? _warning2['default'](false, '[history] Unable to save state; sessionStorage is not available due to security settings') : undefined;
 
 	      return;
 	    }
 
 	    if (QuotaExceededErrors.indexOf(error.name) >= 0 && window.sessionStorage.length === 0) {
 	      // Safari "private mode" throws QuotaExceededError.
-	       false ? _warning2['default'](false, '[history] Unable to save state; sessionStorage is not available in Safari private mode') : undefined;
+	       true ? _warning2['default'](false, '[history] Unable to save state; sessionStorage is not available in Safari private mode') : undefined;
 
 	      return;
 	    }
@@ -2257,7 +2269,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (error.name === SecurityError) {
 	      // Blocking cookies in Chrome/Firefox/Safari throws SecurityError on any
 	      // attempt to access window.sessionStorage.
-	       false ? _warning2['default'](false, '[history] Unable to read state; sessionStorage is not available due to security settings') : undefined;
+	       true ? _warning2['default'](false, '[history] Unable to read state; sessionStorage is not available due to security settings') : undefined;
 
 	      return null;
 	    }
@@ -2306,7 +2318,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }));
 
 	  function listen(listener) {
-	    !_ExecutionEnvironment.canUseDOM ?  false ? _invariant2['default'](false, 'DOM history needs a DOM') : _invariant2['default'](false) : undefined;
+	    !_ExecutionEnvironment.canUseDOM ?  true ? _invariant2['default'](false, 'DOM history needs a DOM') : _invariant2['default'](false) : undefined;
 
 	    return history.listen(listener);
 	  }
@@ -2385,7 +2397,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function createHashHistory() {
 	  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-	  !_ExecutionEnvironment.canUseDOM ?  false ? _invariant2['default'](false, 'Hash history needs a DOM') : _invariant2['default'](false) : undefined;
+	  !_ExecutionEnvironment.canUseDOM ?  true ? _invariant2['default'](false, 'Hash history needs a DOM') : _invariant2['default'](false) : undefined;
 
 	  var queryKey = options.queryKey;
 
@@ -2459,7 +2471,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (currentHash !== path) {
 	        window.location.hash = path;
 	      } else {
-	         false ? _warning2['default'](false, 'You cannot PUSH the same path using hash history') : undefined;
+	         true ? _warning2['default'](false, 'You cannot PUSH the same path using hash history') : undefined;
 	      }
 	    } else if (currentHash !== path) {
 	      // REPLACE
@@ -2501,13 +2513,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  function push(location) {
-	     false ? _warning2['default'](queryKey || location.state == null, 'You cannot use state without a queryKey it will be dropped') : undefined;
+	     true ? _warning2['default'](queryKey || location.state == null, 'You cannot use state without a queryKey it will be dropped') : undefined;
 
 	    history.push(location);
 	  }
 
 	  function replace(location) {
-	     false ? _warning2['default'](queryKey || location.state == null, 'You cannot use state without a queryKey it will be dropped') : undefined;
+	     true ? _warning2['default'](queryKey || location.state == null, 'You cannot use state without a queryKey it will be dropped') : undefined;
 
 	    history.replace(location);
 	  }
@@ -2515,7 +2527,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var goIsSupportedWithoutReload = _DOMUtils.supportsGoWithoutReloadUsingHash();
 
 	  function go(n) {
-	     false ? _warning2['default'](goIsSupportedWithoutReload, 'Hash history go(n) causes a full page reload in this browser') : undefined;
+	     true ? _warning2['default'](goIsSupportedWithoutReload, 'Hash history go(n) causes a full page reload in this browser') : undefined;
 
 	    history.go(n);
 	  }
@@ -2540,14 +2552,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // deprecated
 	  function pushState(state, path) {
-	     false ? _warning2['default'](queryKey || state == null, 'You cannot use state without a queryKey it will be dropped') : undefined;
+	     true ? _warning2['default'](queryKey || state == null, 'You cannot use state without a queryKey it will be dropped') : undefined;
 
 	    history.pushState(state, path);
 	  }
 
 	  // deprecated
 	  function replaceState(state, path) {
-	     false ? _warning2['default'](queryKey || state == null, 'You cannot use state without a queryKey it will be dropped') : undefined;
+	     true ? _warning2['default'](queryKey || state == null, 'You cannot use state without a queryKey it will be dropped') : undefined;
 
 	    history.replaceState(state, path);
 	  }
@@ -2626,8 +2638,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var finishTransition = options.finishTransition;
 	  var saveState = options.saveState;
 	  var go = options.go;
-	  var keyLength = options.keyLength;
 	  var getUserConfirmation = options.getUserConfirmation;
+	  var keyLength = options.keyLength;
 
 	  if (typeof keyLength !== 'number') keyLength = DefaultKeyLength;
 
@@ -2784,7 +2796,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var key = arguments.length <= 2 || arguments[2] === undefined ? createKey() : arguments[2];
 
 	    if (typeof action === 'object') {
-	       false ? _warning2['default'](false, 'The state (2nd) argument to history.createLocation is deprecated; use a ' + 'location descriptor instead') : undefined;
+	       true ? _warning2['default'](false, 'The state (2nd) argument to history.createLocation is deprecated; use a ' + 'location descriptor instead') : undefined;
 
 	      if (typeof location === 'string') location = _PathUtils.parsePath(location);
 
@@ -2875,8 +2887,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
 	var _ExecutionEnvironment = __webpack_require__(10);
 
 	var _PathUtils = __webpack_require__(7);
@@ -2892,11 +2902,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	function useBasename(createHistory) {
 	  return function () {
 	    var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+	    var history = createHistory(options);
+
 	    var basename = options.basename;
-
-	    var historyOptions = _objectWithoutProperties(options, ['basename']);
-
-	    var history = createHistory(historyOptions);
 
 	    // Automatically use the value of <base href> in HTML
 	    // documents as basename if it's not explicitly given.
@@ -3032,7 +3041,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  componentWillMount: function componentWillMount() {
-	     false ? _routerWarning2['default'](false, 'the `History` mixin is deprecated, please access `context.router` with your own `contextTypes`. http://tiny.cc/router-historymixin') : undefined;
+	     true ? _routerWarning2['default'](false, 'the `History` mixin is deprecated, please access `context.router` with your own `contextTypes`. http://tiny.cc/router-historymixin') : undefined;
 	    this.history = this.context.history;
 	  }
 
@@ -3121,7 +3130,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (parentRoute) {
 	        parentRoute.indexRoute = _Redirect2['default'].createRouteFromReactElement(element);
 	      } else {
-	         false ? _routerWarning2['default'](false, 'An <IndexRedirect> does not make sense at the root of your route config') : undefined;
+	         true ? _routerWarning2['default'](false, 'An <IndexRedirect> does not make sense at the root of your route config') : undefined;
 	      }
 	    }
 
@@ -3137,7 +3146,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  /* istanbul ignore next: sanity check */
 	  render: function render() {
-	     true ?  false ? _invariant2['default'](false, '<IndexRedirect> elements are for router configuration only and should not be rendered') : _invariant2['default'](false) : undefined;
+	     true ?  true ? _invariant2['default'](false, '<IndexRedirect> elements are for router configuration only and should not be rendered') : _invariant2['default'](false) : undefined;
 	  }
 
 	});
@@ -3187,7 +3196,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (parentRoute) {
 	        parentRoute.indexRoute = _RouteUtils.createRouteFromReactElement(element);
 	      } else {
-	         false ? _routerWarning2['default'](false, 'An <IndexRoute> does not make sense at the root of your route config') : undefined;
+	         true ? _routerWarning2['default'](false, 'An <IndexRoute> does not make sense at the root of your route config') : undefined;
 	      }
 	    }
 
@@ -3203,7 +3212,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  /* istanbul ignore next: sanity check */
 	  render: function render() {
-	     true ?  false ? _invariant2['default'](false, '<IndexRoute> elements are for router configuration only and should not be rendered') : _invariant2['default'](false) : undefined;
+	     true ?  true ? _invariant2['default'](false, '<IndexRoute> elements are for router configuration only and should not be rendered') : _invariant2['default'](false) : undefined;
 	  }
 
 	});
@@ -3266,12 +3275,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  componentDidMount: function componentDidMount() {
-	     false ? _routerWarning2['default'](false, 'the `Lifecycle` mixin is deprecated, please use `context.router.setRouteLeaveHook(route, hook)`. http://tiny.cc/router-lifecyclemixin') : undefined;
-	    !this.routerWillLeave ?  false ? _invariant2['default'](false, 'The Lifecycle mixin requires you to define a routerWillLeave method') : _invariant2['default'](false) : undefined;
+	     true ? _routerWarning2['default'](false, 'the `Lifecycle` mixin is deprecated, please use `context.router.setRouteLeaveHook(route, hook)`. http://tiny.cc/router-lifecyclemixin') : undefined;
+	    !this.routerWillLeave ?  true ? _invariant2['default'](false, 'The Lifecycle mixin requires you to define a routerWillLeave method') : _invariant2['default'](false) : undefined;
 
 	    var route = this.props.route || this.context.route;
 
-	    !route ?  false ? _invariant2['default'](false, 'The Lifecycle mixin must be used on either a) a <Route component> or ' + 'b) a descendant of a <Route component> that uses the RouteContext mixin') : _invariant2['default'](false) : undefined;
+	    !route ?  true ? _invariant2['default'](false, 'The Lifecycle mixin must be used on either a) a <Route component> or ' + 'b) a descendant of a <Route component> that uses the RouteContext mixin') : _invariant2['default'](false) : undefined;
 
 	    this._unlistenBeforeLeavingRoute = this.context.history.listenBeforeLeavingRoute(route, this.routerWillLeave);
 	  },
@@ -3338,7 +3347,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  /* istanbul ignore next: sanity check */
 	  render: function render() {
-	     true ?  false ? _invariant2['default'](false, '<Route> elements are for router configuration only and should not be rendered') : _invariant2['default'](false) : undefined;
+	     true ?  true ? _invariant2['default'](false, '<Route> elements are for router configuration only and should not be rendered') : _invariant2['default'](false) : undefined;
 	  }
 
 	});
@@ -3389,7 +3398,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  componentWillMount: function componentWillMount() {
-	     false ? _routerWarning2['default'](false, 'The `RouteContext` mixin is deprecated. You can provide `this.props.route` on context with your own `contextTypes`. http://tiny.cc/router-routecontextmixin') : undefined;
+	     true ? _routerWarning2['default'](false, 'The `RouteContext` mixin is deprecated. You can provide `this.props.route` on context with your own `contextTypes`. http://tiny.cc/router-routecontextmixin') : undefined;
 	  }
 
 	};
@@ -3503,7 +3512,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var parseQueryString = _props.parseQueryString;
 	    var stringifyQuery = _props.stringifyQuery;
 
-	     false ? _routerWarning2['default'](!(parseQueryString || stringifyQuery), '`parseQueryString` and `stringifyQuery` are deprecated. Please create a custom history. http://tiny.cc/router-customquerystring') : undefined;
+	     true ? _routerWarning2['default'](!(parseQueryString || stringifyQuery), '`parseQueryString` and `stringifyQuery` are deprecated. Please create a custom history. http://tiny.cc/router-customquerystring') : undefined;
 
 	    var _createRouterObjects = this.createRouterObjects();
 
@@ -3553,12 +3562,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var createHistory = undefined;
 	    if (history) {
-	       false ? _routerWarning2['default'](false, 'It appears you have provided a deprecated history object to `<Router/>`, please use a history provided by ' + 'React Router with `import { browserHistory } from \'react-router\'` or `import { hashHistory } from \'react-router\'`. ' + 'If you are using a custom history please create it with `useRouterHistory`, see http://tiny.cc/router-usinghistory for details.') : undefined;
+	       true ? _routerWarning2['default'](false, 'It appears you have provided a deprecated history object to `<Router/>`, please use a history provided by ' + 'React Router with `import { browserHistory } from \'react-router\'` or `import { hashHistory } from \'react-router\'`. ' + 'If you are using a custom history please create it with `useRouterHistory`, see http://tiny.cc/router-usinghistory for details.') : undefined;
 	      createHistory = function () {
 	        return history;
 	      };
 	    } else {
-	       false ? _routerWarning2['default'](false, '`Router` no longer defaults the history prop to hash history. Please use the `hashHistory` singleton instead. http://tiny.cc/router-defaulthistory') : undefined;
+	       true ? _routerWarning2['default'](false, '`Router` no longer defaults the history prop to hash history. Please use the `hashHistory` singleton instead. http://tiny.cc/router-defaulthistory') : undefined;
 	      createHistory = _historyLibCreateHashHistory2['default'];
 	    }
 
@@ -3567,9 +3576,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  /* istanbul ignore next: sanity check */
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	     false ? _routerWarning2['default'](nextProps.history === this.props.history, 'You cannot change <Router history>; it will be ignored') : undefined;
+	     true ? _routerWarning2['default'](nextProps.history === this.props.history, 'You cannot change <Router history>; it will be ignored') : undefined;
 
-	     false ? _routerWarning2['default']((nextProps.routes || nextProps.children) === (this.props.routes || this.props.children), 'You cannot change <Router routes>; it will be ignored') : undefined;
+	     true ? _routerWarning2['default']((nextProps.routes || nextProps.children) === (this.props.routes || this.props.children), 'You cannot change <Router routes>; it will be ignored') : undefined;
 	  },
 
 	  componentWillUnmount: function componentWillUnmount() {
@@ -3638,7 +3647,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  displayName: 'RoutingContext',
 
 	  componentWillMount: function componentWillMount() {
-	     false ? _routerWarning2['default'](false, '`RoutingContext` has been renamed to `RouterContext`. Please use `import { RouterContext } from \'react-router\'`. http://tiny.cc/router-routercontext') : undefined;
+	     true ? _routerWarning2['default'](false, '`RoutingContext` has been renamed to `RouterContext`. Please use `import { RouterContext } from \'react-router\'`. http://tiny.cc/router-routercontext') : undefined;
 	  },
 
 	  render: function render() {
@@ -3657,6 +3666,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.__esModule = true;
 	exports.runEnterHooks = runEnterHooks;
+	exports.runChangeHooks = runChangeHooks;
 	exports.runLeaveHooks = runLeaveHooks;
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -3667,11 +3677,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
-	function createEnterHook(hook, route) {
-	  return function (a, b, callback) {
-	    hook.apply(route, arguments);
+	function createTransitionHook(hook, route, asyncArity) {
+	  return function () {
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-	    if (hook.length < 3) {
+	    hook.apply(route, args);
+
+	    if (hook.length < asyncArity) {
+	      var callback = args[args.length - 1];
 	      // Assume hook executes synchronously and
 	      // automatically call the callback.
 	      callback();
@@ -3681,10 +3696,50 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function getEnterHooks(routes) {
 	  return routes.reduce(function (hooks, route) {
-	    if (route.onEnter) hooks.push(createEnterHook(route.onEnter, route));
+	    if (route.onEnter) hooks.push(createTransitionHook(route.onEnter, route, 3));
 
 	    return hooks;
 	  }, []);
+	}
+
+	function getChangeHooks(routes) {
+	  return routes.reduce(function (hooks, route) {
+	    if (route.onChange) hooks.push(createTransitionHook(route.onChange, route, 4));
+	    return hooks;
+	  }, []);
+	}
+
+	function runTransitionHooks(length, iter, callback) {
+	  if (!length) {
+	    callback();
+	    return;
+	  }
+
+	  var redirectInfo = undefined;
+	  function replace(location, deprecatedPathname, deprecatedQuery) {
+	    if (deprecatedPathname) {
+	       true ? _routerWarning2['default'](false, '`replaceState(state, pathname, query) is deprecated; use `replace(location)` with a location descriptor instead. http://tiny.cc/router-isActivedeprecated') : undefined;
+	      redirectInfo = {
+	        pathname: deprecatedPathname,
+	        query: deprecatedQuery,
+	        state: location
+	      };
+
+	      return;
+	    }
+
+	    redirectInfo = location;
+	  }
+
+	  _AsyncUtils.loopAsync(length, function (index, next, done) {
+	    iter(index, replace, function (error) {
+	      if (error || redirectInfo) {
+	        done(error, redirectInfo); // No need to continue.
+	      } else {
+	          next();
+	        }
+	    });
+	  }, callback);
 	}
 
 	/**
@@ -3700,36 +3755,26 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function runEnterHooks(routes, nextState, callback) {
 	  var hooks = getEnterHooks(routes);
+	  return runTransitionHooks(hooks.length, function (index, replace, next) {
+	    hooks[index](nextState, replace, next);
+	  }, callback);
+	}
 
-	  if (!hooks.length) {
-	    callback();
-	    return;
-	  }
+	/**
+	 * Runs all onChange hooks in the given array of routes in order
+	 * with onChange(prevState, nextState, replace, callback) and calls
+	 * callback(error, redirectInfo) when finished. The first hook
+	 * to use replace short-circuits the loop.
+	 *
+	 * If a hook needs to run asynchronously, it may use the callback
+	 * function. However, doing so will cause the transition to pause,
+	 * which could lead to a non-responsive UI if the hook is slow.
+	 */
 
-	  var redirectInfo = undefined;
-	  function replace(location, deprecatedPathname, deprecatedQuery) {
-	    if (deprecatedPathname) {
-	       false ? _routerWarning2['default'](false, '`replaceState(state, pathname, query) is deprecated; use `replace(location)` with a location descriptor instead. http://tiny.cc/router-isActivedeprecated') : undefined;
-	      redirectInfo = {
-	        pathname: deprecatedPathname,
-	        query: deprecatedQuery,
-	        state: location
-	      };
-
-	      return;
-	    }
-
-	    redirectInfo = location;
-	  }
-
-	  _AsyncUtils.loopAsync(hooks.length, function (index, next, done) {
-	    hooks[index](nextState, replace, function (error) {
-	      if (error || redirectInfo) {
-	        done(error, redirectInfo); // No need to continue.
-	      } else {
-	          next();
-	        }
-	    });
+	function runChangeHooks(routes, state, nextState, callback) {
+	  var hooks = getChangeHooks(routes);
+	  return runTransitionHooks(hooks.length, function (index, replace, next) {
+	    hooks[index](state, nextState, replace, next);
 	  }, callback);
 	}
 
@@ -3785,7 +3830,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * Returns an object of { leaveRoutes, enterRoutes } determined by
+	 * Returns an object of { leaveRoutes, changeRoutes, enterRoutes } determined by
 	 * the change from prevState to nextState. We leave routes if either
 	 * 1) they are not in the next state or 2) they are in the next state
 	 * but their params have changed (i.e. /users/123 => /users/456).
@@ -3793,12 +3838,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * leaveRoutes are ordered starting at the leaf route of the tree
 	 * we're leaving up to the common parent route. enterRoutes are ordered
 	 * from the top of the tree we're entering down to the leaf route.
+	 *
+	 * changeRoutes are any routes that didn't leave or enter during
+	 * the transition.
 	 */
 	function computeChangedRoutes(prevState, nextState) {
 	  var prevRoutes = prevState && prevState.routes;
 	  var nextRoutes = nextState.routes;
 
 	  var leaveRoutes = undefined,
+	      changeRoutes = undefined,
 	      enterRoutes = undefined;
 	  if (prevRoutes) {
 	    (function () {
@@ -3816,17 +3865,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // onLeave hooks start at the leaf route.
 	      leaveRoutes.reverse();
 
-	      enterRoutes = nextRoutes.filter(function (route) {
-	        return prevRoutes.indexOf(route) === -1 || leaveRoutes.indexOf(route) !== -1;
+	      enterRoutes = [];
+	      changeRoutes = [];
+
+	      nextRoutes.forEach(function (route) {
+	        var isNew = prevRoutes.indexOf(route) === -1;
+	        var paramsChanged = leaveRoutes.indexOf(route) !== -1;
+
+	        if (isNew || paramsChanged) enterRoutes.push(route);else changeRoutes.push(route);
 	      });
 	    })();
 	  } else {
 	    leaveRoutes = [];
+	    changeRoutes = [];
 	    enterRoutes = nextRoutes;
 	  }
 
 	  return {
 	    leaveRoutes: leaveRoutes,
+	    changeRoutes: changeRoutes,
 	    enterRoutes: enterRoutes
 	  };
 	}
@@ -3894,8 +3951,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var paramNames = _PatternUtils.getParamNames(route.path);
 
 	  for (var p in params) {
-	    if (params.hasOwnProperty(p) && paramNames.indexOf(p) !== -1) routeParams[p] = params[p];
-	  }return routeParams;
+	    if (Object.prototype.hasOwnProperty.call(params, p) && paramNames.indexOf(p) !== -1) {
+	      routeParams[p] = params[p];
+	    }
+	  }
+
+	  return routeParams;
 	}
 
 	exports['default'] = getRouteParams;
@@ -3946,7 +4007,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  if (typeof a === 'object') {
 	    for (var p in a) {
-	      if (!a.hasOwnProperty(p)) {
+	      if (!Object.prototype.hasOwnProperty.call(a, p)) {
 	        continue;
 	      }
 
@@ -3954,7 +4015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (b[p] !== undefined) {
 	          return false;
 	        }
-	      } else if (!b.hasOwnProperty(p)) {
+	      } else if (!Object.prototype.hasOwnProperty.call(b, p)) {
 	        return false;
 	      } else if (!deepEqual(a[p], b[p])) {
 	        return false;
@@ -4100,7 +4161,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var options = _objectWithoutProperties(_ref, ['history', 'routes', 'location']);
 
-	  !(history || location) ?  false ? _invariant2['default'](false, 'match needs a history or a location') : _invariant2['default'](false) : undefined;
+	  !(history || location) ?  true ? _invariant2['default'](false, 'match needs a history or a location') : _invariant2['default'](false) : undefined;
 
 	  history = history ? history : _createMemoryHistory2['default'](options);
 	  var transitionManager = _createTransitionManager2['default'](history, _RouteUtils.createRoutes(routes));
@@ -4194,8 +4255,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	  } else if (route.childRoutes) {
 	    (function () {
-	      var pathless = route.childRoutes.filter(function (obj) {
-	        return !obj.hasOwnProperty('path');
+	      var pathless = route.childRoutes.filter(function (childRoute) {
+	        return !childRoute.path;
 	      });
 
 	      _AsyncUtils.loopAsync(pathless.length, function (index, next, done) {
@@ -4265,12 +4326,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (Array.isArray(indexRoute)) {
 	              var _match$routes;
 
-	               false ? _routerWarning2['default'](indexRoute.every(function (route) {
+	               true ? _routerWarning2['default'](indexRoute.every(function (route) {
 	                return !route.path;
 	              }), 'Index routes should not have paths') : undefined;
 	              (_match$routes = match.routes).push.apply(_match$routes, indexRoute);
 	            } else if (indexRoute) {
-	               false ? _routerWarning2['default'](!indexRoute.path, 'Index routes should not have paths') : undefined;
+	               true ? _routerWarning2['default'](!indexRoute.path, 'Index routes should not have paths') : undefined;
 	              match.routes.push(indexRoute);
 	            }
 
@@ -4389,7 +4450,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * - isActive(pathname, query, indexOnly=false)
 	 */
 	function useRoutes(createHistory) {
-	   false ? _routerWarning2['default'](false, '`useRoutes` is deprecated. Please use `createTransitionManager` instead.') : undefined;
+	   true ? _routerWarning2['default'](false, '`useRoutes` is deprecated. Please use `createTransitionManager` instead.') : undefined;
 
 	  return function () {
 	    var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
@@ -4555,24 +4616,56 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	exports.__esModule = true;
+	var _slice = Array.prototype.slice;
 	exports.loopAsync = loopAsync;
 
 	function loopAsync(turns, work, callback) {
-	  var currentTurn = 0;
-	  var isDone = false;
+	  var currentTurn = 0,
+	      isDone = false;
+	  var sync = false,
+	      hasNext = false,
+	      doneArgs = undefined;
 
 	  function done() {
 	    isDone = true;
+	    if (sync) {
+	      // Iterate instead of recursing if possible.
+	      doneArgs = [].concat(_slice.call(arguments));
+	      return;
+	    }
+
 	    callback.apply(this, arguments);
 	  }
 
 	  function next() {
-	    if (isDone) return;
+	    if (isDone) {
+	      return;
+	    }
 
-	    if (currentTurn < turns) {
+	    hasNext = true;
+	    if (sync) {
+	      // Iterate instead of recursing if possible.
+	      return;
+	    }
+
+	    sync = true;
+
+	    while (!isDone && currentTurn < turns && hasNext) {
+	      hasNext = false;
 	      work.call(this, currentTurn++, next, done);
-	    } else {
-	      done.apply(this, arguments);
+	    }
+
+	    sync = false;
+
+	    if (isDone) {
+	      // This means the loop finished synchronously.
+	      callback.apply(this, doneArgs);
+	      return;
+	    }
+
+	    if (currentTurn >= turns && hasNext) {
+	      isDone = true;
+	      callback();
 	    }
 	  }
 
@@ -4621,7 +4714,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function createBrowserHistory() {
 	  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-	  !_ExecutionEnvironment.canUseDOM ?  false ? _invariant2['default'](false, 'Browser history needs a DOM') : _invariant2['default'](false) : undefined;
+	  !_ExecutionEnvironment.canUseDOM ?  true ? _invariant2['default'](false, 'Browser history needs a DOM') : _invariant2['default'](false) : undefined;
 
 	  var forceRefresh = options.forceRefresh;
 
@@ -4790,7 +4883,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (typeof location === 'string') location = _PathUtils.parsePath(location);
 
 	  if (typeof action === 'object') {
-	     false ? _warning2['default'](false, 'The state (2nd) argument to createLocation is deprecated; use a ' + 'location descriptor instead') : undefined;
+	     true ? _warning2['default'](false, 'The state (2nd) argument to createLocation is deprecated; use a ' + 'location descriptor instead') : undefined;
 
 	    location = _extends({}, location, { state: action });
 
@@ -4886,13 +4979,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    if (typeof entry === 'object' && entry) return _extends({}, entry, { key: key });
 
-	     true ?  false ? _invariant2['default'](false, 'Unable to create history entry from %s', entry) : _invariant2['default'](false) : undefined;
+	     true ?  true ? _invariant2['default'](false, 'Unable to create history entry from %s', entry) : _invariant2['default'](false) : undefined;
 	  });
 
 	  if (current == null) {
 	    current = entries.length - 1;
 	  } else {
-	    !(current >= 0 && current < entries.length) ?  false ? _invariant2['default'](false, 'Current index must be >= 0 and < %s, was %s', entries.length, current) : _invariant2['default'](false) : undefined;
+	    !(current >= 0 && current < entries.length) ?  true ? _invariant2['default'](false, 'Current index must be >= 0 and < %s, was %s', entries.length, current) : _invariant2['default'](false) : undefined;
 	  }
 
 	  var storage = createStateStorage(entries);
@@ -4907,19 +5000,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  function getCurrentLocation() {
 	    var entry = entries[current];
-	    var key = entry.key;
 	    var basename = entry.basename;
 	    var pathname = entry.pathname;
 	    var search = entry.search;
 
 	    var path = (basename || '') + pathname + (search || '');
 
-	    var state = undefined;
-	    if (key) {
+	    var key = undefined,
+	        state = undefined;
+	    if (entry.key) {
+	      key = entry.key;
 	      state = readState(key);
 	    } else {
-	      state = null;
 	      key = history.createKey();
+	      state = null;
 	      entry.key = key;
 	    }
 
@@ -4936,7 +5030,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function go(n) {
 	    if (n) {
 	      if (!canGo(n)) {
-	         false ? _warning2['default'](false, 'Cannot go(%s) there is not enough history', n) : undefined;
+	         true ? _warning2['default'](false, 'Cannot go(%s) there is not enough history', n) : undefined;
 	        return;
 	      }
 
@@ -5034,7 +5128,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 
 			if (Array.isArray(val)) {
-				return val.sort().map(function (val2) {
+				return val.slice().sort().map(function (val2) {
 					return strictUriEncode(key) + '=' + strictUriEncode(val2);
 				}).join('&');
 			}

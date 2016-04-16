@@ -110,12 +110,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports["default"] = compose;
 	/**
-	 * Composes single-argument functions from right to left.
+	 * Composes single-argument functions from right to left. The rightmost
+	 * function can take multiple arguments as it provides the signature for
+	 * the resulting composite function.
 	 *
 	 * @param {...Function} funcs The functions to compose.
-	 * @returns {Function} A function obtained by composing functions from right to
-	 * left. For example, compose(f, g, h) is identical to arg => f(g(h(arg))).
+	 * @returns {Function} A function obtained by composing the argument functions
+	 * from right to left. For example, compose(f, g, h) is identical to doing
+	 * (...args) => f(g(h(...args))).
 	 */
+
 	function compose() {
 	  for (var _len = arguments.length, funcs = Array(_len), _key = 0; _key < _len; _key++) {
 	    funcs[_key] = arguments[_key];
@@ -239,7 +243,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * However, the next `dispatch()` call, whether nested or not, will use a more
 	   * recent snapshot of the subscription list.
 	   *
-	   * 2. The listener should not expect to see all states changes, as the state
+	   * 2. The listener should not expect to see all state changes, as the state
 	   * might have been updated multiple times during a nested `dispatch()` before
 	   * the listener is called. It is, however, guaranteed that all subscribers
 	   * registered before the `dispatch()` started will be called with the latest
@@ -389,8 +393,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isHostObject = __webpack_require__(8),
-	    isObjectLike = __webpack_require__(9);
+	var getPrototype = __webpack_require__(8),
+	    isHostObject = __webpack_require__(9),
+	    isObjectLike = __webpack_require__(10);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -401,17 +406,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	/** Used to resolve the decompiled source of functions. */
 	var funcToString = Function.prototype.toString;
 
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
 	/** Used to infer the `Object` constructor. */
 	var objectCtorString = funcToString.call(Object);
 
 	/**
-	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
 	 * of values.
 	 */
 	var objectToString = objectProto.toString;
-
-	/** Built-in value references. */
-	var getPrototypeOf = Object.getPrototypeOf;
 
 	/**
 	 * Checks if `value` is a plain object, that is, an object created by the
@@ -419,9 +425,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *
 	 * @static
 	 * @memberOf _
+	 * @since 0.8.0
 	 * @category Lang
 	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+	 * @returns {boolean} Returns `true` if `value` is a plain object,
+	 *  else `false`.
 	 * @example
 	 *
 	 * function Foo() {
@@ -441,17 +449,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * // => true
 	 */
 	function isPlainObject(value) {
-	  if (!isObjectLike(value) || objectToString.call(value) != objectTag || isHostObject(value)) {
+	  if (!isObjectLike(value) ||
+	      objectToString.call(value) != objectTag || isHostObject(value)) {
 	    return false;
 	  }
-	  var proto = objectProto;
-	  if (typeof value.constructor == 'function') {
-	    proto = getPrototypeOf(value);
-	  }
+	  var proto = getPrototype(value);
 	  if (proto === null) {
 	    return true;
 	  }
-	  var Ctor = proto.constructor;
+	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
 	  return (typeof Ctor == 'function' &&
 	    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
 	}
@@ -465,9 +471,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
+	exports.__esModule = true;
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	exports.__esModule = true;
 	exports["default"] = applyMiddleware;
 
 	var _compose = __webpack_require__(1);
@@ -602,7 +609,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var actionType = action && action.type;
 	  var actionName = actionType && '"' + actionType.toString() + '"' || 'an action';
 
-	  return 'Reducer "' + key + '" returned undefined handling ' + actionName + '. ' + 'To ignore an action, you must explicitly return the previous state.';
+	  return 'Given action ' + actionName + ', reducer "' + key + '" returned undefined. ' + 'To ignore an action, you must explicitly return the previous state.';
 	}
 
 	function getUnexpectedStateShapeWarningMessage(inputState, reducers, action) {
@@ -713,6 +720,27 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 8 */
 /***/ function(module, exports) {
 
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeGetPrototype = Object.getPrototypeOf;
+
+	/**
+	 * Gets the `[[Prototype]]` of `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {null|Object} Returns the `[[Prototype]]`.
+	 */
+	function getPrototype(value) {
+	  return nativeGetPrototype(Object(value));
+	}
+
+	module.exports = getPrototype;
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
 	/**
 	 * Checks if `value` is a host object in IE < 9.
 	 *
@@ -736,7 +764,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	/**
@@ -745,6 +773,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *
 	 * @static
 	 * @memberOf _
+	 * @since 4.0.0
 	 * @category Lang
 	 * @param {*} value The value to check.
 	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.

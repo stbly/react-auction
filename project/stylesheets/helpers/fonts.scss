@@ -3,12 +3,25 @@ $georgia       : Georgia, Cambria, 'Times New Roman', Times, serif !default;
 $lucida-grande : 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif !default;
 $monospace     : 'Bitstream Vera Sans Mono', Consolas, Courier, monospace !default;
 $verdana       : Verdana, Geneva, sans-serif !default;
-$eurostile     : 'eurostile', $lucida-grande;
+
+$cantarell-bold     : 'Cantarell-Bold', $lucida-grande;
+$cantarell-boldoblique     : 'Cantarell-BoldOblique', $lucida-grande;
+$cantarell-oblique     : 'Cantarell-Oblique', $lucida-grande;
+$cantarell-regular     : 'Cantarell-Regular', $lucida-grande;
+
+$transandina-medium     : 'TrasandinaMedium', $lucida-grande;
+$transandina-black     : 'TrasandinaBlack', $lucida-grande;
 
 @mixin helvetica     { font-family: $helvetica; }
 @mixin georgia       { font-family: $georgia; }
 @mixin lucida-grande { font-family: $lucida-grande; }
 @mixin monospace     { font-family: $monospace; }
 @mixin verdana       { font-family: $verdana; }
-@mixin eurostile     { font-family: $eurostile; }
 
+@mixin transandina-medium     { font-family: $transandina-medium; }
+@mixin transandina-black     { font-family: $transandina-black; }
+
+@mixin cantarell { font-family: $cantarell-regular; letter-spacing: -.03125em; }
+@mixin cantarell-bold { @include cantarell; font-family: $cantarell-bold; }
+@mixin cantarell-boldoblique { @include cantarell; font-family: $cantarell-boldoblique; }
+@mixin cantarell-oblique { @include cantarell; font-family: $cantarell-oblique; }

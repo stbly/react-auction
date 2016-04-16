@@ -1,7 +1,6 @@
 @import '../init';
 
 body {
-	font-family: 'Roboto', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-size: 100%;
 }
@@ -13,4 +12,9 @@ body {
 .app {
     height: 100vh;
     overflow-y: scroll;
+}
+
+.headings {
+	@include transandina-medium;
+	text-transform: uppercase;
 }

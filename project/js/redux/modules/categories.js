@@ -1,3 +1,4 @@
+import * as SettingsUtils from '../../helpers/SettingsUtils'
 
 let initialState = {
 	fetching: false,
@@ -90,7 +91,8 @@ let initialState = {
 				goal: 130
 			}
 		}
-	}
+	},
+	lists: null
 }
 
 export function requestCategories() {
@@ -117,5 +119,13 @@ export default function reducer (state = initialState, action) {
 
 		default:
 			return state;
+	}
+}
+
+function sortCategoriesIntoLists( categories ) {
+	console.log('----',categories);
+	return {
+		battingCategories: SettingsUtils.getCategories(categories.batter),
+		pitchingCategories: SettingsUtils.getCategories(categories.pitcher)
 	}
 }

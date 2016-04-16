@@ -1,20 +1,35 @@
 ## [HEAD]
 > Unreleased
 
-## [v2.0.0-rc6]
+[HEAD]: https://github.com/reactjs/react-router/compare/latest...HEAD
+
+## [v2.1.0]
+> April 11, 2016
+
+- **Feature:** Add support for `onChange` hook on routes ([#3108])
+- **Minor:** Include full warning messages in non-minified UMD build ([#3213])
+- **Minor:** Speed up path matching ([#3217])
+
+[#3108]: https://github.com/reactjs/react-router/pull/3108
+[#3213]: https://github.com/reactjs/react-router/pull/3213
+[#3217]: https://github.com/reactjs/react-router/pull/3217
+[v2.1.0]: https://github.com/reactjs/react-router/compare/v2.0.1...v2.1.0
+
+## [v2.0.1]
 > March 9, 2016
 
-- Fixed bug where transition hooks were not called on child routes of
-  parent's whose params changed but the child's did not. ([#3166])
+- **Bugfix:** Call transition hooks on child routes of parents whose params
+changed but the child's did not. ([#3166])
+- **Minor:** Remove support for installing from source ([#3164])
 
-[#3166][https://github.com/reactjs/react-router/pull/3166]
-
-[HEAD]: https://github.com/reactjs/react-router/compare/v2.0.0...HEAD
+[v2.0.1]: https://github.com/reactjs/react-router/compare/v2.0.0...v2.0.1
+[#3164]: https://github.com/reactjs/react-router/pull/3164
+[#3166]: https://github.com/reactjs/react-router/pull/3166
 
 ## [v2.0.0]
 > Feb 10, 2016
 
-- Add back basename support in `match` ([#3054])
+- **Bugfix:** Add back basename support in `match` ([#3054])
 
 [v2.0.0]: https://github.com/reactjs/react-router/compare/v2.0.0-rc6...v2.0.0
 [#3054]: https://github.com/reactjs/react-router/pull/3054
@@ -23,9 +38,9 @@
 > Feb 5, 2016
 
 - **Breaking:** Removed default top-level `<Router>` export ([#2906])
-- Use history.createLocation where possible ([#2910])
-- Fix initial routing state after `match` ([#2965])
-- Reduce stack size from matching routes ([#2923])
+- **Bugfix:** Use history.createLocation where possible ([#2910])
+- **Bugfix:** Fix initial routing state after `match` ([#2965])
+- **Minor:** Reduce stack size from matching routes ([#2923])
 
 [v2.0.0-rc6]: https://github.com/reactjs/react-router/compare/v2.0.0-rc5...v2.0.0-rc6
 [#2906]: https://github.com/reactjs/react-router/pull/2906

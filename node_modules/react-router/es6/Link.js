@@ -22,9 +22,10 @@ function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
+// TODO: De-duplicate against hasAnyProperties in createTransitionManager.
 function isEmptyObject(object) {
   for (var p in object) {
-    if (object.hasOwnProperty(p)) return false;
+    if (Object.prototype.hasOwnProperty.call(object, p)) return false;
   }return true;
 }
 

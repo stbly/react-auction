@@ -39,8 +39,8 @@ function getIndexRoute(route, location, callback) {
     });
   } else if (route.childRoutes) {
     (function () {
-      var pathless = route.childRoutes.filter(function (obj) {
-        return !obj.hasOwnProperty('path');
+      var pathless = route.childRoutes.filter(function (childRoute) {
+        return !childRoute.path;
       });
 
       loopAsync(pathless.length, function (index, next, done) {

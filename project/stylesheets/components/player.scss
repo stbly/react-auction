@@ -1,6 +1,7 @@
 @import '../init';
 
 .player {
+	@include cantarell;
 	position: relative;
 
 	.slot-price,
