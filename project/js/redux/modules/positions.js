@@ -1,31 +1,36 @@
 
 let initialState = {
 	fetching: false,
-	data: {
-		'batter':[
-			{ position: '1B' },
-			{ position: '2B' },
-			{ position: '3B' },
-			{ position: 'SS' },
-			{ position: 'OF' },
-			{
-				position: 'C',
-				minimum: 14
-			}
-		],
-			//'UTIL':{}
-		'pitcher':[
-			{ position: 'SP' },
-			{
-				position: 'RP',
-				minimum: 30
-			},
-			{
-				position: 'CP',
-				minimum: 30
-			}
-		]
-	}
+	data: [
+		{
+			type: 'batter',
+			positions: [
+				{ name: '1B' },
+				{ name: '2B' },
+				{ name: '3B' },
+				{ name: 'SS' },
+				{ name: 'OF' },
+				{
+					name: 'C',
+					minimum: 14
+				}
+			]
+		},
+		{
+			type: 'pitcher',
+			positions: [
+				{ name: 'SP' },
+				{
+					name: 'RP',
+					minimum: 30
+				},
+				{
+					name: 'CP',
+					minimum: 30
+				}
+			]
+		}
+	]
 }
 
 export function requestPositions() {

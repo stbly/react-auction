@@ -61,7 +61,7 @@ class FavoritePlayerList extends PlayerList {
 						<tr className='headings'>
 							<td className='player-info' onClick={this.sortList.bind(this)} data-name='pos'>Pos</td>
 							<td className='player-info name' onClick={this.sortList.bind(this)} data-name='name'>Name</td>
-							<td className='player-info value-info' onClick={this.sortList.bind(this)} data-name='inflatedValue'>Bid</td>
+							<td className='player-info value-info' onClick={this.sortList.bind(this)} data-name='adjustedValue'>Bid</td>
 						</tr>
 
 						{this.getPlayers()}

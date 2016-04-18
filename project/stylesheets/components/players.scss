@@ -5,18 +5,3 @@
 	margin-left: 15%;
 	float:left;
 }*/
-
-.active-player {
-	border: 3px solid;
-
-	.player-list {
-		margin-bottom:0;
-	}
-
-	&.batter {
-		border-color: $batter-dark;
-	}
-	&.pitcher {
-		border-color: $pitcherDark;
-	}
-}

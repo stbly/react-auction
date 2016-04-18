@@ -6,18 +6,17 @@ function determineSgpGroups (players, scarcePositions) {
 	var sgpGroups = [];
 	scarcePositions.forEach(function (position){
 		/* --- Determine the minimum SGPs for each rare position --- */
-
 		var positionIndex = players.length-1,
-			positionType = position.position,
+			positionType = position.name,
 			lastDraftablePlayer = players[positionIndex];
 
-		var lastDraftPlayerPos = lastDraftablePlayer.pos;
-		while (lastDraftPlayerPos != positionType) {
+		while (lastDraftablePlayer.pos != positionType) {
 			positionIndex--;
 			// console.log(players[positionIndex],positionType);
 
-			lastDraftPlayerPos = players[positionIndex].pos;
+			lastDraftablePlayer = players[positionIndex];
 		}
+		console.log('lastDraftable:',lastDraftablePlayer)
 
 		var minSgp = lastDraftablePlayer.sgp;
 		sgpGroups.push({
@@ -38,7 +37,7 @@ function determineSgpGroups (players, scarcePositions) {
 		lastDraftablePlayer = players[index];
 		scarcePositions.forEach(function (conditionalPosition) {
 
-			if (conditionalPosition.position === lastDraftablePlayer.pos) {
+			if (conditionalPosition.name === lastDraftablePlayer.pos) {
 				bool = true;
 			}
 		});
@@ -88,10 +87,10 @@ function assignValuesFor (players, sgpGroups, pricePerSgp, inflationRate) {
 		player.displayValue = value.toFixed(1);
 
 		if (inflationRate) {
-			var inflatedValue = value * inflationRate;
-			player.inflatedValue = inflatedValue;
-			player.displayInflatedValue = inflatedValue.toFixed(1);
-			player.bidPrice = inflatedValue.toFixed(0);
+			var adjustedValue = value * inflationRate;
+			player.adjustedValue = adjustedValue;
+			player.displayInflatedValue = adjustedValue.toFixed(1);
+			player.bidPrice = adjustedValue.toFixed(0);
 		}
 
 		return player;
@@ -109,15 +108,16 @@ export default function assignPlayerValues (draftablePlayers, rosterSpots, allPl
 		});
 
 		var scarcePositionNames = scarcePositions.map(function (condition) {
-			return condition.position;
+			return condition.name;
 		});
 
 		var marginalSgp = 0;
 		var sgpGroups = [];
 
+		console.log(draftablePlayers.length);
 		if (scarcePositions.length > 0) {
 			sgpGroups = determineSgpGroups(draftablePlayers, scarcePositions);
-
+			console.log('sgpGroups',sgpGroups)
 			sgpGroups.forEach(function (sgpGroup) {
 
 				var playersToCalculateFrom;

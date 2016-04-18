@@ -33,6 +33,30 @@ export function rankPlayers (players, category, descending=true) {
 	});
 }
 
+export function getMatchingPlayers (players, query) {
+
+	var searchValueString = query.toLowerCase(),
+		matchingValues = players;
+
+	if (searchValueString.length >= 2) {
+		matchingValues = players.filter(function (selection) {
+			var selectionValue = selection.name.toLowerCase();
+			var eachWord = selectionValue.split(' '),
+				valueMatch;
+
+			for(var i=0; i<eachWord.length; i++) {
+				if (eachWord[i].indexOf(searchValueString) === 0 || selectionValue.indexOf(searchValueString) === 0) {
+					valueMatch = true;
+				}
+			}
+
+			return valueMatch;
+		});
+	}
+
+	return matchingValues;
+}
+
 export function getPlayerList (players, listSize, positionalConditions) {
 
 	var playersSortedBySGP = sortBy(players, 'sgp').reverse();
@@ -40,14 +64,13 @@ export function getPlayerList (players, listSize, positionalConditions) {
 	var draftablePlayers = playersSortedBySGP.slice(0, listSize);
 	var unusedPlayers = playersSortedBySGP.slice(listSize, 1000);
 
-	// if (this.get('observeScarcity')) {
 	positionalConditions.forEach(function (condition) {
-		var currentPlayersOfType = filterByPosition(draftablePlayers, condition.position);
+		var currentPlayersOfType = filterByPosition(draftablePlayers, condition.name);
 		if (currentPlayersOfType.length < condition.minimum) {
 			condition.invoked = true;
 
 			var difference = condition.minimum - currentPlayersOfType.length;
-			var selectableUnusedPlayers = filterByPosition(unusedPlayers, condition.position);
+			var selectableUnusedPlayers = filterByPosition(unusedPlayers, condition.name);
 			var playersToAdd = selectableUnusedPlayers.slice(0,difference);
 			var playersToRemove = [];
 			var removeIndex = draftablePlayers.length-1;
@@ -56,7 +79,7 @@ export function getPlayerList (players, listSize, positionalConditions) {
 				var okayToUse = true;
 				positionalConditions.forEach(function (conditionCheck) {
 
-					if (playerToTryRemoving.pos === conditionCheck.position) {
+					if (playerToTryRemoving.pos === conditionCheck.name) {
 						okayToUse = false;
 					}
 				});

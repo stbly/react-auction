@@ -149,7 +149,7 @@ class Player extends Component {
 	getMetaInfo () {
 		var els = [];
 		if (!this.props.hideMetaInfo) {
-			els.push(<td key={this.props.player.rank}>{this.props.player.rank}</td>);
+			els.push(<td key={this.props.player.rank}>{this.props.rank}</td>);
 			els.push(
 				<td key={this.props.player.rank + 'favorite-toggle'} className='favorite-toggle'>
 					{this.getCheckbox()}
@@ -165,11 +165,30 @@ class Player extends Component {
 		}
 	}
 
+	getPlayerInfo () {
+		if (this.props.hidePlayerInfo) {
+			return;
+		}
+
+		var positionClasses = classNames('position', this.getPosition());
+
+		return ([
+			<td key={'player-pos'} className={positionClasses}>{this.props.player.pos}</td>,
+			<td key={'player-name'} onClick={this.selectPlayer.bind(this)} className={positionClasses}>{this.props.player.name}</td>
+		])
+	}
+
 	getValueInfo () {
 		var els = [];
 
-		if (this.props.player.cost) {
-			return <td key={'display-value-td'} colSpan='3'><span className='player-cost'>Drafted: <span className='dollar-amount'>{this.props.player.cost}</span></span></td>
+		if (this.props.player.cost && (!this.props.hideCostInput && !this.props.hideValueInfo)) {
+			var cellWidth = 3;
+			if (this.props.hideCostInput) {
+				cellWidth = 2;
+			} else if (this.props.hideValueInfo) {
+				cellWidth = 1;
+			}
+			return <td key={'display-value-td'} colSpan={cellWidth}><span className='player-cost'>Drafted: <span className='dollar-amount'>{this.props.player.cost}</span></span></td>
 		}
 
 		var costInputClasses = classNames('can-edit','position',this.getPosition());
@@ -226,14 +245,12 @@ class Player extends Component {
 	}
 
 	render () {
-		var playerClasses = classNames('player', {'selected':this.props.player.isSelected}, {'is-editing':this.state.isEditing});
-		var positionClasses = classNames('position', this.getPosition());
+		var playerClasses = classNames('player', this.props.player.type, {'selected':this.props.player.isSelected}, {'is-editing':this.state.isEditing});
 
 		return (
 			<tr onMouseOver={this.handleMouseOver.bind(this)} onMouseOut={this.handleMouseOut.bind(this)} className={playerClasses}>
 				{this.getMetaInfo()}
-				<td className={positionClasses}>{this.props.player.pos}</td>
-				<td onClick={this.selectPlayer.bind(this)} className={positionClasses}>{this.props.player.name}</td>
+				{this.getPlayerInfo()}
 				{this.getValueInfo()}
 				{this.getStats()}
 			</tr>

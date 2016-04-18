@@ -17,6 +17,9 @@ import * as PlayerListUtils from '../helpers/PlayerListUtils'
 import PlayerList from '../components/PlayerList.js'
 import PlayerInput from '../components/PlayerInput'
 import ActivePlayer from './ActivePlayer'
+import ListFilters from '../components/ListFilters'
+
+import {filterBy} from '../helpers/filterUtils';
 
 import '../../stylesheets/components/player-list.scss'
 
@@ -24,7 +27,8 @@ class PlayerListsContainer extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			listTypeShown: 'batter'
+			filter: {property: 'type', value: 'batter'},
+			searchQuery: null
 		}
 	}
 
@@ -34,43 +38,21 @@ class PlayerListsContainer extends Component {
 
 
 	togglePlayerList (e) {
-		var type = e.target.getAttribute('data-type');
+		var property = e.target.getAttribute('data-param');
+		var value = e.target.getAttribute('data-value');
 
-		console.log(type);
-		if (this.state.listTypeShown === type) {
+		var filter = {
+			property,
+			value
+		}
+
+		if (this.state.filter === filter) {
 			return;
 		}
 
-		this.setState({listTypeShown: type})
-	}
-
-	getLists () {
-		if (!this.props.lists){
-			return <div> </div>
-		}
-
-		var listToShow = this.state.listTypeShown;
-
-		return this.props.lists.map ( (list, index) => {
-			var {categories, players, type } = list;
-
-			var playerList;
-			if (type === listToShow) {
-				playerList = <PlayerList
-							key={index}
-							type={type}
-							players={players}
-							categories={categories}
-							sortPlayers={this.props.actions.sortPlayers}
-							playerSelected={this.props.actions.updateActivePlayer}
-							hideValueInfo={false}
-							updateStat={this.props.actions.updatePlayerStat}
-							updateCost={this.props.actions.updatePlayerCost}
-							updateFavorited={this.props.actions.updatePlayerFavorited} />
-			}
-			return playerList
+		this.setState({
+			filter
 		})
-
 	}
 
 	shouldComponentUpdate (nextProps, nextState) {
@@ -80,7 +62,6 @@ class PlayerListsContainer extends Component {
 		var stringifiedNextState = JSON.stringify(nextState)
 		var stringifiedState = JSON.stringify(this.state)
 
-
 		return (stringifiedNextProps != stringifiedProps || stringifiedNextState != stringifiedState)
 	}
 
@@ -88,31 +69,130 @@ class PlayerListsContainer extends Component {
 		console.log ('player lists updated');
 	}
 
+	getType () {
+		var filter = this.state.filter;
+		var categoryType;
+		switch (filter.value) {
+			case 'batter':
+			case '1B':
+			case '2B':
+			case '3B':
+			case 'SS':
+			case 'OF':
+			case 'C':
+				categoryType = 'batter'
+				break;
+			case 'pitcher':
+			case 'SP':
+			case 'RP':
+				categoryType = 'pitcher'
+				break;
+		}
+		return categoryType
+	}
+
+	getCategories () {
+		if (!this.props.categories) {
+			return;
+		}
+		return SettingsUtils.getCategories( this.props.categories[this.getType()] )
+	}
+
+	getPlayers () {
+
+		var players = this.getFilteredPlayers();
+
+		if (this.state.searchQuery) {
+			players = this.getSearchResults(players);
+		}
+
+		return players;
+	}
+
+	getFilteredPlayers () {
+		var players = this.props.players;
+
+		if (!players) {
+			return;
+		}
+
+		var filteredPlayers = filterBy(players, this.state.filter.property, this.state.filter.value);
+
+		filteredPlayers = filteredPlayers.length === 0 ? players : filteredPlayers;
+
+		console.log(filteredPlayers.length)
+		return filteredPlayers.filter( player => player.value );
+	}
+
+	getSearchResults (players) {
+		return PlayerListUtils.getMatchingPlayers(players, this.state.searchQuery)
+	}
+
+	setSearchQuery (value) {
+		if (value.length > 1) {
+			this.setState({searchQuery: value})
+		} else {
+			this.setState({searchQuery: null})
+		}
+
+	}
+
+	getFilters () {
+		if (!this.props.positions) {
+			return;
+		}
+
+		var filters = [ { property: 'type', value: 'all', text:'all players' } ];
+
+		this.props.positions.map(function (positionType) {
+
+			filters.push( {property: 'type', value: positionType.type, text: positionType.type + 's'} );
+
+			positionType.positions.map( (position, index) => {
+				var className = ((index + 1) % 3 === 0) ? 'last' : null
+				filters.push( {property: 'pos', value: position.name, className} );
+			})
+		})
+
+		return filters
+	}
+
 	render () {
+		var loading = classNames({'is-loading': this.props.isLoading});
+
 		return (
-			<div>
-				<div className='player-list-header'>
+			<div className='player-lists-container'>
+				<div className='player-lists-header'>
 					<ActivePlayer />
 					<PlayerInput
 						searchablePlayers={PlayerListUtils.getUnusedPlayers(this.props.players)}
 						searchableTeams={this.props.teams}
 						playerEntered={this.props.actions.assignPlayer} />
 				</div>
+				<div>
 
-				<div className='player-list-buttons'>
-					<button className='player-list-toggle batter'
-						data-type='batter'
-						onClick={this.togglePlayerList.bind(this)} >
-							Show Batters
-					</button>
-					<button className='player-list-toggle pitcher'
-						data-type='pitcher'
-						onClick={this.togglePlayerList.bind(this)} >
-							Show Pitchers
-					</button>
+					<ListFilters
+						activeFilter={this.state.filter.value}
+						searchQuery={this.state.searchQuery}
+						setSearchQuery={this.setSearchQuery.bind(this)}
+						filterSelected={this.togglePlayerList.bind(this)}
+						filters={this.getFilters()} />
+
+					<div className='player-lists-main'>
+						<div className={loading}>
+							<PlayerList
+								type={this.getType()}
+								players={this.getPlayers()}
+								categories={this.getCategories()}
+								sortPlayers={this.props.actions.sortPlayers}
+								playerSelected={this.props.actions.updateActivePlayer}
+								hideValueInfo={false}
+								updateStat={this.props.actions.updatePlayerStat}
+								updateCost={this.props.actions.updatePlayerCost}
+								updateFavorited={this.props.actions.updatePlayerFavorited} />
+						</div>
+					</div>
 				</div>
-
-				{this.getLists()}
 			</div>
 		)
 	}
@@ -132,29 +212,16 @@ function mapStateToProps (state,ownProps) {
 	}
 
 	var players = state.players.data,
-		{rankedBatters, rankedPitchers} = state.players.playerLists,
 		categories = state.categories.data,
-		teams = SettingsUtils.getTeamNames( state.teams.data );
-
-	var battingCategories = SettingsUtils.getCategories(categories.batter);
-	var pitchingCategories = SettingsUtils.getCategories(categories.pitcher);
-
-	var lists = [{
-			type: 'batter',
-			players: rankedBatters,
-			categories: battingCategories
-		},
-		{
-			type: 'pitcher',
-			players: rankedPitchers,
-			categories: pitchingCategories
-
-		}]
+		teams = SettingsUtils.getTeamNames( state.teams.data ),
+		positions = state.positions.data;
 
 	return {
 		players,
 		teams,
-		lists
+		categories,
+		positions,
+		isLoading: state.players.isLoading
 	};
 
 	// return { ...state.players.lists };

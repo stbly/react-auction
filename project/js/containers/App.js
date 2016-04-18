@@ -16,8 +16,6 @@ class App extends Component {
 		return (
 			<div className='app'>
 				{this.props.children || "No Child Route yet"}
-                <Link to='/players'>Go to players</Link>
-
 			</div>
 		)
 	}

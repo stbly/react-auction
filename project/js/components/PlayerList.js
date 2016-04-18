@@ -19,7 +19,7 @@ class PlayerList extends Component {
 		super(props)
 		this.state = {
 			toggleSortDirection: true,
-			currentSortOption: 'value',
+			currentSortOption: 'adjustedValue',
 			sortedPlayers: null,
 		}
 	}
@@ -44,7 +44,7 @@ class PlayerList extends Component {
 		if (param === 'name' || param === 'cost' || param === 'pos') {
 			param = [
 				{ param: param },
-				{ param: 'inflatedValue', direction: -1 }
+				{ param: 'adjustedValue', direction: -1 }
 			];
 		}
 
@@ -74,20 +74,22 @@ class PlayerList extends Component {
 
 	getCategories () {
 		var categories = [];
-		/*
-		categories.push(
-			<td onClick={this.sortList.bind(this)} data-name='PA' key='PA' className='player-info stat'>{'PA'}</td>
-		)
-		categories.push(
-			<td onClick={this.sortList.bind(this)} data-name='AB' key='AB' className='player-info stat'>{'AB'}</td>
-		)*/
-		for(var key in this.props.categories) {
-			if (this.props.categories.hasOwnProperty(key)) {
-				var category = this.props.categories[key];
-				categories.push(
-					<td onClick={this.sortList.bind(this)} data-name={category.abbreviation} key={key} className='player-info stat'>{category.abbreviation}</td>
-				)
+
+		if (this.props.hideCategories || !this.props.categories) {
+			return;
+		}
+
+		if (this.props.categories.length > 0) {
+			for(var key in this.props.categories) {
+				if (this.props.categories.hasOwnProperty(key)) {
+					var category = this.props.categories[key];
+					categories.push(
+						<td onClick={this.sortList.bind(this)} data-name={category.abbreviation} key={key} className='player-info stat'>{category.abbreviation}</td>
+					)
+				}
 			}
+		} else {
+
 		}
 
 		return categories;
@@ -103,13 +105,26 @@ class PlayerList extends Component {
 
 		var props = this.props;
 
-		return playerList.map(function (player, index) {
+		var rankedPlayers = sortBy(playerList, 'adjustedValue', 'desc')
+
+		rankedPlayers.map( (player,index) => {
+			player.rank = index + 1
+			return player
+		})
+
+		rankedPlayers = sortBy(rankedPlayers, this.state.currentSortOption, this.state.toggleSortDirection)
+
+		return rankedPlayers.map(function (player, index) {
 			return (
 				<Player
 					key={index}
+					rank={player.rank}
 					player={player}
 					categories={props.categories}
 					playerSelected={props.playerSelected}
+					hideMetaInfo={props.hideMetaInfo}
+					hidePlayerInfo={props.hidePlayerInfo}
+					hideCostInput={props.hideCostInput}
 					hideValueInfo={props.hideValueInfo}
 					updateStat={props.updateStat}
 					updateCost={props.updateCost}
@@ -118,9 +133,38 @@ class PlayerList extends Component {
 		})
 	}
 
+	getMetaInfo () {
+		if(this.props.hideMetaInfo) {
+			return;
+		}
+		var smallCell = {
+			'width': '5%'
+		};
+
+		return ([
+			<td className='player-info' key={'rank'} style={smallCell} onClick={this.sortList.bind(this)} data-name='rank'>#</td>,
+			<td className='player-info favorite-toggle' key={'favorite'} style={smallCell}>*</td>
+		])
+	}
+
+	getPlayerInfo () {
+		if (this.props.hidePlayerInfo) {
+			return;
+		}
+
+		return ([
+			<td key={'player-pos'} className='player-info pos' onClick={this.sortList.bind(this)} data-name='pos'>Pos</td>,
+			<td key={'player-name'} className='player-info name' onClick={this.sortList.bind(this)} data-name='name'>Name</td>
+		])
+	}
+
 	getValueInfo () {
 		var els = [];
+		if (!this.props.hideCostInput) {
+			els.push(<td className='player-info value-info'  key={'player-cost'} onClick={this.sortList.bind(this)} data-name='cost'>Cost</td>)
+		}
 		if (!this.props.hideValueInfo) {
+			els.push(<td className='player-info value-info'  key={'player-adjusted-value'}onClick={this.sortList.bind(this)} data-name='adjustedValue'>Bid</td>)
 			els.push(<td className='player-info value' key={'player-value'} onClick={this.sortList.bind(this)} data-name='value'>Val</td>);
 		}
 		return els;
@@ -128,20 +172,13 @@ class PlayerList extends Component {
 
 	render () {
 		var listClass = classNames('player-list', this.props.type);
-		var smallCell = {
-			'width': '5%'
-		};
 		return (
 			<div className='player-list-container'>
 				<table className={listClass}>
 					<tbody>
 						<tr className='headings'>
-							<td className='player-info' style={smallCell} onClick={this.sortList.bind(this)} data-name='rank'>#</td>
-							<td className='player-info favorite-toggle' style={smallCell}>*</td>
-							<td className='player-info' onClick={this.sortList.bind(this)} data-name='pos'>Pos</td>
-							<td className='player-info name' onClick={this.sortList.bind(this)} data-name='name'>Name</td>
-							<td className='player-info value-info' onClick={this.sortList.bind(this)} data-name='cost'>Cost</td>
-							<td className='player-info value-info' onClick={this.sortList.bind(this)} data-name='inflatedValue'>Bid</td>
+							{this.getMetaInfo()}
+							{this.getPlayerInfo()}
 							{this.getValueInfo()}
 							{this.getCategories()}
 						</tr>

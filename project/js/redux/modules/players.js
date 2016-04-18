@@ -241,8 +241,8 @@ function computePlayerValues (players, state) {
 	var numBattersToDraft = numBatters * numTeams,
 		numPitchersToDraft = (rosterSpots - numBatters) * numTeams;
 
-	var batterConditions = SettingsUtils.getScarcePositions(positions.batter),
-		pitcherConditions = SettingsUtils.getScarcePositions(positions.pitcher);
+	var batterConditions = SettingsUtils.getScarcePositions(positions[0].positions),
+		pitcherConditions = SettingsUtils.getScarcePositions(positions[1].positions);
 
 	var [draftableBatters, unusedBatters] = PlayerListUtils.getPlayerList(battersWithSGP, numBattersToDraft, batterConditions);
 	var	[draftablePitchers, unusedPitchers] = PlayerListUtils.getPlayerList(pitchersWithSGP, numPitchersToDraft, pitcherConditions);
