@@ -45,9 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(292);
-	__webpack_require__(293);
-	module.exports = __webpack_require__(307);
+	module.exports = __webpack_require__(292);
 
 
 /***/ },
@@ -596,7 +594,7 @@
 	$export.B = 16;  // bind
 	$export.W = 32;  // wrap
 	$export.U = 64;  // safe
-	$export.R = 128; // real proto method for `library` 
+	$export.R = 128; // real proto method for `library`
 	module.exports = $export;
 
 /***/ },
@@ -2011,7 +2009,7 @@
 	})), 'Number', {
 	  toPrecision: function toPrecision(precision){
 	    var that = aNumberValue(this, 'Number#toPrecision: incorrect invocation!');
-	    return precision === undefined ? $toPrecision.call(that) : $toPrecision.call(that, precision); 
+	    return precision === undefined ? $toPrecision.call(that) : $toPrecision.call(that, precision);
 	  }
 	});
 
@@ -2135,7 +2133,7 @@
 	$export($export.S + $export.F * !($acosh
 	  // V8 bug: https://code.google.com/p/v8/issues/detail?id=3509
 	  && Math.floor($acosh(Number.MAX_VALUE)) == 710
-	  // Tor Browser bug: Math.acosh(Infinity) -> NaN 
+	  // Tor Browser bug: Math.acosh(Infinity) -> NaN
 	  && $acosh(Infinity) == Infinity
 	), 'Math', {
 	  acosh: function acosh(x){
@@ -2166,7 +2164,7 @@
 	  return !isFinite(x = +x) || x == 0 ? x : x < 0 ? -asinh(-x) : Math.log(x + Math.sqrt(x * x + 1));
 	}
 
-	// Tor Browser bug: Math.asinh(0) -> -0 
+	// Tor Browser bug: Math.asinh(0) -> -0
 	$export($export.S + $export.F * !($asinh && 1 / $asinh(0) > 0), 'Math', {asinh: asinh});
 
 /***/ },
@@ -2177,7 +2175,7 @@
 	var $export = __webpack_require__(9)
 	  , $atanh  = Math.atanh;
 
-	// Tor Browser bug: Math.atanh(-0) -> 0 
+	// Tor Browser bug: Math.atanh(-0) -> 0
 	$export($export.S + $export.F * !($atanh && 1 / $atanh(-0) < 0), 'Math', {
 	  atanh: function atanh(x){
 	    return (x = +x) == 0 ? x : Math.log((1 + x) / (1 - x)) / 2;
@@ -4740,7 +4738,7 @@
 	        while(index--)$instance[ADDER](index, index);
 	        return !$instance.has(-0);
 	      });
-	    if(!ACCEPT_ITERABLES){ 
+	    if(!ACCEPT_ITERABLES){
 	      C = wrapper(function(target, iterable){
 	        anInstance(target, C, NAME);
 	        var that = inheritIfRequired(new Base, target, C);
@@ -7794,1389 +7792,37 @@
 /* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	/*globals window __webpack_hash__ */
-	if(false) {
-		var lastData;
-		var upToDate = function upToDate() {
-			return lastData.indexOf(__webpack_hash__) >= 0;
-		};
-		var check = function check() {
-			module.hot.check(true, function(err, updatedModules) {
-				if(err) {
-					if(module.hot.status() in {
-							abort: 1,
-							fail: 1
-						}) {
-						console.warn("[HMR] Cannot apply update. Need to do a full reload!");
-						console.warn("[HMR] " + err.stack || err.message);
-						window.location.reload();
-					} else {
-						console.warn("[HMR] Update failed: " + err.stack || err.message);
-					}
-					return;
-				}
-
-				if(!updatedModules) {
-					console.warn("[HMR] Cannot find update. Need to do a full reload!");
-					console.warn("[HMR] (Probably because of restarting the webpack-dev-server)");
-					window.location.reload();
-					return;
-				}
-
-				if(!upToDate()) {
-					check();
-				}
-
-				require("./log-apply-result")(updatedModules, updatedModules);
-
-				if(upToDate()) {
-					console.log("[HMR] App is up to date.");
-				}
-
-			});
-		};
-		var addEventListener = window.addEventListener ? function(eventName, listener) {
-			window.addEventListener(eventName, listener, false);
-		} : function(eventName, listener) {
-			window.attachEvent("on" + eventName, listener);
-		};
-		addEventListener("message", function(event) {
-			if(typeof event.data === "string" && event.data.indexOf("webpackHotUpdate") === 0) {
-				lastData = event.data;
-				if(!upToDate() && module.hot.status() === "idle") {
-					console.log("[HMR] Checking for updates on the server...");
-					check();
-				}
-			}
-		});
-		console.log("[HMR] Waiting for update signal from WDS...");
-	} else {
-		throw new Error("[HMR] Hot Module Replacement is disabled.");
-	}
-
-
-/***/ },
-/* 293 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(__resourceQuery, module) {/*eslint-env browser*/
-	/*global __resourceQuery*/
-
-	var options = {
-	  path: "/__webpack_hmr",
-	  timeout: 20 * 1000,
-	  overlay: true,
-	  reload: false,
-	  log: true,
-	  warn: true
-	};
-	if (true) {
-	  var querystring = __webpack_require__(295);
-	  var overrides = querystring.parse(__resourceQuery.slice(1));
-	  if (overrides.path) options.path = overrides.path;
-	  if (overrides.timeout) options.timeout = overrides.timeout;
-	  if (overrides.overlay) options.overlay = overrides.overlay !== 'false';
-	  if (overrides.reload) options.reload = overrides.reload !== 'false';
-	  if (overrides.noInfo && overrides.noInfo !== 'false') {
-	    options.log = false;
-	  }
-	  if (overrides.quiet && overrides.quiet !== 'false') {
-	    options.log = false;
-	    options.warn = false;
-	  }
-	}
-
-	if (typeof window === 'undefined') {
-	  // do nothing
-	} else if (typeof window.EventSource === 'undefined') {
-	  console.warn(
-	    "webpack-hot-middleware's client requires EventSource to work. " +
-	    "You should include a polyfill if you want to support this browser: " +
-	    "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events#Tools"
-	  );
-	} else {
-	  connect(window.EventSource);
-	}
-
-	function connect(EventSource) {
-	  var source = new EventSource(options.path);
-	  var lastActivity = new Date();
-
-	  source.onopen = handleOnline;
-	  source.onmessage = handleMessage;
-	  source.onerror = handleDisconnect;
-
-	  var timer = setInterval(function() {
-	    if ((new Date() - lastActivity) > options.timeout) {
-	      handleDisconnect();
-	    }
-	  }, options.timeout / 2);
-
-	  function handleOnline() {
-	    if (options.log) console.log("[HMR] connected");
-	    lastActivity = new Date();
-	  }
-
-	  function handleMessage(event) {
-	    lastActivity = new Date();
-	    if (event.data == "\uD83D\uDC93") {
-	      return;
-	    }
-	    try {
-	      processMessage(JSON.parse(event.data));
-	    } catch (ex) {
-	      if (options.warn) {
-	        console.warn("Invalid HMR message: " + event.data + "\n" + ex);
-	      }
-	    }
-	  }
-
-	  function handleDisconnect() {
-	    clearInterval(timer);
-	    source.close();
-	    setTimeout(function() { connect(EventSource); }, options.timeout);
-	  }
-
-	}
-
-	var reporter;
-	// the reporter needs to be a singleton on the page
-	// in case the client is being used by mutliple bundles
-	// we only want to report once.
-	// all the errors will go to all clients
-	var singletonKey = '__webpack_hot_middleware_reporter__';
-	if (typeof window !== 'undefined' && !window[singletonKey]) {
-	  reporter = window[singletonKey] = createReporter();
-	}
-
-	function createReporter() {
-	  var strip = __webpack_require__(298);
-
-	  var overlay;
-	  if (typeof document !== 'undefined' && options.overlay) {
-	    overlay = __webpack_require__(300);
-	  }
-
-	  return {
-	    problems: function(type, obj) {
-	      if (options.warn) {
-	        console.warn("[HMR] bundle has " + type + ":");
-	        obj[type].forEach(function(msg) {
-	          console.warn("[HMR] " + strip(msg));
-	        });
-	      }
-	      if (overlay && type !== 'warnings') overlay.showProblems(type, obj[type]);
-	    },
-	    success: function() {
-	      if (overlay) overlay.clear();
-	    },
-	    useCustomOverlay: function(customOverlay) {
-	      overlay = customOverlay;
-	    }
-	  };
-	}
-
-	var processUpdate = __webpack_require__(306);
-
-	var customHandler;
-	function processMessage(obj) {
-	  if (obj.action == "building") {
-	    if (options.log) console.log("[HMR] bundle rebuilding");
-	  } else if (obj.action == "built") {
-	    if (options.log) {
-	      console.log(
-	        "[HMR] bundle " + (obj.name ? obj.name + " " : "") +
-	        "rebuilt in " + obj.time + "ms"
-	      );
-	    }
-	    if (obj.errors.length > 0) {
-	      if (reporter) reporter.problems('errors', obj);
-	    } else {
-	      if (reporter) {
-	        if (obj.warnings.length > 0) reporter.problems('warnings', obj);
-	        reporter.success();
-	      }
-
-	      processUpdate(obj.hash, obj.modules, options);
-	    }
-	  } else if (customHandler) {
-	    customHandler(obj);
-	  }
-	}
-
-	if (module) {
-	  module.exports = {
-	    subscribe: function subscribe(handler) {
-	      customHandler = handler;
-	    },
-	    useCustomOverlay: function useCustomOverlay(customOverlay) {
-	      if (reporter) reporter.useCustomOverlay(customOverlay);
-	    }
-	  };
-	}
-
-	/* WEBPACK VAR INJECTION */}.call(exports, "?path=http://localhost:8080/__webpack_hmr", __webpack_require__(294)(module)))
-
-/***/ },
-/* 294 */
-/***/ function(module, exports) {
-
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
-	}
-
-
-/***/ },
-/* 295 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
-	exports.decode = exports.parse = __webpack_require__(296);
-	exports.encode = exports.stringify = __webpack_require__(297);
-
-
-/***/ },
-/* 296 */
-/***/ function(module, exports) {
-
-	// Copyright Joyent, Inc. and other Node contributors.
-	//
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the
-	// "Software"), to deal in the Software without restriction, including
-	// without limitation the rights to use, copy, modify, merge, publish,
-	// distribute, sublicense, and/or sell copies of the Software, and to permit
-	// persons to whom the Software is furnished to do so, subject to the
-	// following conditions:
-	//
-	// The above copyright notice and this permission notice shall be included
-	// in all copies or substantial portions of the Software.
-	//
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-	// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-	'use strict';
-
-	// If obj.hasOwnProperty has been overridden, then calling
-	// obj.hasOwnProperty(prop) will break.
-	// See: https://github.com/joyent/node/issues/1707
-	function hasOwnProperty(obj, prop) {
-	  return Object.prototype.hasOwnProperty.call(obj, prop);
-	}
-
-	module.exports = function(qs, sep, eq, options) {
-	  sep = sep || '&';
-	  eq = eq || '=';
-	  var obj = {};
-
-	  if (typeof qs !== 'string' || qs.length === 0) {
-	    return obj;
-	  }
-
-	  var regexp = /\+/g;
-	  qs = qs.split(sep);
-
-	  var maxKeys = 1000;
-	  if (options && typeof options.maxKeys === 'number') {
-	    maxKeys = options.maxKeys;
-	  }
-
-	  var len = qs.length;
-	  // maxKeys <= 0 means that we should not limit keys count
-	  if (maxKeys > 0 && len > maxKeys) {
-	    len = maxKeys;
-	  }
-
-	  for (var i = 0; i < len; ++i) {
-	    var x = qs[i].replace(regexp, '%20'),
-	        idx = x.indexOf(eq),
-	        kstr, vstr, k, v;
-
-	    if (idx >= 0) {
-	      kstr = x.substr(0, idx);
-	      vstr = x.substr(idx + 1);
-	    } else {
-	      kstr = x;
-	      vstr = '';
-	    }
-
-	    k = decodeURIComponent(kstr);
-	    v = decodeURIComponent(vstr);
-
-	    if (!hasOwnProperty(obj, k)) {
-	      obj[k] = v;
-	    } else if (Array.isArray(obj[k])) {
-	      obj[k].push(v);
-	    } else {
-	      obj[k] = [obj[k], v];
-	    }
-	  }
-
-	  return obj;
-	};
-
-
-/***/ },
-/* 297 */
-/***/ function(module, exports) {
-
-	// Copyright Joyent, Inc. and other Node contributors.
-	//
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the
-	// "Software"), to deal in the Software without restriction, including
-	// without limitation the rights to use, copy, modify, merge, publish,
-	// distribute, sublicense, and/or sell copies of the Software, and to permit
-	// persons to whom the Software is furnished to do so, subject to the
-	// following conditions:
-	//
-	// The above copyright notice and this permission notice shall be included
-	// in all copies or substantial portions of the Software.
-	//
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-	// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-	'use strict';
-
-	var stringifyPrimitive = function(v) {
-	  switch (typeof v) {
-	    case 'string':
-	      return v;
-
-	    case 'boolean':
-	      return v ? 'true' : 'false';
-
-	    case 'number':
-	      return isFinite(v) ? v : '';
-
-	    default:
-	      return '';
-	  }
-	};
-
-	module.exports = function(obj, sep, eq, name) {
-	  sep = sep || '&';
-	  eq = eq || '=';
-	  if (obj === null) {
-	    obj = undefined;
-	  }
-
-	  if (typeof obj === 'object') {
-	    return Object.keys(obj).map(function(k) {
-	      var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
-	      if (Array.isArray(obj[k])) {
-	        return obj[k].map(function(v) {
-	          return ks + encodeURIComponent(stringifyPrimitive(v));
-	        }).join(sep);
-	      } else {
-	        return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
-	      }
-	    }).join(sep);
-
-	  }
-
-	  if (!name) return '';
-	  return encodeURIComponent(stringifyPrimitive(name)) + eq +
-	         encodeURIComponent(stringifyPrimitive(obj));
-	};
-
-
-/***/ },
-/* 298 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var ansiRegex = __webpack_require__(299)();
-
-	module.exports = function (str) {
-		return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
-	};
-
-
-/***/ },
-/* 299 */
-/***/ function(module, exports) {
-
-	'use strict';
-	module.exports = function () {
-		return /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
-	};
-
-
-/***/ },
-/* 300 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*eslint-env browser*/
-
-	var clientOverlay = document.createElement('div');
-	var styles = {
-	  background: 'rgba(0,0,0,0.85)',
-	  color: '#E8E8E8',
-	  lineHeight: '1.2',
-	  whiteSpace: 'pre',
-	  fontFamily: 'Menlo, Consolas, monospace',
-	  fontSize: '13px',
-	  position: 'fixed',
-	  zIndex: 9999,
-	  padding: '10px',
-	  left: 0,
-	  right: 0,
-	  top: 0,
-	  bottom: 0,
-	  overflow: 'auto'
-	};
-	for (var key in styles) {
-	  clientOverlay.style[key] = styles[key];
-	}
-
-	var ansiHTML = __webpack_require__(301);
-	var colors = {
-	  reset: ['transparent', 'transparent'],
-	  black: '181818',
-	  red: 'E36049',
-	  green: 'B3CB74',
-	  yellow: 'FFD080',
-	  blue: '7CAFC2',
-	  magenta: '7FACCA',
-	  cyan: 'C3C2EF',
-	  lightgrey: 'EBE7E3',
-	  darkgrey: '6D7891'
-	};
-	ansiHTML.setColors(colors);
-
-	var Entities = __webpack_require__(302).AllHtmlEntities;
-	var entities = new Entities();
-
-	exports.showProblems =
-	function showProblems(type, lines) {
-	  clientOverlay.innerHTML = '';
-	  lines.forEach(function(msg) {
-	    msg = ansiHTML(entities.encode(msg));
-	    var div = document.createElement('div');
-	    div.style.marginBottom = '26px';
-	    div.innerHTML = problemType(type) + ' in ' + msg;
-	    clientOverlay.appendChild(div);
-	  });
-	  if (document.body) {
-	    document.body.appendChild(clientOverlay);
-	  }
-	};
-
-	exports.clear =
-	function clear() {
-	  if (document.body && clientOverlay.parentNode) {
-	    document.body.removeChild(clientOverlay);
-	  }
-	};
-
-	var problemColors = {
-	  errors: colors.red,
-	  warnings: colors.yellow
-	};
-
-	function problemType (type) {
-	  var color = problemColors[type] || colors.red;
-	  return (
-	    '<span style="background-color:#' + color + '; color:#fff; padding:2px 4px; border-radius: 2px">' +
-	      type.slice(0, -1).toUpperCase() +
-	    '</span>'
-	  );
-	}
-
-
-/***/ },
-/* 301 */
-/***/ function(module, exports) {
-
-	module.exports = ansiHTML;
-
-	// Reference to https://github.com/sindresorhus/ansi-regex
-	var re_ansi = /(?:(?:\u001b\[)|\u009b)(?:(?:[0-9]{1,3})?(?:(?:;[0-9]{0,3})*)?[A-M|f-m])|\u001b[A-M]/;
-
-	var _defColors = {
-	  reset: ['fff', '000'], // [FOREGROUD_COLOR, BACKGROUND_COLOR]
-	  black: '000',
-	  red: 'ff0000',
-	  green: '209805',
-	  yellow: 'e8bf03',
-	  blue: '0000ff',
-	  magenta: 'ff00ff',
-	  cyan: '00ffee',
-	  lightgrey: 'f0f0f0',
-	  darkgrey: '888'
-	};
-	var _styles = {
-	  30: 'black',
-	  31: 'red',
-	  32: 'green',
-	  33: 'yellow',
-	  34: 'blue',
-	  35: 'magenta',
-	  36: 'cyan',
-	  37: 'lightgrey'
-	};
-	var _openTags = {
-	  '1': 'font-weight:bold', // bold
-	  '2': 'opacity:0.8', // dim
-	  '3': '<i>', // italic
-	  '4': '<u>', // underscore
-	  '8': 'display:none', // hidden
-	  '9': '<del>', // delete
-	};
-	var _closeTags = {
-	  '23': '</i>', // reset italic
-	  '24': '</u>', // reset underscore
-	  '29': '</del>' // reset delete
-	};
-	[0, 21, 22, 27, 28, 39, 49].forEach(function (n) {
-	  _closeTags[n] = '</span>';
-	});
-
-	/**
-	 * Converts text with ANSI color codes to HTML markup.
-	 * @param {String} text
-	 * @returns {*}
-	 */
-	function ansiHTML(text) {
-	  // Returns the text if the string has no ANSI escape code.
-	  if (!re_ansi.test(text)) {
-	    return text;
-	  }
-
-	  // Cache opened sequence.
-	  var ansiCodes = [];
-	  // Replace with markup.
-	  var ret = text.replace(/\033\[(\d+)*m/g, function (match, seq) {
-	    var ot = _openTags[seq];
-	    if (ot) {
-	      // If current sequence has been opened, close it.
-	      if (!!~ansiCodes.indexOf(seq)) {
-	        ansiCodes.pop();
-	        return '</span>';
-	      }
-	      // Open tag.
-	      ansiCodes.push(seq);
-	      return ot[0] == '<' ? ot : '<span style="' + ot + ';">';
-	    }
-
-	    var ct = _closeTags[seq];
-	    if (ct) {
-	      // Pop sequence
-	      ansiCodes.pop();
-	      return ct;
-	    }
-	    return '';
-	  });
-
-	  // Make sure tags are closed.
-	  var l = ansiCodes.length;
-	  (l > 0) && (ret += Array(l + 1).join('</span>'));
-
-	  return ret;
-	}
-
-	/**
-	 * Customize colors.
-	 * @param {Object} colors reference to _defColors
-	 */
-	ansiHTML.setColors = function (colors) {
-	  if (typeof colors != 'object') {
-	    throw new Error('`colors` parameter must be an Object.');
-	  }
-
-	  var _finalColors = {};
-	  for (var key in _defColors) {
-	    var hex = colors.hasOwnProperty(key) ? colors[key] : null;
-	    if (!hex) {
-	      _finalColors[key] = _defColors[key];
-	      continue;
-	    }
-	    if ('reset' == key) {
-	    	if(typeof hex == 'string'){
-	    		hex = [hex];
-	    	}
-	      if (!Array.isArray(hex) || hex.length == 0 || hex.some(function (h) {
-	          return typeof h != 'string';
-	        })) {
-	        throw new Error('The value of `' + key + '` property must be an Array and each item could only be a hex string, e.g.: FF0000');
-	      }
-	      var defHexColor = _defColors[key];
-	      if(!hex[0]){
-	      	hex[0] = defHexColor[0];
-	      }
-	      if (hex.length == 1 || !hex[1]) {
-	      	hex = [hex[0]];
-	        hex.push(defHexColor[1]);
-	      }
-
-	      hex = hex.slice(0, 2);
-	    } else if (typeof hex != 'string') {
-	      throw new Error('The value of `' + key + '` property must be a hex string, e.g.: FF0000');
-	    }
-	    _finalColors[key] = hex;
-	  }
-	  _setTags(_finalColors);
-	};
-
-	/**
-	 * Reset colors.
-	 */
-	ansiHTML.reset = function(){
-		_setTags(_defColors);
-	};
-
-	/**
-	 * Expose tags, including open and close.
-	 * @type {Object}
-	 */
-	ansiHTML.tags = {
-	  get open() {
-	    return _openTags;
-	  },
-	  get close() {
-	    return _closeTags;
-	  }
-	};
-
-	function _setTags(colors) {
-	  // reset all
-	  _openTags['0'] = 'font-weight:normal;opacity:1;color:#' + colors.reset[0] + ';background:#' + colors.reset[1];
-	  // inverse
-	  _openTags['7'] = 'color:#' + colors.reset[1] + ';background:#' + colors.reset[0];
-	  // dark grey
-	  _openTags['90'] = 'color:#' + colors.darkgrey;
-
-	  for (var code in _styles) {
-	    var color = _styles[code];
-	    var oriColor = colors[color] || '000';
-	    _openTags[code] = 'color:#' + oriColor;
-	    code = parseInt(code);
-	    _openTags[(code + 10).toString()] = 'background:#' + oriColor;
-	  }
-	}
-
-	ansiHTML.reset();
-
-
-/***/ },
-/* 302 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-	  XmlEntities: __webpack_require__(303),
-	  Html4Entities: __webpack_require__(304),
-	  Html5Entities: __webpack_require__(305),
-	  AllHtmlEntities: __webpack_require__(305)
-	};
-
-
-/***/ },
-/* 303 */
-/***/ function(module, exports) {
-
-	var ALPHA_INDEX = {
-	    '&lt': '<',
-	    '&gt': '>',
-	    '&quot': '"',
-	    '&apos': '\'',
-	    '&amp': '&',
-	    '&lt;': '<',
-	    '&gt;': '>',
-	    '&quot;': '"',
-	    '&apos;': '\'',
-	    '&amp;': '&'
-	};
-
-	var CHAR_INDEX = {
-	    60: 'lt',
-	    62: 'gt',
-	    34: 'quot',
-	    39: 'apos',
-	    38: 'amp'
-	};
-
-	var CHAR_S_INDEX = {
-	    '<': '&lt;',
-	    '>': '&gt;',
-	    '"': '&quot;',
-	    '\'': '&apos;',
-	    '&': '&amp;'
-	};
-
-	/**
-	 * @constructor
-	 */
-	function XmlEntities() {}
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	XmlEntities.prototype.encode = function(str) {
-	    if (str.length === 0) {
-	        return '';
-	    }
-	    return str.replace(/<|>|"|'|&/g, function(s) {
-	        return CHAR_S_INDEX[s];
-	    });
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	 XmlEntities.encode = function(str) {
-	    return new XmlEntities().encode(str);
-	 };
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	XmlEntities.prototype.decode = function(str) {
-	    if (str.length === 0) {
-	        return '';
-	    }
-	    return str.replace(/&#?[0-9a-zA-Z]+;?/g, function(s) {
-	        if (s.charAt(1) === '#') {
-	            var code = s.charAt(2).toLowerCase() === 'x' ?
-	                parseInt(s.substr(3), 16) :
-	                parseInt(s.substr(2));
-
-	            if (isNaN(code) || code < -32768 || code > 65535) {
-	                return '';
-	            }
-	            return String.fromCharCode(code);
-	        }
-	        return ALPHA_INDEX[s] || s;
-	    });
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	 XmlEntities.decode = function(str) {
-	    return new XmlEntities().decode(str);
-	 };
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	XmlEntities.prototype.encodeNonUTF = function(str) {
-	    var strLength = str.length;
-	    if (strLength === 0) {
-	        return '';
-	    }
-	    var result = '';
-	    var i = 0;
-	    while (i < strLength) {
-	        var c = str.charCodeAt(i);
-	        var alpha = CHAR_INDEX[c];
-	        if (alpha) {
-	            result += "&" + alpha + ";";
-	            i++;
-	            continue;
-	        }
-	        if (c < 32 || c > 126) {
-	            result += '&#' + c + ';';
-	        } else {
-	            result += str.charAt(i);
-	        }
-	        i++;
-	    }
-	    return result;
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	 XmlEntities.encodeNonUTF = function(str) {
-	    return new XmlEntities().encodeNonUTF(str);
-	 };
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	XmlEntities.prototype.encodeNonASCII = function(str) {
-	    var strLenght = str.length;
-	    if (strLenght === 0) {
-	        return '';
-	    }
-	    var result = '';
-	    var i = 0;
-	    while (i < strLenght) {
-	        var c = str.charCodeAt(i);
-	        if (c <= 255) {
-	            result += str[i++];
-	            continue;
-	        }
-	        result += '&#' + c + ';';
-	        i++;
-	    }
-	    return result;
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	 XmlEntities.encodeNonASCII = function(str) {
-	    return new XmlEntities().encodeNonASCII(str);
-	 };
-
-	module.exports = XmlEntities;
-
-
-/***/ },
-/* 304 */
-/***/ function(module, exports) {
-
-	var HTML_ALPHA = ['apos', 'nbsp', 'iexcl', 'cent', 'pound', 'curren', 'yen', 'brvbar', 'sect', 'uml', 'copy', 'ordf', 'laquo', 'not', 'shy', 'reg', 'macr', 'deg', 'plusmn', 'sup2', 'sup3', 'acute', 'micro', 'para', 'middot', 'cedil', 'sup1', 'ordm', 'raquo', 'frac14', 'frac12', 'frac34', 'iquest', 'Agrave', 'Aacute', 'Acirc', 'Atilde', 'Auml', 'Aring', 'Aelig', 'Ccedil', 'Egrave', 'Eacute', 'Ecirc', 'Euml', 'Igrave', 'Iacute', 'Icirc', 'Iuml', 'ETH', 'Ntilde', 'Ograve', 'Oacute', 'Ocirc', 'Otilde', 'Ouml', 'times', 'Oslash', 'Ugrave', 'Uacute', 'Ucirc', 'Uuml', 'Yacute', 'THORN', 'szlig', 'agrave', 'aacute', 'acirc', 'atilde', 'auml', 'aring', 'aelig', 'ccedil', 'egrave', 'eacute', 'ecirc', 'euml', 'igrave', 'iacute', 'icirc', 'iuml', 'eth', 'ntilde', 'ograve', 'oacute', 'ocirc', 'otilde', 'ouml', 'divide', 'Oslash', 'ugrave', 'uacute', 'ucirc', 'uuml', 'yacute', 'thorn', 'yuml', 'quot', 'amp', 'lt', 'gt', 'oelig', 'oelig', 'scaron', 'scaron', 'yuml', 'circ', 'tilde', 'ensp', 'emsp', 'thinsp', 'zwnj', 'zwj', 'lrm', 'rlm', 'ndash', 'mdash', 'lsquo', 'rsquo', 'sbquo', 'ldquo', 'rdquo', 'bdquo', 'dagger', 'dagger', 'permil', 'lsaquo', 'rsaquo', 'euro', 'fnof', 'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omicron', 'pi', 'rho', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega', 'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omicron', 'pi', 'rho', 'sigmaf', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega', 'thetasym', 'upsih', 'piv', 'bull', 'hellip', 'prime', 'prime', 'oline', 'frasl', 'weierp', 'image', 'real', 'trade', 'alefsym', 'larr', 'uarr', 'rarr', 'darr', 'harr', 'crarr', 'larr', 'uarr', 'rarr', 'darr', 'harr', 'forall', 'part', 'exist', 'empty', 'nabla', 'isin', 'notin', 'ni', 'prod', 'sum', 'minus', 'lowast', 'radic', 'prop', 'infin', 'ang', 'and', 'or', 'cap', 'cup', 'int', 'there4', 'sim', 'cong', 'asymp', 'ne', 'equiv', 'le', 'ge', 'sub', 'sup', 'nsub', 'sube', 'supe', 'oplus', 'otimes', 'perp', 'sdot', 'lceil', 'rceil', 'lfloor', 'rfloor', 'lang', 'rang', 'loz', 'spades', 'clubs', 'hearts', 'diams'];
-	var HTML_CODES = [39, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 34, 38, 60, 62, 338, 339, 352, 353, 376, 710, 732, 8194, 8195, 8201, 8204, 8205, 8206, 8207, 8211, 8212, 8216, 8217, 8218, 8220, 8221, 8222, 8224, 8225, 8240, 8249, 8250, 8364, 402, 913, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 931, 932, 933, 934, 935, 936, 937, 945, 946, 947, 948, 949, 950, 951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961, 962, 963, 964, 965, 966, 967, 968, 969, 977, 978, 982, 8226, 8230, 8242, 8243, 8254, 8260, 8472, 8465, 8476, 8482, 8501, 8592, 8593, 8594, 8595, 8596, 8629, 8656, 8657, 8658, 8659, 8660, 8704, 8706, 8707, 8709, 8711, 8712, 8713, 8715, 8719, 8721, 8722, 8727, 8730, 8733, 8734, 8736, 8743, 8744, 8745, 8746, 8747, 8756, 8764, 8773, 8776, 8800, 8801, 8804, 8805, 8834, 8835, 8836, 8838, 8839, 8853, 8855, 8869, 8901, 8968, 8969, 8970, 8971, 9001, 9002, 9674, 9824, 9827, 9829, 9830];
-
-	var alphaIndex = {};
-	var numIndex = {};
-
-	var i = 0;
-	var length = HTML_ALPHA.length;
-	while (i < length) {
-	    var a = HTML_ALPHA[i];
-	    var c = HTML_CODES[i];
-	    alphaIndex[a] = String.fromCharCode(c);
-	    numIndex[c] = a;
-	    i++;
-	}
-
-	/**
-	 * @constructor
-	 */
-	function Html4Entities() {}
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	Html4Entities.prototype.decode = function(str) {
-	    if (str.length === 0) {
-	        return '';
-	    }
-	    return str.replace(/&(#?[\w\d]+);?/g, function(s, entity) {
-	        var chr;
-	        if (entity.charAt(0) === "#") {
-	            var code = entity.charAt(1).toLowerCase() === 'x' ?
-	                parseInt(entity.substr(2), 16) :
-	                parseInt(entity.substr(1));
-
-	            if (!(isNaN(code) || code < -32768 || code > 65535)) {
-	                chr = String.fromCharCode(code);
-	            }
-	        } else {
-	            chr = alphaIndex[entity];
-	        }
-	        return chr || s;
-	    });
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	Html4Entities.decode = function(str) {
-	    return new Html4Entities().decode(str);
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	Html4Entities.prototype.encode = function(str) {
-	    var strLength = str.length;
-	    if (strLength === 0) {
-	        return '';
-	    }
-	    var result = '';
-	    var i = 0;
-	    while (i < strLength) {
-	        var alpha = numIndex[str.charCodeAt(i)];
-	        result += alpha ? "&" + alpha + ";" : str.charAt(i);
-	        i++;
-	    }
-	    return result;
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	Html4Entities.encode = function(str) {
-	    return new Html4Entities().encode(str);
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	Html4Entities.prototype.encodeNonUTF = function(str) {
-	    var strLength = str.length;
-	    if (strLength === 0) {
-	        return '';
-	    }
-	    var result = '';
-	    var i = 0;
-	    while (i < strLength) {
-	        var cc = str.charCodeAt(i);
-	        var alpha = numIndex[cc];
-	        if (alpha) {
-	            result += "&" + alpha + ";";
-	        } else if (cc < 32 || cc > 126) {
-	            result += "&#" + cc + ";";
-	        } else {
-	            result += str.charAt(i);
-	        }
-	        i++;
-	    }
-	    return result;
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	Html4Entities.encodeNonUTF = function(str) {
-	    return new Html4Entities().encodeNonUTF(str);
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	Html4Entities.prototype.encodeNonASCII = function(str) {
-	    var strLength = str.length;
-	    if (strLength === 0) {
-	        return '';
-	    }
-	    var result = '';
-	    var i = 0;
-	    while (i < strLength) {
-	        var c = str.charCodeAt(i);
-	        if (c <= 255) {
-	            result += str[i++];
-	            continue;
-	        }
-	        result += '&#' + c + ';';
-	        i++;
-	    }
-	    return result;
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	Html4Entities.encodeNonASCII = function(str) {
-	    return new Html4Entities().encodeNonASCII(str);
-	};
-
-	module.exports = Html4Entities;
-
-
-/***/ },
-/* 305 */
-/***/ function(module, exports) {
-
-	var ENTITIES = [['Aacute', [193]], ['aacute', [225]], ['Abreve', [258]], ['abreve', [259]], ['ac', [8766]], ['acd', [8767]], ['acE', [8766, 819]], ['Acirc', [194]], ['acirc', [226]], ['acute', [180]], ['Acy', [1040]], ['acy', [1072]], ['AElig', [198]], ['aelig', [230]], ['af', [8289]], ['Afr', [120068]], ['afr', [120094]], ['Agrave', [192]], ['agrave', [224]], ['alefsym', [8501]], ['aleph', [8501]], ['Alpha', [913]], ['alpha', [945]], ['Amacr', [256]], ['amacr', [257]], ['amalg', [10815]], ['amp', [38]], ['AMP', [38]], ['andand', [10837]], ['And', [10835]], ['and', [8743]], ['andd', [10844]], ['andslope', [10840]], ['andv', [10842]], ['ang', [8736]], ['ange', [10660]], ['angle', [8736]], ['angmsdaa', [10664]], ['angmsdab', [10665]], ['angmsdac', [10666]], ['angmsdad', [10667]], ['angmsdae', [10668]], ['angmsdaf', [10669]], ['angmsdag', [10670]], ['angmsdah', [10671]], ['angmsd', [8737]], ['angrt', [8735]], ['angrtvb', [8894]], ['angrtvbd', [10653]], ['angsph', [8738]], ['angst', [197]], ['angzarr', [9084]], ['Aogon', [260]], ['aogon', [261]], ['Aopf', [120120]], ['aopf', [120146]], ['apacir', [10863]], ['ap', [8776]], ['apE', [10864]], ['ape', [8778]], ['apid', [8779]], ['apos', [39]], ['ApplyFunction', [8289]], ['approx', [8776]], ['approxeq', [8778]], ['Aring', [197]], ['aring', [229]], ['Ascr', [119964]], ['ascr', [119990]], ['Assign', [8788]], ['ast', [42]], ['asymp', [8776]], ['asympeq', [8781]], ['Atilde', [195]], ['atilde', [227]], ['Auml', [196]], ['auml', [228]], ['awconint', [8755]], ['awint', [10769]], ['backcong', [8780]], ['backepsilon', [1014]], ['backprime', [8245]], ['backsim', [8765]], ['backsimeq', [8909]], ['Backslash', [8726]], ['Barv', [10983]], ['barvee', [8893]], ['barwed', [8965]], ['Barwed', [8966]], ['barwedge', [8965]], ['bbrk', [9141]], ['bbrktbrk', [9142]], ['bcong', [8780]], ['Bcy', [1041]], ['bcy', [1073]], ['bdquo', [8222]], ['becaus', [8757]], ['because', [8757]], ['Because', [8757]], ['bemptyv', [10672]], ['bepsi', [1014]], ['bernou', [8492]], ['Bernoullis', [8492]], ['Beta', [914]], ['beta', [946]], ['beth', [8502]], ['between', [8812]], ['Bfr', [120069]], ['bfr', [120095]], ['bigcap', [8898]], ['bigcirc', [9711]], ['bigcup', [8899]], ['bigodot', [10752]], ['bigoplus', [10753]], ['bigotimes', [10754]], ['bigsqcup', [10758]], ['bigstar', [9733]], ['bigtriangledown', [9661]], ['bigtriangleup', [9651]], ['biguplus', [10756]], ['bigvee', [8897]], ['bigwedge', [8896]], ['bkarow', [10509]], ['blacklozenge', [10731]], ['blacksquare', [9642]], ['blacktriangle', [9652]], ['blacktriangledown', [9662]], ['blacktriangleleft', [9666]], ['blacktriangleright', [9656]], ['blank', [9251]], ['blk12', [9618]], ['blk14', [9617]], ['blk34', [9619]], ['block', [9608]], ['bne', [61, 8421]], ['bnequiv', [8801, 8421]], ['bNot', [10989]], ['bnot', [8976]], ['Bopf', [120121]], ['bopf', [120147]], ['bot', [8869]], ['bottom', [8869]], ['bowtie', [8904]], ['boxbox', [10697]], ['boxdl', [9488]], ['boxdL', [9557]], ['boxDl', [9558]], ['boxDL', [9559]], ['boxdr', [9484]], ['boxdR', [9554]], ['boxDr', [9555]], ['boxDR', [9556]], ['boxh', [9472]], ['boxH', [9552]], ['boxhd', [9516]], ['boxHd', [9572]], ['boxhD', [9573]], ['boxHD', [9574]], ['boxhu', [9524]], ['boxHu', [9575]], ['boxhU', [9576]], ['boxHU', [9577]], ['boxminus', [8863]], ['boxplus', [8862]], ['boxtimes', [8864]], ['boxul', [9496]], ['boxuL', [9563]], ['boxUl', [9564]], ['boxUL', [9565]], ['boxur', [9492]], ['boxuR', [9560]], ['boxUr', [9561]], ['boxUR', [9562]], ['boxv', [9474]], ['boxV', [9553]], ['boxvh', [9532]], ['boxvH', [9578]], ['boxVh', [9579]], ['boxVH', [9580]], ['boxvl', [9508]], ['boxvL', [9569]], ['boxVl', [9570]], ['boxVL', [9571]], ['boxvr', [9500]], ['boxvR', [9566]], ['boxVr', [9567]], ['boxVR', [9568]], ['bprime', [8245]], ['breve', [728]], ['Breve', [728]], ['brvbar', [166]], ['bscr', [119991]], ['Bscr', [8492]], ['bsemi', [8271]], ['bsim', [8765]], ['bsime', [8909]], ['bsolb', [10693]], ['bsol', [92]], ['bsolhsub', [10184]], ['bull', [8226]], ['bullet', [8226]], ['bump', [8782]], ['bumpE', [10926]], ['bumpe', [8783]], ['Bumpeq', [8782]], ['bumpeq', [8783]], ['Cacute', [262]], ['cacute', [263]], ['capand', [10820]], ['capbrcup', [10825]], ['capcap', [10827]], ['cap', [8745]], ['Cap', [8914]], ['capcup', [10823]], ['capdot', [10816]], ['CapitalDifferentialD', [8517]], ['caps', [8745, 65024]], ['caret', [8257]], ['caron', [711]], ['Cayleys', [8493]], ['ccaps', [10829]], ['Ccaron', [268]], ['ccaron', [269]], ['Ccedil', [199]], ['ccedil', [231]], ['Ccirc', [264]], ['ccirc', [265]], ['Cconint', [8752]], ['ccups', [10828]], ['ccupssm', [10832]], ['Cdot', [266]], ['cdot', [267]], ['cedil', [184]], ['Cedilla', [184]], ['cemptyv', [10674]], ['cent', [162]], ['centerdot', [183]], ['CenterDot', [183]], ['cfr', [120096]], ['Cfr', [8493]], ['CHcy', [1063]], ['chcy', [1095]], ['check', [10003]], ['checkmark', [10003]], ['Chi', [935]], ['chi', [967]], ['circ', [710]], ['circeq', [8791]], ['circlearrowleft', [8634]], ['circlearrowright', [8635]], ['circledast', [8859]], ['circledcirc', [8858]], ['circleddash', [8861]], ['CircleDot', [8857]], ['circledR', [174]], ['circledS', [9416]], ['CircleMinus', [8854]], ['CirclePlus', [8853]], ['CircleTimes', [8855]], ['cir', [9675]], ['cirE', [10691]], ['cire', [8791]], ['cirfnint', [10768]], ['cirmid', [10991]], ['cirscir', [10690]], ['ClockwiseContourIntegral', [8754]], ['CloseCurlyDoubleQuote', [8221]], ['CloseCurlyQuote', [8217]], ['clubs', [9827]], ['clubsuit', [9827]], ['colon', [58]], ['Colon', [8759]], ['Colone', [10868]], ['colone', [8788]], ['coloneq', [8788]], ['comma', [44]], ['commat', [64]], ['comp', [8705]], ['compfn', [8728]], ['complement', [8705]], ['complexes', [8450]], ['cong', [8773]], ['congdot', [10861]], ['Congruent', [8801]], ['conint', [8750]], ['Conint', [8751]], ['ContourIntegral', [8750]], ['copf', [120148]], ['Copf', [8450]], ['coprod', [8720]], ['Coproduct', [8720]], ['copy', [169]], ['COPY', [169]], ['copysr', [8471]], ['CounterClockwiseContourIntegral', [8755]], ['crarr', [8629]], ['cross', [10007]], ['Cross', [10799]], ['Cscr', [119966]], ['cscr', [119992]], ['csub', [10959]], ['csube', [10961]], ['csup', [10960]], ['csupe', [10962]], ['ctdot', [8943]], ['cudarrl', [10552]], ['cudarrr', [10549]], ['cuepr', [8926]], ['cuesc', [8927]], ['cularr', [8630]], ['cularrp', [10557]], ['cupbrcap', [10824]], ['cupcap', [10822]], ['CupCap', [8781]], ['cup', [8746]], ['Cup', [8915]], ['cupcup', [10826]], ['cupdot', [8845]], ['cupor', [10821]], ['cups', [8746, 65024]], ['curarr', [8631]], ['curarrm', [10556]], ['curlyeqprec', [8926]], ['curlyeqsucc', [8927]], ['curlyvee', [8910]], ['curlywedge', [8911]], ['curren', [164]], ['curvearrowleft', [8630]], ['curvearrowright', [8631]], ['cuvee', [8910]], ['cuwed', [8911]], ['cwconint', [8754]], ['cwint', [8753]], ['cylcty', [9005]], ['dagger', [8224]], ['Dagger', [8225]], ['daleth', [8504]], ['darr', [8595]], ['Darr', [8609]], ['dArr', [8659]], ['dash', [8208]], ['Dashv', [10980]], ['dashv', [8867]], ['dbkarow', [10511]], ['dblac', [733]], ['Dcaron', [270]], ['dcaron', [271]], ['Dcy', [1044]], ['dcy', [1076]], ['ddagger', [8225]], ['ddarr', [8650]], ['DD', [8517]], ['dd', [8518]], ['DDotrahd', [10513]], ['ddotseq', [10871]], ['deg', [176]], ['Del', [8711]], ['Delta', [916]], ['delta', [948]], ['demptyv', [10673]], ['dfisht', [10623]], ['Dfr', [120071]], ['dfr', [120097]], ['dHar', [10597]], ['dharl', [8643]], ['dharr', [8642]], ['DiacriticalAcute', [180]], ['DiacriticalDot', [729]], ['DiacriticalDoubleAcute', [733]], ['DiacriticalGrave', [96]], ['DiacriticalTilde', [732]], ['diam', [8900]], ['diamond', [8900]], ['Diamond', [8900]], ['diamondsuit', [9830]], ['diams', [9830]], ['die', [168]], ['DifferentialD', [8518]], ['digamma', [989]], ['disin', [8946]], ['div', [247]], ['divide', [247]], ['divideontimes', [8903]], ['divonx', [8903]], ['DJcy', [1026]], ['djcy', [1106]], ['dlcorn', [8990]], ['dlcrop', [8973]], ['dollar', [36]], ['Dopf', [120123]], ['dopf', [120149]], ['Dot', [168]], ['dot', [729]], ['DotDot', [8412]], ['doteq', [8784]], ['doteqdot', [8785]], ['DotEqual', [8784]], ['dotminus', [8760]], ['dotplus', [8724]], ['dotsquare', [8865]], ['doublebarwedge', [8966]], ['DoubleContourIntegral', [8751]], ['DoubleDot', [168]], ['DoubleDownArrow', [8659]], ['DoubleLeftArrow', [8656]], ['DoubleLeftRightArrow', [8660]], ['DoubleLeftTee', [10980]], ['DoubleLongLeftArrow', [10232]], ['DoubleLongLeftRightArrow', [10234]], ['DoubleLongRightArrow', [10233]], ['DoubleRightArrow', [8658]], ['DoubleRightTee', [8872]], ['DoubleUpArrow', [8657]], ['DoubleUpDownArrow', [8661]], ['DoubleVerticalBar', [8741]], ['DownArrowBar', [10515]], ['downarrow', [8595]], ['DownArrow', [8595]], ['Downarrow', [8659]], ['DownArrowUpArrow', [8693]], ['DownBreve', [785]], ['downdownarrows', [8650]], ['downharpoonleft', [8643]], ['downharpoonright', [8642]], ['DownLeftRightVector', [10576]], ['DownLeftTeeVector', [10590]], ['DownLeftVectorBar', [10582]], ['DownLeftVector', [8637]], ['DownRightTeeVector', [10591]], ['DownRightVectorBar', [10583]], ['DownRightVector', [8641]], ['DownTeeArrow', [8615]], ['DownTee', [8868]], ['drbkarow', [10512]], ['drcorn', [8991]], ['drcrop', [8972]], ['Dscr', [119967]], ['dscr', [119993]], ['DScy', [1029]], ['dscy', [1109]], ['dsol', [10742]], ['Dstrok', [272]], ['dstrok', [273]], ['dtdot', [8945]], ['dtri', [9663]], ['dtrif', [9662]], ['duarr', [8693]], ['duhar', [10607]], ['dwangle', [10662]], ['DZcy', [1039]], ['dzcy', [1119]], ['dzigrarr', [10239]], ['Eacute', [201]], ['eacute', [233]], ['easter', [10862]], ['Ecaron', [282]], ['ecaron', [283]], ['Ecirc', [202]], ['ecirc', [234]], ['ecir', [8790]], ['ecolon', [8789]], ['Ecy', [1069]], ['ecy', [1101]], ['eDDot', [10871]], ['Edot', [278]], ['edot', [279]], ['eDot', [8785]], ['ee', [8519]], ['efDot', [8786]], ['Efr', [120072]], ['efr', [120098]], ['eg', [10906]], ['Egrave', [200]], ['egrave', [232]], ['egs', [10902]], ['egsdot', [10904]], ['el', [10905]], ['Element', [8712]], ['elinters', [9191]], ['ell', [8467]], ['els', [10901]], ['elsdot', [10903]], ['Emacr', [274]], ['emacr', [275]], ['empty', [8709]], ['emptyset', [8709]], ['EmptySmallSquare', [9723]], ['emptyv', [8709]], ['EmptyVerySmallSquare', [9643]], ['emsp13', [8196]], ['emsp14', [8197]], ['emsp', [8195]], ['ENG', [330]], ['eng', [331]], ['ensp', [8194]], ['Eogon', [280]], ['eogon', [281]], ['Eopf', [120124]], ['eopf', [120150]], ['epar', [8917]], ['eparsl', [10723]], ['eplus', [10865]], ['epsi', [949]], ['Epsilon', [917]], ['epsilon', [949]], ['epsiv', [1013]], ['eqcirc', [8790]], ['eqcolon', [8789]], ['eqsim', [8770]], ['eqslantgtr', [10902]], ['eqslantless', [10901]], ['Equal', [10869]], ['equals', [61]], ['EqualTilde', [8770]], ['equest', [8799]], ['Equilibrium', [8652]], ['equiv', [8801]], ['equivDD', [10872]], ['eqvparsl', [10725]], ['erarr', [10609]], ['erDot', [8787]], ['escr', [8495]], ['Escr', [8496]], ['esdot', [8784]], ['Esim', [10867]], ['esim', [8770]], ['Eta', [919]], ['eta', [951]], ['ETH', [208]], ['eth', [240]], ['Euml', [203]], ['euml', [235]], ['euro', [8364]], ['excl', [33]], ['exist', [8707]], ['Exists', [8707]], ['expectation', [8496]], ['exponentiale', [8519]], ['ExponentialE', [8519]], ['fallingdotseq', [8786]], ['Fcy', [1060]], ['fcy', [1092]], ['female', [9792]], ['ffilig', [64259]], ['fflig', [64256]], ['ffllig', [64260]], ['Ffr', [120073]], ['ffr', [120099]], ['filig', [64257]], ['FilledSmallSquare', [9724]], ['FilledVerySmallSquare', [9642]], ['fjlig', [102, 106]], ['flat', [9837]], ['fllig', [64258]], ['fltns', [9649]], ['fnof', [402]], ['Fopf', [120125]], ['fopf', [120151]], ['forall', [8704]], ['ForAll', [8704]], ['fork', [8916]], ['forkv', [10969]], ['Fouriertrf', [8497]], ['fpartint', [10765]], ['frac12', [189]], ['frac13', [8531]], ['frac14', [188]], ['frac15', [8533]], ['frac16', [8537]], ['frac18', [8539]], ['frac23', [8532]], ['frac25', [8534]], ['frac34', [190]], ['frac35', [8535]], ['frac38', [8540]], ['frac45', [8536]], ['frac56', [8538]], ['frac58', [8541]], ['frac78', [8542]], ['frasl', [8260]], ['frown', [8994]], ['fscr', [119995]], ['Fscr', [8497]], ['gacute', [501]], ['Gamma', [915]], ['gamma', [947]], ['Gammad', [988]], ['gammad', [989]], ['gap', [10886]], ['Gbreve', [286]], ['gbreve', [287]], ['Gcedil', [290]], ['Gcirc', [284]], ['gcirc', [285]], ['Gcy', [1043]], ['gcy', [1075]], ['Gdot', [288]], ['gdot', [289]], ['ge', [8805]], ['gE', [8807]], ['gEl', [10892]], ['gel', [8923]], ['geq', [8805]], ['geqq', [8807]], ['geqslant', [10878]], ['gescc', [10921]], ['ges', [10878]], ['gesdot', [10880]], ['gesdoto', [10882]], ['gesdotol', [10884]], ['gesl', [8923, 65024]], ['gesles', [10900]], ['Gfr', [120074]], ['gfr', [120100]], ['gg', [8811]], ['Gg', [8921]], ['ggg', [8921]], ['gimel', [8503]], ['GJcy', [1027]], ['gjcy', [1107]], ['gla', [10917]], ['gl', [8823]], ['glE', [10898]], ['glj', [10916]], ['gnap', [10890]], ['gnapprox', [10890]], ['gne', [10888]], ['gnE', [8809]], ['gneq', [10888]], ['gneqq', [8809]], ['gnsim', [8935]], ['Gopf', [120126]], ['gopf', [120152]], ['grave', [96]], ['GreaterEqual', [8805]], ['GreaterEqualLess', [8923]], ['GreaterFullEqual', [8807]], ['GreaterGreater', [10914]], ['GreaterLess', [8823]], ['GreaterSlantEqual', [10878]], ['GreaterTilde', [8819]], ['Gscr', [119970]], ['gscr', [8458]], ['gsim', [8819]], ['gsime', [10894]], ['gsiml', [10896]], ['gtcc', [10919]], ['gtcir', [10874]], ['gt', [62]], ['GT', [62]], ['Gt', [8811]], ['gtdot', [8919]], ['gtlPar', [10645]], ['gtquest', [10876]], ['gtrapprox', [10886]], ['gtrarr', [10616]], ['gtrdot', [8919]], ['gtreqless', [8923]], ['gtreqqless', [10892]], ['gtrless', [8823]], ['gtrsim', [8819]], ['gvertneqq', [8809, 65024]], ['gvnE', [8809, 65024]], ['Hacek', [711]], ['hairsp', [8202]], ['half', [189]], ['hamilt', [8459]], ['HARDcy', [1066]], ['hardcy', [1098]], ['harrcir', [10568]], ['harr', [8596]], ['hArr', [8660]], ['harrw', [8621]], ['Hat', [94]], ['hbar', [8463]], ['Hcirc', [292]], ['hcirc', [293]], ['hearts', [9829]], ['heartsuit', [9829]], ['hellip', [8230]], ['hercon', [8889]], ['hfr', [120101]], ['Hfr', [8460]], ['HilbertSpace', [8459]], ['hksearow', [10533]], ['hkswarow', [10534]], ['hoarr', [8703]], ['homtht', [8763]], ['hookleftarrow', [8617]], ['hookrightarrow', [8618]], ['hopf', [120153]], ['Hopf', [8461]], ['horbar', [8213]], ['HorizontalLine', [9472]], ['hscr', [119997]], ['Hscr', [8459]], ['hslash', [8463]], ['Hstrok', [294]], ['hstrok', [295]], ['HumpDownHump', [8782]], ['HumpEqual', [8783]], ['hybull', [8259]], ['hyphen', [8208]], ['Iacute', [205]], ['iacute', [237]], ['ic', [8291]], ['Icirc', [206]], ['icirc', [238]], ['Icy', [1048]], ['icy', [1080]], ['Idot', [304]], ['IEcy', [1045]], ['iecy', [1077]], ['iexcl', [161]], ['iff', [8660]], ['ifr', [120102]], ['Ifr', [8465]], ['Igrave', [204]], ['igrave', [236]], ['ii', [8520]], ['iiiint', [10764]], ['iiint', [8749]], ['iinfin', [10716]], ['iiota', [8489]], ['IJlig', [306]], ['ijlig', [307]], ['Imacr', [298]], ['imacr', [299]], ['image', [8465]], ['ImaginaryI', [8520]], ['imagline', [8464]], ['imagpart', [8465]], ['imath', [305]], ['Im', [8465]], ['imof', [8887]], ['imped', [437]], ['Implies', [8658]], ['incare', [8453]], ['in', [8712]], ['infin', [8734]], ['infintie', [10717]], ['inodot', [305]], ['intcal', [8890]], ['int', [8747]], ['Int', [8748]], ['integers', [8484]], ['Integral', [8747]], ['intercal', [8890]], ['Intersection', [8898]], ['intlarhk', [10775]], ['intprod', [10812]], ['InvisibleComma', [8291]], ['InvisibleTimes', [8290]], ['IOcy', [1025]], ['iocy', [1105]], ['Iogon', [302]], ['iogon', [303]], ['Iopf', [120128]], ['iopf', [120154]], ['Iota', [921]], ['iota', [953]], ['iprod', [10812]], ['iquest', [191]], ['iscr', [119998]], ['Iscr', [8464]], ['isin', [8712]], ['isindot', [8949]], ['isinE', [8953]], ['isins', [8948]], ['isinsv', [8947]], ['isinv', [8712]], ['it', [8290]], ['Itilde', [296]], ['itilde', [297]], ['Iukcy', [1030]], ['iukcy', [1110]], ['Iuml', [207]], ['iuml', [239]], ['Jcirc', [308]], ['jcirc', [309]], ['Jcy', [1049]], ['jcy', [1081]], ['Jfr', [120077]], ['jfr', [120103]], ['jmath', [567]], ['Jopf', [120129]], ['jopf', [120155]], ['Jscr', [119973]], ['jscr', [119999]], ['Jsercy', [1032]], ['jsercy', [1112]], ['Jukcy', [1028]], ['jukcy', [1108]], ['Kappa', [922]], ['kappa', [954]], ['kappav', [1008]], ['Kcedil', [310]], ['kcedil', [311]], ['Kcy', [1050]], ['kcy', [1082]], ['Kfr', [120078]], ['kfr', [120104]], ['kgreen', [312]], ['KHcy', [1061]], ['khcy', [1093]], ['KJcy', [1036]], ['kjcy', [1116]], ['Kopf', [120130]], ['kopf', [120156]], ['Kscr', [119974]], ['kscr', [120000]], ['lAarr', [8666]], ['Lacute', [313]], ['lacute', [314]], ['laemptyv', [10676]], ['lagran', [8466]], ['Lambda', [923]], ['lambda', [955]], ['lang', [10216]], ['Lang', [10218]], ['langd', [10641]], ['langle', [10216]], ['lap', [10885]], ['Laplacetrf', [8466]], ['laquo', [171]], ['larrb', [8676]], ['larrbfs', [10527]], ['larr', [8592]], ['Larr', [8606]], ['lArr', [8656]], ['larrfs', [10525]], ['larrhk', [8617]], ['larrlp', [8619]], ['larrpl', [10553]], ['larrsim', [10611]], ['larrtl', [8610]], ['latail', [10521]], ['lAtail', [10523]], ['lat', [10923]], ['late', [10925]], ['lates', [10925, 65024]], ['lbarr', [10508]], ['lBarr', [10510]], ['lbbrk', [10098]], ['lbrace', [123]], ['lbrack', [91]], ['lbrke', [10635]], ['lbrksld', [10639]], ['lbrkslu', [10637]], ['Lcaron', [317]], ['lcaron', [318]], ['Lcedil', [315]], ['lcedil', [316]], ['lceil', [8968]], ['lcub', [123]], ['Lcy', [1051]], ['lcy', [1083]], ['ldca', [10550]], ['ldquo', [8220]], ['ldquor', [8222]], ['ldrdhar', [10599]], ['ldrushar', [10571]], ['ldsh', [8626]], ['le', [8804]], ['lE', [8806]], ['LeftAngleBracket', [10216]], ['LeftArrowBar', [8676]], ['leftarrow', [8592]], ['LeftArrow', [8592]], ['Leftarrow', [8656]], ['LeftArrowRightArrow', [8646]], ['leftarrowtail', [8610]], ['LeftCeiling', [8968]], ['LeftDoubleBracket', [10214]], ['LeftDownTeeVector', [10593]], ['LeftDownVectorBar', [10585]], ['LeftDownVector', [8643]], ['LeftFloor', [8970]], ['leftharpoondown', [8637]], ['leftharpoonup', [8636]], ['leftleftarrows', [8647]], ['leftrightarrow', [8596]], ['LeftRightArrow', [8596]], ['Leftrightarrow', [8660]], ['leftrightarrows', [8646]], ['leftrightharpoons', [8651]], ['leftrightsquigarrow', [8621]], ['LeftRightVector', [10574]], ['LeftTeeArrow', [8612]], ['LeftTee', [8867]], ['LeftTeeVector', [10586]], ['leftthreetimes', [8907]], ['LeftTriangleBar', [10703]], ['LeftTriangle', [8882]], ['LeftTriangleEqual', [8884]], ['LeftUpDownVector', [10577]], ['LeftUpTeeVector', [10592]], ['LeftUpVectorBar', [10584]], ['LeftUpVector', [8639]], ['LeftVectorBar', [10578]], ['LeftVector', [8636]], ['lEg', [10891]], ['leg', [8922]], ['leq', [8804]], ['leqq', [8806]], ['leqslant', [10877]], ['lescc', [10920]], ['les', [10877]], ['lesdot', [10879]], ['lesdoto', [10881]], ['lesdotor', [10883]], ['lesg', [8922, 65024]], ['lesges', [10899]], ['lessapprox', [10885]], ['lessdot', [8918]], ['lesseqgtr', [8922]], ['lesseqqgtr', [10891]], ['LessEqualGreater', [8922]], ['LessFullEqual', [8806]], ['LessGreater', [8822]], ['lessgtr', [8822]], ['LessLess', [10913]], ['lesssim', [8818]], ['LessSlantEqual', [10877]], ['LessTilde', [8818]], ['lfisht', [10620]], ['lfloor', [8970]], ['Lfr', [120079]], ['lfr', [120105]], ['lg', [8822]], ['lgE', [10897]], ['lHar', [10594]], ['lhard', [8637]], ['lharu', [8636]], ['lharul', [10602]], ['lhblk', [9604]], ['LJcy', [1033]], ['ljcy', [1113]], ['llarr', [8647]], ['ll', [8810]], ['Ll', [8920]], ['llcorner', [8990]], ['Lleftarrow', [8666]], ['llhard', [10603]], ['lltri', [9722]], ['Lmidot', [319]], ['lmidot', [320]], ['lmoustache', [9136]], ['lmoust', [9136]], ['lnap', [10889]], ['lnapprox', [10889]], ['lne', [10887]], ['lnE', [8808]], ['lneq', [10887]], ['lneqq', [8808]], ['lnsim', [8934]], ['loang', [10220]], ['loarr', [8701]], ['lobrk', [10214]], ['longleftarrow', [10229]], ['LongLeftArrow', [10229]], ['Longleftarrow', [10232]], ['longleftrightarrow', [10231]], ['LongLeftRightArrow', [10231]], ['Longleftrightarrow', [10234]], ['longmapsto', [10236]], ['longrightarrow', [10230]], ['LongRightArrow', [10230]], ['Longrightarrow', [10233]], ['looparrowleft', [8619]], ['looparrowright', [8620]], ['lopar', [10629]], ['Lopf', [120131]], ['lopf', [120157]], ['loplus', [10797]], ['lotimes', [10804]], ['lowast', [8727]], ['lowbar', [95]], ['LowerLeftArrow', [8601]], ['LowerRightArrow', [8600]], ['loz', [9674]], ['lozenge', [9674]], ['lozf', [10731]], ['lpar', [40]], ['lparlt', [10643]], ['lrarr', [8646]], ['lrcorner', [8991]], ['lrhar', [8651]], ['lrhard', [10605]], ['lrm', [8206]], ['lrtri', [8895]], ['lsaquo', [8249]], ['lscr', [120001]], ['Lscr', [8466]], ['lsh', [8624]], ['Lsh', [8624]], ['lsim', [8818]], ['lsime', [10893]], ['lsimg', [10895]], ['lsqb', [91]], ['lsquo', [8216]], ['lsquor', [8218]], ['Lstrok', [321]], ['lstrok', [322]], ['ltcc', [10918]], ['ltcir', [10873]], ['lt', [60]], ['LT', [60]], ['Lt', [8810]], ['ltdot', [8918]], ['lthree', [8907]], ['ltimes', [8905]], ['ltlarr', [10614]], ['ltquest', [10875]], ['ltri', [9667]], ['ltrie', [8884]], ['ltrif', [9666]], ['ltrPar', [10646]], ['lurdshar', [10570]], ['luruhar', [10598]], ['lvertneqq', [8808, 65024]], ['lvnE', [8808, 65024]], ['macr', [175]], ['male', [9794]], ['malt', [10016]], ['maltese', [10016]], ['Map', [10501]], ['map', [8614]], ['mapsto', [8614]], ['mapstodown', [8615]], ['mapstoleft', [8612]], ['mapstoup', [8613]], ['marker', [9646]], ['mcomma', [10793]], ['Mcy', [1052]], ['mcy', [1084]], ['mdash', [8212]], ['mDDot', [8762]], ['measuredangle', [8737]], ['MediumSpace', [8287]], ['Mellintrf', [8499]], ['Mfr', [120080]], ['mfr', [120106]], ['mho', [8487]], ['micro', [181]], ['midast', [42]], ['midcir', [10992]], ['mid', [8739]], ['middot', [183]], ['minusb', [8863]], ['minus', [8722]], ['minusd', [8760]], ['minusdu', [10794]], ['MinusPlus', [8723]], ['mlcp', [10971]], ['mldr', [8230]], ['mnplus', [8723]], ['models', [8871]], ['Mopf', [120132]], ['mopf', [120158]], ['mp', [8723]], ['mscr', [120002]], ['Mscr', [8499]], ['mstpos', [8766]], ['Mu', [924]], ['mu', [956]], ['multimap', [8888]], ['mumap', [8888]], ['nabla', [8711]], ['Nacute', [323]], ['nacute', [324]], ['nang', [8736, 8402]], ['nap', [8777]], ['napE', [10864, 824]], ['napid', [8779, 824]], ['napos', [329]], ['napprox', [8777]], ['natural', [9838]], ['naturals', [8469]], ['natur', [9838]], ['nbsp', [160]], ['nbump', [8782, 824]], ['nbumpe', [8783, 824]], ['ncap', [10819]], ['Ncaron', [327]], ['ncaron', [328]], ['Ncedil', [325]], ['ncedil', [326]], ['ncong', [8775]], ['ncongdot', [10861, 824]], ['ncup', [10818]], ['Ncy', [1053]], ['ncy', [1085]], ['ndash', [8211]], ['nearhk', [10532]], ['nearr', [8599]], ['neArr', [8663]], ['nearrow', [8599]], ['ne', [8800]], ['nedot', [8784, 824]], ['NegativeMediumSpace', [8203]], ['NegativeThickSpace', [8203]], ['NegativeThinSpace', [8203]], ['NegativeVeryThinSpace', [8203]], ['nequiv', [8802]], ['nesear', [10536]], ['nesim', [8770, 824]], ['NestedGreaterGreater', [8811]], ['NestedLessLess', [8810]], ['nexist', [8708]], ['nexists', [8708]], ['Nfr', [120081]], ['nfr', [120107]], ['ngE', [8807, 824]], ['nge', [8817]], ['ngeq', [8817]], ['ngeqq', [8807, 824]], ['ngeqslant', [10878, 824]], ['nges', [10878, 824]], ['nGg', [8921, 824]], ['ngsim', [8821]], ['nGt', [8811, 8402]], ['ngt', [8815]], ['ngtr', [8815]], ['nGtv', [8811, 824]], ['nharr', [8622]], ['nhArr', [8654]], ['nhpar', [10994]], ['ni', [8715]], ['nis', [8956]], ['nisd', [8954]], ['niv', [8715]], ['NJcy', [1034]], ['njcy', [1114]], ['nlarr', [8602]], ['nlArr', [8653]], ['nldr', [8229]], ['nlE', [8806, 824]], ['nle', [8816]], ['nleftarrow', [8602]], ['nLeftarrow', [8653]], ['nleftrightarrow', [8622]], ['nLeftrightarrow', [8654]], ['nleq', [8816]], ['nleqq', [8806, 824]], ['nleqslant', [10877, 824]], ['nles', [10877, 824]], ['nless', [8814]], ['nLl', [8920, 824]], ['nlsim', [8820]], ['nLt', [8810, 8402]], ['nlt', [8814]], ['nltri', [8938]], ['nltrie', [8940]], ['nLtv', [8810, 824]], ['nmid', [8740]], ['NoBreak', [8288]], ['NonBreakingSpace', [160]], ['nopf', [120159]], ['Nopf', [8469]], ['Not', [10988]], ['not', [172]], ['NotCongruent', [8802]], ['NotCupCap', [8813]], ['NotDoubleVerticalBar', [8742]], ['NotElement', [8713]], ['NotEqual', [8800]], ['NotEqualTilde', [8770, 824]], ['NotExists', [8708]], ['NotGreater', [8815]], ['NotGreaterEqual', [8817]], ['NotGreaterFullEqual', [8807, 824]], ['NotGreaterGreater', [8811, 824]], ['NotGreaterLess', [8825]], ['NotGreaterSlantEqual', [10878, 824]], ['NotGreaterTilde', [8821]], ['NotHumpDownHump', [8782, 824]], ['NotHumpEqual', [8783, 824]], ['notin', [8713]], ['notindot', [8949, 824]], ['notinE', [8953, 824]], ['notinva', [8713]], ['notinvb', [8951]], ['notinvc', [8950]], ['NotLeftTriangleBar', [10703, 824]], ['NotLeftTriangle', [8938]], ['NotLeftTriangleEqual', [8940]], ['NotLess', [8814]], ['NotLessEqual', [8816]], ['NotLessGreater', [8824]], ['NotLessLess', [8810, 824]], ['NotLessSlantEqual', [10877, 824]], ['NotLessTilde', [8820]], ['NotNestedGreaterGreater', [10914, 824]], ['NotNestedLessLess', [10913, 824]], ['notni', [8716]], ['notniva', [8716]], ['notnivb', [8958]], ['notnivc', [8957]], ['NotPrecedes', [8832]], ['NotPrecedesEqual', [10927, 824]], ['NotPrecedesSlantEqual', [8928]], ['NotReverseElement', [8716]], ['NotRightTriangleBar', [10704, 824]], ['NotRightTriangle', [8939]], ['NotRightTriangleEqual', [8941]], ['NotSquareSubset', [8847, 824]], ['NotSquareSubsetEqual', [8930]], ['NotSquareSuperset', [8848, 824]], ['NotSquareSupersetEqual', [8931]], ['NotSubset', [8834, 8402]], ['NotSubsetEqual', [8840]], ['NotSucceeds', [8833]], ['NotSucceedsEqual', [10928, 824]], ['NotSucceedsSlantEqual', [8929]], ['NotSucceedsTilde', [8831, 824]], ['NotSuperset', [8835, 8402]], ['NotSupersetEqual', [8841]], ['NotTilde', [8769]], ['NotTildeEqual', [8772]], ['NotTildeFullEqual', [8775]], ['NotTildeTilde', [8777]], ['NotVerticalBar', [8740]], ['nparallel', [8742]], ['npar', [8742]], ['nparsl', [11005, 8421]], ['npart', [8706, 824]], ['npolint', [10772]], ['npr', [8832]], ['nprcue', [8928]], ['nprec', [8832]], ['npreceq', [10927, 824]], ['npre', [10927, 824]], ['nrarrc', [10547, 824]], ['nrarr', [8603]], ['nrArr', [8655]], ['nrarrw', [8605, 824]], ['nrightarrow', [8603]], ['nRightarrow', [8655]], ['nrtri', [8939]], ['nrtrie', [8941]], ['nsc', [8833]], ['nsccue', [8929]], ['nsce', [10928, 824]], ['Nscr', [119977]], ['nscr', [120003]], ['nshortmid', [8740]], ['nshortparallel', [8742]], ['nsim', [8769]], ['nsime', [8772]], ['nsimeq', [8772]], ['nsmid', [8740]], ['nspar', [8742]], ['nsqsube', [8930]], ['nsqsupe', [8931]], ['nsub', [8836]], ['nsubE', [10949, 824]], ['nsube', [8840]], ['nsubset', [8834, 8402]], ['nsubseteq', [8840]], ['nsubseteqq', [10949, 824]], ['nsucc', [8833]], ['nsucceq', [10928, 824]], ['nsup', [8837]], ['nsupE', [10950, 824]], ['nsupe', [8841]], ['nsupset', [8835, 8402]], ['nsupseteq', [8841]], ['nsupseteqq', [10950, 824]], ['ntgl', [8825]], ['Ntilde', [209]], ['ntilde', [241]], ['ntlg', [8824]], ['ntriangleleft', [8938]], ['ntrianglelefteq', [8940]], ['ntriangleright', [8939]], ['ntrianglerighteq', [8941]], ['Nu', [925]], ['nu', [957]], ['num', [35]], ['numero', [8470]], ['numsp', [8199]], ['nvap', [8781, 8402]], ['nvdash', [8876]], ['nvDash', [8877]], ['nVdash', [8878]], ['nVDash', [8879]], ['nvge', [8805, 8402]], ['nvgt', [62, 8402]], ['nvHarr', [10500]], ['nvinfin', [10718]], ['nvlArr', [10498]], ['nvle', [8804, 8402]], ['nvlt', [60, 8402]], ['nvltrie', [8884, 8402]], ['nvrArr', [10499]], ['nvrtrie', [8885, 8402]], ['nvsim', [8764, 8402]], ['nwarhk', [10531]], ['nwarr', [8598]], ['nwArr', [8662]], ['nwarrow', [8598]], ['nwnear', [10535]], ['Oacute', [211]], ['oacute', [243]], ['oast', [8859]], ['Ocirc', [212]], ['ocirc', [244]], ['ocir', [8858]], ['Ocy', [1054]], ['ocy', [1086]], ['odash', [8861]], ['Odblac', [336]], ['odblac', [337]], ['odiv', [10808]], ['odot', [8857]], ['odsold', [10684]], ['OElig', [338]], ['oelig', [339]], ['ofcir', [10687]], ['Ofr', [120082]], ['ofr', [120108]], ['ogon', [731]], ['Ograve', [210]], ['ograve', [242]], ['ogt', [10689]], ['ohbar', [10677]], ['ohm', [937]], ['oint', [8750]], ['olarr', [8634]], ['olcir', [10686]], ['olcross', [10683]], ['oline', [8254]], ['olt', [10688]], ['Omacr', [332]], ['omacr', [333]], ['Omega', [937]], ['omega', [969]], ['Omicron', [927]], ['omicron', [959]], ['omid', [10678]], ['ominus', [8854]], ['Oopf', [120134]], ['oopf', [120160]], ['opar', [10679]], ['OpenCurlyDoubleQuote', [8220]], ['OpenCurlyQuote', [8216]], ['operp', [10681]], ['oplus', [8853]], ['orarr', [8635]], ['Or', [10836]], ['or', [8744]], ['ord', [10845]], ['order', [8500]], ['orderof', [8500]], ['ordf', [170]], ['ordm', [186]], ['origof', [8886]], ['oror', [10838]], ['orslope', [10839]], ['orv', [10843]], ['oS', [9416]], ['Oscr', [119978]], ['oscr', [8500]], ['Oslash', [216]], ['oslash', [248]], ['osol', [8856]], ['Otilde', [213]], ['otilde', [245]], ['otimesas', [10806]], ['Otimes', [10807]], ['otimes', [8855]], ['Ouml', [214]], ['ouml', [246]], ['ovbar', [9021]], ['OverBar', [8254]], ['OverBrace', [9182]], ['OverBracket', [9140]], ['OverParenthesis', [9180]], ['para', [182]], ['parallel', [8741]], ['par', [8741]], ['parsim', [10995]], ['parsl', [11005]], ['part', [8706]], ['PartialD', [8706]], ['Pcy', [1055]], ['pcy', [1087]], ['percnt', [37]], ['period', [46]], ['permil', [8240]], ['perp', [8869]], ['pertenk', [8241]], ['Pfr', [120083]], ['pfr', [120109]], ['Phi', [934]], ['phi', [966]], ['phiv', [981]], ['phmmat', [8499]], ['phone', [9742]], ['Pi', [928]], ['pi', [960]], ['pitchfork', [8916]], ['piv', [982]], ['planck', [8463]], ['planckh', [8462]], ['plankv', [8463]], ['plusacir', [10787]], ['plusb', [8862]], ['pluscir', [10786]], ['plus', [43]], ['plusdo', [8724]], ['plusdu', [10789]], ['pluse', [10866]], ['PlusMinus', [177]], ['plusmn', [177]], ['plussim', [10790]], ['plustwo', [10791]], ['pm', [177]], ['Poincareplane', [8460]], ['pointint', [10773]], ['popf', [120161]], ['Popf', [8473]], ['pound', [163]], ['prap', [10935]], ['Pr', [10939]], ['pr', [8826]], ['prcue', [8828]], ['precapprox', [10935]], ['prec', [8826]], ['preccurlyeq', [8828]], ['Precedes', [8826]], ['PrecedesEqual', [10927]], ['PrecedesSlantEqual', [8828]], ['PrecedesTilde', [8830]], ['preceq', [10927]], ['precnapprox', [10937]], ['precneqq', [10933]], ['precnsim', [8936]], ['pre', [10927]], ['prE', [10931]], ['precsim', [8830]], ['prime', [8242]], ['Prime', [8243]], ['primes', [8473]], ['prnap', [10937]], ['prnE', [10933]], ['prnsim', [8936]], ['prod', [8719]], ['Product', [8719]], ['profalar', [9006]], ['profline', [8978]], ['profsurf', [8979]], ['prop', [8733]], ['Proportional', [8733]], ['Proportion', [8759]], ['propto', [8733]], ['prsim', [8830]], ['prurel', [8880]], ['Pscr', [119979]], ['pscr', [120005]], ['Psi', [936]], ['psi', [968]], ['puncsp', [8200]], ['Qfr', [120084]], ['qfr', [120110]], ['qint', [10764]], ['qopf', [120162]], ['Qopf', [8474]], ['qprime', [8279]], ['Qscr', [119980]], ['qscr', [120006]], ['quaternions', [8461]], ['quatint', [10774]], ['quest', [63]], ['questeq', [8799]], ['quot', [34]], ['QUOT', [34]], ['rAarr', [8667]], ['race', [8765, 817]], ['Racute', [340]], ['racute', [341]], ['radic', [8730]], ['raemptyv', [10675]], ['rang', [10217]], ['Rang', [10219]], ['rangd', [10642]], ['range', [10661]], ['rangle', [10217]], ['raquo', [187]], ['rarrap', [10613]], ['rarrb', [8677]], ['rarrbfs', [10528]], ['rarrc', [10547]], ['rarr', [8594]], ['Rarr', [8608]], ['rArr', [8658]], ['rarrfs', [10526]], ['rarrhk', [8618]], ['rarrlp', [8620]], ['rarrpl', [10565]], ['rarrsim', [10612]], ['Rarrtl', [10518]], ['rarrtl', [8611]], ['rarrw', [8605]], ['ratail', [10522]], ['rAtail', [10524]], ['ratio', [8758]], ['rationals', [8474]], ['rbarr', [10509]], ['rBarr', [10511]], ['RBarr', [10512]], ['rbbrk', [10099]], ['rbrace', [125]], ['rbrack', [93]], ['rbrke', [10636]], ['rbrksld', [10638]], ['rbrkslu', [10640]], ['Rcaron', [344]], ['rcaron', [345]], ['Rcedil', [342]], ['rcedil', [343]], ['rceil', [8969]], ['rcub', [125]], ['Rcy', [1056]], ['rcy', [1088]], ['rdca', [10551]], ['rdldhar', [10601]], ['rdquo', [8221]], ['rdquor', [8221]], ['rdsh', [8627]], ['real', [8476]], ['realine', [8475]], ['realpart', [8476]], ['reals', [8477]], ['Re', [8476]], ['rect', [9645]], ['reg', [174]], ['REG', [174]], ['ReverseElement', [8715]], ['ReverseEquilibrium', [8651]], ['ReverseUpEquilibrium', [10607]], ['rfisht', [10621]], ['rfloor', [8971]], ['rfr', [120111]], ['Rfr', [8476]], ['rHar', [10596]], ['rhard', [8641]], ['rharu', [8640]], ['rharul', [10604]], ['Rho', [929]], ['rho', [961]], ['rhov', [1009]], ['RightAngleBracket', [10217]], ['RightArrowBar', [8677]], ['rightarrow', [8594]], ['RightArrow', [8594]], ['Rightarrow', [8658]], ['RightArrowLeftArrow', [8644]], ['rightarrowtail', [8611]], ['RightCeiling', [8969]], ['RightDoubleBracket', [10215]], ['RightDownTeeVector', [10589]], ['RightDownVectorBar', [10581]], ['RightDownVector', [8642]], ['RightFloor', [8971]], ['rightharpoondown', [8641]], ['rightharpoonup', [8640]], ['rightleftarrows', [8644]], ['rightleftharpoons', [8652]], ['rightrightarrows', [8649]], ['rightsquigarrow', [8605]], ['RightTeeArrow', [8614]], ['RightTee', [8866]], ['RightTeeVector', [10587]], ['rightthreetimes', [8908]], ['RightTriangleBar', [10704]], ['RightTriangle', [8883]], ['RightTriangleEqual', [8885]], ['RightUpDownVector', [10575]], ['RightUpTeeVector', [10588]], ['RightUpVectorBar', [10580]], ['RightUpVector', [8638]], ['RightVectorBar', [10579]], ['RightVector', [8640]], ['ring', [730]], ['risingdotseq', [8787]], ['rlarr', [8644]], ['rlhar', [8652]], ['rlm', [8207]], ['rmoustache', [9137]], ['rmoust', [9137]], ['rnmid', [10990]], ['roang', [10221]], ['roarr', [8702]], ['robrk', [10215]], ['ropar', [10630]], ['ropf', [120163]], ['Ropf', [8477]], ['roplus', [10798]], ['rotimes', [10805]], ['RoundImplies', [10608]], ['rpar', [41]], ['rpargt', [10644]], ['rppolint', [10770]], ['rrarr', [8649]], ['Rrightarrow', [8667]], ['rsaquo', [8250]], ['rscr', [120007]], ['Rscr', [8475]], ['rsh', [8625]], ['Rsh', [8625]], ['rsqb', [93]], ['rsquo', [8217]], ['rsquor', [8217]], ['rthree', [8908]], ['rtimes', [8906]], ['rtri', [9657]], ['rtrie', [8885]], ['rtrif', [9656]], ['rtriltri', [10702]], ['RuleDelayed', [10740]], ['ruluhar', [10600]], ['rx', [8478]], ['Sacute', [346]], ['sacute', [347]], ['sbquo', [8218]], ['scap', [10936]], ['Scaron', [352]], ['scaron', [353]], ['Sc', [10940]], ['sc', [8827]], ['sccue', [8829]], ['sce', [10928]], ['scE', [10932]], ['Scedil', [350]], ['scedil', [351]], ['Scirc', [348]], ['scirc', [349]], ['scnap', [10938]], ['scnE', [10934]], ['scnsim', [8937]], ['scpolint', [10771]], ['scsim', [8831]], ['Scy', [1057]], ['scy', [1089]], ['sdotb', [8865]], ['sdot', [8901]], ['sdote', [10854]], ['searhk', [10533]], ['searr', [8600]], ['seArr', [8664]], ['searrow', [8600]], ['sect', [167]], ['semi', [59]], ['seswar', [10537]], ['setminus', [8726]], ['setmn', [8726]], ['sext', [10038]], ['Sfr', [120086]], ['sfr', [120112]], ['sfrown', [8994]], ['sharp', [9839]], ['SHCHcy', [1065]], ['shchcy', [1097]], ['SHcy', [1064]], ['shcy', [1096]], ['ShortDownArrow', [8595]], ['ShortLeftArrow', [8592]], ['shortmid', [8739]], ['shortparallel', [8741]], ['ShortRightArrow', [8594]], ['ShortUpArrow', [8593]], ['shy', [173]], ['Sigma', [931]], ['sigma', [963]], ['sigmaf', [962]], ['sigmav', [962]], ['sim', [8764]], ['simdot', [10858]], ['sime', [8771]], ['simeq', [8771]], ['simg', [10910]], ['simgE', [10912]], ['siml', [10909]], ['simlE', [10911]], ['simne', [8774]], ['simplus', [10788]], ['simrarr', [10610]], ['slarr', [8592]], ['SmallCircle', [8728]], ['smallsetminus', [8726]], ['smashp', [10803]], ['smeparsl', [10724]], ['smid', [8739]], ['smile', [8995]], ['smt', [10922]], ['smte', [10924]], ['smtes', [10924, 65024]], ['SOFTcy', [1068]], ['softcy', [1100]], ['solbar', [9023]], ['solb', [10692]], ['sol', [47]], ['Sopf', [120138]], ['sopf', [120164]], ['spades', [9824]], ['spadesuit', [9824]], ['spar', [8741]], ['sqcap', [8851]], ['sqcaps', [8851, 65024]], ['sqcup', [8852]], ['sqcups', [8852, 65024]], ['Sqrt', [8730]], ['sqsub', [8847]], ['sqsube', [8849]], ['sqsubset', [8847]], ['sqsubseteq', [8849]], ['sqsup', [8848]], ['sqsupe', [8850]], ['sqsupset', [8848]], ['sqsupseteq', [8850]], ['square', [9633]], ['Square', [9633]], ['SquareIntersection', [8851]], ['SquareSubset', [8847]], ['SquareSubsetEqual', [8849]], ['SquareSuperset', [8848]], ['SquareSupersetEqual', [8850]], ['SquareUnion', [8852]], ['squarf', [9642]], ['squ', [9633]], ['squf', [9642]], ['srarr', [8594]], ['Sscr', [119982]], ['sscr', [120008]], ['ssetmn', [8726]], ['ssmile', [8995]], ['sstarf', [8902]], ['Star', [8902]], ['star', [9734]], ['starf', [9733]], ['straightepsilon', [1013]], ['straightphi', [981]], ['strns', [175]], ['sub', [8834]], ['Sub', [8912]], ['subdot', [10941]], ['subE', [10949]], ['sube', [8838]], ['subedot', [10947]], ['submult', [10945]], ['subnE', [10955]], ['subne', [8842]], ['subplus', [10943]], ['subrarr', [10617]], ['subset', [8834]], ['Subset', [8912]], ['subseteq', [8838]], ['subseteqq', [10949]], ['SubsetEqual', [8838]], ['subsetneq', [8842]], ['subsetneqq', [10955]], ['subsim', [10951]], ['subsub', [10965]], ['subsup', [10963]], ['succapprox', [10936]], ['succ', [8827]], ['succcurlyeq', [8829]], ['Succeeds', [8827]], ['SucceedsEqual', [10928]], ['SucceedsSlantEqual', [8829]], ['SucceedsTilde', [8831]], ['succeq', [10928]], ['succnapprox', [10938]], ['succneqq', [10934]], ['succnsim', [8937]], ['succsim', [8831]], ['SuchThat', [8715]], ['sum', [8721]], ['Sum', [8721]], ['sung', [9834]], ['sup1', [185]], ['sup2', [178]], ['sup3', [179]], ['sup', [8835]], ['Sup', [8913]], ['supdot', [10942]], ['supdsub', [10968]], ['supE', [10950]], ['supe', [8839]], ['supedot', [10948]], ['Superset', [8835]], ['SupersetEqual', [8839]], ['suphsol', [10185]], ['suphsub', [10967]], ['suplarr', [10619]], ['supmult', [10946]], ['supnE', [10956]], ['supne', [8843]], ['supplus', [10944]], ['supset', [8835]], ['Supset', [8913]], ['supseteq', [8839]], ['supseteqq', [10950]], ['supsetneq', [8843]], ['supsetneqq', [10956]], ['supsim', [10952]], ['supsub', [10964]], ['supsup', [10966]], ['swarhk', [10534]], ['swarr', [8601]], ['swArr', [8665]], ['swarrow', [8601]], ['swnwar', [10538]], ['szlig', [223]], ['Tab', [9]], ['target', [8982]], ['Tau', [932]], ['tau', [964]], ['tbrk', [9140]], ['Tcaron', [356]], ['tcaron', [357]], ['Tcedil', [354]], ['tcedil', [355]], ['Tcy', [1058]], ['tcy', [1090]], ['tdot', [8411]], ['telrec', [8981]], ['Tfr', [120087]], ['tfr', [120113]], ['there4', [8756]], ['therefore', [8756]], ['Therefore', [8756]], ['Theta', [920]], ['theta', [952]], ['thetasym', [977]], ['thetav', [977]], ['thickapprox', [8776]], ['thicksim', [8764]], ['ThickSpace', [8287, 8202]], ['ThinSpace', [8201]], ['thinsp', [8201]], ['thkap', [8776]], ['thksim', [8764]], ['THORN', [222]], ['thorn', [254]], ['tilde', [732]], ['Tilde', [8764]], ['TildeEqual', [8771]], ['TildeFullEqual', [8773]], ['TildeTilde', [8776]], ['timesbar', [10801]], ['timesb', [8864]], ['times', [215]], ['timesd', [10800]], ['tint', [8749]], ['toea', [10536]], ['topbot', [9014]], ['topcir', [10993]], ['top', [8868]], ['Topf', [120139]], ['topf', [120165]], ['topfork', [10970]], ['tosa', [10537]], ['tprime', [8244]], ['trade', [8482]], ['TRADE', [8482]], ['triangle', [9653]], ['triangledown', [9663]], ['triangleleft', [9667]], ['trianglelefteq', [8884]], ['triangleq', [8796]], ['triangleright', [9657]], ['trianglerighteq', [8885]], ['tridot', [9708]], ['trie', [8796]], ['triminus', [10810]], ['TripleDot', [8411]], ['triplus', [10809]], ['trisb', [10701]], ['tritime', [10811]], ['trpezium', [9186]], ['Tscr', [119983]], ['tscr', [120009]], ['TScy', [1062]], ['tscy', [1094]], ['TSHcy', [1035]], ['tshcy', [1115]], ['Tstrok', [358]], ['tstrok', [359]], ['twixt', [8812]], ['twoheadleftarrow', [8606]], ['twoheadrightarrow', [8608]], ['Uacute', [218]], ['uacute', [250]], ['uarr', [8593]], ['Uarr', [8607]], ['uArr', [8657]], ['Uarrocir', [10569]], ['Ubrcy', [1038]], ['ubrcy', [1118]], ['Ubreve', [364]], ['ubreve', [365]], ['Ucirc', [219]], ['ucirc', [251]], ['Ucy', [1059]], ['ucy', [1091]], ['udarr', [8645]], ['Udblac', [368]], ['udblac', [369]], ['udhar', [10606]], ['ufisht', [10622]], ['Ufr', [120088]], ['ufr', [120114]], ['Ugrave', [217]], ['ugrave', [249]], ['uHar', [10595]], ['uharl', [8639]], ['uharr', [8638]], ['uhblk', [9600]], ['ulcorn', [8988]], ['ulcorner', [8988]], ['ulcrop', [8975]], ['ultri', [9720]], ['Umacr', [362]], ['umacr', [363]], ['uml', [168]], ['UnderBar', [95]], ['UnderBrace', [9183]], ['UnderBracket', [9141]], ['UnderParenthesis', [9181]], ['Union', [8899]], ['UnionPlus', [8846]], ['Uogon', [370]], ['uogon', [371]], ['Uopf', [120140]], ['uopf', [120166]], ['UpArrowBar', [10514]], ['uparrow', [8593]], ['UpArrow', [8593]], ['Uparrow', [8657]], ['UpArrowDownArrow', [8645]], ['updownarrow', [8597]], ['UpDownArrow', [8597]], ['Updownarrow', [8661]], ['UpEquilibrium', [10606]], ['upharpoonleft', [8639]], ['upharpoonright', [8638]], ['uplus', [8846]], ['UpperLeftArrow', [8598]], ['UpperRightArrow', [8599]], ['upsi', [965]], ['Upsi', [978]], ['upsih', [978]], ['Upsilon', [933]], ['upsilon', [965]], ['UpTeeArrow', [8613]], ['UpTee', [8869]], ['upuparrows', [8648]], ['urcorn', [8989]], ['urcorner', [8989]], ['urcrop', [8974]], ['Uring', [366]], ['uring', [367]], ['urtri', [9721]], ['Uscr', [119984]], ['uscr', [120010]], ['utdot', [8944]], ['Utilde', [360]], ['utilde', [361]], ['utri', [9653]], ['utrif', [9652]], ['uuarr', [8648]], ['Uuml', [220]], ['uuml', [252]], ['uwangle', [10663]], ['vangrt', [10652]], ['varepsilon', [1013]], ['varkappa', [1008]], ['varnothing', [8709]], ['varphi', [981]], ['varpi', [982]], ['varpropto', [8733]], ['varr', [8597]], ['vArr', [8661]], ['varrho', [1009]], ['varsigma', [962]], ['varsubsetneq', [8842, 65024]], ['varsubsetneqq', [10955, 65024]], ['varsupsetneq', [8843, 65024]], ['varsupsetneqq', [10956, 65024]], ['vartheta', [977]], ['vartriangleleft', [8882]], ['vartriangleright', [8883]], ['vBar', [10984]], ['Vbar', [10987]], ['vBarv', [10985]], ['Vcy', [1042]], ['vcy', [1074]], ['vdash', [8866]], ['vDash', [8872]], ['Vdash', [8873]], ['VDash', [8875]], ['Vdashl', [10982]], ['veebar', [8891]], ['vee', [8744]], ['Vee', [8897]], ['veeeq', [8794]], ['vellip', [8942]], ['verbar', [124]], ['Verbar', [8214]], ['vert', [124]], ['Vert', [8214]], ['VerticalBar', [8739]], ['VerticalLine', [124]], ['VerticalSeparator', [10072]], ['VerticalTilde', [8768]], ['VeryThinSpace', [8202]], ['Vfr', [120089]], ['vfr', [120115]], ['vltri', [8882]], ['vnsub', [8834, 8402]], ['vnsup', [8835, 8402]], ['Vopf', [120141]], ['vopf', [120167]], ['vprop', [8733]], ['vrtri', [8883]], ['Vscr', [119985]], ['vscr', [120011]], ['vsubnE', [10955, 65024]], ['vsubne', [8842, 65024]], ['vsupnE', [10956, 65024]], ['vsupne', [8843, 65024]], ['Vvdash', [8874]], ['vzigzag', [10650]], ['Wcirc', [372]], ['wcirc', [373]], ['wedbar', [10847]], ['wedge', [8743]], ['Wedge', [8896]], ['wedgeq', [8793]], ['weierp', [8472]], ['Wfr', [120090]], ['wfr', [120116]], ['Wopf', [120142]], ['wopf', [120168]], ['wp', [8472]], ['wr', [8768]], ['wreath', [8768]], ['Wscr', [119986]], ['wscr', [120012]], ['xcap', [8898]], ['xcirc', [9711]], ['xcup', [8899]], ['xdtri', [9661]], ['Xfr', [120091]], ['xfr', [120117]], ['xharr', [10231]], ['xhArr', [10234]], ['Xi', [926]], ['xi', [958]], ['xlarr', [10229]], ['xlArr', [10232]], ['xmap', [10236]], ['xnis', [8955]], ['xodot', [10752]], ['Xopf', [120143]], ['xopf', [120169]], ['xoplus', [10753]], ['xotime', [10754]], ['xrarr', [10230]], ['xrArr', [10233]], ['Xscr', [119987]], ['xscr', [120013]], ['xsqcup', [10758]], ['xuplus', [10756]], ['xutri', [9651]], ['xvee', [8897]], ['xwedge', [8896]], ['Yacute', [221]], ['yacute', [253]], ['YAcy', [1071]], ['yacy', [1103]], ['Ycirc', [374]], ['ycirc', [375]], ['Ycy', [1067]], ['ycy', [1099]], ['yen', [165]], ['Yfr', [120092]], ['yfr', [120118]], ['YIcy', [1031]], ['yicy', [1111]], ['Yopf', [120144]], ['yopf', [120170]], ['Yscr', [119988]], ['yscr', [120014]], ['YUcy', [1070]], ['yucy', [1102]], ['yuml', [255]], ['Yuml', [376]], ['Zacute', [377]], ['zacute', [378]], ['Zcaron', [381]], ['zcaron', [382]], ['Zcy', [1047]], ['zcy', [1079]], ['Zdot', [379]], ['zdot', [380]], ['zeetrf', [8488]], ['ZeroWidthSpace', [8203]], ['Zeta', [918]], ['zeta', [950]], ['zfr', [120119]], ['Zfr', [8488]], ['ZHcy', [1046]], ['zhcy', [1078]], ['zigrarr', [8669]], ['zopf', [120171]], ['Zopf', [8484]], ['Zscr', [119989]], ['zscr', [120015]], ['zwj', [8205]], ['zwnj', [8204]]];
-
-	var alphaIndex = {};
-	var charIndex = {};
-
-	createIndexes(alphaIndex, charIndex);
-
-	/**
-	 * @constructor
-	 */
-	function Html5Entities() {}
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	Html5Entities.prototype.decode = function(str) {
-	    if (str.length === 0) {
-	        return '';
-	    }
-	    return str.replace(/&(#?[\w\d]+);?/g, function(s, entity) {
-	        var chr;
-	        if (entity.charAt(0) === "#") {
-	            var code = entity.charAt(1) === 'x' ?
-	                parseInt(entity.substr(2).toLowerCase(), 16) :
-	                parseInt(entity.substr(1));
-
-	            if (!(isNaN(code) || code < -32768 || code > 65535)) {
-	                chr = String.fromCharCode(code);
-	            }
-	        } else {
-	            chr = alphaIndex[entity];
-	        }
-	        return chr || s;
-	    });
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	 Html5Entities.decode = function(str) {
-	    return new Html5Entities().decode(str);
-	 };
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	Html5Entities.prototype.encode = function(str) {
-	    var strLength = str.length;
-	    if (strLength === 0) {
-	        return '';
-	    }
-	    var result = '';
-	    var i = 0;
-	    while (i < strLength) {
-	        var charInfo = charIndex[str.charCodeAt(i)];
-	        if (charInfo) {
-	            var alpha = charInfo[str.charCodeAt(i + 1)];
-	            if (alpha) {
-	                i++;
-	            } else {
-	                alpha = charInfo[''];
-	            }
-	            if (alpha) {
-	                result += "&" + alpha + ";";
-	                i++;
-	                continue;
-	            }
-	        }
-	        result += str.charAt(i);
-	        i++;
-	    }
-	    return result;
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	 Html5Entities.encode = function(str) {
-	    return new Html5Entities().encode(str);
-	 };
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	Html5Entities.prototype.encodeNonUTF = function(str) {
-	    var strLength = str.length;
-	    if (strLength === 0) {
-	        return '';
-	    }
-	    var result = '';
-	    var i = 0;
-	    while (i < strLength) {
-	        var c = str.charCodeAt(i);
-	        var charInfo = charIndex[c];
-	        if (charInfo) {
-	            var alpha = charInfo[str.charCodeAt(i + 1)];
-	            if (alpha) {
-	                i++;
-	            } else {
-	                alpha = charInfo[''];
-	            }
-	            if (alpha) {
-	                result += "&" + alpha + ";";
-	                i++;
-	                continue;
-	            }
-	        }
-	        if (c < 32 || c > 126) {
-	            result += '&#' + c + ';';
-	        } else {
-	            result += str.charAt(i);
-	        }
-	        i++;
-	    }
-	    return result;
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	 Html5Entities.encodeNonUTF = function(str) {
-	    return new Html5Entities().encodeNonUTF(str);
-	 };
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	Html5Entities.prototype.encodeNonASCII = function(str) {
-	    var strLength = str.length;
-	    if (strLength === 0) {
-	        return '';
-	    }
-	    var result = '';
-	    var i = 0;
-	    while (i < strLength) {
-	        var c = str.charCodeAt(i);
-	        if (c <= 255) {
-	            result += str[i++];
-	            continue;
-	        }
-	        result += '&#' + c + ';';
-	        i++
-	    }
-	    return result;
-	};
-
-	/**
-	 * @param {String} str
-	 * @returns {String}
-	 */
-	 Html5Entities.encodeNonASCII = function(str) {
-	    return new Html5Entities().encodeNonASCII(str);
-	 };
-
-	/**
-	 * @param {Object} alphaIndex Passed by reference.
-	 * @param {Object} charIndex Passed by reference.
-	 */
-	function createIndexes(alphaIndex, charIndex) {
-	    var i = ENTITIES.length;
-	    var _results = [];
-	    while (i--) {
-	        var e = ENTITIES[i];
-	        var alpha = e[0];
-	        var chars = e[1];
-	        var chr = chars[0];
-	        var addChar = (chr < 32 || chr > 126) || chr === 62 || chr === 60 || chr === 38 || chr === 34 || chr === 39;
-	        var charInfo;
-	        if (addChar) {
-	            charInfo = charIndex[chr] = charIndex[chr] || {};
-	        }
-	        if (chars[1]) {
-	            var chr2 = chars[1];
-	            alphaIndex[alpha] = String.fromCharCode(chr) + String.fromCharCode(chr2);
-	            _results.push(addChar && (charInfo[chr2] = alpha));
-	        } else {
-	            alphaIndex[alpha] = String.fromCharCode(chr);
-	            _results.push(addChar && (charInfo[''] = alpha));
-	        }
-	    }
-	}
-
-	module.exports = Html5Entities;
-
-
-/***/ },
-/* 306 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/**
-	 * Based heavily on https://github.com/webpack/webpack/blob/
-	 *  c0afdf9c6abc1dd70707c594e473802a566f7b6e/hot/only-dev-server.js
-	 * Original copyright Tobias Koppers @sokra (MIT license)
-	 */
-
-	/* global window __webpack_hash__ */
-
-	if (true) {
-	  throw new Error("[HMR] Hot Module Replacement is disabled.");
-	}
-
-	var hmrDocsUrl = "http://webpack.github.io/docs/hot-module-replacement-with-webpack.html"; // eslint-disable-line max-len
-
-	var lastHash;
-	var failureStatuses = { abort: 1, fail: 1 };
-	var applyOptions = { ignoreUnaccepted: true };
-
-	function upToDate(hash) {
-	  if (hash) lastHash = hash;
-	  return lastHash == __webpack_hash__;
-	}
-
-	module.exports = function(hash, moduleMap, options) {
-	  var reload = options.reload;
-	  if (!upToDate(hash) && module.hot.status() == "idle") {
-	    if (options.log) console.log("[HMR] Checking for updates on the server...");
-	    check();
-	  }
-
-	  function check() {
-	    var cb = function(err, updatedModules) {
-	      if (err) return handleError(err);
-
-	      if(!updatedModules) {
-	        if (options.warn) {
-	          console.warn("[HMR] Cannot find update (Full reload needed)");
-	          console.warn("[HMR] (Probably because of restarting the server)");
-	        }
-	        performReload();
-	        return null;
-	      }
-
-	      var applyCallback = function(applyErr, renewedModules) {
-	        if (applyErr) return handleError(applyErr);
-
-	        if (!upToDate()) check();
-
-	        logUpdates(updatedModules, renewedModules);
-	      };
-
-	      var applyResult = module.hot.apply(applyOptions, applyCallback);
-	      // webpack 2 promise
-	      if (applyResult && applyResult.then) {
-	        // HotModuleReplacement.runtime.js refers to the result as `outdatedModules`
-	        applyResult.then(function(outdatedModules) {
-	          applyCallback(null, outdatedModules);
-	        });
-	        applyResult.catch(applyCallback);
-	      }
-
-	    };
-
-	    var result = module.hot.check(false, cb);
-	    // webpack 2 promise
-	    if (result && result.then) {
-	        result.then(function(updatedModules) {
-	            cb(null, updatedModules);
-	        });
-	        result.catch(cb);
-	    }
-	  }
-
-	  function logUpdates(updatedModules, renewedModules) {
-	    var unacceptedModules = updatedModules.filter(function(moduleId) {
-	      return renewedModules && renewedModules.indexOf(moduleId) < 0;
-	    });
-
-	    if(unacceptedModules.length > 0) {
-	      if (options.warn) {
-	        console.warn(
-	          "[HMR] The following modules couldn't be hot updated: " +
-	          "(Full reload needed)\n" +
-	          "This is usually because the modules which have changed " +
-	          "(and their parents) do not know how to hot reload themselves. " +
-	          "See " + hmrDocsUrl + " for more details."
-	        );
-	        unacceptedModules.forEach(function(moduleId) {
-	          console.warn("[HMR]  - " + moduleMap[moduleId]);
-	        });
-	      }
-	      performReload();
-	      return;
-	    }
-
-	    if (options.log) {
-	      if(!renewedModules || renewedModules.length === 0) {
-	        console.log("[HMR] Nothing hot updated.");
-	      } else {
-	        console.log("[HMR] Updated modules:");
-	        renewedModules.forEach(function(moduleId) {
-	          console.log("[HMR]  - " + moduleMap[moduleId]);
-	        });
-	      }
-
-	      if (upToDate()) {
-	        console.log("[HMR] App is up to date.");
-	      }
-	    }
-	  }
-
-	  function handleError(err) {
-	    if (module.hot.status() in failureStatuses) {
-	      if (options.warn) {
-	        console.warn("[HMR] Cannot check for update (Full reload needed)");
-	        console.warn("[HMR] " + err.stack || err.message);
-	      }
-	      performReload();
-	      return;
-	    }
-	    if (options.warn) {
-	      console.warn("[HMR] Update check failed: " + err.stack || err.message);
-	    }
-	  }
-
-	  function performReload() {
-	    if (reload) {
-	      if (options.warn) console.warn("[HMR] Reloading page");
-	      window.location.reload();
-	    }
-	  }
-	};
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(294)(module)))
-
-/***/ },
-/* 307 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(464);
+	var _reactDom = __webpack_require__(449);
 
-	var _App = __webpack_require__(465);
+	var _App = __webpack_require__(450);
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _Players = __webpack_require__(527);
+	var _Players = __webpack_require__(512);
 
 	var _Players2 = _interopRequireDefault(_Players);
 
-	var _Planner = __webpack_require__(590);
+	var _Planner = __webpack_require__(579);
 
 	var _Planner2 = _interopRequireDefault(_Planner);
 
-	var _redux = __webpack_require__(535);
+	var _redux = __webpack_require__(520);
 
-	var _reactRedux = __webpack_require__(528);
+	var _reactRedux = __webpack_require__(513);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _reactRouterRedux = __webpack_require__(591);
+	var _reactRouterRedux = __webpack_require__(580);
 
-	var _players = __webpack_require__(567);
+	var _players = __webpack_require__(556);
 
-	var _store = __webpack_require__(596);
+	var _store = __webpack_require__(585);
 
 	var _store2 = _interopRequireDefault(_store);
 
@@ -9191,23 +7837,21 @@
 
 	var store = (0, _store2.default)();
 
-	var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHistory, store);
+	var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.hashHistory, store);
 
-	store.dispatch((0, _players.fetchPlayers)(store.getState())).then(function (res) {
-		(0, _reactDom.render)(_react2.default.createElement(_reactRedux.Provider, { store: store }, _react2.default.createElement(_reactRouter.Router, { history: history }, _react2.default.createElement(_reactRouter.Route, { name: 'app', path: '/', component: _App2.default }, _react2.default.createElement(_reactRouter.Route, { path: 'players', component: _Players2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'planner', component: _Planner2.default })))), document.getElementById('root'));
-	});
+	(0, _reactDom.render)(_react2.default.createElement(_reactRedux.Provider, { store: store }, _react2.default.createElement(_reactRouter.Router, { history: history }, _react2.default.createElement(_reactRouter.Route, { name: 'app', path: '/', component: _App2.default }, _react2.default.createElement(_reactRouter.Route, { path: 'players', component: _Players2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'planner', component: _Planner2.default })))), document.getElementById('root'));
 
 /***/ },
-/* 308 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(309);
+	module.exports = __webpack_require__(294);
 
 
 /***/ },
-/* 309 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -9223,12 +7867,12 @@
 
 	'use strict';
 
-	var ReactDOM = __webpack_require__(310);
-	var ReactDOMServer = __webpack_require__(454);
-	var ReactIsomorphic = __webpack_require__(458);
+	var ReactDOM = __webpack_require__(295);
+	var ReactDOMServer = __webpack_require__(439);
+	var ReactIsomorphic = __webpack_require__(443);
 
-	var assign = __webpack_require__(345);
-	var deprecated = __webpack_require__(463);
+	var assign = __webpack_require__(330);
+	var deprecated = __webpack_require__(448);
 
 	// `version` will be added here by ReactIsomorphic.
 	var React = {};
@@ -9252,7 +7896,7 @@
 	module.exports = React;
 
 /***/ },
-/* 310 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -9270,19 +7914,19 @@
 
 	'use strict';
 
-	var ReactCurrentOwner = __webpack_require__(311);
-	var ReactDOMTextComponent = __webpack_require__(312);
-	var ReactDefaultInjection = __webpack_require__(377);
-	var ReactInstanceHandles = __webpack_require__(351);
-	var ReactMount = __webpack_require__(334);
-	var ReactPerf = __webpack_require__(324);
-	var ReactReconciler = __webpack_require__(356);
-	var ReactUpdates = __webpack_require__(360);
-	var ReactVersion = __webpack_require__(452);
+	var ReactCurrentOwner = __webpack_require__(296);
+	var ReactDOMTextComponent = __webpack_require__(297);
+	var ReactDefaultInjection = __webpack_require__(362);
+	var ReactInstanceHandles = __webpack_require__(336);
+	var ReactMount = __webpack_require__(319);
+	var ReactPerf = __webpack_require__(309);
+	var ReactReconciler = __webpack_require__(341);
+	var ReactUpdates = __webpack_require__(345);
+	var ReactVersion = __webpack_require__(437);
 
-	var findDOMNode = __webpack_require__(397);
-	var renderSubtreeIntoContainer = __webpack_require__(453);
-	var warning = __webpack_require__(331);
+	var findDOMNode = __webpack_require__(382);
+	var renderSubtreeIntoContainer = __webpack_require__(438);
+	var warning = __webpack_require__(316);
 
 	ReactDefaultInjection.inject();
 
@@ -9313,7 +7957,7 @@
 	}
 
 	if (process.env.NODE_ENV !== 'production') {
-	  var ExecutionEnvironment = __webpack_require__(315);
+	  var ExecutionEnvironment = __webpack_require__(300);
 	  if (ExecutionEnvironment.canUseDOM && window.top === window.self) {
 
 	    // First check if devtools is not installed
@@ -9350,7 +7994,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 311 */
+/* 296 */
 /***/ function(module, exports) {
 
 	/**
@@ -9385,7 +8029,7 @@
 	module.exports = ReactCurrentOwner;
 
 /***/ },
-/* 312 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -9402,15 +8046,15 @@
 
 	'use strict';
 
-	var DOMChildrenOperations = __webpack_require__(313);
-	var DOMPropertyOperations = __webpack_require__(328);
-	var ReactComponentBrowserEnvironment = __webpack_require__(332);
-	var ReactMount = __webpack_require__(334);
+	var DOMChildrenOperations = __webpack_require__(298);
+	var DOMPropertyOperations = __webpack_require__(313);
+	var ReactComponentBrowserEnvironment = __webpack_require__(317);
+	var ReactMount = __webpack_require__(319);
 
-	var assign = __webpack_require__(345);
-	var escapeTextContentForBrowser = __webpack_require__(327);
-	var setTextContent = __webpack_require__(326);
-	var validateDOMNesting = __webpack_require__(376);
+	var assign = __webpack_require__(330);
+	var escapeTextContentForBrowser = __webpack_require__(312);
+	var setTextContent = __webpack_require__(311);
+	var validateDOMNesting = __webpack_require__(361);
 
 	/**
 	 * Text nodes violate a couple assumptions that React makes about components:
@@ -9518,7 +8162,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 313 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -9535,13 +8179,13 @@
 
 	'use strict';
 
-	var Danger = __webpack_require__(314);
-	var ReactMultiChildUpdateTypes = __webpack_require__(322);
-	var ReactPerf = __webpack_require__(324);
+	var Danger = __webpack_require__(299);
+	var ReactMultiChildUpdateTypes = __webpack_require__(307);
+	var ReactPerf = __webpack_require__(309);
 
-	var setInnerHTML = __webpack_require__(325);
-	var setTextContent = __webpack_require__(326);
-	var invariant = __webpack_require__(319);
+	var setInnerHTML = __webpack_require__(310);
+	var setTextContent = __webpack_require__(311);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * Inserts `childNode` as a child of `parentNode` at the `index`.
@@ -9653,7 +8297,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 314 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -9670,12 +8314,12 @@
 
 	'use strict';
 
-	var ExecutionEnvironment = __webpack_require__(315);
+	var ExecutionEnvironment = __webpack_require__(300);
 
-	var createNodesFromMarkup = __webpack_require__(316);
-	var emptyFunction = __webpack_require__(321);
-	var getMarkupWrap = __webpack_require__(320);
-	var invariant = __webpack_require__(319);
+	var createNodesFromMarkup = __webpack_require__(301);
+	var emptyFunction = __webpack_require__(306);
+	var getMarkupWrap = __webpack_require__(305);
+	var invariant = __webpack_require__(304);
 
 	var OPEN_TAG_NAME_EXP = /^(<[^ \/>]+)/;
 	var RESULT_INDEX_ATTR = 'data-danger-index';
@@ -9804,7 +8448,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 315 */
+/* 300 */
 /***/ function(module, exports) {
 
 	/**
@@ -9845,7 +8489,7 @@
 	module.exports = ExecutionEnvironment;
 
 /***/ },
-/* 316 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -9864,11 +8508,11 @@
 
 	'use strict';
 
-	var ExecutionEnvironment = __webpack_require__(315);
+	var ExecutionEnvironment = __webpack_require__(300);
 
-	var createArrayFromMixed = __webpack_require__(317);
-	var getMarkupWrap = __webpack_require__(320);
-	var invariant = __webpack_require__(319);
+	var createArrayFromMixed = __webpack_require__(302);
+	var getMarkupWrap = __webpack_require__(305);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * Dummy container used to render all markup.
@@ -9935,7 +8579,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 317 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -9952,7 +8596,7 @@
 
 	'use strict';
 
-	var toArray = __webpack_require__(318);
+	var toArray = __webpack_require__(303);
 
 	/**
 	 * Perform a heuristic test to determine if an object is "array-like".
@@ -10025,7 +8669,7 @@
 	module.exports = createArrayFromMixed;
 
 /***/ },
-/* 318 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -10042,7 +8686,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * Convert array-like objects to arrays.
@@ -10088,7 +8732,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 319 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -10144,7 +8788,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 320 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -10162,9 +8806,9 @@
 
 	'use strict';
 
-	var ExecutionEnvironment = __webpack_require__(315);
+	var ExecutionEnvironment = __webpack_require__(300);
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * Dummy container used to detect which wraps are necessary.
@@ -10245,7 +8889,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 321 */
+/* 306 */
 /***/ function(module, exports) {
 
 	/**
@@ -10288,7 +8932,7 @@
 	module.exports = emptyFunction;
 
 /***/ },
-/* 322 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -10304,7 +8948,7 @@
 
 	'use strict';
 
-	var keyMirror = __webpack_require__(323);
+	var keyMirror = __webpack_require__(308);
 
 	/**
 	 * When a component's children are updated, a series of update configuration
@@ -10325,7 +8969,7 @@
 	module.exports = ReactMultiChildUpdateTypes;
 
 /***/ },
-/* 323 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -10342,7 +8986,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * Constructs an enumeration with keys equal to their value.
@@ -10379,7 +9023,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 324 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -10481,7 +9125,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 325 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -10499,7 +9143,7 @@
 
 	'use strict';
 
-	var ExecutionEnvironment = __webpack_require__(315);
+	var ExecutionEnvironment = __webpack_require__(300);
 
 	var WHITESPACE_TEST = /^[ \r\n\t\f]/;
 	var NONVISIBLE_TEST = /<(!--|link|noscript|meta|script|style)[ \r\n\t\f\/>]/;
@@ -10576,7 +9220,7 @@
 	module.exports = setInnerHTML;
 
 /***/ },
-/* 326 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -10592,9 +9236,9 @@
 
 	'use strict';
 
-	var ExecutionEnvironment = __webpack_require__(315);
-	var escapeTextContentForBrowser = __webpack_require__(327);
-	var setInnerHTML = __webpack_require__(325);
+	var ExecutionEnvironment = __webpack_require__(300);
+	var escapeTextContentForBrowser = __webpack_require__(312);
+	var setInnerHTML = __webpack_require__(310);
 
 	/**
 	 * Set the textContent property of a node, ensuring that whitespace is preserved
@@ -10621,7 +9265,7 @@
 	module.exports = setTextContent;
 
 /***/ },
-/* 327 */
+/* 312 */
 /***/ function(module, exports) {
 
 	/**
@@ -10664,7 +9308,7 @@
 	module.exports = escapeTextContentForBrowser;
 
 /***/ },
-/* 328 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -10681,11 +9325,11 @@
 
 	'use strict';
 
-	var DOMProperty = __webpack_require__(329);
-	var ReactPerf = __webpack_require__(324);
+	var DOMProperty = __webpack_require__(314);
+	var ReactPerf = __webpack_require__(309);
 
-	var quoteAttributeValueForBrowser = __webpack_require__(330);
-	var warning = __webpack_require__(331);
+	var quoteAttributeValueForBrowser = __webpack_require__(315);
+	var warning = __webpack_require__(316);
 
 	// Simplified subset
 	var VALID_ATTRIBUTE_NAME_REGEX = /^[a-zA-Z_][\w\.\-]*$/;
@@ -10895,7 +9539,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 329 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -10912,7 +9556,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	function checkMask(value, bitmask) {
 	  return (value & bitmask) === bitmask;
@@ -11135,7 +9779,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 330 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -11151,7 +9795,7 @@
 
 	'use strict';
 
-	var escapeTextContentForBrowser = __webpack_require__(327);
+	var escapeTextContentForBrowser = __webpack_require__(312);
 
 	/**
 	 * Escapes attribute value to prevent scripting attacks.
@@ -11166,7 +9810,7 @@
 	module.exports = quoteAttributeValueForBrowser;
 
 /***/ },
-/* 331 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -11182,7 +9826,7 @@
 
 	'use strict';
 
-	var emptyFunction = __webpack_require__(321);
+	var emptyFunction = __webpack_require__(306);
 
 	/**
 	 * Similar to invariant but only logs a warning if the condition is not met.
@@ -11229,7 +9873,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 332 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -11245,8 +9889,8 @@
 
 	'use strict';
 
-	var ReactDOMIDOperations = __webpack_require__(333);
-	var ReactMount = __webpack_require__(334);
+	var ReactDOMIDOperations = __webpack_require__(318);
+	var ReactMount = __webpack_require__(319);
 
 	/**
 	 * Abstracts away all functionality of the reconciler that requires knowledge of
@@ -11275,7 +9919,7 @@
 	module.exports = ReactComponentBrowserEnvironment;
 
 /***/ },
-/* 333 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -11292,12 +9936,12 @@
 
 	'use strict';
 
-	var DOMChildrenOperations = __webpack_require__(313);
-	var DOMPropertyOperations = __webpack_require__(328);
-	var ReactMount = __webpack_require__(334);
-	var ReactPerf = __webpack_require__(324);
+	var DOMChildrenOperations = __webpack_require__(298);
+	var DOMPropertyOperations = __webpack_require__(313);
+	var ReactMount = __webpack_require__(319);
+	var ReactPerf = __webpack_require__(309);
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * Errors for properties that should not be updated with `updatePropertyByID()`.
@@ -11375,7 +10019,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 334 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -11391,29 +10035,29 @@
 
 	'use strict';
 
-	var DOMProperty = __webpack_require__(329);
-	var ReactBrowserEventEmitter = __webpack_require__(335);
-	var ReactCurrentOwner = __webpack_require__(311);
-	var ReactDOMFeatureFlags = __webpack_require__(347);
-	var ReactElement = __webpack_require__(348);
-	var ReactEmptyComponentRegistry = __webpack_require__(350);
-	var ReactInstanceHandles = __webpack_require__(351);
-	var ReactInstanceMap = __webpack_require__(353);
-	var ReactMarkupChecksum = __webpack_require__(354);
-	var ReactPerf = __webpack_require__(324);
-	var ReactReconciler = __webpack_require__(356);
-	var ReactUpdateQueue = __webpack_require__(359);
-	var ReactUpdates = __webpack_require__(360);
+	var DOMProperty = __webpack_require__(314);
+	var ReactBrowserEventEmitter = __webpack_require__(320);
+	var ReactCurrentOwner = __webpack_require__(296);
+	var ReactDOMFeatureFlags = __webpack_require__(332);
+	var ReactElement = __webpack_require__(333);
+	var ReactEmptyComponentRegistry = __webpack_require__(335);
+	var ReactInstanceHandles = __webpack_require__(336);
+	var ReactInstanceMap = __webpack_require__(338);
+	var ReactMarkupChecksum = __webpack_require__(339);
+	var ReactPerf = __webpack_require__(309);
+	var ReactReconciler = __webpack_require__(341);
+	var ReactUpdateQueue = __webpack_require__(344);
+	var ReactUpdates = __webpack_require__(345);
 
-	var assign = __webpack_require__(345);
-	var emptyObject = __webpack_require__(364);
-	var containsNode = __webpack_require__(365);
-	var instantiateReactComponent = __webpack_require__(368);
-	var invariant = __webpack_require__(319);
-	var setInnerHTML = __webpack_require__(325);
-	var shouldUpdateReactComponent = __webpack_require__(373);
-	var validateDOMNesting = __webpack_require__(376);
-	var warning = __webpack_require__(331);
+	var assign = __webpack_require__(330);
+	var emptyObject = __webpack_require__(349);
+	var containsNode = __webpack_require__(350);
+	var instantiateReactComponent = __webpack_require__(353);
+	var invariant = __webpack_require__(304);
+	var setInnerHTML = __webpack_require__(310);
+	var shouldUpdateReactComponent = __webpack_require__(358);
+	var validateDOMNesting = __webpack_require__(361);
+	var warning = __webpack_require__(316);
 
 	var ATTR_NAME = DOMProperty.ID_ATTRIBUTE_NAME;
 	var nodeCache = {};
@@ -12231,7 +10875,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 335 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -12248,15 +10892,15 @@
 
 	'use strict';
 
-	var EventConstants = __webpack_require__(336);
-	var EventPluginHub = __webpack_require__(337);
-	var EventPluginRegistry = __webpack_require__(338);
-	var ReactEventEmitterMixin = __webpack_require__(343);
-	var ReactPerf = __webpack_require__(324);
-	var ViewportMetrics = __webpack_require__(344);
+	var EventConstants = __webpack_require__(321);
+	var EventPluginHub = __webpack_require__(322);
+	var EventPluginRegistry = __webpack_require__(323);
+	var ReactEventEmitterMixin = __webpack_require__(328);
+	var ReactPerf = __webpack_require__(309);
+	var ViewportMetrics = __webpack_require__(329);
 
-	var assign = __webpack_require__(345);
-	var isEventSupported = __webpack_require__(346);
+	var assign = __webpack_require__(330);
+	var isEventSupported = __webpack_require__(331);
 
 	/**
 	 * Summary of `ReactBrowserEventEmitter` event handling:
@@ -12560,7 +11204,7 @@
 	module.exports = ReactBrowserEventEmitter;
 
 /***/ },
-/* 336 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -12576,7 +11220,7 @@
 
 	'use strict';
 
-	var keyMirror = __webpack_require__(323);
+	var keyMirror = __webpack_require__(308);
 
 	var PropagationPhases = keyMirror({ bubbled: null, captured: null });
 
@@ -12657,7 +11301,7 @@
 	module.exports = EventConstants;
 
 /***/ },
-/* 337 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -12673,14 +11317,14 @@
 
 	'use strict';
 
-	var EventPluginRegistry = __webpack_require__(338);
-	var EventPluginUtils = __webpack_require__(339);
-	var ReactErrorUtils = __webpack_require__(340);
+	var EventPluginRegistry = __webpack_require__(323);
+	var EventPluginUtils = __webpack_require__(324);
+	var ReactErrorUtils = __webpack_require__(325);
 
-	var accumulateInto = __webpack_require__(341);
-	var forEachAccumulated = __webpack_require__(342);
-	var invariant = __webpack_require__(319);
-	var warning = __webpack_require__(331);
+	var accumulateInto = __webpack_require__(326);
+	var forEachAccumulated = __webpack_require__(327);
+	var invariant = __webpack_require__(304);
+	var warning = __webpack_require__(316);
 
 	/**
 	 * Internal store for event listeners
@@ -12942,7 +11586,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 338 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -12959,7 +11603,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * Injectable ordering of event plugins.
@@ -13168,7 +11812,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 339 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -13184,11 +11828,11 @@
 
 	'use strict';
 
-	var EventConstants = __webpack_require__(336);
-	var ReactErrorUtils = __webpack_require__(340);
+	var EventConstants = __webpack_require__(321);
+	var ReactErrorUtils = __webpack_require__(325);
 
-	var invariant = __webpack_require__(319);
-	var warning = __webpack_require__(331);
+	var invariant = __webpack_require__(304);
+	var warning = __webpack_require__(316);
 
 	/**
 	 * Injected dependencies:
@@ -13376,7 +12020,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 340 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -13459,7 +12103,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 341 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -13475,7 +12119,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 *
@@ -13524,7 +12168,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 342 */
+/* 327 */
 /***/ function(module, exports) {
 
 	/**
@@ -13558,7 +12202,7 @@
 	module.exports = forEachAccumulated;
 
 /***/ },
-/* 343 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -13574,7 +12218,7 @@
 
 	'use strict';
 
-	var EventPluginHub = __webpack_require__(337);
+	var EventPluginHub = __webpack_require__(322);
 
 	function runEventQueueInBatch(events) {
 	  EventPluginHub.enqueueEvents(events);
@@ -13601,7 +12245,7 @@
 	module.exports = ReactEventEmitterMixin;
 
 /***/ },
-/* 344 */
+/* 329 */
 /***/ function(module, exports) {
 
 	/**
@@ -13633,7 +12277,7 @@
 	module.exports = ViewportMetrics;
 
 /***/ },
-/* 345 */
+/* 330 */
 /***/ function(module, exports) {
 
 	/**
@@ -13685,7 +12329,7 @@
 	module.exports = assign;
 
 /***/ },
-/* 346 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -13701,7 +12345,7 @@
 
 	'use strict';
 
-	var ExecutionEnvironment = __webpack_require__(315);
+	var ExecutionEnvironment = __webpack_require__(300);
 
 	var useHasFeature;
 	if (ExecutionEnvironment.canUseDOM) {
@@ -13750,7 +12394,7 @@
 	module.exports = isEventSupported;
 
 /***/ },
-/* 347 */
+/* 332 */
 /***/ function(module, exports) {
 
 	/**
@@ -13773,7 +12417,7 @@
 	module.exports = ReactDOMFeatureFlags;
 
 /***/ },
-/* 348 */
+/* 333 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -13789,10 +12433,10 @@
 
 	'use strict';
 
-	var ReactCurrentOwner = __webpack_require__(311);
+	var ReactCurrentOwner = __webpack_require__(296);
 
-	var assign = __webpack_require__(345);
-	var canDefineProperty = __webpack_require__(349);
+	var assign = __webpack_require__(330);
+	var canDefineProperty = __webpack_require__(334);
 
 	// The Symbol used to tag the ReactElement type. If there is no native Symbol
 	// nor polyfill, then a plain number is used for performance.
@@ -14026,7 +12670,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 349 */
+/* 334 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14056,7 +12700,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 350 */
+/* 335 */
 /***/ function(module, exports) {
 
 	/**
@@ -14109,7 +12753,7 @@
 	module.exports = ReactEmptyComponentRegistry;
 
 /***/ },
-/* 351 */
+/* 336 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14126,9 +12770,9 @@
 
 	'use strict';
 
-	var ReactRootIndex = __webpack_require__(352);
+	var ReactRootIndex = __webpack_require__(337);
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	var SEPARATOR = '.';
 	var SEPARATOR_LENGTH = SEPARATOR.length;
@@ -14417,7 +13061,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 352 */
+/* 337 */
 /***/ function(module, exports) {
 
 	/**
@@ -14451,7 +13095,7 @@
 	module.exports = ReactRootIndex;
 
 /***/ },
-/* 353 */
+/* 338 */
 /***/ function(module, exports) {
 
 	/**
@@ -14503,7 +13147,7 @@
 	module.exports = ReactInstanceMap;
 
 /***/ },
-/* 354 */
+/* 339 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -14519,7 +13163,7 @@
 
 	'use strict';
 
-	var adler32 = __webpack_require__(355);
+	var adler32 = __webpack_require__(340);
 
 	var TAG_END = /\/?>/;
 
@@ -14553,7 +13197,7 @@
 	module.exports = ReactMarkupChecksum;
 
 /***/ },
-/* 355 */
+/* 340 */
 /***/ function(module, exports) {
 
 	/**
@@ -14600,7 +13244,7 @@
 	module.exports = adler32;
 
 /***/ },
-/* 356 */
+/* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -14616,7 +13260,7 @@
 
 	'use strict';
 
-	var ReactRef = __webpack_require__(357);
+	var ReactRef = __webpack_require__(342);
 
 	/**
 	 * Helper to call ReactRef.attachRefs with this composite component, split out
@@ -14712,7 +13356,7 @@
 	module.exports = ReactReconciler;
 
 /***/ },
-/* 357 */
+/* 342 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -14728,7 +13372,7 @@
 
 	'use strict';
 
-	var ReactOwner = __webpack_require__(358);
+	var ReactOwner = __webpack_require__(343);
 
 	var ReactRef = {};
 
@@ -14795,7 +13439,7 @@
 	module.exports = ReactRef;
 
 /***/ },
-/* 358 */
+/* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14811,7 +13455,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * ReactOwners are capable of storing references to owned components.
@@ -14892,7 +13536,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 359 */
+/* 344 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14908,14 +13552,14 @@
 
 	'use strict';
 
-	var ReactCurrentOwner = __webpack_require__(311);
-	var ReactElement = __webpack_require__(348);
-	var ReactInstanceMap = __webpack_require__(353);
-	var ReactUpdates = __webpack_require__(360);
+	var ReactCurrentOwner = __webpack_require__(296);
+	var ReactElement = __webpack_require__(333);
+	var ReactInstanceMap = __webpack_require__(338);
+	var ReactUpdates = __webpack_require__(345);
 
-	var assign = __webpack_require__(345);
-	var invariant = __webpack_require__(319);
-	var warning = __webpack_require__(331);
+	var assign = __webpack_require__(330);
+	var invariant = __webpack_require__(304);
+	var warning = __webpack_require__(316);
 
 	function enqueueUpdate(internalInstance) {
 	  ReactUpdates.enqueueUpdate(internalInstance);
@@ -15155,7 +13799,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 360 */
+/* 345 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -15171,14 +13815,14 @@
 
 	'use strict';
 
-	var CallbackQueue = __webpack_require__(361);
-	var PooledClass = __webpack_require__(362);
-	var ReactPerf = __webpack_require__(324);
-	var ReactReconciler = __webpack_require__(356);
-	var Transaction = __webpack_require__(363);
+	var CallbackQueue = __webpack_require__(346);
+	var PooledClass = __webpack_require__(347);
+	var ReactPerf = __webpack_require__(309);
+	var ReactReconciler = __webpack_require__(341);
+	var Transaction = __webpack_require__(348);
 
-	var assign = __webpack_require__(345);
-	var invariant = __webpack_require__(319);
+	var assign = __webpack_require__(330);
+	var invariant = __webpack_require__(304);
 
 	var dirtyComponents = [];
 	var asapCallbackQueue = CallbackQueue.getPooled();
@@ -15384,7 +14028,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 361 */
+/* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -15400,10 +14044,10 @@
 
 	'use strict';
 
-	var PooledClass = __webpack_require__(362);
+	var PooledClass = __webpack_require__(347);
 
-	var assign = __webpack_require__(345);
-	var invariant = __webpack_require__(319);
+	var assign = __webpack_require__(330);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * A specialized pseudo-event module to help keep track of components waiting to
@@ -15483,7 +14127,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 362 */
+/* 347 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -15499,7 +14143,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * Static poolers. Several custom versions for each potential number of
@@ -15608,7 +14252,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 363 */
+/* 348 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -15624,7 +14268,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * `Transaction` creates a black box that is able to wrap any method such that
@@ -15845,7 +14489,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 364 */
+/* 349 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -15871,7 +14515,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 365 */
+/* 350 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -15888,7 +14532,7 @@
 
 	'use strict';
 
-	var isTextNode = __webpack_require__(366);
+	var isTextNode = __webpack_require__(351);
 
 	/*eslint-disable no-bitwise */
 
@@ -15931,7 +14575,7 @@
 	module.exports = containsNode;
 
 /***/ },
-/* 366 */
+/* 351 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -15948,7 +14592,7 @@
 
 	'use strict';
 
-	var isNode = __webpack_require__(367);
+	var isNode = __webpack_require__(352);
 
 	/**
 	 * @param {*} object The object to check.
@@ -15961,7 +14605,7 @@
 	module.exports = isTextNode;
 
 /***/ },
-/* 367 */
+/* 352 */
 /***/ function(module, exports) {
 
 	/**
@@ -15989,7 +14633,7 @@
 	module.exports = isNode;
 
 /***/ },
-/* 368 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -16006,13 +14650,13 @@
 
 	'use strict';
 
-	var ReactCompositeComponent = __webpack_require__(369);
-	var ReactEmptyComponent = __webpack_require__(374);
-	var ReactNativeComponent = __webpack_require__(375);
+	var ReactCompositeComponent = __webpack_require__(354);
+	var ReactEmptyComponent = __webpack_require__(359);
+	var ReactNativeComponent = __webpack_require__(360);
 
-	var assign = __webpack_require__(345);
-	var invariant = __webpack_require__(319);
-	var warning = __webpack_require__(331);
+	var assign = __webpack_require__(330);
+	var invariant = __webpack_require__(304);
+	var warning = __webpack_require__(316);
 
 	// To avoid a cyclic dependency, we create the final class in this module
 	var ReactCompositeComponentWrapper = function () {};
@@ -16107,7 +14751,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 369 */
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -16123,21 +14767,21 @@
 
 	'use strict';
 
-	var ReactComponentEnvironment = __webpack_require__(370);
-	var ReactCurrentOwner = __webpack_require__(311);
-	var ReactElement = __webpack_require__(348);
-	var ReactInstanceMap = __webpack_require__(353);
-	var ReactPerf = __webpack_require__(324);
-	var ReactPropTypeLocations = __webpack_require__(371);
-	var ReactPropTypeLocationNames = __webpack_require__(372);
-	var ReactReconciler = __webpack_require__(356);
-	var ReactUpdateQueue = __webpack_require__(359);
+	var ReactComponentEnvironment = __webpack_require__(355);
+	var ReactCurrentOwner = __webpack_require__(296);
+	var ReactElement = __webpack_require__(333);
+	var ReactInstanceMap = __webpack_require__(338);
+	var ReactPerf = __webpack_require__(309);
+	var ReactPropTypeLocations = __webpack_require__(356);
+	var ReactPropTypeLocationNames = __webpack_require__(357);
+	var ReactReconciler = __webpack_require__(341);
+	var ReactUpdateQueue = __webpack_require__(344);
 
-	var assign = __webpack_require__(345);
-	var emptyObject = __webpack_require__(364);
-	var invariant = __webpack_require__(319);
-	var shouldUpdateReactComponent = __webpack_require__(373);
-	var warning = __webpack_require__(331);
+	var assign = __webpack_require__(330);
+	var emptyObject = __webpack_require__(349);
+	var invariant = __webpack_require__(304);
+	var shouldUpdateReactComponent = __webpack_require__(358);
+	var warning = __webpack_require__(316);
 
 	function getDeclarationErrorAddendum(component) {
 	  var owner = component._currentElement._owner || null;
@@ -16807,7 +15451,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 370 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -16823,7 +15467,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	var injected = false;
 
@@ -16864,7 +15508,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 371 */
+/* 356 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -16880,7 +15524,7 @@
 
 	'use strict';
 
-	var keyMirror = __webpack_require__(323);
+	var keyMirror = __webpack_require__(308);
 
 	var ReactPropTypeLocations = keyMirror({
 	  prop: null,
@@ -16891,7 +15535,7 @@
 	module.exports = ReactPropTypeLocations;
 
 /***/ },
-/* 372 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -16921,7 +15565,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 373 */
+/* 358 */
 /***/ function(module, exports) {
 
 	/**
@@ -16969,7 +15613,7 @@
 	module.exports = shouldUpdateReactComponent;
 
 /***/ },
-/* 374 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -16985,11 +15629,11 @@
 
 	'use strict';
 
-	var ReactElement = __webpack_require__(348);
-	var ReactEmptyComponentRegistry = __webpack_require__(350);
-	var ReactReconciler = __webpack_require__(356);
+	var ReactElement = __webpack_require__(333);
+	var ReactEmptyComponentRegistry = __webpack_require__(335);
+	var ReactReconciler = __webpack_require__(341);
 
-	var assign = __webpack_require__(345);
+	var assign = __webpack_require__(330);
 
 	var placeholderElement;
 
@@ -17029,7 +15673,7 @@
 	module.exports = ReactEmptyComponent;
 
 /***/ },
-/* 375 */
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -17045,8 +15689,8 @@
 
 	'use strict';
 
-	var assign = __webpack_require__(345);
-	var invariant = __webpack_require__(319);
+	var assign = __webpack_require__(330);
+	var invariant = __webpack_require__(304);
 
 	var autoGenerateWrapperClass = null;
 	var genericComponentClass = null;
@@ -17129,7 +15773,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 376 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -17145,9 +15789,9 @@
 
 	'use strict';
 
-	var assign = __webpack_require__(345);
-	var emptyFunction = __webpack_require__(321);
-	var warning = __webpack_require__(331);
+	var assign = __webpack_require__(330);
+	var emptyFunction = __webpack_require__(306);
+	var warning = __webpack_require__(316);
 
 	var validateDOMNesting = emptyFunction;
 
@@ -17498,7 +16142,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 377 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -17514,27 +16158,27 @@
 
 	'use strict';
 
-	var BeforeInputEventPlugin = __webpack_require__(378);
-	var ChangeEventPlugin = __webpack_require__(386);
-	var ClientReactRootIndex = __webpack_require__(389);
-	var DefaultEventPluginOrder = __webpack_require__(390);
-	var EnterLeaveEventPlugin = __webpack_require__(391);
-	var ExecutionEnvironment = __webpack_require__(315);
-	var HTMLDOMPropertyConfig = __webpack_require__(395);
-	var ReactBrowserComponentMixin = __webpack_require__(396);
-	var ReactComponentBrowserEnvironment = __webpack_require__(332);
-	var ReactDefaultBatchingStrategy = __webpack_require__(398);
-	var ReactDOMComponent = __webpack_require__(399);
-	var ReactDOMTextComponent = __webpack_require__(312);
-	var ReactEventListener = __webpack_require__(424);
-	var ReactInjection = __webpack_require__(427);
-	var ReactInstanceHandles = __webpack_require__(351);
-	var ReactMount = __webpack_require__(334);
-	var ReactReconcileTransaction = __webpack_require__(431);
-	var SelectEventPlugin = __webpack_require__(436);
-	var ServerReactRootIndex = __webpack_require__(437);
-	var SimpleEventPlugin = __webpack_require__(438);
-	var SVGDOMPropertyConfig = __webpack_require__(447);
+	var BeforeInputEventPlugin = __webpack_require__(363);
+	var ChangeEventPlugin = __webpack_require__(371);
+	var ClientReactRootIndex = __webpack_require__(374);
+	var DefaultEventPluginOrder = __webpack_require__(375);
+	var EnterLeaveEventPlugin = __webpack_require__(376);
+	var ExecutionEnvironment = __webpack_require__(300);
+	var HTMLDOMPropertyConfig = __webpack_require__(380);
+	var ReactBrowserComponentMixin = __webpack_require__(381);
+	var ReactComponentBrowserEnvironment = __webpack_require__(317);
+	var ReactDefaultBatchingStrategy = __webpack_require__(383);
+	var ReactDOMComponent = __webpack_require__(384);
+	var ReactDOMTextComponent = __webpack_require__(297);
+	var ReactEventListener = __webpack_require__(409);
+	var ReactInjection = __webpack_require__(412);
+	var ReactInstanceHandles = __webpack_require__(336);
+	var ReactMount = __webpack_require__(319);
+	var ReactReconcileTransaction = __webpack_require__(416);
+	var SelectEventPlugin = __webpack_require__(421);
+	var ServerReactRootIndex = __webpack_require__(422);
+	var SimpleEventPlugin = __webpack_require__(423);
+	var SVGDOMPropertyConfig = __webpack_require__(432);
 
 	var alreadyInjected = false;
 
@@ -17589,7 +16233,7 @@
 	  if (process.env.NODE_ENV !== 'production') {
 	    var url = ExecutionEnvironment.canUseDOM && window.location.href || '';
 	    if (/[?&]react_perf\b/.test(url)) {
-	      var ReactDefaultPerf = __webpack_require__(448);
+	      var ReactDefaultPerf = __webpack_require__(433);
 	      ReactDefaultPerf.start();
 	    }
 	  }
@@ -17601,7 +16245,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 378 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -17618,14 +16262,14 @@
 
 	'use strict';
 
-	var EventConstants = __webpack_require__(336);
-	var EventPropagators = __webpack_require__(379);
-	var ExecutionEnvironment = __webpack_require__(315);
-	var FallbackCompositionState = __webpack_require__(380);
-	var SyntheticCompositionEvent = __webpack_require__(382);
-	var SyntheticInputEvent = __webpack_require__(384);
+	var EventConstants = __webpack_require__(321);
+	var EventPropagators = __webpack_require__(364);
+	var ExecutionEnvironment = __webpack_require__(300);
+	var FallbackCompositionState = __webpack_require__(365);
+	var SyntheticCompositionEvent = __webpack_require__(367);
+	var SyntheticInputEvent = __webpack_require__(369);
 
-	var keyOf = __webpack_require__(385);
+	var keyOf = __webpack_require__(370);
 
 	var END_KEYCODES = [9, 13, 27, 32]; // Tab, Return, Esc, Space
 	var START_KEYCODE = 229;
@@ -18011,7 +16655,7 @@
 	module.exports = BeforeInputEventPlugin;
 
 /***/ },
-/* 379 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -18027,13 +16671,13 @@
 
 	'use strict';
 
-	var EventConstants = __webpack_require__(336);
-	var EventPluginHub = __webpack_require__(337);
+	var EventConstants = __webpack_require__(321);
+	var EventPluginHub = __webpack_require__(322);
 
-	var warning = __webpack_require__(331);
+	var warning = __webpack_require__(316);
 
-	var accumulateInto = __webpack_require__(341);
-	var forEachAccumulated = __webpack_require__(342);
+	var accumulateInto = __webpack_require__(326);
+	var forEachAccumulated = __webpack_require__(327);
 
 	var PropagationPhases = EventConstants.PropagationPhases;
 	var getListener = EventPluginHub.getListener;
@@ -18152,7 +16796,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 380 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -18169,10 +16813,10 @@
 
 	'use strict';
 
-	var PooledClass = __webpack_require__(362);
+	var PooledClass = __webpack_require__(347);
 
-	var assign = __webpack_require__(345);
-	var getTextContentAccessor = __webpack_require__(381);
+	var assign = __webpack_require__(330);
+	var getTextContentAccessor = __webpack_require__(366);
 
 	/**
 	 * This helper class stores information about text content of a target node,
@@ -18252,7 +16896,7 @@
 	module.exports = FallbackCompositionState;
 
 /***/ },
-/* 381 */
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -18268,7 +16912,7 @@
 
 	'use strict';
 
-	var ExecutionEnvironment = __webpack_require__(315);
+	var ExecutionEnvironment = __webpack_require__(300);
 
 	var contentKey = null;
 
@@ -18290,7 +16934,7 @@
 	module.exports = getTextContentAccessor;
 
 /***/ },
-/* 382 */
+/* 367 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -18307,7 +16951,7 @@
 
 	'use strict';
 
-	var SyntheticEvent = __webpack_require__(383);
+	var SyntheticEvent = __webpack_require__(368);
 
 	/**
 	 * @interface Event
@@ -18332,7 +16976,7 @@
 	module.exports = SyntheticCompositionEvent;
 
 /***/ },
-/* 383 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -18349,11 +16993,11 @@
 
 	'use strict';
 
-	var PooledClass = __webpack_require__(362);
+	var PooledClass = __webpack_require__(347);
 
-	var assign = __webpack_require__(345);
-	var emptyFunction = __webpack_require__(321);
-	var warning = __webpack_require__(331);
+	var assign = __webpack_require__(330);
+	var emptyFunction = __webpack_require__(306);
+	var warning = __webpack_require__(316);
 
 	/**
 	 * @interface Event
@@ -18518,7 +17162,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 384 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -18535,7 +17179,7 @@
 
 	'use strict';
 
-	var SyntheticEvent = __webpack_require__(383);
+	var SyntheticEvent = __webpack_require__(368);
 
 	/**
 	 * @interface Event
@@ -18561,7 +17205,7 @@
 	module.exports = SyntheticInputEvent;
 
 /***/ },
-/* 385 */
+/* 370 */
 /***/ function(module, exports) {
 
 	/**
@@ -18601,7 +17245,7 @@
 	module.exports = keyOf;
 
 /***/ },
-/* 386 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -18617,17 +17261,17 @@
 
 	'use strict';
 
-	var EventConstants = __webpack_require__(336);
-	var EventPluginHub = __webpack_require__(337);
-	var EventPropagators = __webpack_require__(379);
-	var ExecutionEnvironment = __webpack_require__(315);
-	var ReactUpdates = __webpack_require__(360);
-	var SyntheticEvent = __webpack_require__(383);
+	var EventConstants = __webpack_require__(321);
+	var EventPluginHub = __webpack_require__(322);
+	var EventPropagators = __webpack_require__(364);
+	var ExecutionEnvironment = __webpack_require__(300);
+	var ReactUpdates = __webpack_require__(345);
+	var SyntheticEvent = __webpack_require__(368);
 
-	var getEventTarget = __webpack_require__(387);
-	var isEventSupported = __webpack_require__(346);
-	var isTextInputElement = __webpack_require__(388);
-	var keyOf = __webpack_require__(385);
+	var getEventTarget = __webpack_require__(372);
+	var isEventSupported = __webpack_require__(331);
+	var isTextInputElement = __webpack_require__(373);
+	var keyOf = __webpack_require__(370);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
 
@@ -18927,7 +17571,7 @@
 	module.exports = ChangeEventPlugin;
 
 /***/ },
-/* 387 */
+/* 372 */
 /***/ function(module, exports) {
 
 	/**
@@ -18961,7 +17605,7 @@
 	module.exports = getEventTarget;
 
 /***/ },
-/* 388 */
+/* 373 */
 /***/ function(module, exports) {
 
 	/**
@@ -19006,7 +17650,7 @@
 	module.exports = isTextInputElement;
 
 /***/ },
-/* 389 */
+/* 374 */
 /***/ function(module, exports) {
 
 	/**
@@ -19034,7 +17678,7 @@
 	module.exports = ClientReactRootIndex;
 
 /***/ },
-/* 390 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19050,7 +17694,7 @@
 
 	'use strict';
 
-	var keyOf = __webpack_require__(385);
+	var keyOf = __webpack_require__(370);
 
 	/**
 	 * Module that is injectable into `EventPluginHub`, that specifies a
@@ -19066,7 +17710,7 @@
 	module.exports = DefaultEventPluginOrder;
 
 /***/ },
-/* 391 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19083,12 +17727,12 @@
 
 	'use strict';
 
-	var EventConstants = __webpack_require__(336);
-	var EventPropagators = __webpack_require__(379);
-	var SyntheticMouseEvent = __webpack_require__(392);
+	var EventConstants = __webpack_require__(321);
+	var EventPropagators = __webpack_require__(364);
+	var SyntheticMouseEvent = __webpack_require__(377);
 
-	var ReactMount = __webpack_require__(334);
-	var keyOf = __webpack_require__(385);
+	var ReactMount = __webpack_require__(319);
+	var keyOf = __webpack_require__(370);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
 	var getFirstReactDOM = ReactMount.getFirstReactDOM;
@@ -19195,7 +17839,7 @@
 	module.exports = EnterLeaveEventPlugin;
 
 /***/ },
-/* 392 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19212,10 +17856,10 @@
 
 	'use strict';
 
-	var SyntheticUIEvent = __webpack_require__(393);
-	var ViewportMetrics = __webpack_require__(344);
+	var SyntheticUIEvent = __webpack_require__(378);
+	var ViewportMetrics = __webpack_require__(329);
 
-	var getEventModifierState = __webpack_require__(394);
+	var getEventModifierState = __webpack_require__(379);
 
 	/**
 	 * @interface MouseEvent
@@ -19273,7 +17917,7 @@
 	module.exports = SyntheticMouseEvent;
 
 /***/ },
-/* 393 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19290,9 +17934,9 @@
 
 	'use strict';
 
-	var SyntheticEvent = __webpack_require__(383);
+	var SyntheticEvent = __webpack_require__(368);
 
-	var getEventTarget = __webpack_require__(387);
+	var getEventTarget = __webpack_require__(372);
 
 	/**
 	 * @interface UIEvent
@@ -19338,7 +17982,7 @@
 	module.exports = SyntheticUIEvent;
 
 /***/ },
-/* 394 */
+/* 379 */
 /***/ function(module, exports) {
 
 	/**
@@ -19387,7 +18031,7 @@
 	module.exports = getEventModifierState;
 
 /***/ },
-/* 395 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19403,8 +18047,8 @@
 
 	'use strict';
 
-	var DOMProperty = __webpack_require__(329);
-	var ExecutionEnvironment = __webpack_require__(315);
+	var DOMProperty = __webpack_require__(314);
+	var ExecutionEnvironment = __webpack_require__(300);
 
 	var MUST_USE_ATTRIBUTE = DOMProperty.injection.MUST_USE_ATTRIBUTE;
 	var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
@@ -19622,7 +18266,7 @@
 	module.exports = HTMLDOMPropertyConfig;
 
 /***/ },
-/* 396 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -19638,10 +18282,10 @@
 
 	'use strict';
 
-	var ReactInstanceMap = __webpack_require__(353);
+	var ReactInstanceMap = __webpack_require__(338);
 
-	var findDOMNode = __webpack_require__(397);
-	var warning = __webpack_require__(331);
+	var findDOMNode = __webpack_require__(382);
+	var warning = __webpack_require__(316);
 
 	var didWarnKey = '_getDOMNodeDidWarn';
 
@@ -19664,7 +18308,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 397 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -19681,12 +18325,12 @@
 
 	'use strict';
 
-	var ReactCurrentOwner = __webpack_require__(311);
-	var ReactInstanceMap = __webpack_require__(353);
-	var ReactMount = __webpack_require__(334);
+	var ReactCurrentOwner = __webpack_require__(296);
+	var ReactInstanceMap = __webpack_require__(338);
+	var ReactMount = __webpack_require__(319);
 
-	var invariant = __webpack_require__(319);
-	var warning = __webpack_require__(331);
+	var invariant = __webpack_require__(304);
+	var warning = __webpack_require__(316);
 
 	/**
 	 * Returns the DOM node rendered by this element.
@@ -19719,7 +18363,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 398 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19735,11 +18379,11 @@
 
 	'use strict';
 
-	var ReactUpdates = __webpack_require__(360);
-	var Transaction = __webpack_require__(363);
+	var ReactUpdates = __webpack_require__(345);
+	var Transaction = __webpack_require__(348);
 
-	var assign = __webpack_require__(345);
-	var emptyFunction = __webpack_require__(321);
+	var assign = __webpack_require__(330);
+	var emptyFunction = __webpack_require__(306);
 
 	var RESET_BATCHED_UPDATES = {
 	  initialize: emptyFunction,
@@ -19791,7 +18435,7 @@
 	module.exports = ReactDefaultBatchingStrategy;
 
 /***/ },
-/* 399 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -19810,34 +18454,34 @@
 
 	'use strict';
 
-	var AutoFocusUtils = __webpack_require__(400);
-	var CSSPropertyOperations = __webpack_require__(402);
-	var DOMProperty = __webpack_require__(329);
-	var DOMPropertyOperations = __webpack_require__(328);
-	var EventConstants = __webpack_require__(336);
-	var ReactBrowserEventEmitter = __webpack_require__(335);
-	var ReactComponentBrowserEnvironment = __webpack_require__(332);
-	var ReactDOMButton = __webpack_require__(410);
-	var ReactDOMInput = __webpack_require__(411);
-	var ReactDOMOption = __webpack_require__(415);
-	var ReactDOMSelect = __webpack_require__(418);
-	var ReactDOMTextarea = __webpack_require__(419);
-	var ReactMount = __webpack_require__(334);
-	var ReactMultiChild = __webpack_require__(420);
-	var ReactPerf = __webpack_require__(324);
-	var ReactUpdateQueue = __webpack_require__(359);
+	var AutoFocusUtils = __webpack_require__(385);
+	var CSSPropertyOperations = __webpack_require__(387);
+	var DOMProperty = __webpack_require__(314);
+	var DOMPropertyOperations = __webpack_require__(313);
+	var EventConstants = __webpack_require__(321);
+	var ReactBrowserEventEmitter = __webpack_require__(320);
+	var ReactComponentBrowserEnvironment = __webpack_require__(317);
+	var ReactDOMButton = __webpack_require__(395);
+	var ReactDOMInput = __webpack_require__(396);
+	var ReactDOMOption = __webpack_require__(400);
+	var ReactDOMSelect = __webpack_require__(403);
+	var ReactDOMTextarea = __webpack_require__(404);
+	var ReactMount = __webpack_require__(319);
+	var ReactMultiChild = __webpack_require__(405);
+	var ReactPerf = __webpack_require__(309);
+	var ReactUpdateQueue = __webpack_require__(344);
 
-	var assign = __webpack_require__(345);
-	var canDefineProperty = __webpack_require__(349);
-	var escapeTextContentForBrowser = __webpack_require__(327);
-	var invariant = __webpack_require__(319);
-	var isEventSupported = __webpack_require__(346);
-	var keyOf = __webpack_require__(385);
-	var setInnerHTML = __webpack_require__(325);
-	var setTextContent = __webpack_require__(326);
-	var shallowEqual = __webpack_require__(423);
-	var validateDOMNesting = __webpack_require__(376);
-	var warning = __webpack_require__(331);
+	var assign = __webpack_require__(330);
+	var canDefineProperty = __webpack_require__(334);
+	var escapeTextContentForBrowser = __webpack_require__(312);
+	var invariant = __webpack_require__(304);
+	var isEventSupported = __webpack_require__(331);
+	var keyOf = __webpack_require__(370);
+	var setInnerHTML = __webpack_require__(310);
+	var setTextContent = __webpack_require__(311);
+	var shallowEqual = __webpack_require__(408);
+	var validateDOMNesting = __webpack_require__(361);
+	var warning = __webpack_require__(316);
 
 	var deleteListener = ReactBrowserEventEmitter.deleteListener;
 	var listenTo = ReactBrowserEventEmitter.listenTo;
@@ -20759,7 +19403,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 400 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20776,10 +19420,10 @@
 
 	'use strict';
 
-	var ReactMount = __webpack_require__(334);
+	var ReactMount = __webpack_require__(319);
 
-	var findDOMNode = __webpack_require__(397);
-	var focusNode = __webpack_require__(401);
+	var findDOMNode = __webpack_require__(382);
+	var focusNode = __webpack_require__(386);
 
 	var Mixin = {
 	  componentDidMount: function () {
@@ -20800,7 +19444,7 @@
 	module.exports = AutoFocusUtils;
 
 /***/ },
-/* 401 */
+/* 386 */
 /***/ function(module, exports) {
 
 	/**
@@ -20831,7 +19475,7 @@
 	module.exports = focusNode;
 
 /***/ },
-/* 402 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20848,15 +19492,15 @@
 
 	'use strict';
 
-	var CSSProperty = __webpack_require__(403);
-	var ExecutionEnvironment = __webpack_require__(315);
-	var ReactPerf = __webpack_require__(324);
+	var CSSProperty = __webpack_require__(388);
+	var ExecutionEnvironment = __webpack_require__(300);
+	var ReactPerf = __webpack_require__(309);
 
-	var camelizeStyleName = __webpack_require__(404);
-	var dangerousStyleValue = __webpack_require__(406);
-	var hyphenateStyleName = __webpack_require__(407);
-	var memoizeStringOnly = __webpack_require__(409);
-	var warning = __webpack_require__(331);
+	var camelizeStyleName = __webpack_require__(389);
+	var dangerousStyleValue = __webpack_require__(391);
+	var hyphenateStyleName = __webpack_require__(392);
+	var memoizeStringOnly = __webpack_require__(394);
+	var warning = __webpack_require__(316);
 
 	var processStyleName = memoizeStringOnly(function (styleName) {
 	  return hyphenateStyleName(styleName);
@@ -21012,7 +19656,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 403 */
+/* 388 */
 /***/ function(module, exports) {
 
 	/**
@@ -21156,7 +19800,7 @@
 	module.exports = CSSProperty;
 
 /***/ },
-/* 404 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21173,7 +19817,7 @@
 
 	'use strict';
 
-	var camelize = __webpack_require__(405);
+	var camelize = __webpack_require__(390);
 
 	var msPattern = /^-ms-/;
 
@@ -21201,7 +19845,7 @@
 	module.exports = camelizeStyleName;
 
 /***/ },
-/* 405 */
+/* 390 */
 /***/ function(module, exports) {
 
 	/**
@@ -21238,7 +19882,7 @@
 	module.exports = camelize;
 
 /***/ },
-/* 406 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21255,7 +19899,7 @@
 
 	'use strict';
 
-	var CSSProperty = __webpack_require__(403);
+	var CSSProperty = __webpack_require__(388);
 
 	var isUnitlessNumber = CSSProperty.isUnitlessNumber;
 
@@ -21298,7 +19942,7 @@
 	module.exports = dangerousStyleValue;
 
 /***/ },
-/* 407 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21315,7 +19959,7 @@
 
 	'use strict';
 
-	var hyphenate = __webpack_require__(408);
+	var hyphenate = __webpack_require__(393);
 
 	var msPattern = /^ms-/;
 
@@ -21342,7 +19986,7 @@
 	module.exports = hyphenateStyleName;
 
 /***/ },
-/* 408 */
+/* 393 */
 /***/ function(module, exports) {
 
 	/**
@@ -21380,7 +20024,7 @@
 	module.exports = hyphenate;
 
 /***/ },
-/* 409 */
+/* 394 */
 /***/ function(module, exports) {
 
 	/**
@@ -21416,7 +20060,7 @@
 	module.exports = memoizeStringOnly;
 
 /***/ },
-/* 410 */
+/* 395 */
 /***/ function(module, exports) {
 
 	/**
@@ -21471,7 +20115,7 @@
 	module.exports = ReactDOMButton;
 
 /***/ },
-/* 411 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21487,13 +20131,13 @@
 
 	'use strict';
 
-	var ReactDOMIDOperations = __webpack_require__(333);
-	var LinkedValueUtils = __webpack_require__(412);
-	var ReactMount = __webpack_require__(334);
-	var ReactUpdates = __webpack_require__(360);
+	var ReactDOMIDOperations = __webpack_require__(318);
+	var LinkedValueUtils = __webpack_require__(397);
+	var ReactMount = __webpack_require__(319);
+	var ReactUpdates = __webpack_require__(345);
 
-	var assign = __webpack_require__(345);
-	var invariant = __webpack_require__(319);
+	var assign = __webpack_require__(330);
+	var invariant = __webpack_require__(304);
 
 	var instancesByReactID = {};
 
@@ -21630,7 +20274,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 412 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21647,11 +20291,11 @@
 
 	'use strict';
 
-	var ReactPropTypes = __webpack_require__(413);
-	var ReactPropTypeLocations = __webpack_require__(371);
+	var ReactPropTypes = __webpack_require__(398);
+	var ReactPropTypeLocations = __webpack_require__(356);
 
-	var invariant = __webpack_require__(319);
-	var warning = __webpack_require__(331);
+	var invariant = __webpack_require__(304);
+	var warning = __webpack_require__(316);
 
 	var hasReadOnlyValue = {
 	  'button': true,
@@ -21770,7 +20414,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 413 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21786,11 +20430,11 @@
 
 	'use strict';
 
-	var ReactElement = __webpack_require__(348);
-	var ReactPropTypeLocationNames = __webpack_require__(372);
+	var ReactElement = __webpack_require__(333);
+	var ReactPropTypeLocationNames = __webpack_require__(357);
 
-	var emptyFunction = __webpack_require__(321);
-	var getIteratorFn = __webpack_require__(414);
+	var emptyFunction = __webpack_require__(306);
+	var getIteratorFn = __webpack_require__(399);
 
 	/**
 	 * Collection of methods that allow declaration and validation of props that are
@@ -22131,7 +20775,7 @@
 	module.exports = ReactPropTypes;
 
 /***/ },
-/* 414 */
+/* 399 */
 /***/ function(module, exports) {
 
 	/**
@@ -22176,7 +20820,7 @@
 	module.exports = getIteratorFn;
 
 /***/ },
-/* 415 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22192,11 +20836,11 @@
 
 	'use strict';
 
-	var ReactChildren = __webpack_require__(416);
-	var ReactDOMSelect = __webpack_require__(418);
+	var ReactChildren = __webpack_require__(401);
+	var ReactDOMSelect = __webpack_require__(403);
 
-	var assign = __webpack_require__(345);
-	var warning = __webpack_require__(331);
+	var assign = __webpack_require__(330);
+	var warning = __webpack_require__(316);
 
 	var valueContextKey = ReactDOMSelect.valueContextKey;
 
@@ -22271,7 +20915,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 416 */
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -22287,11 +20931,11 @@
 
 	'use strict';
 
-	var PooledClass = __webpack_require__(362);
-	var ReactElement = __webpack_require__(348);
+	var PooledClass = __webpack_require__(347);
+	var ReactElement = __webpack_require__(333);
 
-	var emptyFunction = __webpack_require__(321);
-	var traverseAllChildren = __webpack_require__(417);
+	var emptyFunction = __webpack_require__(306);
+	var traverseAllChildren = __webpack_require__(402);
 
 	var twoArgumentPooler = PooledClass.twoArgumentPooler;
 	var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -22458,7 +21102,7 @@
 	module.exports = ReactChildren;
 
 /***/ },
-/* 417 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22474,13 +21118,13 @@
 
 	'use strict';
 
-	var ReactCurrentOwner = __webpack_require__(311);
-	var ReactElement = __webpack_require__(348);
-	var ReactInstanceHandles = __webpack_require__(351);
+	var ReactCurrentOwner = __webpack_require__(296);
+	var ReactElement = __webpack_require__(333);
+	var ReactInstanceHandles = __webpack_require__(336);
 
-	var getIteratorFn = __webpack_require__(414);
-	var invariant = __webpack_require__(319);
-	var warning = __webpack_require__(331);
+	var getIteratorFn = __webpack_require__(399);
+	var invariant = __webpack_require__(304);
+	var warning = __webpack_require__(316);
 
 	var SEPARATOR = ReactInstanceHandles.SEPARATOR;
 	var SUBSEPARATOR = ':';
@@ -22653,7 +21297,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 418 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22669,12 +21313,12 @@
 
 	'use strict';
 
-	var LinkedValueUtils = __webpack_require__(412);
-	var ReactMount = __webpack_require__(334);
-	var ReactUpdates = __webpack_require__(360);
+	var LinkedValueUtils = __webpack_require__(397);
+	var ReactMount = __webpack_require__(319);
+	var ReactUpdates = __webpack_require__(345);
 
-	var assign = __webpack_require__(345);
-	var warning = __webpack_require__(331);
+	var assign = __webpack_require__(330);
+	var warning = __webpack_require__(316);
 
 	var valueContextKey = '__ReactDOMSelect_value$' + Math.random().toString(36).slice(2);
 
@@ -22847,7 +21491,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 419 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22863,13 +21507,13 @@
 
 	'use strict';
 
-	var LinkedValueUtils = __webpack_require__(412);
-	var ReactDOMIDOperations = __webpack_require__(333);
-	var ReactUpdates = __webpack_require__(360);
+	var LinkedValueUtils = __webpack_require__(397);
+	var ReactDOMIDOperations = __webpack_require__(318);
+	var ReactUpdates = __webpack_require__(345);
 
-	var assign = __webpack_require__(345);
-	var invariant = __webpack_require__(319);
-	var warning = __webpack_require__(331);
+	var assign = __webpack_require__(330);
+	var invariant = __webpack_require__(304);
+	var warning = __webpack_require__(316);
 
 	function forceUpdateIfMounted() {
 	  if (this._rootNodeID) {
@@ -22966,7 +21610,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 420 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22983,14 +21627,14 @@
 
 	'use strict';
 
-	var ReactComponentEnvironment = __webpack_require__(370);
-	var ReactMultiChildUpdateTypes = __webpack_require__(322);
+	var ReactComponentEnvironment = __webpack_require__(355);
+	var ReactMultiChildUpdateTypes = __webpack_require__(307);
 
-	var ReactCurrentOwner = __webpack_require__(311);
-	var ReactReconciler = __webpack_require__(356);
-	var ReactChildReconciler = __webpack_require__(421);
+	var ReactCurrentOwner = __webpack_require__(296);
+	var ReactReconciler = __webpack_require__(341);
+	var ReactChildReconciler = __webpack_require__(406);
 
-	var flattenChildren = __webpack_require__(422);
+	var flattenChildren = __webpack_require__(407);
 
 	/**
 	 * Updating children of a component may trigger recursive updates. The depth is
@@ -23468,7 +22112,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 421 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23485,12 +22129,12 @@
 
 	'use strict';
 
-	var ReactReconciler = __webpack_require__(356);
+	var ReactReconciler = __webpack_require__(341);
 
-	var instantiateReactComponent = __webpack_require__(368);
-	var shouldUpdateReactComponent = __webpack_require__(373);
-	var traverseAllChildren = __webpack_require__(417);
-	var warning = __webpack_require__(331);
+	var instantiateReactComponent = __webpack_require__(353);
+	var shouldUpdateReactComponent = __webpack_require__(358);
+	var traverseAllChildren = __webpack_require__(402);
+	var warning = __webpack_require__(316);
 
 	function instantiateChild(childInstances, child, name) {
 	  // We found a component instance.
@@ -23596,7 +22240,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 422 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23612,8 +22256,8 @@
 
 	'use strict';
 
-	var traverseAllChildren = __webpack_require__(417);
-	var warning = __webpack_require__(331);
+	var traverseAllChildren = __webpack_require__(402);
+	var warning = __webpack_require__(316);
 
 	/**
 	 * @param {function} traverseContext Context passed through traversal.
@@ -23650,7 +22294,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 423 */
+/* 408 */
 /***/ function(module, exports) {
 
 	/**
@@ -23663,7 +22307,7 @@
 	 *
 	 * @providesModule shallowEqual
 	 * @typechecks
-	 * 
+	 *
 	 */
 
 	'use strict';
@@ -23705,7 +22349,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 424 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23722,16 +22366,16 @@
 
 	'use strict';
 
-	var EventListener = __webpack_require__(425);
-	var ExecutionEnvironment = __webpack_require__(315);
-	var PooledClass = __webpack_require__(362);
-	var ReactInstanceHandles = __webpack_require__(351);
-	var ReactMount = __webpack_require__(334);
-	var ReactUpdates = __webpack_require__(360);
+	var EventListener = __webpack_require__(410);
+	var ExecutionEnvironment = __webpack_require__(300);
+	var PooledClass = __webpack_require__(347);
+	var ReactInstanceHandles = __webpack_require__(336);
+	var ReactMount = __webpack_require__(319);
+	var ReactUpdates = __webpack_require__(345);
 
-	var assign = __webpack_require__(345);
-	var getEventTarget = __webpack_require__(387);
-	var getUnboundedScrollPosition = __webpack_require__(426);
+	var assign = __webpack_require__(330);
+	var getEventTarget = __webpack_require__(372);
+	var getUnboundedScrollPosition = __webpack_require__(411);
 
 	var DOCUMENT_FRAGMENT_NODE_TYPE = 11;
 
@@ -23921,7 +22565,7 @@
 	module.exports = ReactEventListener;
 
 /***/ },
-/* 425 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23945,7 +22589,7 @@
 
 	'use strict';
 
-	var emptyFunction = __webpack_require__(321);
+	var emptyFunction = __webpack_require__(306);
 
 	/**
 	 * Upstream version of event listener. Does not take into account specific
@@ -24011,7 +22655,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 426 */
+/* 411 */
 /***/ function(module, exports) {
 
 	/**
@@ -24054,7 +22698,7 @@
 	module.exports = getUnboundedScrollPosition;
 
 /***/ },
-/* 427 */
+/* 412 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24070,16 +22714,16 @@
 
 	'use strict';
 
-	var DOMProperty = __webpack_require__(329);
-	var EventPluginHub = __webpack_require__(337);
-	var ReactComponentEnvironment = __webpack_require__(370);
-	var ReactClass = __webpack_require__(428);
-	var ReactEmptyComponent = __webpack_require__(374);
-	var ReactBrowserEventEmitter = __webpack_require__(335);
-	var ReactNativeComponent = __webpack_require__(375);
-	var ReactPerf = __webpack_require__(324);
-	var ReactRootIndex = __webpack_require__(352);
-	var ReactUpdates = __webpack_require__(360);
+	var DOMProperty = __webpack_require__(314);
+	var EventPluginHub = __webpack_require__(322);
+	var ReactComponentEnvironment = __webpack_require__(355);
+	var ReactClass = __webpack_require__(413);
+	var ReactEmptyComponent = __webpack_require__(359);
+	var ReactBrowserEventEmitter = __webpack_require__(320);
+	var ReactNativeComponent = __webpack_require__(360);
+	var ReactPerf = __webpack_require__(309);
+	var ReactRootIndex = __webpack_require__(337);
+	var ReactUpdates = __webpack_require__(345);
 
 	var ReactInjection = {
 	  Component: ReactComponentEnvironment.injection,
@@ -24097,7 +22741,7 @@
 	module.exports = ReactInjection;
 
 /***/ },
-/* 428 */
+/* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -24113,18 +22757,18 @@
 
 	'use strict';
 
-	var ReactComponent = __webpack_require__(429);
-	var ReactElement = __webpack_require__(348);
-	var ReactPropTypeLocations = __webpack_require__(371);
-	var ReactPropTypeLocationNames = __webpack_require__(372);
-	var ReactNoopUpdateQueue = __webpack_require__(430);
+	var ReactComponent = __webpack_require__(414);
+	var ReactElement = __webpack_require__(333);
+	var ReactPropTypeLocations = __webpack_require__(356);
+	var ReactPropTypeLocationNames = __webpack_require__(357);
+	var ReactNoopUpdateQueue = __webpack_require__(415);
 
-	var assign = __webpack_require__(345);
-	var emptyObject = __webpack_require__(364);
-	var invariant = __webpack_require__(319);
-	var keyMirror = __webpack_require__(323);
-	var keyOf = __webpack_require__(385);
-	var warning = __webpack_require__(331);
+	var assign = __webpack_require__(330);
+	var emptyObject = __webpack_require__(349);
+	var invariant = __webpack_require__(304);
+	var keyMirror = __webpack_require__(308);
+	var keyOf = __webpack_require__(370);
+	var warning = __webpack_require__(316);
 
 	var MIXINS_KEY = keyOf({ mixins: null });
 
@@ -24874,7 +23518,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 429 */
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -24890,12 +23534,12 @@
 
 	'use strict';
 
-	var ReactNoopUpdateQueue = __webpack_require__(430);
+	var ReactNoopUpdateQueue = __webpack_require__(415);
 
-	var canDefineProperty = __webpack_require__(349);
-	var emptyObject = __webpack_require__(364);
-	var invariant = __webpack_require__(319);
-	var warning = __webpack_require__(331);
+	var canDefineProperty = __webpack_require__(334);
+	var emptyObject = __webpack_require__(349);
+	var invariant = __webpack_require__(304);
+	var warning = __webpack_require__(316);
 
 	/**
 	 * Base class helpers for the updating state of a component.
@@ -25002,7 +23646,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 430 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25018,7 +23662,7 @@
 
 	'use strict';
 
-	var warning = __webpack_require__(331);
+	var warning = __webpack_require__(316);
 
 	function warnTDZ(publicInstance, callerName) {
 	  if (process.env.NODE_ENV !== 'production') {
@@ -25126,7 +23770,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 431 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25143,14 +23787,14 @@
 
 	'use strict';
 
-	var CallbackQueue = __webpack_require__(361);
-	var PooledClass = __webpack_require__(362);
-	var ReactBrowserEventEmitter = __webpack_require__(335);
-	var ReactDOMFeatureFlags = __webpack_require__(347);
-	var ReactInputSelection = __webpack_require__(432);
-	var Transaction = __webpack_require__(363);
+	var CallbackQueue = __webpack_require__(346);
+	var PooledClass = __webpack_require__(347);
+	var ReactBrowserEventEmitter = __webpack_require__(320);
+	var ReactDOMFeatureFlags = __webpack_require__(332);
+	var ReactInputSelection = __webpack_require__(417);
+	var Transaction = __webpack_require__(348);
 
-	var assign = __webpack_require__(345);
+	var assign = __webpack_require__(330);
 
 	/**
 	 * Ensures that, when possible, the selection range (currently selected text
@@ -25282,7 +23926,7 @@
 	module.exports = ReactReconcileTransaction;
 
 /***/ },
-/* 432 */
+/* 417 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25298,11 +23942,11 @@
 
 	'use strict';
 
-	var ReactDOMSelection = __webpack_require__(433);
+	var ReactDOMSelection = __webpack_require__(418);
 
-	var containsNode = __webpack_require__(365);
-	var focusNode = __webpack_require__(401);
-	var getActiveElement = __webpack_require__(435);
+	var containsNode = __webpack_require__(350);
+	var focusNode = __webpack_require__(386);
+	var getActiveElement = __webpack_require__(420);
 
 	function isInDocument(node) {
 	  return containsNode(document.documentElement, node);
@@ -25411,7 +24055,7 @@
 	module.exports = ReactInputSelection;
 
 /***/ },
-/* 433 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25427,10 +24071,10 @@
 
 	'use strict';
 
-	var ExecutionEnvironment = __webpack_require__(315);
+	var ExecutionEnvironment = __webpack_require__(300);
 
-	var getNodeForCharacterOffset = __webpack_require__(434);
-	var getTextContentAccessor = __webpack_require__(381);
+	var getNodeForCharacterOffset = __webpack_require__(419);
+	var getTextContentAccessor = __webpack_require__(366);
 
 	/**
 	 * While `isCollapsed` is available on the Selection object and `collapsed`
@@ -25628,7 +24272,7 @@
 	module.exports = ReactDOMSelection;
 
 /***/ },
-/* 434 */
+/* 419 */
 /***/ function(module, exports) {
 
 	/**
@@ -25706,7 +24350,7 @@
 	module.exports = getNodeForCharacterOffset;
 
 /***/ },
-/* 435 */
+/* 420 */
 /***/ function(module, exports) {
 
 	/**
@@ -25746,7 +24390,7 @@
 	module.exports = getActiveElement;
 
 /***/ },
-/* 436 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25762,16 +24406,16 @@
 
 	'use strict';
 
-	var EventConstants = __webpack_require__(336);
-	var EventPropagators = __webpack_require__(379);
-	var ExecutionEnvironment = __webpack_require__(315);
-	var ReactInputSelection = __webpack_require__(432);
-	var SyntheticEvent = __webpack_require__(383);
+	var EventConstants = __webpack_require__(321);
+	var EventPropagators = __webpack_require__(364);
+	var ExecutionEnvironment = __webpack_require__(300);
+	var ReactInputSelection = __webpack_require__(417);
+	var SyntheticEvent = __webpack_require__(368);
 
-	var getActiveElement = __webpack_require__(435);
-	var isTextInputElement = __webpack_require__(388);
-	var keyOf = __webpack_require__(385);
-	var shallowEqual = __webpack_require__(423);
+	var getActiveElement = __webpack_require__(420);
+	var isTextInputElement = __webpack_require__(373);
+	var keyOf = __webpack_require__(370);
+	var shallowEqual = __webpack_require__(408);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
 
@@ -25952,7 +24596,7 @@
 	module.exports = SelectEventPlugin;
 
 /***/ },
-/* 437 */
+/* 422 */
 /***/ function(module, exports) {
 
 	/**
@@ -25986,7 +24630,7 @@
 	module.exports = ServerReactRootIndex;
 
 /***/ },
-/* 438 */
+/* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26002,24 +24646,24 @@
 
 	'use strict';
 
-	var EventConstants = __webpack_require__(336);
-	var EventListener = __webpack_require__(425);
-	var EventPropagators = __webpack_require__(379);
-	var ReactMount = __webpack_require__(334);
-	var SyntheticClipboardEvent = __webpack_require__(439);
-	var SyntheticEvent = __webpack_require__(383);
-	var SyntheticFocusEvent = __webpack_require__(440);
-	var SyntheticKeyboardEvent = __webpack_require__(441);
-	var SyntheticMouseEvent = __webpack_require__(392);
-	var SyntheticDragEvent = __webpack_require__(444);
-	var SyntheticTouchEvent = __webpack_require__(445);
-	var SyntheticUIEvent = __webpack_require__(393);
-	var SyntheticWheelEvent = __webpack_require__(446);
+	var EventConstants = __webpack_require__(321);
+	var EventListener = __webpack_require__(410);
+	var EventPropagators = __webpack_require__(364);
+	var ReactMount = __webpack_require__(319);
+	var SyntheticClipboardEvent = __webpack_require__(424);
+	var SyntheticEvent = __webpack_require__(368);
+	var SyntheticFocusEvent = __webpack_require__(425);
+	var SyntheticKeyboardEvent = __webpack_require__(426);
+	var SyntheticMouseEvent = __webpack_require__(377);
+	var SyntheticDragEvent = __webpack_require__(429);
+	var SyntheticTouchEvent = __webpack_require__(430);
+	var SyntheticUIEvent = __webpack_require__(378);
+	var SyntheticWheelEvent = __webpack_require__(431);
 
-	var emptyFunction = __webpack_require__(321);
-	var getEventCharCode = __webpack_require__(442);
-	var invariant = __webpack_require__(319);
-	var keyOf = __webpack_require__(385);
+	var emptyFunction = __webpack_require__(306);
+	var getEventCharCode = __webpack_require__(427);
+	var invariant = __webpack_require__(304);
+	var keyOf = __webpack_require__(370);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
 
@@ -26579,7 +25223,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 439 */
+/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26596,7 +25240,7 @@
 
 	'use strict';
 
-	var SyntheticEvent = __webpack_require__(383);
+	var SyntheticEvent = __webpack_require__(368);
 
 	/**
 	 * @interface Event
@@ -26623,7 +25267,7 @@
 	module.exports = SyntheticClipboardEvent;
 
 /***/ },
-/* 440 */
+/* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26640,7 +25284,7 @@
 
 	'use strict';
 
-	var SyntheticUIEvent = __webpack_require__(393);
+	var SyntheticUIEvent = __webpack_require__(378);
 
 	/**
 	 * @interface FocusEvent
@@ -26665,7 +25309,7 @@
 	module.exports = SyntheticFocusEvent;
 
 /***/ },
-/* 441 */
+/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26682,11 +25326,11 @@
 
 	'use strict';
 
-	var SyntheticUIEvent = __webpack_require__(393);
+	var SyntheticUIEvent = __webpack_require__(378);
 
-	var getEventCharCode = __webpack_require__(442);
-	var getEventKey = __webpack_require__(443);
-	var getEventModifierState = __webpack_require__(394);
+	var getEventCharCode = __webpack_require__(427);
+	var getEventKey = __webpack_require__(428);
+	var getEventModifierState = __webpack_require__(379);
 
 	/**
 	 * @interface KeyboardEvent
@@ -26755,7 +25399,7 @@
 	module.exports = SyntheticKeyboardEvent;
 
 /***/ },
-/* 442 */
+/* 427 */
 /***/ function(module, exports) {
 
 	/**
@@ -26810,7 +25454,7 @@
 	module.exports = getEventCharCode;
 
 /***/ },
-/* 443 */
+/* 428 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26827,7 +25471,7 @@
 
 	'use strict';
 
-	var getEventCharCode = __webpack_require__(442);
+	var getEventCharCode = __webpack_require__(427);
 
 	/**
 	 * Normalization of deprecated HTML5 `key` values
@@ -26918,7 +25562,7 @@
 	module.exports = getEventKey;
 
 /***/ },
-/* 444 */
+/* 429 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26935,7 +25579,7 @@
 
 	'use strict';
 
-	var SyntheticMouseEvent = __webpack_require__(392);
+	var SyntheticMouseEvent = __webpack_require__(377);
 
 	/**
 	 * @interface DragEvent
@@ -26960,7 +25604,7 @@
 	module.exports = SyntheticDragEvent;
 
 /***/ },
-/* 445 */
+/* 430 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26977,9 +25621,9 @@
 
 	'use strict';
 
-	var SyntheticUIEvent = __webpack_require__(393);
+	var SyntheticUIEvent = __webpack_require__(378);
 
-	var getEventModifierState = __webpack_require__(394);
+	var getEventModifierState = __webpack_require__(379);
 
 	/**
 	 * @interface TouchEvent
@@ -27011,7 +25655,7 @@
 	module.exports = SyntheticTouchEvent;
 
 /***/ },
-/* 446 */
+/* 431 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27028,7 +25672,7 @@
 
 	'use strict';
 
-	var SyntheticMouseEvent = __webpack_require__(392);
+	var SyntheticMouseEvent = __webpack_require__(377);
 
 	/**
 	 * @interface WheelEvent
@@ -27071,7 +25715,7 @@
 	module.exports = SyntheticWheelEvent;
 
 /***/ },
-/* 447 */
+/* 432 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27087,7 +25731,7 @@
 
 	'use strict';
 
-	var DOMProperty = __webpack_require__(329);
+	var DOMProperty = __webpack_require__(314);
 
 	var MUST_USE_ATTRIBUTE = DOMProperty.injection.MUST_USE_ATTRIBUTE;
 
@@ -27203,7 +25847,7 @@
 	module.exports = SVGDOMPropertyConfig;
 
 /***/ },
-/* 448 */
+/* 433 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27220,12 +25864,12 @@
 
 	'use strict';
 
-	var DOMProperty = __webpack_require__(329);
-	var ReactDefaultPerfAnalysis = __webpack_require__(449);
-	var ReactMount = __webpack_require__(334);
-	var ReactPerf = __webpack_require__(324);
+	var DOMProperty = __webpack_require__(314);
+	var ReactDefaultPerfAnalysis = __webpack_require__(434);
+	var ReactMount = __webpack_require__(319);
+	var ReactPerf = __webpack_require__(309);
 
-	var performanceNow = __webpack_require__(450);
+	var performanceNow = __webpack_require__(435);
 
 	function roundFloat(val) {
 	  return Math.floor(val * 100) / 100;
@@ -27445,7 +26089,7 @@
 	module.exports = ReactDefaultPerf;
 
 /***/ },
-/* 449 */
+/* 434 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27461,7 +26105,7 @@
 
 	'use strict';
 
-	var assign = __webpack_require__(345);
+	var assign = __webpack_require__(330);
 
 	// Don't try to save users less than 1.2ms (a number I made up)
 	var DONT_CARE_THRESHOLD = 1.2;
@@ -27651,7 +26295,7 @@
 	module.exports = ReactDefaultPerfAnalysis;
 
 /***/ },
-/* 450 */
+/* 435 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27668,7 +26312,7 @@
 
 	'use strict';
 
-	var performance = __webpack_require__(451);
+	var performance = __webpack_require__(436);
 
 	var performanceNow;
 
@@ -27690,7 +26334,7 @@
 	module.exports = performanceNow;
 
 /***/ },
-/* 451 */
+/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27707,7 +26351,7 @@
 
 	'use strict';
 
-	var ExecutionEnvironment = __webpack_require__(315);
+	var ExecutionEnvironment = __webpack_require__(300);
 
 	var performance;
 
@@ -27718,7 +26362,7 @@
 	module.exports = performance || {};
 
 /***/ },
-/* 452 */
+/* 437 */
 /***/ function(module, exports) {
 
 	/**
@@ -27737,7 +26381,7 @@
 	module.exports = '0.14.8';
 
 /***/ },
-/* 453 */
+/* 438 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27753,12 +26397,12 @@
 
 	'use strict';
 
-	var ReactMount = __webpack_require__(334);
+	var ReactMount = __webpack_require__(319);
 
 	module.exports = ReactMount.renderSubtreeIntoContainer;
 
 /***/ },
-/* 454 */
+/* 439 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27774,9 +26418,9 @@
 
 	'use strict';
 
-	var ReactDefaultInjection = __webpack_require__(377);
-	var ReactServerRendering = __webpack_require__(455);
-	var ReactVersion = __webpack_require__(452);
+	var ReactDefaultInjection = __webpack_require__(362);
+	var ReactServerRendering = __webpack_require__(440);
+	var ReactVersion = __webpack_require__(437);
 
 	ReactDefaultInjection.inject();
 
@@ -27789,7 +26433,7 @@
 	module.exports = ReactDOMServer;
 
 /***/ },
-/* 455 */
+/* 440 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -27805,17 +26449,17 @@
 	 */
 	'use strict';
 
-	var ReactDefaultBatchingStrategy = __webpack_require__(398);
-	var ReactElement = __webpack_require__(348);
-	var ReactInstanceHandles = __webpack_require__(351);
-	var ReactMarkupChecksum = __webpack_require__(354);
-	var ReactServerBatchingStrategy = __webpack_require__(456);
-	var ReactServerRenderingTransaction = __webpack_require__(457);
-	var ReactUpdates = __webpack_require__(360);
+	var ReactDefaultBatchingStrategy = __webpack_require__(383);
+	var ReactElement = __webpack_require__(333);
+	var ReactInstanceHandles = __webpack_require__(336);
+	var ReactMarkupChecksum = __webpack_require__(339);
+	var ReactServerBatchingStrategy = __webpack_require__(441);
+	var ReactServerRenderingTransaction = __webpack_require__(442);
+	var ReactUpdates = __webpack_require__(345);
 
-	var emptyObject = __webpack_require__(364);
-	var instantiateReactComponent = __webpack_require__(368);
-	var invariant = __webpack_require__(319);
+	var emptyObject = __webpack_require__(349);
+	var instantiateReactComponent = __webpack_require__(353);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * @param {ReactElement} element
@@ -27878,7 +26522,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 456 */
+/* 441 */
 /***/ function(module, exports) {
 
 	/**
@@ -27906,7 +26550,7 @@
 	module.exports = ReactServerBatchingStrategy;
 
 /***/ },
-/* 457 */
+/* 442 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27923,12 +26567,12 @@
 
 	'use strict';
 
-	var PooledClass = __webpack_require__(362);
-	var CallbackQueue = __webpack_require__(361);
-	var Transaction = __webpack_require__(363);
+	var PooledClass = __webpack_require__(347);
+	var CallbackQueue = __webpack_require__(346);
+	var Transaction = __webpack_require__(348);
 
-	var assign = __webpack_require__(345);
-	var emptyFunction = __webpack_require__(321);
+	var assign = __webpack_require__(330);
+	var emptyFunction = __webpack_require__(306);
 
 	/**
 	 * Provides a `CallbackQueue` queue for collecting `onDOMReady` callbacks
@@ -27998,7 +26642,7 @@
 	module.exports = ReactServerRenderingTransaction;
 
 /***/ },
-/* 458 */
+/* 443 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28014,17 +26658,17 @@
 
 	'use strict';
 
-	var ReactChildren = __webpack_require__(416);
-	var ReactComponent = __webpack_require__(429);
-	var ReactClass = __webpack_require__(428);
-	var ReactDOMFactories = __webpack_require__(459);
-	var ReactElement = __webpack_require__(348);
-	var ReactElementValidator = __webpack_require__(460);
-	var ReactPropTypes = __webpack_require__(413);
-	var ReactVersion = __webpack_require__(452);
+	var ReactChildren = __webpack_require__(401);
+	var ReactComponent = __webpack_require__(414);
+	var ReactClass = __webpack_require__(413);
+	var ReactDOMFactories = __webpack_require__(444);
+	var ReactElement = __webpack_require__(333);
+	var ReactElementValidator = __webpack_require__(445);
+	var ReactPropTypes = __webpack_require__(398);
+	var ReactVersion = __webpack_require__(437);
 
-	var assign = __webpack_require__(345);
-	var onlyChild = __webpack_require__(462);
+	var assign = __webpack_require__(330);
+	var onlyChild = __webpack_require__(447);
 
 	var createElement = ReactElement.createElement;
 	var createFactory = ReactElement.createFactory;
@@ -28078,7 +26722,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 459 */
+/* 444 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28095,10 +26739,10 @@
 
 	'use strict';
 
-	var ReactElement = __webpack_require__(348);
-	var ReactElementValidator = __webpack_require__(460);
+	var ReactElement = __webpack_require__(333);
+	var ReactElementValidator = __webpack_require__(445);
 
-	var mapObject = __webpack_require__(461);
+	var mapObject = __webpack_require__(446);
 
 	/**
 	 * Create a factory that creates HTML tag elements.
@@ -28261,7 +26905,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 460 */
+/* 445 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28284,15 +26928,15 @@
 
 	'use strict';
 
-	var ReactElement = __webpack_require__(348);
-	var ReactPropTypeLocations = __webpack_require__(371);
-	var ReactPropTypeLocationNames = __webpack_require__(372);
-	var ReactCurrentOwner = __webpack_require__(311);
+	var ReactElement = __webpack_require__(333);
+	var ReactPropTypeLocations = __webpack_require__(356);
+	var ReactPropTypeLocationNames = __webpack_require__(357);
+	var ReactCurrentOwner = __webpack_require__(296);
 
-	var canDefineProperty = __webpack_require__(349);
-	var getIteratorFn = __webpack_require__(414);
-	var invariant = __webpack_require__(319);
-	var warning = __webpack_require__(331);
+	var canDefineProperty = __webpack_require__(334);
+	var getIteratorFn = __webpack_require__(399);
+	var invariant = __webpack_require__(304);
+	var warning = __webpack_require__(316);
 
 	function getDeclarationErrorAddendum() {
 	  if (ReactCurrentOwner.current) {
@@ -28548,7 +27192,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 461 */
+/* 446 */
 /***/ function(module, exports) {
 
 	/**
@@ -28604,7 +27248,7 @@
 	module.exports = mapObject;
 
 /***/ },
-/* 462 */
+/* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28619,9 +27263,9 @@
 	 */
 	'use strict';
 
-	var ReactElement = __webpack_require__(348);
+	var ReactElement = __webpack_require__(333);
 
-	var invariant = __webpack_require__(319);
+	var invariant = __webpack_require__(304);
 
 	/**
 	 * Returns the first child in a collection of children and verifies that there
@@ -28643,7 +27287,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 463 */
+/* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28659,8 +27303,8 @@
 
 	'use strict';
 
-	var assign = __webpack_require__(345);
-	var warning = __webpack_require__(331);
+	var assign = __webpack_require__(330);
+	var warning = __webpack_require__(316);
 
 	/**
 	 * This will log a single deprecation notice per function and forward the call
@@ -28697,16 +27341,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 464 */
+/* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(310);
+	module.exports = __webpack_require__(295);
 
 
 /***/ },
-/* 465 */
+/* 450 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28725,13 +27369,13 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	__webpack_require__(523);
+	__webpack_require__(508);
 
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : { default: obj };
@@ -28771,7 +27415,7 @@
 		_createClass(App, [{
 			key: 'render',
 			value: function render() {
-				return _react2.default.createElement('div', { className: 'app' }, this.props.children || "No Child Route yet", _react2.default.createElement(_reactRouter.Link, { to: '/players' }, 'Go to players'));
+				return _react2.default.createElement('div', { className: 'app' }, this.props.children || "No Child Route yet");
 			}
 		}]);
 
@@ -28781,7 +27425,7 @@
 	exports.default = App;
 
 /***/ },
-/* 466 */
+/* 451 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* components */
@@ -28791,19 +27435,19 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _Router2 = __webpack_require__(467);
+	var _Router2 = __webpack_require__(452);
 
 	var _Router3 = _interopRequireDefault(_Router2);
 
 	exports.Router = _Router3['default'];
 
-	var _Link2 = __webpack_require__(503);
+	var _Link2 = __webpack_require__(488);
 
 	var _Link3 = _interopRequireDefault(_Link2);
 
 	exports.Link = _Link3['default'];
 
-	var _IndexLink2 = __webpack_require__(504);
+	var _IndexLink2 = __webpack_require__(489);
 
 	var _IndexLink3 = _interopRequireDefault(_IndexLink2);
 
@@ -28811,25 +27455,25 @@
 
 	/* components (configuration) */
 
-	var _IndexRedirect2 = __webpack_require__(505);
+	var _IndexRedirect2 = __webpack_require__(490);
 
 	var _IndexRedirect3 = _interopRequireDefault(_IndexRedirect2);
 
 	exports.IndexRedirect = _IndexRedirect3['default'];
 
-	var _IndexRoute2 = __webpack_require__(507);
+	var _IndexRoute2 = __webpack_require__(492);
 
 	var _IndexRoute3 = _interopRequireDefault(_IndexRoute2);
 
 	exports.IndexRoute = _IndexRoute3['default'];
 
-	var _Redirect2 = __webpack_require__(506);
+	var _Redirect2 = __webpack_require__(491);
 
 	var _Redirect3 = _interopRequireDefault(_Redirect2);
 
 	exports.Redirect = _Redirect3['default'];
 
-	var _Route2 = __webpack_require__(508);
+	var _Route2 = __webpack_require__(493);
 
 	var _Route3 = _interopRequireDefault(_Route2);
 
@@ -28837,19 +27481,19 @@
 
 	/* mixins */
 
-	var _History2 = __webpack_require__(509);
+	var _History2 = __webpack_require__(494);
 
 	var _History3 = _interopRequireDefault(_History2);
 
 	exports.History = _History3['default'];
 
-	var _Lifecycle2 = __webpack_require__(510);
+	var _Lifecycle2 = __webpack_require__(495);
 
 	var _Lifecycle3 = _interopRequireDefault(_Lifecycle2);
 
 	exports.Lifecycle = _Lifecycle3['default'];
 
-	var _RouteContext2 = __webpack_require__(511);
+	var _RouteContext2 = __webpack_require__(496);
 
 	var _RouteContext3 = _interopRequireDefault(_RouteContext2);
 
@@ -28857,72 +27501,72 @@
 
 	/* utils */
 
-	var _useRoutes2 = __webpack_require__(512);
+	var _useRoutes2 = __webpack_require__(497);
 
 	var _useRoutes3 = _interopRequireDefault(_useRoutes2);
 
 	exports.useRoutes = _useRoutes3['default'];
 
-	var _RouteUtils = __webpack_require__(497);
+	var _RouteUtils = __webpack_require__(482);
 
 	exports.createRoutes = _RouteUtils.createRoutes;
 
-	var _RouterContext2 = __webpack_require__(499);
+	var _RouterContext2 = __webpack_require__(484);
 
 	var _RouterContext3 = _interopRequireDefault(_RouterContext2);
 
 	exports.RouterContext = _RouterContext3['default'];
 
-	var _RoutingContext2 = __webpack_require__(513);
+	var _RoutingContext2 = __webpack_require__(498);
 
 	var _RoutingContext3 = _interopRequireDefault(_RoutingContext2);
 
 	exports.RoutingContext = _RoutingContext3['default'];
 
-	var _PropTypes2 = __webpack_require__(498);
+	var _PropTypes2 = __webpack_require__(483);
 
 	var _PropTypes3 = _interopRequireDefault(_PropTypes2);
 
 	exports.PropTypes = _PropTypes3['default'];
 
-	var _match2 = __webpack_require__(514);
+	var _match2 = __webpack_require__(499);
 
 	var _match3 = _interopRequireDefault(_match2);
 
 	exports.match = _match3['default'];
 
-	var _useRouterHistory2 = __webpack_require__(518);
+	var _useRouterHistory2 = __webpack_require__(503);
 
 	var _useRouterHistory3 = _interopRequireDefault(_useRouterHistory2);
 
 	exports.useRouterHistory = _useRouterHistory3['default'];
 
-	var _PatternUtils = __webpack_require__(491);
+	var _PatternUtils = __webpack_require__(476);
 
 	exports.formatPattern = _PatternUtils.formatPattern;
 
 	/* histories */
 
-	var _browserHistory2 = __webpack_require__(519);
+	var _browserHistory2 = __webpack_require__(504);
 
 	var _browserHistory3 = _interopRequireDefault(_browserHistory2);
 
 	exports.browserHistory = _browserHistory3['default'];
 
-	var _hashHistory2 = __webpack_require__(522);
+	var _hashHistory2 = __webpack_require__(507);
 
 	var _hashHistory3 = _interopRequireDefault(_hashHistory2);
 
 	exports.hashHistory = _hashHistory3['default'];
 
-	var _createMemoryHistory2 = __webpack_require__(515);
+	var _createMemoryHistory2 = __webpack_require__(500);
 
 	var _createMemoryHistory3 = _interopRequireDefault(_createMemoryHistory2);
 
 	exports.createMemoryHistory = _createMemoryHistory3['default'];
 
 /***/ },
-/* 467 */
+/* 452 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -28935,33 +27579,33 @@
 
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-	var _historyLibCreateHashHistory = __webpack_require__(468);
+	var _historyLibCreateHashHistory = __webpack_require__(453);
 
 	var _historyLibCreateHashHistory2 = _interopRequireDefault(_historyLibCreateHashHistory);
 
-	var _historyLibUseQueries = __webpack_require__(485);
+	var _historyLibUseQueries = __webpack_require__(470);
 
 	var _historyLibUseQueries2 = _interopRequireDefault(_historyLibUseQueries);
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _createTransitionManager = __webpack_require__(488);
+	var _createTransitionManager = __webpack_require__(473);
 
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 
-	var _PropTypes = __webpack_require__(498);
+	var _PropTypes = __webpack_require__(483);
 
-	var _RouterContext = __webpack_require__(499);
+	var _RouterContext = __webpack_require__(484);
 
 	var _RouterContext2 = _interopRequireDefault(_RouterContext);
 
-	var _RouteUtils = __webpack_require__(497);
+	var _RouteUtils = __webpack_require__(482);
 
-	var _RouterUtils = __webpack_require__(502);
+	var _RouterUtils = __webpack_require__(487);
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
@@ -29138,7 +27782,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 468 */
+/* 453 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -29149,25 +27793,25 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _warning = __webpack_require__(469);
+	var _warning = __webpack_require__(454);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _invariant = __webpack_require__(470);
+	var _invariant = __webpack_require__(455);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _Actions = __webpack_require__(471);
+	var _Actions = __webpack_require__(456);
 
-	var _PathUtils = __webpack_require__(472);
+	var _PathUtils = __webpack_require__(457);
 
-	var _ExecutionEnvironment = __webpack_require__(473);
+	var _ExecutionEnvironment = __webpack_require__(458);
 
-	var _DOMUtils = __webpack_require__(474);
+	var _DOMUtils = __webpack_require__(459);
 
-	var _DOMStateStorage = __webpack_require__(475);
+	var _DOMStateStorage = __webpack_require__(460);
 
-	var _createDOMHistory = __webpack_require__(476);
+	var _createDOMHistory = __webpack_require__(461);
 
 	var _createDOMHistory2 = _interopRequireDefault(_createDOMHistory);
 
@@ -29390,7 +28034,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 469 */
+/* 454 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29457,7 +28101,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 470 */
+/* 455 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29515,7 +28159,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 471 */
+/* 456 */
 /***/ function(module, exports) {
 
 	/**
@@ -29551,7 +28195,7 @@
 	};
 
 /***/ },
-/* 472 */
+/* 457 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -29562,7 +28206,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _warning = __webpack_require__(469);
+	var _warning = __webpack_require__(454);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -29604,7 +28248,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 473 */
+/* 458 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29614,7 +28258,7 @@
 	exports.canUseDOM = canUseDOM;
 
 /***/ },
-/* 474 */
+/* 459 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29694,7 +28338,7 @@
 	}
 
 /***/ },
-/* 475 */
+/* 460 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/*eslint-disable no-empty */
@@ -29706,7 +28350,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _warning = __webpack_require__(469);
+	var _warning = __webpack_require__(454);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -29773,7 +28417,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 476 */
+/* 461 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -29784,15 +28428,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _invariant = __webpack_require__(470);
+	var _invariant = __webpack_require__(455);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _ExecutionEnvironment = __webpack_require__(473);
+	var _ExecutionEnvironment = __webpack_require__(458);
 
-	var _DOMUtils = __webpack_require__(474);
+	var _DOMUtils = __webpack_require__(459);
 
-	var _createHistory = __webpack_require__(477);
+	var _createHistory = __webpack_require__(462);
 
 	var _createHistory2 = _interopRequireDefault(_createHistory);
 
@@ -29819,7 +28463,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 477 */
+/* 462 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -29830,29 +28474,29 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _warning = __webpack_require__(469);
+	var _warning = __webpack_require__(454);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _deepEqual = __webpack_require__(478);
+	var _deepEqual = __webpack_require__(463);
 
 	var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-	var _PathUtils = __webpack_require__(472);
+	var _PathUtils = __webpack_require__(457);
 
-	var _AsyncUtils = __webpack_require__(481);
+	var _AsyncUtils = __webpack_require__(466);
 
-	var _Actions = __webpack_require__(471);
+	var _Actions = __webpack_require__(456);
 
-	var _createLocation2 = __webpack_require__(482);
+	var _createLocation2 = __webpack_require__(467);
 
 	var _createLocation3 = _interopRequireDefault(_createLocation2);
 
-	var _runTransitionHook = __webpack_require__(483);
+	var _runTransitionHook = __webpack_require__(468);
 
 	var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 
-	var _deprecate = __webpack_require__(484);
+	var _deprecate = __webpack_require__(469);
 
 	var _deprecate2 = _interopRequireDefault(_deprecate);
 
@@ -30113,12 +28757,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 478 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var pSlice = Array.prototype.slice;
-	var objectKeys = __webpack_require__(479);
-	var isArguments = __webpack_require__(480);
+	var objectKeys = __webpack_require__(464);
+	var isArguments = __webpack_require__(465);
 
 	var deepEqual = module.exports = function (actual, expected, opts) {
 	  if (!opts) opts = {};
@@ -30213,7 +28857,7 @@
 
 
 /***/ },
-/* 479 */
+/* 464 */
 /***/ function(module, exports) {
 
 	exports = module.exports = typeof Object.keys === 'function'
@@ -30228,7 +28872,7 @@
 
 
 /***/ },
-/* 480 */
+/* 465 */
 /***/ function(module, exports) {
 
 	var supportsArgumentsClass = (function(){
@@ -30254,7 +28898,7 @@
 
 
 /***/ },
-/* 481 */
+/* 466 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30317,7 +28961,7 @@
 	}
 
 /***/ },
-/* 482 */
+/* 467 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -30328,13 +28972,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _warning = __webpack_require__(469);
+	var _warning = __webpack_require__(454);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _Actions = __webpack_require__(471);
+	var _Actions = __webpack_require__(456);
 
-	var _PathUtils = __webpack_require__(472);
+	var _PathUtils = __webpack_require__(457);
 
 	function createLocation() {
 	  var location = arguments.length <= 0 || arguments[0] === undefined ? '/' : arguments[0];
@@ -30374,7 +29018,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 483 */
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -30383,7 +29027,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _warning = __webpack_require__(469);
+	var _warning = __webpack_require__(454);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -30404,7 +29048,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 484 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -30413,7 +29057,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _warning = __webpack_require__(469);
+	var _warning = __webpack_require__(454);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -30429,7 +29073,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 485 */
+/* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -30440,19 +29084,19 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _warning = __webpack_require__(469);
+	var _warning = __webpack_require__(454);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _queryString = __webpack_require__(486);
+	var _queryString = __webpack_require__(471);
 
-	var _runTransitionHook = __webpack_require__(483);
+	var _runTransitionHook = __webpack_require__(468);
 
 	var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 
-	var _PathUtils = __webpack_require__(472);
+	var _PathUtils = __webpack_require__(457);
 
-	var _deprecate = __webpack_require__(484);
+	var _deprecate = __webpack_require__(469);
 
 	var _deprecate2 = _interopRequireDefault(_deprecate);
 
@@ -30611,11 +29255,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 486 */
+/* 471 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var strictUriEncode = __webpack_require__(487);
+	var strictUriEncode = __webpack_require__(472);
 
 	exports.extract = function (str) {
 		return str.split('?')[1] || '';
@@ -30683,7 +29327,7 @@
 
 
 /***/ },
-/* 487 */
+/* 472 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30695,7 +29339,7 @@
 
 
 /***/ },
-/* 488 */
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -30708,27 +29352,27 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
-	var _historyLibActions = __webpack_require__(471);
+	var _historyLibActions = __webpack_require__(456);
 
-	var _computeChangedRoutes2 = __webpack_require__(490);
+	var _computeChangedRoutes2 = __webpack_require__(475);
 
 	var _computeChangedRoutes3 = _interopRequireDefault(_computeChangedRoutes2);
 
-	var _TransitionUtils = __webpack_require__(492);
+	var _TransitionUtils = __webpack_require__(477);
 
-	var _isActive2 = __webpack_require__(494);
+	var _isActive2 = __webpack_require__(479);
 
 	var _isActive3 = _interopRequireDefault(_isActive2);
 
-	var _getComponents = __webpack_require__(495);
+	var _getComponents = __webpack_require__(480);
 
 	var _getComponents2 = _interopRequireDefault(_getComponents);
 
-	var _matchRoutes = __webpack_require__(496);
+	var _matchRoutes = __webpack_require__(481);
 
 	var _matchRoutes2 = _interopRequireDefault(_matchRoutes);
 
@@ -31007,7 +29651,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 489 */
+/* 474 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -31018,7 +29662,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _warning = __webpack_require__(469);
+	var _warning = __webpack_require__(454);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -31049,14 +29693,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 490 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _PatternUtils = __webpack_require__(491);
+	var _PatternUtils = __webpack_require__(476);
 
 	function routeParamsChanged(route, prevState, nextState) {
 	  if (!route.path) return false;
@@ -31131,7 +29775,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 491 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -31145,7 +29789,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _invariant = __webpack_require__(470);
+	var _invariant = __webpack_require__(455);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -31356,7 +30000,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 492 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -31368,9 +30012,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _AsyncUtils = __webpack_require__(493);
+	var _AsyncUtils = __webpack_require__(478);
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
@@ -31487,7 +30131,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 493 */
+/* 478 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -31582,7 +30226,7 @@
 	}
 
 /***/ },
-/* 494 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31590,7 +30234,7 @@
 	exports.__esModule = true;
 	exports['default'] = isActive;
 
-	var _PatternUtils = __webpack_require__(491);
+	var _PatternUtils = __webpack_require__(476);
 
 	function deepEqual(a, b) {
 	  if (a == b) return true;
@@ -31714,14 +30358,14 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 495 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _AsyncUtils = __webpack_require__(493);
+	var _AsyncUtils = __webpack_require__(478);
 
 	function getComponentsForRoute(location, route, callback) {
 	  if (route.component || route.components) {
@@ -31752,7 +30396,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 496 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -31761,15 +30405,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
-	var _AsyncUtils = __webpack_require__(493);
+	var _AsyncUtils = __webpack_require__(478);
 
-	var _PatternUtils = __webpack_require__(491);
+	var _PatternUtils = __webpack_require__(476);
 
-	var _RouteUtils = __webpack_require__(497);
+	var _RouteUtils = __webpack_require__(482);
 
 	function getChildRoutes(route, location, callback) {
 	  if (route.childRoutes) {
@@ -31964,7 +30608,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 497 */
+/* 482 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -31980,11 +30624,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
@@ -32036,7 +30680,7 @@
 	 * nested.
 	 *
 	 *   import { Route, createRoutesFromReactChildren } from 'react-router'
-	 *   
+	 *
 	 *   const routes = createRoutesFromReactChildren(
 	 *     <Route component={App}>
 	 *       <Route path="home" component={Dashboard}/>
@@ -32084,7 +30728,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 498 */
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32092,7 +30736,7 @@
 	exports.__esModule = true;
 	exports.falsy = falsy;
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var func = _react.PropTypes.func;
 	var object = _react.PropTypes.object;
@@ -32142,7 +30786,7 @@
 	};
 
 /***/ },
-/* 499 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -32153,25 +30797,25 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _invariant = __webpack_require__(470);
+	var _invariant = __webpack_require__(455);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _deprecateObjectProperties = __webpack_require__(500);
+	var _deprecateObjectProperties = __webpack_require__(485);
 
 	var _deprecateObjectProperties2 = _interopRequireDefault(_deprecateObjectProperties);
 
-	var _getRouteParams = __webpack_require__(501);
+	var _getRouteParams = __webpack_require__(486);
 
 	var _getRouteParams2 = _interopRequireDefault(_getRouteParams);
 
-	var _RouteUtils = __webpack_require__(497);
+	var _RouteUtils = __webpack_require__(482);
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
@@ -32302,7 +30946,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 500 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/*eslint no-empty: 0*/
@@ -32313,7 +30957,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
@@ -32365,14 +31009,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 501 */
+/* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _PatternUtils = __webpack_require__(491);
+	var _PatternUtils = __webpack_require__(476);
 
 	/**
 	 * Extracts an object of params the given route cares about from
@@ -32398,7 +31042,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 502 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -32412,7 +31056,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _deprecateObjectProperties = __webpack_require__(500);
+	var _deprecateObjectProperties = __webpack_require__(485);
 
 	var _deprecateObjectProperties2 = _interopRequireDefault(_deprecateObjectProperties);
 
@@ -32437,7 +31081,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 503 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -32450,11 +31094,11 @@
 
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
@@ -32608,7 +31252,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 504 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32619,11 +31263,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Link = __webpack_require__(503);
+	var _Link = __webpack_require__(488);
 
 	var _Link2 = _interopRequireDefault(_Link);
 
@@ -32643,7 +31287,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 505 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -32652,23 +31296,23 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
-	var _invariant = __webpack_require__(470);
+	var _invariant = __webpack_require__(455);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _Redirect = __webpack_require__(506);
+	var _Redirect = __webpack_require__(491);
 
 	var _Redirect2 = _interopRequireDefault(_Redirect);
 
-	var _PropTypes = __webpack_require__(498);
+	var _PropTypes = __webpack_require__(483);
 
 	var _React$PropTypes = _react2['default'].PropTypes;
 	var string = _React$PropTypes.string;
@@ -32713,7 +31357,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 506 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -32722,19 +31366,19 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _invariant = __webpack_require__(470);
+	var _invariant = __webpack_require__(455);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _RouteUtils = __webpack_require__(497);
+	var _RouteUtils = __webpack_require__(482);
 
-	var _PatternUtils = __webpack_require__(491);
+	var _PatternUtils = __webpack_require__(476);
 
-	var _PropTypes = __webpack_require__(498);
+	var _PropTypes = __webpack_require__(483);
 
 	var _React$PropTypes = _react2['default'].PropTypes;
 	var string = _React$PropTypes.string;
@@ -32822,7 +31466,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 507 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -32831,21 +31475,21 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
-	var _invariant = __webpack_require__(470);
+	var _invariant = __webpack_require__(455);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _RouteUtils = __webpack_require__(497);
+	var _RouteUtils = __webpack_require__(482);
 
-	var _PropTypes = __webpack_require__(498);
+	var _PropTypes = __webpack_require__(483);
 
 	var func = _react2['default'].PropTypes.func;
 
@@ -32889,7 +31533,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 508 */
+/* 493 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -32898,17 +31542,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _invariant = __webpack_require__(470);
+	var _invariant = __webpack_require__(455);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _RouteUtils = __webpack_require__(497);
+	var _RouteUtils = __webpack_require__(482);
 
-	var _PropTypes = __webpack_require__(498);
+	var _PropTypes = __webpack_require__(483);
 
 	var _React$PropTypes = _react2['default'].PropTypes;
 	var string = _React$PropTypes.string;
@@ -32951,7 +31595,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 509 */
+/* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -32960,11 +31604,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
-	var _PropTypes = __webpack_require__(498);
+	var _PropTypes = __webpack_require__(483);
 
 	/**
 	 * A mixin that adds the "history" instance variable to components.
@@ -32987,7 +31631,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 510 */
+/* 495 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -32996,15 +31640,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _invariant = __webpack_require__(470);
+	var _invariant = __webpack_require__(455);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -33062,7 +31706,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 511 */
+/* 496 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -33071,11 +31715,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
@@ -33114,7 +31758,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 512 */
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -33127,15 +31771,15 @@
 
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-	var _historyLibUseQueries = __webpack_require__(485);
+	var _historyLibUseQueries = __webpack_require__(470);
 
 	var _historyLibUseQueries2 = _interopRequireDefault(_historyLibUseQueries);
 
-	var _createTransitionManager = __webpack_require__(488);
+	var _createTransitionManager = __webpack_require__(473);
 
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
@@ -33171,7 +31815,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 513 */
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -33180,15 +31824,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _RouterContext = __webpack_require__(499);
+	var _RouterContext = __webpack_require__(484);
 
 	var _RouterContext2 = _interopRequireDefault(_RouterContext);
 
-	var _routerWarning = __webpack_require__(489);
+	var _routerWarning = __webpack_require__(474);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
@@ -33209,7 +31853,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 514 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -33222,21 +31866,21 @@
 
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-	var _invariant = __webpack_require__(470);
+	var _invariant = __webpack_require__(455);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _createMemoryHistory = __webpack_require__(515);
+	var _createMemoryHistory = __webpack_require__(500);
 
 	var _createMemoryHistory2 = _interopRequireDefault(_createMemoryHistory);
 
-	var _createTransitionManager = __webpack_require__(488);
+	var _createTransitionManager = __webpack_require__(473);
 
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 
-	var _RouteUtils = __webpack_require__(497);
+	var _RouteUtils = __webpack_require__(482);
 
-	var _RouterUtils = __webpack_require__(502);
+	var _RouterUtils = __webpack_require__(487);
 
 	/**
 	 * A high-level API to be used for server-side rendering.
@@ -33296,7 +31940,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 515 */
+/* 500 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33306,15 +31950,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _historyLibUseQueries = __webpack_require__(485);
+	var _historyLibUseQueries = __webpack_require__(470);
 
 	var _historyLibUseQueries2 = _interopRequireDefault(_historyLibUseQueries);
 
-	var _historyLibUseBasename = __webpack_require__(516);
+	var _historyLibUseBasename = __webpack_require__(501);
 
 	var _historyLibUseBasename2 = _interopRequireDefault(_historyLibUseBasename);
 
-	var _historyLibCreateMemoryHistory = __webpack_require__(517);
+	var _historyLibCreateMemoryHistory = __webpack_require__(502);
 
 	var _historyLibCreateMemoryHistory2 = _interopRequireDefault(_historyLibCreateMemoryHistory);
 
@@ -33334,7 +31978,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 516 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33345,15 +31989,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _ExecutionEnvironment = __webpack_require__(473);
+	var _ExecutionEnvironment = __webpack_require__(458);
 
-	var _PathUtils = __webpack_require__(472);
+	var _PathUtils = __webpack_require__(457);
 
-	var _runTransitionHook = __webpack_require__(483);
+	var _runTransitionHook = __webpack_require__(468);
 
 	var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 
-	var _deprecate = __webpack_require__(484);
+	var _deprecate = __webpack_require__(469);
 
 	var _deprecate2 = _interopRequireDefault(_deprecate);
 
@@ -33474,7 +32118,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 517 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -33485,19 +32129,19 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _warning = __webpack_require__(469);
+	var _warning = __webpack_require__(454);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _invariant = __webpack_require__(470);
+	var _invariant = __webpack_require__(455);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _PathUtils = __webpack_require__(472);
+	var _PathUtils = __webpack_require__(457);
 
-	var _Actions = __webpack_require__(471);
+	var _Actions = __webpack_require__(456);
 
-	var _createHistory = __webpack_require__(477);
+	var _createHistory = __webpack_require__(462);
 
 	var _createHistory2 = _interopRequireDefault(_createHistory);
 
@@ -33634,7 +32278,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 518 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33644,11 +32288,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _historyLibUseQueries = __webpack_require__(485);
+	var _historyLibUseQueries = __webpack_require__(470);
 
 	var _historyLibUseQueries2 = _interopRequireDefault(_historyLibUseQueries);
 
-	var _historyLibUseBasename = __webpack_require__(516);
+	var _historyLibUseBasename = __webpack_require__(501);
 
 	var _historyLibUseBasename2 = _interopRequireDefault(_historyLibUseBasename);
 
@@ -33663,7 +32307,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 519 */
+/* 504 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33672,11 +32316,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _historyLibCreateBrowserHistory = __webpack_require__(520);
+	var _historyLibCreateBrowserHistory = __webpack_require__(505);
 
 	var _historyLibCreateBrowserHistory2 = _interopRequireDefault(_historyLibCreateBrowserHistory);
 
-	var _createRouterHistory = __webpack_require__(521);
+	var _createRouterHistory = __webpack_require__(506);
 
 	var _createRouterHistory2 = _interopRequireDefault(_createRouterHistory);
 
@@ -33684,7 +32328,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 520 */
+/* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -33695,21 +32339,21 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _invariant = __webpack_require__(470);
+	var _invariant = __webpack_require__(455);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _Actions = __webpack_require__(471);
+	var _Actions = __webpack_require__(456);
 
-	var _PathUtils = __webpack_require__(472);
+	var _PathUtils = __webpack_require__(457);
 
-	var _ExecutionEnvironment = __webpack_require__(473);
+	var _ExecutionEnvironment = __webpack_require__(458);
 
-	var _DOMUtils = __webpack_require__(474);
+	var _DOMUtils = __webpack_require__(459);
 
-	var _DOMStateStorage = __webpack_require__(475);
+	var _DOMStateStorage = __webpack_require__(460);
 
-	var _createDOMHistory = __webpack_require__(476);
+	var _createDOMHistory = __webpack_require__(461);
 
 	var _createDOMHistory2 = _interopRequireDefault(_createDOMHistory);
 
@@ -33866,7 +32510,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 521 */
+/* 506 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33875,7 +32519,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _useRouterHistory = __webpack_require__(518);
+	var _useRouterHistory = __webpack_require__(503);
 
 	var _useRouterHistory2 = _interopRequireDefault(_useRouterHistory);
 
@@ -33890,7 +32534,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 522 */
+/* 507 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33899,11 +32543,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _historyLibCreateHashHistory = __webpack_require__(468);
+	var _historyLibCreateHashHistory = __webpack_require__(453);
 
 	var _historyLibCreateHashHistory2 = _interopRequireDefault(_historyLibCreateHashHistory);
 
-	var _createRouterHistory = __webpack_require__(521);
+	var _createRouterHistory = __webpack_require__(506);
 
 	var _createRouterHistory2 = _interopRequireDefault(_createRouterHistory);
 
@@ -33911,16 +32555,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 523 */
+/* 508 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(524);
+	var content = __webpack_require__(509);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(526)(content, {});
+	var update = __webpack_require__(511)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -33937,21 +32581,21 @@
 	}
 
 /***/ },
-/* 524 */
+/* 509 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(525)();
+	exports = module.exports = __webpack_require__(510)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\nbody {\n  -webkit-font-smoothing: antialiased;\n  font-size: 100%;\n}\n\n.clear-both {\n  clear: both;\n}\n\n.app {\n  height: 100vh;\n  overflow-y: scroll;\n}\n\n.headings {\n  font-family: \"TrasandinaMedium\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n  text-transform: uppercase;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/app.scss","/./project/stylesheets/project/stylesheets/helpers/fonts.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;EACC,oCAAoC;EACpC,gBAAgB;CAChB;;AAED;EACC,YAAY;CACZ;;AAED;EACI,cAAc;EACd,mBAAmB;CACtB;;AAED;ECIgC,qFAlBoC;EDgBnE,0BAA0B;CAC1B","file":"app.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\nbody {\n\t-webkit-font-smoothing: antialiased;\n\tfont-size: 100%;\n}\n\n.clear-both {\n\tclear: both;\n}\n\n.app {\n    height: 100vh;\n    overflow-y: scroll;\n}\n\n.headings {\n\t@include transandina-medium;\n\ttext-transform: uppercase;\n}","$helvetica     : 'Helvetica Neue', Helvetica, Arial, sans-serif !default;\n$georgia       : Georgia, Cambria, 'Times New Roman', Times, serif !default;\n$lucida-grande : 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif !default;\n$monospace     : 'Bitstream Vera Sans Mono', Consolas, Courier, monospace !default;\n$verdana       : Verdana, Geneva, sans-serif !default;\n\n$cantarell-bold     : 'Cantarell-Bold', $lucida-grande;\n$cantarell-boldoblique     : 'Cantarell-BoldOblique', $lucida-grande;\n$cantarell-oblique     : 'Cantarell-Oblique', $lucida-grande;\n$cantarell-regular     : 'Cantarell-Regular', $lucida-grande;\n\n$transandina-medium     : 'TrasandinaMedium', $lucida-grande;\n$transandina-black     : 'TrasandinaBlack', $lucida-grande;\n\n@mixin helvetica     { font-family: $helvetica; }\n@mixin georgia       { font-family: $georgia; }\n@mixin lucida-grande { font-family: $lucida-grande; }\n@mixin monospace     { font-family: $monospace; }\n@mixin verdana       { font-family: $verdana; }\n\n@mixin transandina-medium     { font-family: $transandina-medium; }\n@mixin transandina-black     { font-family: $transandina-black; }\n\n@mixin cantarell { font-family: $cantarell-regular; letter-spacing: -.03125em; }\n@mixin cantarell-bold { @include cantarell; font-family: $cantarell-bold; }\n@mixin cantarell-boldoblique { @include cantarell; font-family: $cantarell-boldoblique; }\n@mixin cantarell-oblique { @include cantarell; font-family: $cantarell-oblique; }"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\nbody {\n  -webkit-font-smoothing: antialiased;\n  font-size: 100%;\n}\n\n.clear-both {\n  clear: both;\n}\n\n.headings {\n  font-family: \"TrasandinaMedium\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n  text-transform: uppercase;\n}\n\n.page {\n  padding: 2.5% 100px;\n}\n\nbutton {\n  font-family: \"TrasandinaMedium\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n  padding: 10px;\n  margin: 10px 10px 10px 0;\n  border-radius: 5px;\n  border: 2px solid #f2f2f2;\n  cursor: pointer;\n  text-transform: uppercase;\n}\n\nbutton:hover, button.active {\n  background: #f2f2f2;\n}\n\ninput[type=text]:focus {\n  outline: none;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/app.scss","/./project/stylesheets/project/stylesheets/helpers/fonts.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;EACC,oCAAoC;EACpC,gBAAgB;CAChB;;AAED;EACC,YAAY;CACZ;;AAKD;ECMgC,qFAlBoC;EDcnE,0BAA0B;CAC1B;;AAED;EACC,oBAAoB;CACpB;;AAED;EACC,qFAAqF;EAClF,cAAc;EACd,yBAAyB;EACzB,mBAAmB;EACnB,0BEMmB;EFLnB,gBAAgB;EAChB,0BAA0B;CAK7B;;AAZD;EAUK,oBECkB;CFAlB;;AAGL;EAEE,cAAc;CACd","file":"app.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\nbody {\n\t-webkit-font-smoothing: antialiased;\n\tfont-size: 100%;\n}\n\n.clear-both {\n\tclear: both;\n}\n\n.app {\n}\n\n.headings {\n\t@include transandina-medium;\n\ttext-transform: uppercase;\n}\n\n.page {\n\tpadding: 2.5% 100px;\n}\n\nbutton {\n\tfont-family: \"TrasandinaMedium\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n    padding: 10px;\n    margin: 10px 10px 10px 0;\n    border-radius: 5px;\n    border: 2px solid $lightest-grey;\n    cursor: pointer;\n    text-transform: uppercase;\n    &:hover,\n    &.active {\n    \tbackground: $lightest-grey;\n    }\n}\n\ninput[type=text] {\n\t&:focus {\n\t\toutline: none;\n\t}\n}","$helvetica     : 'Helvetica Neue', Helvetica, Arial, sans-serif !default;\n$georgia       : Georgia, Cambria, 'Times New Roman', Times, serif !default;\n$lucida-grande : 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif !default;\n$monospace     : 'Bitstream Vera Sans Mono', Consolas, Courier, monospace !default;\n$verdana       : Verdana, Geneva, sans-serif !default;\n\n$cantarell-bold     : 'Cantarell-Bold', $lucida-grande;\n$cantarell-boldoblique     : 'Cantarell-BoldOblique', $lucida-grande;\n$cantarell-oblique     : 'Cantarell-Oblique', $lucida-grande;\n$cantarell-regular     : 'Cantarell-Regular', $lucida-grande;\n\n$transandina-medium     : 'TrasandinaMedium', $lucida-grande;\n$transandina-black     : 'TrasandinaBlack', $lucida-grande;\n\n@mixin helvetica     { font-family: $helvetica; }\n@mixin georgia       { font-family: $georgia; }\n@mixin lucida-grande { font-family: $lucida-grande; }\n@mixin monospace     { font-family: $monospace; }\n@mixin verdana       { font-family: $verdana; }\n\n@mixin transandina-medium     { font-family: $transandina-medium; }\n@mixin transandina-black     { font-family: $transandina-black; }\n\n@mixin cantarell { font-family: $cantarell-regular; letter-spacing: -.03125em; }\n@mixin cantarell-bold { @include cantarell; font-family: $cantarell-bold; }\n@mixin cantarell-boldoblique { @include cantarell; font-family: $cantarell-boldoblique; }\n@mixin cantarell-oblique { @include cantarell; font-family: $cantarell-oblique; }","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n\n$batterEditHover: #CBDEEA;\n\n$pitcher : #E2D7E2;\n$pitcherDark : #5D545D;\n$pitcherAlt : #D2C7D2;\n$pitcherHighlight: #FFF6FF;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n\n$lightest-grey: #f2f2f2;\n$light-grey: #cecece;\n$medium-grey: #b7b7b7;\n$dark-grey: #4d4d4d;\n\n$headings: #d7dfeb;\n$headings-border: #bdc2c9;\n\n$batter-row : #e5e9ef;\n$batter-row-alt : #d7dfeb;\n$batter-dark : #8e9194;\n$batter-highlight: #F3F6F9;\n$batter-row-muted: rgba(101, 113, 121, 0.6);\n\n$sub-heading: #878787;\n$heading: $dark-grey;\n$price: #98a1ad;"],"sourceRoot":"webpack://"}]);
 
 	// exports
 
 
 /***/ },
-/* 525 */
+/* 510 */
 /***/ function(module, exports) {
 
 	/*
@@ -34007,7 +32651,7 @@
 
 
 /***/ },
-/* 526 */
+/* 511 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -34259,7 +32903,7 @@
 
 
 /***/ },
-/* 527 */
+/* 512 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34278,39 +32922,39 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _reactRedux = __webpack_require__(528);
+	var _reactRedux = __webpack_require__(513);
 
-	var _redux = __webpack_require__(535);
+	var _redux = __webpack_require__(520);
 
-	var _ValueList = __webpack_require__(552);
+	var _ValueList = __webpack_require__(537);
 
 	var _ValueList2 = _interopRequireDefault(_ValueList);
 
-	var _ActivePlayer = __webpack_require__(565);
+	var _ActivePlayer = __webpack_require__(550);
 
 	var _ActivePlayer2 = _interopRequireDefault(_ActivePlayer);
 
-	var _PlayerListsContainer = __webpack_require__(566);
+	var _PlayerListsContainer = __webpack_require__(555);
 
 	var _PlayerListsContainer2 = _interopRequireDefault(_PlayerListsContainer);
 
-	var _FavoritePlayerListsContainer = __webpack_require__(584);
+	var _FavoritePlayerListsContainer = __webpack_require__(573);
 
 	var _FavoritePlayerListsContainer2 = _interopRequireDefault(_FavoritePlayerListsContainer);
 
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	__webpack_require__(523);
+	__webpack_require__(508);
 
-	__webpack_require__(588);
+	__webpack_require__(577);
 
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : { default: obj };
@@ -34347,7 +32991,7 @@
 			key: 'render',
 			value: function render() {
 				console.log('rendering');
-				return _react2.default.createElement('div', { className: 'players-route' }, _react2.default.createElement(_FavoritePlayerListsContainer2.default, null), _react2.default.createElement('div', { className: 'combined-rankings' }, _react2.default.createElement(_ActivePlayer2.default, null), _react2.default.createElement(_PlayerListsContainer2.default, null), _react2.default.createElement('div', { className: 'clear-both' })), _react2.default.createElement('div', { className: 'clear-both' }));
+				return _react2.default.createElement('div', { className: 'players-route page' }, _react2.default.createElement('div', { className: 'combined-rankings' }, _react2.default.createElement(_PlayerListsContainer2.default, null), _react2.default.createElement('div', { className: 'clear-both' })), _react2.default.createElement('div', { className: 'clear-both' }));
 			}
 		}]);
 
@@ -34357,7 +33001,7 @@
 	exports.default = Players;
 
 /***/ },
-/* 528 */
+/* 513 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34365,11 +33009,11 @@
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 
-	var _Provider = __webpack_require__(529);
+	var _Provider = __webpack_require__(514);
 
 	var _Provider2 = _interopRequireDefault(_Provider);
 
-	var _connect = __webpack_require__(532);
+	var _connect = __webpack_require__(517);
 
 	var _connect2 = _interopRequireDefault(_connect);
 
@@ -34379,7 +33023,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 529 */
+/* 514 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -34387,13 +33031,13 @@
 	exports.__esModule = true;
 	exports["default"] = undefined;
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
-	var _storeShape = __webpack_require__(530);
+	var _storeShape = __webpack_require__(515);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _warning = __webpack_require__(531);
+	var _warning = __webpack_require__(516);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -34467,14 +33111,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 530 */
+/* 515 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	exports["default"] = _react.PropTypes.shape({
 	  subscribe: _react.PropTypes.func.isRequired,
@@ -34483,7 +33127,7 @@
 	});
 
 /***/ },
-/* 531 */
+/* 516 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -34512,7 +33156,7 @@
 	}
 
 /***/ },
-/* 532 */
+/* 517 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -34522,33 +33166,33 @@
 	exports.__esModule = true;
 	exports["default"] = connect;
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
-	var _storeShape = __webpack_require__(530);
+	var _storeShape = __webpack_require__(515);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(533);
+	var _shallowEqual = __webpack_require__(518);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(534);
+	var _wrapActionCreators = __webpack_require__(519);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(531);
+	var _warning = __webpack_require__(516);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _isPlainObject = __webpack_require__(546);
+	var _isPlainObject = __webpack_require__(531);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(550);
+	var _hoistNonReactStatics = __webpack_require__(535);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(551);
+	var _invariant = __webpack_require__(536);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -34890,7 +33534,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 533 */
+/* 518 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -34921,7 +33565,7 @@
 	}
 
 /***/ },
-/* 534 */
+/* 519 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34929,7 +33573,7 @@
 	exports.__esModule = true;
 	exports["default"] = wrapActionCreators;
 
-	var _redux = __webpack_require__(535);
+	var _redux = __webpack_require__(520);
 
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -34938,7 +33582,7 @@
 	}
 
 /***/ },
-/* 535 */
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -34946,27 +33590,27 @@
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 
-	var _createStore = __webpack_require__(536);
+	var _createStore = __webpack_require__(521);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(541);
+	var _combineReducers = __webpack_require__(526);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(543);
+	var _bindActionCreators = __webpack_require__(528);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(544);
+	var _applyMiddleware = __webpack_require__(529);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
-	var _compose = __webpack_require__(545);
+	var _compose = __webpack_require__(530);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
-	var _warning = __webpack_require__(542);
+	var _warning = __webpack_require__(527);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -34990,7 +33634,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 536 */
+/* 521 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34999,7 +33643,7 @@
 	exports.ActionTypes = undefined;
 	exports["default"] = createStore;
 
-	var _isPlainObject = __webpack_require__(537);
+	var _isPlainObject = __webpack_require__(522);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
@@ -35211,12 +33855,12 @@
 	}
 
 /***/ },
-/* 537 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getPrototype = __webpack_require__(538),
-	    isHostObject = __webpack_require__(539),
-	    isObjectLike = __webpack_require__(540);
+	var getPrototype = __webpack_require__(523),
+	    isHostObject = __webpack_require__(524),
+	    isObjectLike = __webpack_require__(525);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -35287,7 +33931,7 @@
 
 
 /***/ },
-/* 538 */
+/* 523 */
 /***/ function(module, exports) {
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
@@ -35308,7 +33952,7 @@
 
 
 /***/ },
-/* 539 */
+/* 524 */
 /***/ function(module, exports) {
 
 	/**
@@ -35334,7 +33978,7 @@
 
 
 /***/ },
-/* 540 */
+/* 525 */
 /***/ function(module, exports) {
 
 	/**
@@ -35369,7 +34013,7 @@
 
 
 /***/ },
-/* 541 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -35377,13 +34021,13 @@
 	exports.__esModule = true;
 	exports["default"] = combineReducers;
 
-	var _createStore = __webpack_require__(536);
+	var _createStore = __webpack_require__(521);
 
-	var _isPlainObject = __webpack_require__(537);
+	var _isPlainObject = __webpack_require__(522);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _warning = __webpack_require__(542);
+	var _warning = __webpack_require__(527);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -35502,7 +34146,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 542 */
+/* 527 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -35531,7 +34175,7 @@
 	}
 
 /***/ },
-/* 543 */
+/* 528 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -35587,7 +34231,7 @@
 	}
 
 /***/ },
-/* 544 */
+/* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35598,7 +34242,7 @@
 
 	exports["default"] = applyMiddleware;
 
-	var _compose = __webpack_require__(545);
+	var _compose = __webpack_require__(530);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -35650,7 +34294,7 @@
 	}
 
 /***/ },
-/* 545 */
+/* 530 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -35688,12 +34332,12 @@
 	}
 
 /***/ },
-/* 546 */
+/* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getPrototype = __webpack_require__(547),
-	    isHostObject = __webpack_require__(548),
-	    isObjectLike = __webpack_require__(549);
+	var getPrototype = __webpack_require__(532),
+	    isHostObject = __webpack_require__(533),
+	    isObjectLike = __webpack_require__(534);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -35764,7 +34408,7 @@
 
 
 /***/ },
-/* 547 */
+/* 532 */
 /***/ function(module, exports) {
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
@@ -35785,7 +34429,7 @@
 
 
 /***/ },
-/* 548 */
+/* 533 */
 /***/ function(module, exports) {
 
 	/**
@@ -35811,7 +34455,7 @@
 
 
 /***/ },
-/* 549 */
+/* 534 */
 /***/ function(module, exports) {
 
 	/**
@@ -35846,7 +34490,7 @@
 
 
 /***/ },
-/* 550 */
+/* 535 */
 /***/ function(module, exports) {
 
 	/**
@@ -35892,7 +34536,7 @@
 
 
 /***/ },
-/* 551 */
+/* 536 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -35950,7 +34594,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)))
 
 /***/ },
-/* 552 */
+/* 537 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35969,21 +34613,21 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _PlayerList = __webpack_require__(554);
+	var _PlayerList = __webpack_require__(539);
 
 	var _PlayerList2 = _interopRequireDefault(_PlayerList);
 
-	__webpack_require__(562);
+	__webpack_require__(547);
 
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : { default: obj };
@@ -36059,7 +34703,7 @@
 	exports.default = ValueList;
 
 /***/ },
-/* 553 */
+/* 538 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -36113,7 +34757,7 @@
 
 
 /***/ },
-/* 554 */
+/* 539 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36132,23 +34776,23 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Player = __webpack_require__(555);
+	var _Player = __webpack_require__(540);
 
 	var _Player2 = _interopRequireDefault(_Player);
 
-	var _sortUtils = __webpack_require__(561);
+	var _sortUtils = __webpack_require__(546);
 
-	__webpack_require__(562);
+	__webpack_require__(547);
 
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : { default: obj };
@@ -36186,7 +34830,7 @@
 
 			_this.state = {
 				toggleSortDirection: true,
-				currentSortOption: 'value',
+				currentSortOption: 'adjustedValue',
 				sortedPlayers: null
 			};
 			return _this;
@@ -36213,7 +34857,7 @@
 			value: function sortList(e) {
 				var param = e.target.getAttribute('data-name');
 				if (param === 'name' || param === 'cost' || param === 'pos') {
-					param = [{ param: param }, { param: 'inflatedValue', direction: -1 }];
+					param = [{ param: param }, { param: 'adjustedValue', direction: -1 }];
 				}
 
 				if (param === 'isFavorited') {
@@ -36241,19 +34885,19 @@
 			key: 'getCategories',
 			value: function getCategories() {
 				var categories = [];
-				/*
-	   categories.push(
-	   	<td onClick={this.sortList.bind(this)} data-name='PA' key='PA' className='player-info stat'>{'PA'}</td>
-	   )
-	   categories.push(
-	   	<td onClick={this.sortList.bind(this)} data-name='AB' key='AB' className='player-info stat'>{'AB'}</td>
-	   )*/
-				for (var key in this.props.categories) {
-					if (this.props.categories.hasOwnProperty(key)) {
-						var category = this.props.categories[key];
-						categories.push(_react2.default.createElement('td', { onClick: this.sortList.bind(this), 'data-name': category.abbreviation, key: key, className: 'player-info stat' }, category.abbreviation));
-					}
+
+				if (this.props.hideCategories || !this.props.categories) {
+					return;
 				}
+
+				if (this.props.categories.length > 0) {
+					for (var key in this.props.categories) {
+						if (this.props.categories.hasOwnProperty(key)) {
+							var category = this.props.categories[key];
+							categories.push(_react2.default.createElement('td', { onClick: this.sortList.bind(this), 'data-name': category.abbreviation, key: key, className: 'player-info stat' }, category.abbreviation));
+						}
+					}
+				} else {}
 
 				return categories;
 			}
@@ -36269,12 +34913,25 @@
 
 				var props = this.props;
 
-				return playerList.map(function (player, index) {
+				var rankedPlayers = (0, _sortUtils.sortBy)(playerList, 'adjustedValue', 'desc');
+
+				rankedPlayers.map(function (player, index) {
+					player.rank = index + 1;
+					return player;
+				});
+
+				rankedPlayers = (0, _sortUtils.sortBy)(rankedPlayers, this.state.currentSortOption, this.state.toggleSortDirection);
+
+				return rankedPlayers.map(function (player, index) {
 					return _react2.default.createElement(_Player2.default, {
 						key: index,
+						rank: player.rank,
 						player: player,
 						categories: props.categories,
 						playerSelected: props.playerSelected,
+						hideMetaInfo: props.hideMetaInfo,
+						hidePlayerInfo: props.hidePlayerInfo,
+						hideCostInput: props.hideCostInput,
 						hideValueInfo: props.hideValueInfo,
 						updateStat: props.updateStat,
 						updateCost: props.updateCost,
@@ -36282,12 +34939,36 @@
 				});
 			}
 		}, {
+			key: 'getMetaInfo',
+			value: function getMetaInfo() {
+				if (this.props.hideMetaInfo) {
+					return;
+				}
+				var smallCell = {
+					'width': '5%'
+				};
+
+				return [_react2.default.createElement('td', { className: 'player-info', key: 'rank', style: smallCell, onClick: this.sortList.bind(this), 'data-name': 'rank' }, '#'), _react2.default.createElement('td', { className: 'player-info favorite-toggle', key: 'favorite', style: smallCell }, '*')];
+			}
+		}, {
+			key: 'getPlayerInfo',
+			value: function getPlayerInfo() {
+				if (this.props.hidePlayerInfo) {
+					return;
+				}
+
+				return [_react2.default.createElement('td', { key: 'player-pos', className: 'player-info pos', onClick: this.sortList.bind(this), 'data-name': 'pos' }, 'Pos'), _react2.default.createElement('td', { key: 'player-name', className: 'player-info name', onClick: this.sortList.bind(this), 'data-name': 'name' }, 'Name')];
+			}
+		}, {
 			key: 'getValueInfo',
 			value: function getValueInfo() {
 				var els = [];
+				if (!this.props.hideCostInput) {
+					els.push(_react2.default.createElement('td', { className: 'player-info value-info', key: 'player-cost', onClick: this.sortList.bind(this), 'data-name': 'cost' }, 'Cost'));
+				}
 				if (!this.props.hideValueInfo) {
+					els.push(_react2.default.createElement('td', { className: 'player-info value-info', key: 'player-adjusted-value', onClick: this.sortList.bind(this), 'data-name': 'adjustedValue' }, 'Bid'));
 					els.push(_react2.default.createElement('td', { className: 'player-info value', key: 'player-value', onClick: this.sortList.bind(this), 'data-name': 'value' }, 'Val'));
-					els.push(_react2.default.createElement('td', { className: 'player-info value', key: 'player-inflated-value', onClick: this.sortList.bind(this), 'data-name': 'inflatedValue' }, 'Inf Val'));
 				}
 				return els;
 			}
@@ -36295,10 +34976,7 @@
 			key: 'render',
 			value: function render() {
 				var listClass = (0, _classnames2.default)('player-list', this.props.type);
-				var smallCell = {
-					'width': '5%'
-				};
-				return _react2.default.createElement('div', { className: 'player-list-container' }, _react2.default.createElement('table', { className: listClass }, _react2.default.createElement('tbody', null, _react2.default.createElement('tr', { className: 'headings' }, _react2.default.createElement('td', { className: 'player-info', style: smallCell, onClick: this.sortList.bind(this), 'data-name': 'rank' }, '#'), _react2.default.createElement('td', { className: 'player-info favorite-toggle', style: smallCell }, '*'), _react2.default.createElement('td', { className: 'player-info', onClick: this.sortList.bind(this), 'data-name': 'pos' }, 'Pos'), _react2.default.createElement('td', { className: 'player-info name', onClick: this.sortList.bind(this), 'data-name': 'name' }, 'Name'), _react2.default.createElement('td', { className: 'player-info value-info', onClick: this.sortList.bind(this), 'data-name': 'inflatedValue' }, 'Bid'), _react2.default.createElement('td', { className: 'player-info value-info', onClick: this.sortList.bind(this), 'data-name': 'cost' }, 'Cost'), this.getValueInfo(), this.getCategories()), this.getPlayers())));
+				return _react2.default.createElement('div', { className: 'player-list-container' }, _react2.default.createElement('table', { className: listClass }, _react2.default.createElement('tbody', null, _react2.default.createElement('tr', { className: 'headings' }, this.getMetaInfo(), this.getPlayerInfo(), this.getValueInfo(), this.getCategories()), this.getPlayers())));
 			}
 		}]);
 
@@ -36308,7 +34986,7 @@
 	exports.default = PlayerList;
 
 /***/ },
-/* 555 */
+/* 540 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36327,19 +35005,19 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	__webpack_require__(556);
+	__webpack_require__(541);
 
-	var _ValueInput = __webpack_require__(558);
+	var _ValueInput = __webpack_require__(543);
 
 	var _ValueInput2 = _interopRequireDefault(_ValueInput);
 
@@ -36533,7 +35211,7 @@
 			value: function getMetaInfo() {
 				var els = [];
 				if (!this.props.hideMetaInfo) {
-					els.push(_react2.default.createElement('td', { key: this.props.player.rank }, this.props.player.rank));
+					els.push(_react2.default.createElement('td', { key: this.props.player.rank }, this.props.rank));
 					els.push(_react2.default.createElement('td', { key: this.props.player.rank + 'favorite-toggle', className: 'favorite-toggle' }, this.getCheckbox()));
 				}
 				return els;
@@ -36546,9 +35224,30 @@
 				}
 			}
 		}, {
+			key: 'getPlayerInfo',
+			value: function getPlayerInfo() {
+				if (this.props.hidePlayerInfo) {
+					return;
+				}
+
+				var positionClasses = (0, _classnames2.default)('position', this.getPosition());
+
+				return [_react2.default.createElement('td', { key: 'player-pos', className: positionClasses }, this.props.player.pos), _react2.default.createElement('td', { key: 'player-name', onClick: this.selectPlayer.bind(this), className: positionClasses }, this.props.player.name)];
+			}
+		}, {
 			key: 'getValueInfo',
 			value: function getValueInfo() {
 				var els = [];
+
+				if (this.props.player.cost && !this.props.hideCostInput && !this.props.hideValueInfo) {
+					var cellWidth = 3;
+					if (this.props.hideCostInput) {
+						cellWidth = 2;
+					} else if (this.props.hideValueInfo) {
+						cellWidth = 1;
+					}
+					return _react2.default.createElement('td', { key: 'display-value-td', colSpan: cellWidth }, _react2.default.createElement('span', { className: 'player-cost' }, 'Drafted: ', _react2.default.createElement('span', { className: 'dollar-amount' }, this.props.player.cost)));
+				}
 
 				var costInputClasses = (0, _classnames2.default)('can-edit', 'position', this.getPosition());
 				if (!this.props.hideCostInput) {
@@ -36561,9 +35260,10 @@
 				}
 
 				if (!this.props.hideValueInfo) {
-					els.push(_react2.default.createElement('td', { key: 'display-valuet-td', className: 'dark' }, _react2.default.createElement('span', { className: 'dollar-amount' }, this.props.player.displayValue)));
-					els.push(_react2.default.createElement('td', { key: 'inflated-display-value-td', className: 'dark' }, _react2.default.createElement('span', { className: 'dollar-amount' }, this.props.player.displayInflatedValue)));
+					els.push(_react2.default.createElement('td', { key: 'inflated-display-value-td' }, _react2.default.createElement('span', { className: 'dollar-amount' }, this.props.player.displayInflatedValue)));
+					els.push(_react2.default.createElement('td', { key: 'display-value-td' }, _react2.default.createElement('span', { className: 'dollar-amount' }, this.props.player.displayValue)));
 				}
+
 				return els;
 			}
 		}, {
@@ -36599,10 +35299,9 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var playerClasses = (0, _classnames2.default)('player', { 'selected': this.props.player.isSelected }, { 'is-editing': this.state.isEditing });
-				var positionClasses = (0, _classnames2.default)('position', this.getPosition());
+				var playerClasses = (0, _classnames2.default)('player', this.props.player.type, { 'selected': this.props.player.isSelected }, { 'is-editing': this.state.isEditing });
 
-				return _react2.default.createElement('tr', { onMouseOver: this.handleMouseOver.bind(this), onMouseOut: this.handleMouseOut.bind(this), className: playerClasses }, this.getMetaInfo(), _react2.default.createElement('td', { className: positionClasses }, this.props.player.pos), _react2.default.createElement('td', { onClick: this.selectPlayer.bind(this), className: positionClasses }, this.props.player.name), _react2.default.createElement('td', { className: positionClasses }, _react2.default.createElement('span', { className: 'dollar-amount' }, this.props.player.bidPrice)), this.getValueInfo(), this.getStats());
+				return _react2.default.createElement('tr', { onMouseOver: this.handleMouseOver.bind(this), onMouseOut: this.handleMouseOut.bind(this), className: playerClasses }, this.getMetaInfo(), this.getPlayerInfo(), this.getValueInfo(), this.getStats());
 			}
 		}]);
 
@@ -36614,16 +35313,16 @@
 	exports.default = Player;
 
 /***/ },
-/* 556 */
+/* 541 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(557);
+	var content = __webpack_require__(542);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(526)(content, {});
+	var update = __webpack_require__(511)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -36640,21 +35339,21 @@
 	}
 
 /***/ },
-/* 557 */
+/* 542 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(525)();
+	exports = module.exports = __webpack_require__(510)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.player {\n  font-family: \"Cantarell-Regular\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n  letter-spacing: -.03125em;\n  position: relative;\n}\n\n.player .slot-price:before,\n.player .slot-budget:before {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.player .slot-price:before:after,\n.player .slot-budget:before:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.cost-selected .player .slot-price, .cost-selected\n.player .slot-budget {\n  color: #576B77;\n}\n\n.player input {\n  width: 100%;\n  height: 100%;\n  background: none;\n}\n\n.player ::-webkit-input-placeholder {\n  vertical-align: middle;\n  font-size: 14px;\n}\n\n.batters .player ::-webkit-input-placeholder {\n  color: #576B77;\n}\n\n.pitchers .player ::-webkit-input-placeholder {\n  color: #5D545D;\n}\n\n.player .edit-player {\n  cursor: pointer;\n}\n\n.player .edit-player:hover {\n  background: red;\n}\n\n.player input[type=\"checkbox\"] {\n  background-color: #92BDD6;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/player.scss","/./project/stylesheets/project/stylesheets/helpers/fonts.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;ECqBmB,sFArBiD;EAqBhB,0BAA0B;EDnB7E,mBAAmB;CAgDnB;;AAlDD;;ED0RI,mBAAmB;EACnB,mBAAmB;CCnRpB;;AARH;;ED6RQ,aCtRoB;EDuRpB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;ACvRH;;EACC,eELkB;CFMlB;;AAZH;EAgBE,YAAY;EACZ,aAAa;EACb,iBAAiB;CACjB;;AAnBF;EAsBE,uBAAuB;EACvB,gBAAgB;CAChB;;AAED;EAEE,eEtBkB;CFuBlB;;AAIF;EAEE,eEtBmB;CFuBnB;;AApCH;EA0CE,gBAAgB;CAIhB;;AA9CF;EA4CG,gBAAgB;CAChB;;AA7CH;EAgDE,0BE3Ce;CF4Cf","file":"player.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.player {\n\t@include cantarell;\n\tposition: relative;\n\n\t.slot-price,\n\t.slot-budget, {\n\t\t&:before {\n\t\t\t@include super-script('$');\n\t\t}\n\n\t\t.cost-selected & {\n\t\t\tcolor: $batterDark;\n\t\t}\n\t}\n\n\tinput {\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tbackground: none;\n\t}\n\n\t::-webkit-input-placeholder {\n\t\tvertical-align: middle;\n\t\tfont-size: 14px;\n\t}\n\n\t.batters & {\n\t\t::-webkit-input-placeholder {\n\t\t\tcolor: $batterDark;\n\t\t}\n\n\n\t}\n\t.pitchers & {\n\t\t::-webkit-input-placeholder {\n\t\t\tcolor: $pitcherDark;\n\t\t}\n\n\n\t}\n\n\t.edit-player {\n\t\tcursor: pointer;\n\t\t&:hover {\n\t\t\tbackground: red;\n\t\t}\n\t}\n\tinput[type=\"checkbox\"] {\n\t\tbackground-color: $batter;\n\t}\n}\n","$helvetica     : 'Helvetica Neue', Helvetica, Arial, sans-serif !default;\n$georgia       : Georgia, Cambria, 'Times New Roman', Times, serif !default;\n$lucida-grande : 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif !default;\n$monospace     : 'Bitstream Vera Sans Mono', Consolas, Courier, monospace !default;\n$verdana       : Verdana, Geneva, sans-serif !default;\n\n$cantarell-bold     : 'Cantarell-Bold', $lucida-grande;\n$cantarell-boldoblique     : 'Cantarell-BoldOblique', $lucida-grande;\n$cantarell-oblique     : 'Cantarell-Oblique', $lucida-grande;\n$cantarell-regular     : 'Cantarell-Regular', $lucida-grande;\n\n$transandina-medium     : 'TrasandinaMedium', $lucida-grande;\n$transandina-black     : 'TrasandinaBlack', $lucida-grande;\n\n@mixin helvetica     { font-family: $helvetica; }\n@mixin georgia       { font-family: $georgia; }\n@mixin lucida-grande { font-family: $lucida-grande; }\n@mixin monospace     { font-family: $monospace; }\n@mixin verdana       { font-family: $verdana; }\n\n@mixin transandina-medium     { font-family: $transandina-medium; }\n@mixin transandina-black     { font-family: $transandina-black; }\n\n@mixin cantarell { font-family: $cantarell-regular; letter-spacing: -.03125em; }\n@mixin cantarell-bold { @include cantarell; font-family: $cantarell-bold; }\n@mixin cantarell-boldoblique { @include cantarell; font-family: $cantarell-boldoblique; }\n@mixin cantarell-oblique { @include cantarell; font-family: $cantarell-oblique; }","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n$batter : #92BDD6;\n$batterDark : #576B77;\n$batterAlt : #81AECA;\n$batterHighlight: #B6D1E2;\n$batterMuted: rgba(101, 113, 121, 0.6);\n$batterEditHover: #CBDEEA;\n\n$pitcher : #AF93AF;\n$pitcherDark : #5D545D;\n$pitcherAlt : #9E899E;\n$pitcherHighlight: #C7B2C7;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.player {\n  font-family: \"Cantarell-Regular\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n  letter-spacing: -.03125em;\n  position: relative;\n}\n\n.player .slot-price:before,\n.player .slot-budget:before {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.player .slot-price:before:after,\n.player .slot-budget:before:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.cost-selected .player .slot-price, .cost-selected\n.player .slot-budget {\n  color: #8e9194;\n}\n\n.player input {\n  width: 100%;\n  height: 100%;\n  background: none;\n}\n\n.player ::-webkit-input-placeholder {\n  vertical-align: middle;\n  font-size: 14px;\n}\n\n.batters .player ::-webkit-input-placeholder {\n  color: #8e9194;\n}\n\n.pitchers .player ::-webkit-input-placeholder {\n  color: #5D545D;\n}\n\n.player .edit-player {\n  cursor: pointer;\n}\n\n.player .edit-player:hover {\n  background: red;\n}\n\n.player input[type=\"checkbox\"] {\n  background-color: #e5e9ef;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/player.scss","/./project/stylesheets/project/stylesheets/helpers/fonts.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;ECqBmB,sFArBiD;EAqBhB,0BAA0B;EDnB7E,mBAAmB;CAgDnB;;AAlDD;;ED0RI,mBAAmB;EACnB,mBAAmB;CCnRpB;;AARH;;ED6RQ,aCtRoB;EDuRpB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;ACvRH;;EACC,eE+BmB;CF9BnB;;AAZH;EAgBE,YAAY;EACZ,aAAa;EACb,iBAAiB;CACjB;;AAnBF;EAsBE,uBAAuB;EACvB,gBAAgB;CAChB;;AAED;EAEE,eEcmB;CFbnB;;AAIF;EAEE,eE1BmB;CF2BnB;;AApCH;EA0CE,gBAAgB;CAIhB;;AA9CF;EA4CG,gBAAgB;CAChB;;AA7CH;EAgDE,0BERmB;CFSnB","file":"player.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.player {\n\t@include cantarell;\n\tposition: relative;\n\n\t.slot-price,\n\t.slot-budget, {\n\t\t&:before {\n\t\t\t@include super-script('$');\n\t\t}\n\n\t\t.cost-selected & {\n\t\t\tcolor: $batter-dark;\n\t\t}\n\t}\n\n\tinput {\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tbackground: none;\n\t}\n\n\t::-webkit-input-placeholder {\n\t\tvertical-align: middle;\n\t\tfont-size: 14px;\n\t}\n\n\t.batters & {\n\t\t::-webkit-input-placeholder {\n\t\t\tcolor: $batter-dark;\n\t\t}\n\n\n\t}\n\t.pitchers & {\n\t\t::-webkit-input-placeholder {\n\t\t\tcolor: $pitcherDark;\n\t\t}\n\n\n\t}\n\n\t.edit-player {\n\t\tcursor: pointer;\n\t\t&:hover {\n\t\t\tbackground: red;\n\t\t}\n\t}\n\tinput[type=\"checkbox\"] {\n\t\tbackground-color: $batter-row;\n\t}\n}\n","$helvetica     : 'Helvetica Neue', Helvetica, Arial, sans-serif !default;\n$georgia       : Georgia, Cambria, 'Times New Roman', Times, serif !default;\n$lucida-grande : 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif !default;\n$monospace     : 'Bitstream Vera Sans Mono', Consolas, Courier, monospace !default;\n$verdana       : Verdana, Geneva, sans-serif !default;\n\n$cantarell-bold     : 'Cantarell-Bold', $lucida-grande;\n$cantarell-boldoblique     : 'Cantarell-BoldOblique', $lucida-grande;\n$cantarell-oblique     : 'Cantarell-Oblique', $lucida-grande;\n$cantarell-regular     : 'Cantarell-Regular', $lucida-grande;\n\n$transandina-medium     : 'TrasandinaMedium', $lucida-grande;\n$transandina-black     : 'TrasandinaBlack', $lucida-grande;\n\n@mixin helvetica     { font-family: $helvetica; }\n@mixin georgia       { font-family: $georgia; }\n@mixin lucida-grande { font-family: $lucida-grande; }\n@mixin monospace     { font-family: $monospace; }\n@mixin verdana       { font-family: $verdana; }\n\n@mixin transandina-medium     { font-family: $transandina-medium; }\n@mixin transandina-black     { font-family: $transandina-black; }\n\n@mixin cantarell { font-family: $cantarell-regular; letter-spacing: -.03125em; }\n@mixin cantarell-bold { @include cantarell; font-family: $cantarell-bold; }\n@mixin cantarell-boldoblique { @include cantarell; font-family: $cantarell-boldoblique; }\n@mixin cantarell-oblique { @include cantarell; font-family: $cantarell-oblique; }","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n\n$batterEditHover: #CBDEEA;\n\n$pitcher : #E2D7E2;\n$pitcherDark : #5D545D;\n$pitcherAlt : #D2C7D2;\n$pitcherHighlight: #FFF6FF;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n\n$lightest-grey: #f2f2f2;\n$light-grey: #cecece;\n$medium-grey: #b7b7b7;\n$dark-grey: #4d4d4d;\n\n$headings: #d7dfeb;\n$headings-border: #bdc2c9;\n\n$batter-row : #e5e9ef;\n$batter-row-alt : #d7dfeb;\n$batter-dark : #8e9194;\n$batter-highlight: #F3F6F9;\n$batter-row-muted: rgba(101, 113, 121, 0.6);\n\n$sub-heading: #878787;\n$heading: $dark-grey;\n$price: #98a1ad;"],"sourceRoot":"webpack://"}]);
 
 	// exports
 
 
 /***/ },
-/* 558 */
+/* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36673,17 +35372,17 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	__webpack_require__(559);
+	__webpack_require__(544);
 
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : { default: obj };
@@ -36887,16 +35586,16 @@
 	exports.default = ValueInput;
 
 /***/ },
-/* 559 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(560);
+	var content = __webpack_require__(545);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(526)(content, {});
+	var update = __webpack_require__(511)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -36913,10 +35612,10 @@
 	}
 
 /***/ },
-/* 560 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(525)();
+	exports = module.exports = __webpack_require__(510)();
 	// imports
 
 
@@ -36927,7 +35626,7 @@
 
 
 /***/ },
-/* 561 */
+/* 546 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -36998,16 +35697,16 @@
 	exports.sortBy = sortBy;
 
 /***/ },
-/* 562 */
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(563);
+	var content = __webpack_require__(548);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(526)(content, {});
+	var update = __webpack_require__(511)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -37024,27 +35723,27 @@
 	}
 
 /***/ },
-/* 563 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(525)();
+	exports = module.exports = __webpack_require__(510)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.player-list-container {\n  position: relative;\n}\n\n.combined-rankings .player-list-container {\n  width: 50%;\n  float: left;\n  /*padding: 3%;*/\n  padding-right: 0;\n}\n\n.combined-rankings .player-list-container:not(:first-child) {\n  padding-left: 0;\n  /*padding-right: 3%;*/\n}\n\n.combined-rankings .player-list-container .player-rankings {\n  width: 100%;\n}\n\n.player-list,\n.favorited-player-list {\n  width: 100%;\n  height: auto;\n  min-height: 30px;\n  margin-bottom: 10px;\n  table-layout: fixed;\n  font-size: 12px;\n}\n\n.player-list .position,\n.favorited-player-list .position {\n  cursor: pointer;\n}\n\n.player-list tr,\n.favorited-player-list tr {\n  text-align: center;\n  padding: 10px;\n}\n\n.player-list tr:not(.selected) .position.catcher,\n.favorited-player-list tr:not(.selected) .position.catcher {\n  background: rgba(133, 149, 176, 0.65);\n}\n\n.player-list tr:not(.selected) .position.first-base,\n.favorited-player-list tr:not(.selected) .position.first-base {\n  background: rgba(100, 139, 201, 0.65);\n}\n\n.player-list tr:not(.selected) .position.second-base,\n.favorited-player-list tr:not(.selected) .position.second-base {\n  background: rgba(190, 214, 252, 0.65);\n}\n\n.player-list tr:not(.selected) .position.third-base,\n.favorited-player-list tr:not(.selected) .position.third-base {\n  background: rgba(142, 185, 252, 0.65);\n}\n\n.player-list tr:not(.selected) .position.short-stop,\n.favorited-player-list tr:not(.selected) .position.short-stop {\n  background: rgba(160, 176, 255, 0.65);\n}\n\n.player-list tr:not(.selected) .position.outfield,\n.favorited-player-list tr:not(.selected) .position.outfield {\n  background: rgba(171, 197, 230, 0.65);\n}\n\n.player-list tr:not(.selected) .position.starting-pitcher,\n.favorited-player-list tr:not(.selected) .position.starting-pitcher {\n  background: rgba(186, 171, 230, 0.65);\n}\n\n.player-list tr:not(.selected) .position.closer,\n.favorited-player-list tr:not(.selected) .position.closer {\n  background: rgba(153, 111, 201, 0.65);\n}\n\n.player-list tr:not(.selected) .position.relief-pitcher,\n.favorited-player-list tr:not(.selected) .position.relief-pitcher {\n  background: rgba(172, 137, 212, 0.65);\n}\n\n.player-list tr:not(.selected):hover .position,\n.favorited-player-list tr:not(.selected):hover .position {\n  background: inherit;\n}\n\n.player-list tr:not(.selected):hover.catcher, .player-list tr:not(.selected):hover.first-base, .player-list tr:not(.selected):hover.second-base, .player-list tr:not(.selected):hover.third-base, .player-list tr:not(.selected):hover.short-stop, .player-list tr:not(.selected):hover.outfield, .player-list tr:not(.selected):hover.starting-pitcher, .player-list tr:not(.selected):hover.closer, .player-list tr:not(.selected):hover.relief-pitcher,\n.favorited-player-list tr:not(.selected):hover.catcher,\n.favorited-player-list tr:not(.selected):hover.first-base,\n.favorited-player-list tr:not(.selected):hover.second-base,\n.favorited-player-list tr:not(.selected):hover.third-base,\n.favorited-player-list tr:not(.selected):hover.short-stop,\n.favorited-player-list tr:not(.selected):hover.outfield,\n.favorited-player-list tr:not(.selected):hover.starting-pitcher,\n.favorited-player-list tr:not(.selected):hover.closer,\n.favorited-player-list tr:not(.selected):hover.relief-pitcher {\n  background: inherit;\n}\n\n.player-list td,\n.favorited-player-list td {\n  vertical-align: middle;\n  padding: 6px 3px;\n  border: solid;\n  border-width: 0;\n}\n\n.player-list td.can-edit:hover,\n.favorited-player-list td.can-edit:hover {\n  background: #CBDEEA;\n}\n\n.player-list.batter .player,\n.favorited-player-list.batter .player {\n  background: #92BDD6;\n}\n\n.player-list.batter .player:nth-child(odd),\n.favorited-player-list.batter .player:nth-child(odd) {\n  background: #81AECA;\n}\n\n.player-list.batter .player .dark,\n.favorited-player-list.batter .player .dark {\n  background: rgba(101, 113, 121, 0.6);\n}\n\n.player-list.batter .player .dark.can-edit:hover,\n.favorited-player-list.batter .player .dark.can-edit:hover {\n  background: #CBDEEA;\n}\n\n.player-list.batter .player.is-editing,\n.favorited-player-list.batter .player.is-editing {\n  background: #B6D1E2;\n  /*border: 2px solid $batterHighlight;\n\t\t\t\tz-index: 5;\n\t\t\t\tbox-shadow: 0 0 5px $batterDark;*/\n}\n\n.player-list.batter .player.is-editing .dark,\n.favorited-player-list.batter .player.is-editing .dark {\n  background: #B6D1E2;\n}\n\n.player-list.batter .player.is-editing.selected td,\n.favorited-player-list.batter .player.is-editing.selected td {\n  background: #B6D1E2;\n}\n\n.player-list.batter .player:hover,\n.favorited-player-list.batter .player:hover {\n  background: #B6D1E2;\n}\n\n.player-list.batter .player:hover .dark,\n.favorited-player-list.batter .player:hover .dark {\n  background: #B6D1E2;\n}\n\n.player-list.batter tr,\n.player-list.batter td,\n.favorited-player-list.batter tr,\n.favorited-player-list.batter td {\n  border-color: #576B77;\n}\n\n.player-list.batter .selected td,\n.favorited-player-list.batter .selected td {\n  background: #576B77;\n}\n\n.player-list.batter .selected .dark,\n.favorited-player-list.batter .selected .dark {\n  background: #576B77;\n}\n\n.player-list.batter .selected:hover .dark,\n.favorited-player-list.batter .selected:hover .dark {\n  background: #576B77;\n}\n\n.player-list.pitcher .player,\n.favorited-player-list.pitcher .player {\n  background: #AF93AF;\n}\n\n.player-list.pitcher .player:nth-child(odd),\n.favorited-player-list.pitcher .player:nth-child(odd) {\n  background: #9E899E;\n}\n\n.player-list.pitcher .player .dark,\n.favorited-player-list.pitcher .player .dark {\n  background: rgba(93, 81, 93, 0.6);\n}\n\n.player-list.pitcher .player:hover,\n.favorited-player-list.pitcher .player:hover {\n  background: #C7B2C7;\n}\n\n.player-list.pitcher .player:hover .dark,\n.favorited-player-list.pitcher .player:hover .dark {\n  background: #C7B2C7;\n}\n\n.player-list.pitcher tr,\n.player-list.pitcher td,\n.favorited-player-list.pitcher tr,\n.favorited-player-list.pitcher td {\n  border-color: #5D545D;\n}\n\n.player-list.pitcher .selected td,\n.favorited-player-list.pitcher .selected td {\n  background: #5D545D;\n}\n\n.player-list.pitcher .selected .dark,\n.favorited-player-list.pitcher .selected .dark {\n  background: #5D545D;\n}\n\n.player-list.pitcher .selected:hover .dark,\n.favorited-player-list.pitcher .selected:hover .dark {\n  background: #5D545D;\n}\n\n.player-list textarea,\n.player-list input,\n.favorited-player-list textarea,\n.favorited-player-list input {\n  outline: none;\n}\n\n.player-list .categories,\n.favorited-player-list .categories {\n  text-align: center;\n}\n\n.player-list .player-info,\n.favorited-player-list .player-info {\n  background: grey;\n  cursor: pointer;\n}\n\n.player-list .player-info:hover,\n.favorited-player-list .player-info:hover {\n  background: lightgrey;\n}\n\n.player-list .name,\n.favorited-player-list .name {\n  width: 20%;\n}\n\n.player-list .number,\n.player-list .value-info,\n.favorited-player-list .number,\n.favorited-player-list .value-info {\n  width: 5%;\n}\n\n.player-list .is-complete,\n.favorited-player-list .is-complete {\n  background: #A9E2A9;\n  color: #A9E2A9;\n}\n\n.player-list .favorite-toggle,\n.favorited-player-list .favorite-toggle {\n  background-image: url(" + __webpack_require__(564) + ");\n  background-size: 50%;\n  background-repeat: no-repeat;\n  background-position: center;\n  cursor: pointer;\n}\n\n.player-list .favorite-toggle.favorited,\n.favorited-player-list .favorite-toggle.favorited {\n  background-image: url(" + __webpack_require__(564) + ");\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/player-list.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;EACC,mBAAmB;CAiBnB;;AAfA;EACC,WAAW;EACX,YAAY;EACZ,gBAAgB;EAChB,iBAAiB;CAUjB;;AAdD;EAOE,gBAAgB;EAChB,sBAAsB;CACtB;;AATF;EAYE,YAAY;CACZ;;AAIH;;EAEC,YAAY;EACZ,aAAa;EACb,iBAAiB;EACjB,oBAAoB;EAEpB,oBAAoB;EAEpB,gBAAgB;CAoNhB;;AA7ND;;EAYE,gBAAgB;CAChB;;AAbF;;EAgBE,mBAAmB;EACnB,cAAc;CAkCd;;AAnDF;;EAsBgB,sCChBF;CDgB0B;;AAtBxC;;EAuBmB,sCChBF;CDgB6B;;AAvB9C;;EAwBoB,sCChBF;CDgB8B;;AAxBhD;;EAyBmB,sCChBF;CDgB6B;;AAzB9C;;EA0BmB,sCChBF;CDgB6B;;AA1B9C;;EA2BiB,sCChBF;CDgB2B;;AA3B1C;;EA4ByB,sCChBF;CDgBmC;;AA5B1D;;EA6Be,sCChBF;CDgByB;;AA7BtC;;EA8BuB,sCChBF;CDgBiC;;AA9BtD;;EAmCK,oBAAoB;CACpB;;AApCL;;;;;;;;;;EA8CuB,oBAAoB;CAAI;;AA9C/C;;EAsDE,uBAAuB;EACvB,iBAAiB;EACjB,cAAc;EACd,gBAAgB;CAOhB;;AAhEF;;EA6DI,oBCvEqB;CDwErB;;AA9DJ;;EAqEG,oBCpFc;CD6Hd;;AA9GH;;EAwEI,oBCrFgB;CDsFhB;;AAzEJ;;EA4EI,qCCvFc;CD8Fd;;AAnFJ;;EAgFM,oBC1FmB;CD2FnB;;AAjFN;;EAsFI,oBClGqB;EDmGrB;;sCAEkC;CAYlC;;AArGJ;;EA4FK,oBCxGoB;CDyGpB;;AA7FL;;EAiGM,oBC7GmB;CD8GnB;;AAlGN;;EAwGI,oBCpHqB;CDyHrB;;AA7GJ;;EA2GK,oBCvHoB;CDwHpB;;AA5GL;;;;EAiHG,sBC/HkB;CDgIlB;;AAlHH;;EAsHI,oBCpIiB;CDqIjB;;AAvHJ;;EA0HI,oBCxIiB;CDyIjB;;AA3HJ;;EA+HK,oBC7IgB;CD8IhB;;AAhIL;;EAwIG,oBChJe;CDiKf;;AAzJH;;EA2II,oBCjJiB;CDkJjB;;AA5IJ;;EA+II,kCCnJe;CDoJf;;AAhJJ;;EAmJI,oBCxJsB;CD6JtB;;AAxJJ;;EAsJK,oBC3JqB;CD4JrB;;AAvJL;;;;EA4JG,sBCnKmB;CDoKnB;;AA7JH;;EAgKI,oBCvKkB;CDwKlB;;AAjKJ;;EAoKI,oBC3KkB;CD4KlB;;AArKJ;;EAyKK,oBChLiB;CDiLjB;;AA1KL;;;;EAiLE,cAAc;CACd;;AAlLF;;EAqLE,mBAAmB;CACnB;;AAtLF;;EAyLE,iBC5MW;ED6MX,gBAAgB;CAKhB;;AA/LF;;EA6LG,sBAAsB;CACtB;;AA9LH;;EAkME,WAAW;CACX;;AAnMF;;;;EAuME,UAAU;CACV;;AAxMF;;EA8ME,oBChNe;EDiNf,eCjNe;CDkNf;;AAhNF;;EAmNE,gDAAoB;EACjB,qBAAqB;EACrB,6BAA6B;EAC7B,4BAA4B;EAC5B,gBAAgB;CAKnB;;AA5NF;;EA0NM,gDAAqB;CACrB","file":"player-list.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.player-list-container {\n\tposition: relative;\n\n\t.combined-rankings & {\n\t\twidth: 50%;\n\t\tfloat: left;\n\t\t/*padding: 3%;*/\n\t\tpadding-right: 0;\n\n\t\t&:not(:first-child) {\n\t\t\tpadding-left: 0;\n\t\t\t/*padding-right: 3%;*/\n\t\t}\n\n\t\t.player-rankings {\n\t\t\twidth: 100%;\n\t\t}\n\t}\n}\n\n.player-list,\n.favorited-player-list {\n\twidth: 100%;\n\theight: auto;\n\tmin-height: 30px;\n\tmargin-bottom: 10px;\n\n\ttable-layout: fixed;\n\n\tfont-size: 12px;\n\n\t.position {\n\t\tcursor: pointer;\n\t}\n\n\ttr {\n\t\ttext-align: center;\n\t\tpadding: 10px;\n\n\t\t&:not(.selected) {\n\t\t\t.position {\n\n\t\t\t\t&.catcher { background: $catcher; }\n\t\t\t\t&.first-base { background: $first-base; }\n\t\t\t\t&.second-base { background: $second-base; }\n\t\t\t\t&.third-base { background: $third-base; }\n\t\t\t\t&.short-stop { background: $short-stop; }\n\t\t\t\t&.outfield { background: $outfield; }\n\t\t\t\t&.starting-pitcher { background: $starting-pitcher; }\n\t\t\t\t&.closer { background: $closer; }\n\t\t\t\t&.relief-pitcher { background: $relief-pitcher; }\n\t\t\t}\n\n\t\t\t&:hover {\n\t\t\t\t.position {\n\t\t\t\t\tbackground: inherit;\n\t\t\t\t}\n\n\t\t\t\t&.catcher,\n\t\t\t\t&.first-base,\n\t\t\t\t&.second-base,\n\t\t\t\t&.third-base,\n\t\t\t\t&.short-stop,\n\t\t\t\t&.outfield,\n\t\t\t\t&.starting-pitcher,\n\t\t\t\t&.closer,\n\t\t\t\t&.relief-pitcher { background: inherit; }\n\n\t\t\t}\n\n\t\t}\n\t}\n\n\ttd {\n\t\tvertical-align: middle;\n\t\tpadding: 6px 3px;\n\t\tborder: solid;\n\t\tborder-width: 0;\n\n\t\t&.can-edit {\n\t\t\t&:hover {\n\t\t\t\tbackground: $batterEditHover\n\t\t\t}\n\t\t}\n\t}\n\n\t &.batter {\n\n\t\t.player {\n\t\t\tbackground: $batter;\n\n\t\t\t&:nth-child(odd) {\n\t\t\t\tbackground: $batterAlt;\n\t\t\t}\n\n\t\t\t.dark {\n\t\t\t\tbackground: $batterMuted;\n\n\t\t\t\t&.can-edit{\n\t\t\t\t\t&:hover {\n\t\t\t\t\t\tbackground: $batterEditHover\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&.is-editing {\n\t\t\t\tbackground: $batterHighlight;\n\t\t\t\t/*border: 2px solid $batterHighlight;\n\t\t\t\tz-index: 5;\n\t\t\t\tbox-shadow: 0 0 5px $batterDark;*/\n\n\t\t\t\t.dark {\n\t\t\t\t\tbackground: $batterHighlight;\n\t\t\t\t}\n\n\t\t\t\t&.selected {\n\t\t\t\t\ttd {\n\t\t\t\t\t\tbackground: $batterHighlight;\n\t\t\t\t\t}\n\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&:hover {\n\t\t\t\tbackground: $batterHighlight;\n\n\t\t\t\t.dark {\n\t\t\t\t\tbackground: $batterHighlight;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\ttr,\n\t\ttd {\n\t\t\tborder-color: $batterDark;\n\t\t}\n\n\t\t.selected {\n\t\t\ttd {\n\t\t\t\tbackground: $batterDark;\n\t\t\t}\n\n\t\t\t.dark {\n\t\t\t\tbackground: $batterDark;\n\t\t\t}\n\n\t\t\t&:hover {\n\t\t\t\t.dark {\n\t\t\t\t\tbackground: $batterDark;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&.pitcher {\n\n\t\t.player {\n\t\t\tbackground: $pitcher;\n\n\t\t\t&:nth-child(odd) {\n\t\t\t\tbackground: $pitcherAlt;\n\t\t\t}\n\n\t\t\t.dark {\n\t\t\t\tbackground: $pitcherMuted;\n\t\t\t}\n\n\t\t\t&:hover {\n\t\t\t\tbackground: $pitcherHighlight;\n\n\t\t\t\t.dark {\n\t\t\t\t\tbackground: $pitcherHighlight;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\ttr,\n\t\ttd {\n\t\t\tborder-color: $pitcherDark;\n\t\t}\n\t\t.selected {\n\t\t\ttd {\n\t\t\t\tbackground: $pitcherDark;\n\t\t\t}\n\n\t\t\t.dark {\n\t\t\t\tbackground: $pitcherDark;\n\t\t\t}\n\n\t\t\t&:hover {\n\t\t\t\t.dark {\n\t\t\t\t\tbackground: $pitcherDark;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\ttextarea,\n\tinput {\n\t\toutline: none;\n\t}\n\n\t.categories{\n\t\ttext-align: center;\n\t}\n\n\t.player-info {\n\t\tbackground: $gray;\n\t\tcursor: pointer;\n\n\t\t&:hover {\n\t\t\tbackground: lightgrey;\n\t\t}\n\t}\n\n\t.name {\n\t\twidth: 20%;\n\t}\n\n\t.number,\n\t.value-info {\n\t\twidth: 5%;\n\t}\n\n\t.value-info {\n\t}\n\n\t.is-complete {\n\t\tbackground: $success;\n\t\tcolor: $success;\n\t}\n\n\t.favorite-toggle {\n\t\tbackground-image:url('~!file!../../images/star.png');\n\t    background-size: 50%;\n\t    background-repeat: no-repeat;\n\t    background-position: center;\n\t    cursor: pointer;\n\n\t    &.favorited {\n\t    \tbackground-image: url('~!file!../../images/star.png');\n\t    }\n\t}\n}\n","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n$batter : #92BDD6;\n$batterDark : #576B77;\n$batterAlt : #81AECA;\n$batterHighlight: #B6D1E2;\n$batterMuted: rgba(101, 113, 121, 0.6);\n$batterEditHover: #CBDEEA;\n\n$pitcher : #AF93AF;\n$pitcherDark : #5D545D;\n$pitcherAlt : #9E899E;\n$pitcherHighlight: #C7B2C7;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.player-lists-filters {\n  width: 140px;\n  float: left;\n}\n\n.player-lists-filters .player-list-filter {\n  font-family: \"TrasandinaMedium\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n  width: 100%;\n  padding: 10px;\n  margin: 0px 10px 10px 0;\n  border-radius: 5px;\n  cursor: pointer;\n  color: #b7b7b7;\n  text-align: center;\n  text-transform: uppercase;\n  border: 2px solid #b7b7b7;\n}\n\n.player-lists-filters .player-list-filter:hover, .player-lists-filters .player-list-filter.active {\n  color: #4d4d4d;\n}\n\n.player-lists-filters .player-list-filter.pos {\n  width: calc(33% - 3px);\n  margin-right: 5px;\n  float: left;\n}\n\n.player-lists-filters .player-list-filter.pos.last {\n  margin-right: 0;\n}\n\n.player-lists-filters input[type=text] {\n  border-color: #f2f2f2;\n  color: #f2f2f2;\n  text-align: left;\n}\n\n.player-lists-filters input[type=text]:focus, .player-lists-filters input[type=text].hover {\n  border-color: #b7b7b7;\n  color: #4d4d4d;\n}\n\n.player-lists-filters ::-webkit-input-placeholder {\n  color: #cecece;\n}\n\n.player-lists-main {\n  width: calc(100% - 150px);\n  float: right;\n}\n\n.player-list-container {\n  position: relative;\n}\n\n.combined-rankings .player-list-container {\n  /*\t\twidth: 50%;\n\t\tfloat: left;\n\t\tpadding-right: 0;\n\n\t\t&:not(:first-child) {\n\t\t\tpadding-left: 0;\n\t\t}\n*/\n}\n\n.combined-rankings .player-list-container .player-rankings {\n  width: 100%;\n}\n\n.player-lists-header {\n  width: 75%;\n  margin-left: 150px;\n}\n\n.player-list,\n.favorited-player-list {\n  width: 100%;\n  height: auto;\n  min-height: 30px;\n  margin-bottom: 10px;\n  table-layout: fixed;\n  font-size: 12px;\n}\n\n.player-list .position,\n.favorited-player-list .position {\n  cursor: pointer;\n}\n\n.player-list tr,\n.favorited-player-list tr {\n  text-align: center;\n  padding: 10px;\n  border: solid white;\n  border-width: 1px 0;\n}\n\n.player-list tr:not(.selected) .position,\n.favorited-player-list tr:not(.selected) .position {\n  /*\n\t\t\t\t&.catcher { background: $catcher; }\n\t\t\t\t&.first-base { background: $first-base; }\n\t\t\t\t&.second-base { background: $second-base; }\n\t\t\t\t&.third-base { background: $third-base; }\n\t\t\t\t&.short-stop { background: $short-stop; }\n\t\t\t\t&.outfield { background: $outfield; }\n\t\t\t\t&.starting-pitcher { background: $starting-pitcher; }\n\t\t\t\t&.closer { background: $closer; }\n\t\t\t\t&.relief-pitcher { background: $relief-pitcher; }\n\t\t\t\t*/\n}\n\n.player-list tr:not(.selected):hover .position,\n.favorited-player-list tr:not(.selected):hover .position {\n  background: inherit;\n}\n\n.player-list tr:not(.selected):hover.catcher, .player-list tr:not(.selected):hover.first-base, .player-list tr:not(.selected):hover.second-base, .player-list tr:not(.selected):hover.third-base, .player-list tr:not(.selected):hover.short-stop, .player-list tr:not(.selected):hover.outfield, .player-list tr:not(.selected):hover.starting-pitcher, .player-list tr:not(.selected):hover.closer, .player-list tr:not(.selected):hover.relief-pitcher,\n.favorited-player-list tr:not(.selected):hover.catcher,\n.favorited-player-list tr:not(.selected):hover.first-base,\n.favorited-player-list tr:not(.selected):hover.second-base,\n.favorited-player-list tr:not(.selected):hover.third-base,\n.favorited-player-list tr:not(.selected):hover.short-stop,\n.favorited-player-list tr:not(.selected):hover.outfield,\n.favorited-player-list tr:not(.selected):hover.starting-pitcher,\n.favorited-player-list tr:not(.selected):hover.closer,\n.favorited-player-list tr:not(.selected):hover.relief-pitcher {\n  background: inherit;\n}\n\n.player-list td,\n.favorited-player-list td {\n  vertical-align: middle;\n  padding: 15px 5px;\n  border: solid;\n  border-width: 0;\n}\n\n.player-list td.can-edit:hover,\n.favorited-player-list td.can-edit:hover {\n  background: #CBDEEA;\n}\n\n.player-list .headings td,\n.favorited-player-list .headings td {\n  position: relative;\n  background: #d7dfeb;\n  cursor: pointer;\n  padding: 8px 0;\n}\n\n.player-list .headings td:hover,\n.favorited-player-list .headings td:hover {\n  background: #b7b7b7;\n}\n\n.player-list .headings td:after,\n.favorited-player-list .headings td:after {\n  content: '';\n  display: block;\n  position: absolute;\n  width: 100%;\n  height: 50%;\n  bottom: 0;\n  left: 0;\n  border-style: solid;\n  border-width: 0 2px 5px 0;\n  border-color: #bdc2c9;\n  z-index: 1;\n}\n\n.player-list .headings td:last-child:after,\n.favorited-player-list .headings td:last-child:after {\n  border-right-width: 0;\n}\n\n.player-list.batter .number,\n.player-list.batter .value-info,\n.player-list.batter .player-info, .player-list.pitcher .number,\n.player-list.pitcher .value-info,\n.player-list.pitcher .player-info,\n.favorited-player-list.batter .number,\n.favorited-player-list.batter .value-info,\n.favorited-player-list.batter .player-info,\n.favorited-player-list.pitcher .number,\n.favorited-player-list.pitcher .value-info,\n.favorited-player-list.pitcher .player-info {\n  width: 6%;\n}\n\n.player-list.batter .name, .player-list.pitcher .name,\n.favorited-player-list.batter .name,\n.favorited-player-list.pitcher .name {\n  width: inherit;\n}\n\n.player.batter {\n  background: #e5e9ef;\n}\n\n.player.batter:nth-child(odd) {\n  background: #d7dfeb;\n}\n\n.player.batter .dark {\n  background: rgba(101, 113, 121, 0.6);\n}\n\n.player.batter .dark.can-edit:hover {\n  background: #CBDEEA;\n}\n\n.player.batter.is-editing {\n  background: #F3F6F9;\n  /*border: 2px solid $batter-highlight;\n\t\t\tz-index: 5;\n\t\t\tbox-shadow: 0 0 5px $batter-dark;*/\n}\n\n.player.batter.is-editing .dark {\n  background: #F3F6F9;\n}\n\n.player.batter.is-editing.selected td {\n  background: #F3F6F9;\n}\n\n.player.batter:hover {\n  background: #F3F6F9;\n}\n\n.player.batter:hover .dark {\n  background: #F3F6F9;\n}\n\n.player.pitcher {\n  background: #E2D7E2;\n}\n\n.player.pitcher:nth-child(odd) {\n  background: #D2C7D2;\n}\n\n.player.pitcher .dark {\n  background: rgba(93, 81, 93, 0.6);\n}\n\n.player.pitcher:hover {\n  background: #FFF6FF;\n}\n\n.player.pitcher:hover .dark {\n  background: #FFF6FF;\n}\n\n.player.selected td {\n  background: #8e9194;\n}\n\n.player.selected .dark {\n  background: #8e9194;\n}\n\n.player.selected:hover .dark {\n  background: #8e9194;\n}\n\n.player textarea,\n.player input {\n  outline: none;\n}\n\n.player .categories {\n  text-align: center;\n}\n\n.player .player-cost {\n  display: inline-block;\n  width: calc(100% - 10px);\n  padding: 3px;\n  border-radius: 3px;\n  background: lightgrey;\n  text-transform: uppercase;\n}\n\n.player .player-cost .dollar-amount {\n  font-family: \"Cantarell-Regular\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n  letter-spacing: -.03125em;\n  font-family: \"Cantarell-Bold\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n}\n\n.player .is-complete {\n  background: #A9E2A9;\n  color: #A9E2A9;\n}\n\n.player .favorite-toggle {\n  background-image: url(" + __webpack_require__(549) + ");\n  background-size: 50%;\n  background-repeat: no-repeat;\n  background-position: center;\n  cursor: pointer;\n}\n\n.player .favorite-toggle.favorited {\n  background-image: url(" + __webpack_require__(549) + ");\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/player-list.scss","/./project/stylesheets/project/stylesheets/helpers/fonts.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACnSL;EACC,aAAa;EACb,YAAY;CAiDZ;;AAnDD;ECagC,qFAlBoC;EDU/D,YAAY;EAEf,cAAc;EACd,wBAAwB;EAExB,mBAAmB;EAEnB,gBAAgB;EAEb,eEegB;EFdhB,mBAAmB;EACtB,0BAA0B;EAE1B,0BEWmB;CFKnB;;AAlCF;EAsBG,eEQgB;CFPhB;;AAvBH;EA0BG,uBAAW;EACX,kBAAkB;EAClB,YAAY;CAKZ;;AAjCH;EA+BI,gBAAgB;CAChB;;AAhCJ;EAoCE,sBETqB;EFUrB,eEVqB;EFWrB,iBAAiB;CAOjB;;AA7CF;EA0CG,sBEbkB;EFclB,eEbgB;CFchB;;AA5CH;EAiDE,eErBkB;CFsBlB;;AAKF;EACC,0BAAW;EACX,aAAa;CACb;;AAED;EACC,mBAAmB;CAenB;;AAbA;EACD;;;;;;;EAOE;CAIA;;AAZD;EAUE,YAAY;CACZ;;AAIH;EACC,WAAW;EACR,mBAAmB;CACtB;;AAED;;EAEC,YAAY;EACZ,aAAa;EACb,iBAAiB;EACjB,oBAAoB;EAEpB,oBAAoB;EAEpB,gBAAgB;CAiHhB;;AA1HD;;EAYE,gBAAgB;CAChB;;AAbF;;EAgBE,mBAAmB;EACnB,cAAc;EACd,oBAAoB;EACpB,oBAAoB;CAmCpB;;AAtDF;;EAuBI;;;;;;;;;;MAUE;CACF;;AAlCJ;;EAsCK,oBAAoB;CACpB;;AAvCL;;;;;;;;;;EAiDuB,oBAAoB;CAAI;;AAjD/C;;EAyDE,uBAAuB;EAEpB,kBAAkB;EACrB,cAAc;EACd,gBAAgB;CAOhB;;AApEF;;EAiEI,oBEnJqB;CFoJrB;;AAlEJ;;EAwEG,mBAAmB;EACnB,oBE5He;EF6Hf,gBAAgB;EAEhB,eAAe;CAyBf;;AArGH;;EA+EI,oBErIiB;CFsIjB;;AAhFJ;;EAmFI,YAAY;EACZ,eAAe;EACf,mBAAmB;EACnB,YAAY;EACZ,YAAY;EACZ,UAAU;EACV,QAAQ;EACR,oBAAoB;EACpB,0BAA0B;EAC1B,sBAAsB;EACtB,WAAW;CACX;;AA9FJ;;EAkGK,sBAAsB;CACtB;;AAnGL;;;;;;;;;;;EA+GG,UAAU;CACV;;AAhHH;;;EAmHG,eAAe;CACf;;AAQH;EAEE,oBE9KmB;CFsNnB;;AA1CF;EAKG,oBEhLsB;CFiLtB;;AANH;EASG,qCEjLoB;CFwLpB;;AAhBH;EAaK,oBE3NoB;CF4NpB;;AAdL;EAmBG,oBE5LuB;EF6LvB;;sCAEmC;CAWnC;;AAjCH;EAyBI,oBElMsB;CFmMtB;;AA1BJ;EA8BK,oBEvMqB;CFwMrB;;AA/BL;EAoCG,oBE7MuB;CFkNvB;;AAzCH;EAuCI,oBEhNsB;CFiNtB;;AAxCJ;EA4CE,oBExPgB;CFyQhB;;AA7DF;EA+CG,oBEzPkB;CF0PlB;;AAhDH;EAmDG,kCE3PgB;CF4PhB;;AApDH;EAuDG,oBEhQuB;CFqQvB;;AA5DH;EA0DI,oBEnQsB;CFoQtB;;AA3DJ;EAiEG,oBE3OmB;CF4OnB;;AAlEH;EAqEG,oBE/OmB;CFgPnB;;AAtEH;EA0EI,oBEpPkB;CFqPlB;;AA3EJ;;EAiFE,cAAc;CACd;;AAlFF;EAqFE,mBAAmB;CACnB;;AAtFF;EAyFK,sBAAsB;EACtB,yBAAW;EACX,aAAa;EACb,mBAAmB;EACnB,sBAAsB;EACtB,0BAA0B;CAK7B;;AAnGF;EC/LmB,sFArBiD;EAqBhB,0BAA0B;EAClC,mFAtBwB;CDsT9D;;AAlGN;EAsGE,oBE5Se;EF6Sf,eE7Se;CF8Sf;;AAxGF;EA2GE,gDAAoB;EACjB,qBAAqB;EACrB,6BAA6B;EAC7B,4BAA4B;EAC5B,gBAAgB;CAKnB;;AApHF;EAkHM,gDAAqB;CACrB","file":"player-list.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n\n.player-lists-container{\n\n}\n\n.player-lists-filters {\n\twidth: 140px;\n\tfloat: left;\n\t.player-list-filter {\n\t\t@include transandina-medium;\n\t    width: 100%;\n\n\t\tpadding: 10px;\n\t\tmargin: 0px 10px 10px 0;\n\n\t\tborder-radius: 5px;\n\n\t\tcursor: pointer;\n\n\t    color: $medium-grey;\n\t    text-align: center;\n\t\ttext-transform: uppercase;\n\n\t\tborder: 2px solid $medium-grey;\n\n\t\t&:hover,\n\t\t&.active {\n\t\t\tcolor: $dark-grey;\n\t\t}\n\n\t\t&.pos {\n\t\t\twidth: calc(33% - 3px);\n\t\t\tmargin-right: 5px;\n\t\t\tfloat: left;\n\n\t\t\t&.last {\n\t\t\t\tmargin-right: 0;\n\t\t\t}\n\t\t}\n\t}\n\tinput[type=text] {\n\t\tborder-color: $lightest-grey;\n\t\tcolor: $lightest-grey;\n\t\ttext-align: left;\n\n\t\t&:focus,\n\t\t&.hover {\n\t\t\tborder-color: $medium-grey;\n\t\t\tcolor: $dark-grey;\n\t\t}\n\t}\n\n\n\t::-webkit-input-placeholder {\n\t\tcolor: $light-grey;\n\t}\n}\n\n\n\n.player-lists-main {\n\twidth: calc(100% - 150px);\n\tfloat: right;\n}\n\n.player-list-container {\n\tposition: relative;\n\n\t.combined-rankings & {\n/*\t\twidth: 50%;\n\t\tfloat: left;\n\t\tpadding-right: 0;\n\n\t\t&:not(:first-child) {\n\t\t\tpadding-left: 0;\n\t\t}\n*/\n\t\t.player-rankings {\n\t\t\twidth: 100%;\n\t\t}\n\t}\n}\n\n.player-lists-header{\n\twidth: 75%;\n    margin-left: 150px;\n}\n\n.player-list,\n.favorited-player-list {\n\twidth: 100%;\n\theight: auto;\n\tmin-height: 30px;\n\tmargin-bottom: 10px;\n\n\ttable-layout: fixed;\n\n\tfont-size: 12px;\n\n\t.position {\n\t\tcursor: pointer;\n\t}\n\n\ttr {\n\t\ttext-align: center;\n\t\tpadding: 10px;\n\t\tborder: solid white;\n\t\tborder-width: 1px 0;\n\n\t\t&:not(.selected) {\n\t\t\t.position {\n\t\t\t\t/*\n\t\t\t\t&.catcher { background: $catcher; }\n\t\t\t\t&.first-base { background: $first-base; }\n\t\t\t\t&.second-base { background: $second-base; }\n\t\t\t\t&.third-base { background: $third-base; }\n\t\t\t\t&.short-stop { background: $short-stop; }\n\t\t\t\t&.outfield { background: $outfield; }\n\t\t\t\t&.starting-pitcher { background: $starting-pitcher; }\n\t\t\t\t&.closer { background: $closer; }\n\t\t\t\t&.relief-pitcher { background: $relief-pitcher; }\n\t\t\t\t*/\n\t\t\t}\n\n\t\t\t&:hover {\n\t\t\t\t.position {\n\t\t\t\t\tbackground: inherit;\n\t\t\t\t}\n\n\t\t\t\t&.catcher,\n\t\t\t\t&.first-base,\n\t\t\t\t&.second-base,\n\t\t\t\t&.third-base,\n\t\t\t\t&.short-stop,\n\t\t\t\t&.outfield,\n\t\t\t\t&.starting-pitcher,\n\t\t\t\t&.closer,\n\t\t\t\t&.relief-pitcher { background: inherit; }\n\n\t\t\t}\n\n\t\t}\n\t}\n\n\ttd {\n\t\tvertical-align: middle;\n\n\t    padding: 15px 5px;\n\t\tborder: solid;\n\t\tborder-width: 0;\n\n\t\t&.can-edit {\n\t\t\t&:hover {\n\t\t\t\tbackground: $batterEditHover\n\t\t\t}\n\t\t}\n\t}\n\n\t.headings {\n\t\ttd {\n\t\t\tposition: relative;\n\t\t\tbackground: $headings;\n\t\t\tcursor: pointer;\n\n\t\t\tpadding: 8px 0;\n\n\t\t\t&:hover {\n\t\t\t\tbackground: $medium-grey;\n\t\t\t}\n\n\t\t\t&:after {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: block;\n\t\t\t\tposition: absolute;\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 50%;\n\t\t\t\tbottom: 0;\n\t\t\t\tleft: 0;\n\t\t\t\tborder-style: solid;\n\t\t\t\tborder-width: 0 2px 5px 0;\n\t\t\t\tborder-color: #bdc2c9;\n\t\t\t\tz-index: 1;\n\t\t\t}\n\n\t\t\t&:last-child {\n\t\t\t\t&:after {\n\t\t\t\t\tborder-right-width: 0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\n\t &.batter,\n\t &.pitcher {\n\n\t\t.number,\n\t\t.value-info,\n\t\t.player-info {\n\t\t\twidth: 6%;\n\t\t}\n\n\t\t.name {\n\t\t\twidth: inherit;\n\t\t}\n\t}\n\n\t.value-info {\n\t}\n\n}\n\n.player {\n\t &.batter {\n\t\tbackground: $batter-row;\n\n\t\t&:nth-child(odd) {\n\t\t\tbackground: $batter-row-alt;\n\t\t}\n\n\t\t.dark {\n\t\t\tbackground: $batter-row-muted;\n\n\t\t\t&.can-edit{\n\t\t\t\t&:hover {\n\t\t\t\t\tbackground: $batterEditHover\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t&.is-editing {\n\t\t\tbackground: $batter-highlight;\n\t\t\t/*border: 2px solid $batter-highlight;\n\t\t\tz-index: 5;\n\t\t\tbox-shadow: 0 0 5px $batter-dark;*/\n\n\t\t\t.dark {\n\t\t\t\tbackground: $batter-highlight;\n\t\t\t}\n\n\t\t\t&.selected {\n\t\t\t\ttd {\n\t\t\t\t\tbackground: $batter-highlight;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t&:hover {\n\t\t\tbackground: $batter-highlight;\n\n\t\t\t.dark {\n\t\t\t\tbackground: $batter-highlight;\n\t\t\t}\n\t\t}\n\t}\n\t&.pitcher {\n\t\tbackground: $pitcher;\n\n\t\t&:nth-child(odd) {\n\t\t\tbackground: $pitcherAlt;\n\t\t}\n\n\t\t.dark {\n\t\t\tbackground: $pitcherMuted;\n\t\t}\n\n\t\t&:hover {\n\t\t\tbackground: $pitcherHighlight;\n\n\t\t\t.dark {\n\t\t\t\tbackground: $pitcherHighlight;\n\t\t\t}\n\t\t}\n\t}\n\n\t&.selected {\n\t\ttd {\n\t\t\tbackground: $batter-dark;\n\t\t}\n\n\t\t.dark {\n\t\t\tbackground: $batter-dark;\n\t\t}\n\n\t\t&:hover {\n\t\t\t.dark {\n\t\t\t\tbackground: $batter-dark;\n\t\t\t}\n\t\t}\n\t}\n\n\ttextarea,\n\tinput {\n\t\toutline: none;\n\t}\n\n\t.categories{\n\t\ttext-align: center;\n\t}\n\n\t.player-cost {\n\t    display: inline-block;\n\t    width: calc(100% - 10px);\n\t    padding: 3px;\n\t    border-radius: 3px;\n\t    background: lightgrey;\n\t    text-transform: uppercase;\n\n\t    .dollar-amount {\n\t    \t@include cantarell-bold;\n\t    }\n\t}\n\n\t.is-complete {\n\t\tbackground: $success;\n\t\tcolor: $success;\n\t}\n\n\t.favorite-toggle {\n\t\tbackground-image:url('~!file!../../images/star.png');\n\t    background-size: 50%;\n\t    background-repeat: no-repeat;\n\t    background-position: center;\n\t    cursor: pointer;\n\n\t    &.favorited {\n\t    \tbackground-image: url('~!file!../../images/star.png');\n\t    }\n\t}\n}","$helvetica     : 'Helvetica Neue', Helvetica, Arial, sans-serif !default;\n$georgia       : Georgia, Cambria, 'Times New Roman', Times, serif !default;\n$lucida-grande : 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif !default;\n$monospace     : 'Bitstream Vera Sans Mono', Consolas, Courier, monospace !default;\n$verdana       : Verdana, Geneva, sans-serif !default;\n\n$cantarell-bold     : 'Cantarell-Bold', $lucida-grande;\n$cantarell-boldoblique     : 'Cantarell-BoldOblique', $lucida-grande;\n$cantarell-oblique     : 'Cantarell-Oblique', $lucida-grande;\n$cantarell-regular     : 'Cantarell-Regular', $lucida-grande;\n\n$transandina-medium     : 'TrasandinaMedium', $lucida-grande;\n$transandina-black     : 'TrasandinaBlack', $lucida-grande;\n\n@mixin helvetica     { font-family: $helvetica; }\n@mixin georgia       { font-family: $georgia; }\n@mixin lucida-grande { font-family: $lucida-grande; }\n@mixin monospace     { font-family: $monospace; }\n@mixin verdana       { font-family: $verdana; }\n\n@mixin transandina-medium     { font-family: $transandina-medium; }\n@mixin transandina-black     { font-family: $transandina-black; }\n\n@mixin cantarell { font-family: $cantarell-regular; letter-spacing: -.03125em; }\n@mixin cantarell-bold { @include cantarell; font-family: $cantarell-bold; }\n@mixin cantarell-boldoblique { @include cantarell; font-family: $cantarell-boldoblique; }\n@mixin cantarell-oblique { @include cantarell; font-family: $cantarell-oblique; }","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n\n$batterEditHover: #CBDEEA;\n\n$pitcher : #E2D7E2;\n$pitcherDark : #5D545D;\n$pitcherAlt : #D2C7D2;\n$pitcherHighlight: #FFF6FF;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n\n$lightest-grey: #f2f2f2;\n$light-grey: #cecece;\n$medium-grey: #b7b7b7;\n$dark-grey: #4d4d4d;\n\n$headings: #d7dfeb;\n$headings-border: #bdc2c9;\n\n$batter-row : #e5e9ef;\n$batter-row-alt : #d7dfeb;\n$batter-dark : #8e9194;\n$batter-highlight: #F3F6F9;\n$batter-row-muted: rgba(101, 113, 121, 0.6);\n\n$sub-heading: #878787;\n$heading: $dark-grey;\n$price: #98a1ad;"],"sourceRoot":"webpack://"}]);
 
 	// exports
 
 
 /***/ },
-/* 564 */
+/* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "6c83b4481fdf1efb7ba8457cc453805c.png";
 
 /***/ },
-/* 565 */
+/* 550 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37063,23 +35762,41 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _reactRedux = __webpack_require__(528);
+	var _reactRedux = __webpack_require__(513);
 
-	var _redux = __webpack_require__(535);
+	var _redux = __webpack_require__(520);
 
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Player = __webpack_require__(555);
+	var _PlayerList = __webpack_require__(539);
 
-	var _Player2 = _interopRequireDefault(_Player);
+	var _PlayerList2 = _interopRequireDefault(_PlayerList);
+
+	var _SettingsUtils = __webpack_require__(551);
+
+	var SettingsUtils = _interopRequireWildcard(_SettingsUtils);
+
+	__webpack_require__(552);
+
+	function _interopRequireWildcard(obj) {
+		if (obj && obj.__esModule) {
+			return obj;
+		} else {
+			var newObj = {};if (obj != null) {
+				for (var key in obj) {
+					if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+				}
+			}newObj.default = obj;return newObj;
+		}
+	}
 
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : { default: obj };
@@ -37117,8 +35834,8 @@
 		}
 
 		_createClass(ActivePlayer, [{
-			key: 'getActivePlayer',
-			value: function getActivePlayer() {
+			key: 'render',
+			value: function render() {
 				if (!this.props.activePlayer) {
 					return _react2.default.createElement('div', null);
 				}
@@ -37126,16 +35843,15 @@
 				var type = this.props.activePlayer.type;
 				var activePlayerClasses = (0, _classnames2.default)('active-player', type);
 				var tableClasses = (0, _classnames2.default)('player-list', type);
-				var categories = type === 'batter' ? this.props.battingCategories : this.props.pitchingCategories;
-				return _react2.default.createElement('div', { className: activePlayerClasses }, _react2.default.createElement('table', { className: tableClasses }, _react2.default.createElement('tbody', null, _react2.default.createElement(_Player2.default, {
+				var categories = SettingsUtils.getCategories(this.props.categories[type]);
+
+				return _react2.default.createElement('div', { className: activePlayerClasses }, _react2.default.createElement('div', { className: 'player-avatar' }, _react2.default.createElement('image', { src: __webpack_require__(554) })), _react2.default.createElement('div', { className: 'player-info-panel' }, _react2.default.createElement('div', { className: 'player-info' }, _react2.default.createElement('h2', { className: 'player-meta' }, this.props.activePlayer.pos), _react2.default.createElement('h1', { className: 'player-name' }, this.props.activePlayer.name), _react2.default.createElement('div', { className: 'player-value' }, _react2.default.createElement('span', { className: 'dollar-amount' }, this.props.activePlayer.adjustedValue.toFixed(0)))), _react2.default.createElement('div', { className: 'player-news' }, _react2.default.createElement('h2', null, 'Player News'), _react2.default.createElement('p', null, 'Jean-François Champollion colonies. Paroxysm of global death emerged into consciousness worldlets, Sea of Tranquility. Laws of physics a very small stage in a vast cosmic arena tesseract prime number.')), _react2.default.createElement(_PlayerList2.default, {
 					hideMetaInfo: true,
-					player: this.props.activePlayer,
-					categories: categories }))));
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return this.getActivePlayer();
+					hideValueInfo: true,
+					hidePlayerInfo: true,
+					hideCostInput: true,
+					players: [this.props.activePlayer],
+					categories: categories })));
 			}
 		}]);
 
@@ -37150,14 +35866,106 @@
 
 	function mapStateToProps(state, ownProps) {
 		return {
-			activePlayer: state.players.activePlayer
+			activePlayer: state.players.activePlayer,
+			categories: state.categories.data
 		};
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ActivePlayer);
 
 /***/ },
-/* 566 */
+/* 551 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.getCategories = getCategories;
+	exports.getScarcePositions = getScarcePositions;
+	exports.getTeamNames = getTeamNames;
+	function getCategories(categories) {
+		var categoryList = [];
+
+		for (var key in categories) {
+			categoryList.push(categories[key]);
+		}
+
+		return categoryList;
+	}
+
+	function getScarcePositions(positions) {
+
+		var scarcePositions = [];
+
+		positions.forEach(function (position) {
+			if (position.minimum) {
+				scarcePositions.push(position);
+			}
+		});
+
+		return scarcePositions;
+	}
+
+	function getTeamNames(teams) {
+		var teamNames = [];
+
+		for (var key in teams) {
+			teamNames.push(key);
+		}
+
+		return teamNames;
+	}
+
+/***/ },
+/* 552 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(553);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(511)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?importLoaders=2&sourceMap!./../../../node_modules/postcss-loader/index.js!./../../../node_modules/sass-loader/index.js?outputStyle=expanded&sourceMap=true&sourceMapContents=true!./active-player.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?importLoaders=2&sourceMap!./../../../node_modules/postcss-loader/index.js!./../../../node_modules/sass-loader/index.js?outputStyle=expanded&sourceMap=true&sourceMapContents=true!./active-player.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 553 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(510)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.active-player {\n  font-family: \"TrasandinaBlack\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n  color: #4d4d4d;\n}\n\n.active-player h1 {\n  font-size: 1.4em;\n  text-transform: uppercase;\n}\n\n.active-player h2 {\n  color: #b7b7b7;\n}\n\n.active-player .player-list {\n  margin-bottom: 0;\n}\n\n.active-player .player-list .headings td {\n  background: inherit;\n  padding: 0;\n  font-size: 10px;\n}\n\n.active-player .player-list .headings td:after {\n  content: none;\n}\n\n.active-player .player-list .player tr {\n  position: relative;\n}\n\n.active-player .player-list .player td {\n  position: relative;\n  padding: 10px;\n  font-size: 16px;\n  background: inherit;\n}\n\n.active-player .player-list .player td:first-child:after {\n  content: '';\n  position: absolute;\n  height: 100%;\n  width: 100px;\n  top: 0;\n  right: 100%;\n  background: #e5e9ef;\n}\n\n.active-player .player-list .player.batter:hover {\n  background: #e5e9ef;\n}\n\n.active-player .player-list .player.pitcher:hover {\n  background: #E2D7E2;\n}\n\n.active-player .player-list .player.pitcher td:after {\n  background: #E2D7E2;\n}\n\n.active-player image {\n  width: 100%;\n}\n\n.active-player .player-avatar {\n  position: relative;\n  display: inline-block;\n  width: 30%;\n  z-index: 1;\n}\n\n.active-player .player-info-panel {\n  display: inline-block;\n  width: 70%;\n  vertical-align: bottom;\n}\n\n.active-player .player-info,\n.active-player .player-news {\n  display: inline-block;\n  padding: 0 10px;\n}\n\n.active-player .player-info {\n  width: 40%;\n}\n\n.active-player .player-info .player-value {\n  font-size: 6em;\n  color: #98a1ad;\n}\n\n.active-player .player-info .player-value .dollar-amount {\n  margin-left: 0.2em;\n}\n\n.active-player .player-info .player-value .dollar-amount:after {\n  font-size: 0.4em;\n}\n\n.active-player .player-news {\n  width: 60%;\n}\n\n.active-player .player-news p {\n  font-family: \"Cantarell-Regular\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n  letter-spacing: -.03125em;\n  font-size: 14px;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/active-player.scss","/./project/stylesheets/project/stylesheets/helpers/fonts.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;ECmB+B,oFAnBqC;EDEnE,eEiCkB;CFgFlB;;AAnHD;EAKE,iBAAiB;EACjB,0BAA0B;CAC1B;;AAPF;EAUE,eEwBmB;CFvBnB;;AAXF;EAeK,iBAAiB;CAqDpB;;AApEF;EAmBI,oBAAoB;EACpB,WAAW;EACX,gBAAgB;CAIhB;;AAzBJ;EAuBK,cAAc;CACd;;AAxBL;EA8BI,mBAAmB;CACnB;;AA/BJ;EAkCI,mBAAmB;EAChB,cAAc;EACd,gBAAgB;EAChB,oBAAoB;CAavB;;AAlDJ;EAyCM,YAAY;EACT,mBAAmB;EACnB,aAAa;EACb,aAAa;EACb,OAAO;EACP,YAAY;EACf,oBEPe;CFQf;;AAhDN;EAqDK,oBEbgB;CFchB;;AAtDL;EA0DK,oBElDa;CFmDb;;AA3DL;EA8DM,oBEtDY;CFuDZ;;AA/DN;EAuEE,YAAY;CACZ;;AAxEF;EA2EE,mBAAmB;EACnB,sBAAsB;EACtB,WAAW;EACX,WAAW;CACX;;AA/EF;EAkFE,sBAAsB;EACtB,WAAW;EACR,uBAAuB;CAC1B;;AArFF;;EAyFE,sBAAsB;EACtB,gBAAgB;CAChB;;AA3FF;EA8FE,WAAW;CAYX;;AA1GF;EAiGG,eAAe;EACf,eElDY;CFyDZ;;AAzGH;EAoGO,mBAAmB;CAItB;;AAxGJ;EAsGQ,iBAAiB;CACpB;;AAvGL;EA6GE,WAAW;CAKX;;AAlHF;ECqBmB,sFArBiD;EAqBhB,0BAA0B;ED2F3E,gBAAgB;CAChB","file":"active-player.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.active-player {\n\t@include transandina-black;\n\tcolor: $dark-grey;\n\n\th1 {\n\t\tfont-size: 1.4em;\n\t\ttext-transform: uppercase;\n\t}\n\n\th2 {\n\t\tcolor: $medium-grey;\n\t}\n\n\t.player-list {\n\n\t    margin-bottom: 0;\n\n\t\t.headings {\n\t\t\ttd {\n\t\t\t\tbackground: inherit;\n\t\t\t\tpadding: 0;\n\t\t\t\tfont-size: 10px;\n\t\t\t\t&:after {\n\t\t\t\t\tcontent: none;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t.player {\n\t\t\ttr {\n\t\t\t\tposition: relative;\n\t\t\t}\n\n\t\t\ttd {\n\t\t\t\tposition: relative;\n\t\t\t    padding: 10px;\n\t\t\t    font-size: 16px;\n\t\t\t    background: inherit;\n\n\t\t\t    &:first-child {\n\t\t\t\t\t&:after {\n\t\t\t\t\t\tcontent: '';\n\t\t\t\t\t    position: absolute;\n\t\t\t\t\t    height: 100%;\n\t\t\t\t\t    width: 100px;\n\t\t\t\t\t    top: 0;\n\t\t\t\t\t    right: 100%;\n\t\t\t\t\t\tbackground: $batter-row;\n\t\t\t\t\t}\n\t\t\t    }\n\t\t\t}\n\t\t\t&.batter {\n\t\t\t\t&:hover {\n\t\t\t\t\tbackground: $batter-row;\n\t\t\t\t}\n\t\t\t}\n\t\t\t&.pitcher {\n\t\t\t\t&:hover {\n\t\t\t\t\tbackground: $pitcher;\n\t\t\t\t}\n\t\t\t\ttd {\n\t\t\t\t\t&:after {\n\t\t\t\t\t\tbackground: $pitcher;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\t}\n\n\timage {\n\t\twidth: 100%;\n\t}\n\n\t.player-avatar {\n\t\tposition: relative;\n\t\tdisplay: inline-block;\n\t\twidth: 30%;\n\t\tz-index: 1;\n\t}\n\n\t.player-info-panel {\n\t\tdisplay: inline-block;\n\t\twidth: 70%;\n\t    vertical-align: bottom;\n\t}\n\n\t.player-info,\n\t.player-news {\n\t\tdisplay: inline-block;\n\t\tpadding: 0 10px;\n\t}\n\n\t.player-info {\n\t\twidth: 40%;\n\n\t\t.player-value {\n\t\t\tfont-size: 6em;\n\t\t\tcolor: $price;\n\t\t\t.dollar-amount {\n\t\t\t    margin-left: 0.2em;\n\t\t\t\t&:after {\n\t\t\t\t    font-size: 0.4em;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t.player-news {\n\t\twidth: 60%;\n\t\tp {\n\t\t\t@include cantarell\n\t\t\tfont-size: 14px;\n\t\t}\n\t}\n}","$helvetica     : 'Helvetica Neue', Helvetica, Arial, sans-serif !default;\n$georgia       : Georgia, Cambria, 'Times New Roman', Times, serif !default;\n$lucida-grande : 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif !default;\n$monospace     : 'Bitstream Vera Sans Mono', Consolas, Courier, monospace !default;\n$verdana       : Verdana, Geneva, sans-serif !default;\n\n$cantarell-bold     : 'Cantarell-Bold', $lucida-grande;\n$cantarell-boldoblique     : 'Cantarell-BoldOblique', $lucida-grande;\n$cantarell-oblique     : 'Cantarell-Oblique', $lucida-grande;\n$cantarell-regular     : 'Cantarell-Regular', $lucida-grande;\n\n$transandina-medium     : 'TrasandinaMedium', $lucida-grande;\n$transandina-black     : 'TrasandinaBlack', $lucida-grande;\n\n@mixin helvetica     { font-family: $helvetica; }\n@mixin georgia       { font-family: $georgia; }\n@mixin lucida-grande { font-family: $lucida-grande; }\n@mixin monospace     { font-family: $monospace; }\n@mixin verdana       { font-family: $verdana; }\n\n@mixin transandina-medium     { font-family: $transandina-medium; }\n@mixin transandina-black     { font-family: $transandina-black; }\n\n@mixin cantarell { font-family: $cantarell-regular; letter-spacing: -.03125em; }\n@mixin cantarell-bold { @include cantarell; font-family: $cantarell-bold; }\n@mixin cantarell-boldoblique { @include cantarell; font-family: $cantarell-boldoblique; }\n@mixin cantarell-oblique { @include cantarell; font-family: $cantarell-oblique; }","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n\n$batterEditHover: #CBDEEA;\n\n$pitcher : #E2D7E2;\n$pitcherDark : #5D545D;\n$pitcherAlt : #D2C7D2;\n$pitcherHighlight: #FFF6FF;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n\n$lightest-grey: #f2f2f2;\n$light-grey: #cecece;\n$medium-grey: #b7b7b7;\n$dark-grey: #4d4d4d;\n\n$headings: #d7dfeb;\n$headings-border: #bdc2c9;\n\n$batter-row : #e5e9ef;\n$batter-row-alt : #d7dfeb;\n$batter-dark : #8e9194;\n$batter-highlight: #F3F6F9;\n$batter-row-muted: rgba(101, 113, 121, 0.6);\n\n$sub-heading: #878787;\n$heading: $dark-grey;\n$price: #98a1ad;"],"sourceRoot":"webpack://"}]);
+
+	// exports
+
+
+/***/ },
+/* 554 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "images/player-image.png";
+
+/***/ },
+/* 555 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37176,41 +35984,51 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _reactRedux = __webpack_require__(528);
+	var _reactRedux = __webpack_require__(513);
 
-	var _redux = __webpack_require__(535);
+	var _redux = __webpack_require__(520);
 
-	var _players = __webpack_require__(567);
+	var _players = __webpack_require__(556);
 
 	var playerActions = _interopRequireWildcard(_players);
 
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _SettingsUtils = __webpack_require__(573);
+	var _SettingsUtils = __webpack_require__(551);
 
 	var SettingsUtils = _interopRequireWildcard(_SettingsUtils);
 
-	var _PlayerListUtils = __webpack_require__(572);
+	var _PlayerListUtils = __webpack_require__(561);
 
 	var PlayerListUtils = _interopRequireWildcard(_PlayerListUtils);
 
-	var _PlayerList = __webpack_require__(554);
+	var _PlayerList = __webpack_require__(539);
 
 	var _PlayerList2 = _interopRequireDefault(_PlayerList);
 
-	var _PlayerInput = __webpack_require__(575);
+	var _PlayerInput = __webpack_require__(563);
 
 	var _PlayerInput2 = _interopRequireDefault(_PlayerInput);
 
-	__webpack_require__(562);
+	var _ActivePlayer = __webpack_require__(550);
+
+	var _ActivePlayer2 = _interopRequireDefault(_ActivePlayer);
+
+	var _ListFilters = __webpack_require__(572);
+
+	var _ListFilters2 = _interopRequireDefault(_ListFilters);
+
+	var _filterUtils = __webpack_require__(559);
+
+	__webpack_require__(547);
 
 	function _interopRequireWildcard(obj) {
 		if (obj && obj.__esModule) {
@@ -37259,47 +36077,34 @@
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PlayerListsContainer).call(this, props));
 
 			_this.state = {
-				listTypeShown: 'batter'
+				filter: { property: 'type', value: 'batter' },
+				searchQuery: null
 			};
 			return _this;
 		}
 
 		_createClass(PlayerListsContainer, [{
-			key: 'componentWillReceiveProps',
-			value: function componentWillReceiveProps(nextProps) {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
 				this.props.actions.fetchPlayersIfNeeded();
 			}
 		}, {
-			key: 'getLists',
-			value: function getLists() {
-				var _this2 = this;
+			key: 'togglePlayerList',
+			value: function togglePlayerList(e) {
+				var property = e.target.getAttribute('data-param');
+				var value = e.target.getAttribute('data-value');
 
-				if (!this.props.lists) {
-					return _react2.default.createElement('div', null, ' ');
+				var filter = {
+					property: property,
+					value: value
+				};
+
+				if (this.state.filter === filter) {
+					return;
 				}
 
-				var listToShow = this.state.listTypeShown;
-
-				return this.props.lists.map(function (list, index) {
-					var categories = list.categories;
-					var players = list.players;
-					var type = list.type;
-
-					var playerList;
-					if (type === listToShow) {
-						playerList = _react2.default.createElement(_PlayerList2.default, {
-							key: index,
-							type: type,
-							players: players,
-							categories: categories,
-							sortPlayers: _this2.props.actions.sortPlayers,
-							playerSelected: _this2.props.actions.updateActivePlayer,
-							hideValueInfo: false,
-							updateStat: _this2.props.actions.updatePlayerStat,
-							updateCost: _this2.props.actions.updatePlayerCost,
-							updateFavorited: _this2.props.actions.updatePlayerFavorited });
-					}
-					return playerList;
+				this.setState({
+					filter: filter
 				});
 			}
 		}, {
@@ -37308,7 +36113,10 @@
 				console.log('trying to update PlayerLists');
 				var stringifiedNextProps = JSON.stringify(nextProps);
 				var stringifiedProps = JSON.stringify(this.props);
-				return stringifiedNextProps != stringifiedProps;
+				var stringifiedNextState = JSON.stringify(nextState);
+				var stringifiedState = JSON.stringify(this.state);
+
+				return stringifiedNextProps != stringifiedProps || stringifiedNextState != stringifiedState;
 			}
 		}, {
 			key: 'componentDidUpdate',
@@ -37316,12 +36124,124 @@
 				console.log('player lists updated');
 			}
 		}, {
+			key: 'getType',
+			value: function getType() {
+				var filter = this.state.filter;
+				var categoryType;
+				switch (filter.value) {
+					case 'batter':
+					case '1B':
+					case '2B':
+					case '3B':
+					case 'SS':
+					case 'OF':
+					case 'C':
+						categoryType = 'batter';
+						break;
+					case 'pitcher':
+					case 'SP':
+					case 'RP':
+						categoryType = 'pitcher';
+						break;
+				}
+				return categoryType;
+			}
+		}, {
+			key: 'getCategories',
+			value: function getCategories() {
+				if (!this.props.categories) {
+					return;
+				}
+				return SettingsUtils.getCategories(this.props.categories[this.getType()]);
+			}
+		}, {
+			key: 'getPlayers',
+			value: function getPlayers() {
+
+				var players = this.getFilteredPlayers();
+
+				if (this.state.searchQuery) {
+					players = this.getSearchResults(players);
+				}
+
+				return players;
+			}
+		}, {
+			key: 'getFilteredPlayers',
+			value: function getFilteredPlayers() {
+				var players = this.props.players;
+
+				if (!players) {
+					return;
+				}
+
+				var filteredPlayers = (0, _filterUtils.filterBy)(players, this.state.filter.property, this.state.filter.value);
+
+				filteredPlayers = filteredPlayers.length === 0 ? players : filteredPlayers;
+
+				console.log(filteredPlayers.length);
+				return filteredPlayers.filter(function (player) {
+					return player.value;
+				});
+			}
+		}, {
+			key: 'getSearchResults',
+			value: function getSearchResults(players) {
+				return PlayerListUtils.getMatchingPlayers(players, this.state.searchQuery);
+			}
+		}, {
+			key: 'setSearchQuery',
+			value: function setSearchQuery(value) {
+				if (value.length > 1) {
+					this.setState({ searchQuery: value });
+				} else {
+					this.setState({ searchQuery: null });
+				}
+			}
+		}, {
+			key: 'getFilters',
+			value: function getFilters() {
+				if (!this.props.positions) {
+					return;
+				}
+
+				var filters = [{ property: 'type', value: 'all', text: 'all players' }];
+
+				this.props.positions.map(function (positionType) {
+
+					filters.push({ property: 'type', value: positionType.type, text: positionType.type + 's' });
+
+					positionType.positions.map(function (position, index) {
+						var className = (index + 1) % 3 === 0 ? 'last' : null;
+						filters.push({ property: 'pos', value: position.name, className: className });
+					});
+				});
+
+				return filters;
+			}
+		}, {
 			key: 'render',
 			value: function render() {
-				return _react2.default.createElement('div', null, _react2.default.createElement(_PlayerInput2.default, {
+				var loading = (0, _classnames2.default)({ 'is-loading': this.props.isLoading });
+
+				return _react2.default.createElement('div', { className: 'player-lists-container' }, _react2.default.createElement('div', { className: 'player-lists-header' }, _react2.default.createElement(_ActivePlayer2.default, null), _react2.default.createElement(_PlayerInput2.default, {
 					searchablePlayers: PlayerListUtils.getUnusedPlayers(this.props.players),
 					searchableTeams: this.props.teams,
-					playerEntered: this.props.actions.assignPlayer }), this.getLists());
+					playerEntered: this.props.actions.assignPlayer })), _react2.default.createElement('div', null, _react2.default.createElement(_ListFilters2.default, {
+					activeFilter: this.state.filter.value,
+					searchQuery: this.state.searchQuery,
+					setSearchQuery: this.setSearchQuery.bind(this),
+					filterSelected: this.togglePlayerList.bind(this),
+					filters: this.getFilters() }), _react2.default.createElement('div', { className: 'player-lists-main' }, _react2.default.createElement('div', { className: loading }, _react2.default.createElement(_PlayerList2.default, {
+					type: this.getType(),
+					players: this.getPlayers(),
+					categories: this.getCategories(),
+					sortPlayers: this.props.actions.sortPlayers,
+					playerSelected: this.props.actions.updateActivePlayer,
+					hideValueInfo: false,
+					updateStat: this.props.actions.updatePlayerStat,
+					updateCost: this.props.actions.updatePlayerCost,
+					updateFavorited: this.props.actions.updatePlayerFavorited })))));
 			}
 		}]);
 
@@ -37336,35 +36256,23 @@
 
 	function mapStateToProps(state, ownProps) {
 
+		console.log('mapStateToProps', state);
+
 		if (!state.players.data || !state.categories.data || !state.teams.data) {
 			return {};
 		}
 
-		var players = state.players.data;
-		var _state$players$player = state.players.playerLists;
-		var rankedBatters = _state$players$player.rankedBatters;
-		var rankedPitchers = _state$players$player.rankedPitchers;
-		var categories = state.categories.data;
-		var teams = SettingsUtils.getTeamNames(state.teams.data);
-
-		var battingCategories = SettingsUtils.getCategories(categories.batter);
-		var pitchingCategories = SettingsUtils.getCategories(categories.pitcher);
-
-		var lists = [{
-			type: 'batter',
-			players: rankedBatters,
-			categories: battingCategories
-		}, {
-			type: 'pitcher',
-			players: rankedPitchers,
-			categories: pitchingCategories
-
-		}];
+		var players = state.players.data,
+		    categories = state.categories.data,
+		    teams = SettingsUtils.getTeamNames(state.teams.data),
+		    positions = state.positions.data;
 
 		return {
 			players: players,
 			teams: teams,
-			lists: lists
+			categories: categories,
+			positions: positions,
+			isLoading: state.players.isLoading
 		};
 
 		// return { ...state.players.lists };
@@ -37373,397 +36281,25 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PlayerListsContainer);
 
 /***/ },
-/* 567 */
+/* 556 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _slicedToArray = function () {
-		function sliceIterator(arr, i) {
-			var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
-				for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-					_arr.push(_s.value);if (i && _arr.length === i) break;
-				}
-			} catch (err) {
-				_d = true;_e = err;
-			} finally {
-				try {
-					if (!_n && _i["return"]) _i["return"]();
-				} finally {
-					if (_d) throw _e;
-				}
-			}return _arr;
-		}return function (arr, i) {
-			if (Array.isArray(arr)) {
-				return arr;
-			} else if (Symbol.iterator in Object(arr)) {
-				return sliceIterator(arr, i);
-			} else {
-				throw new TypeError("Invalid attempt to destructure non-iterable instance");
-			}
-		};
-	}();
-
-	exports.requestPlayers = requestPlayers;
-	exports.receivePlayers = receivePlayers;
-	exports.updatePlayerFavorited = updatePlayerFavorited;
-	exports.updateActivePlayer = updateActivePlayer;
-	exports.updatePlayerCost = updatePlayerCost;
-	exports.updatePlayerStat = updatePlayerStat;
-	exports.assignPlayer = assignPlayer;
-	exports.fetchPlayers = fetchPlayers;
-	exports.fetchPlayersIfNeeded = fetchPlayersIfNeeded;
-	exports.default = reducer;
-
-	var _isomorphicFetch = __webpack_require__(568);
-
-	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
-
-	var _filterUtils = __webpack_require__(570);
-
-	var _PlayerSgpUtils = __webpack_require__(571);
-
-	var _PlayerSgpUtils2 = _interopRequireDefault(_PlayerSgpUtils);
-
-	var _PlayerListUtils = __webpack_require__(572);
-
-	var PlayerListUtils = _interopRequireWildcard(_PlayerListUtils);
-
-	var _SettingsUtils = __webpack_require__(573);
-
-	var SettingsUtils = _interopRequireWildcard(_SettingsUtils);
-
-	var _PlayerValueUtils = __webpack_require__(574);
-
-	var _PlayerValueUtils2 = _interopRequireDefault(_PlayerValueUtils);
-
-	function _interopRequireWildcard(obj) {
-		if (obj && obj.__esModule) {
-			return obj;
-		} else {
-			var newObj = {};if (obj != null) {
-				for (var key in obj) {
-					if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-				}
-			}newObj.default = obj;return newObj;
-		}
-	}
-
-	function _interopRequireDefault(obj) {
-		return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	function _defineProperty(obj, key, value) {
-		if (key in obj) {
-			Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
-		} else {
-			obj[key] = value;
-		}return obj;
-	}
-
-	var initialState = {
-		fetching: false,
-		didInvalidate: false,
-		data: null,
-		playerLists: {
-			rankedBatters: [],
-			rankedPitchers: []
-		},
-		activePlayer: null
-	};
-
-	function requestPlayers() {
-		console.log('requesting players');
-		return { type: 'REQUEST_PLAYERS' };
-	}
-
-	function receivePlayers(players) {
-		return { type: 'RECEIVE_PLAYERS', players: players };
-	}
-
-	function updatePlayerFavorited(playerId) {
-		return { type: 'UPDATE_PLAYER_FAVORITED', id: playerId };
-	}
-
-	function updateActivePlayer(playerId) {
-		return { type: 'UPDATE_ACTIVE_PLAYER', id: playerId };
-	}
-
-	function updatePlayerCost(playerCost, playerId) {
-		return { type: 'UPDATE_PLAYER_COST', props: { id: playerId, cost: playerCost } };
-	}
-
-	function updatePlayerStat(stat, value, playerId) {
-		return { type: 'UPDATE_PLAYER_STAT', props: { id: playerId, stat: stat, value: value } };
-	}
-
-	function assignPlayer(playerId, cost, team) {
-		return { type: 'ASSIGN_PLAYER', props: { id: playerId, cost: cost, team: team } };
-	}
-
-	function fetchPlayers(state) {
-		console.log('fetching...');
-		return function (dispatch) {
-
-			var url = '/api/players';
-
-			dispatch(requestPlayers());
-
-			return (0, _isomorphicFetch2.default)(url).then(function (response) {
-				response.json().then(function (data) {
-					dispatch(receivePlayers(computePlayerValues(data, state)));
-				});
-			});
-		};
-	}
-
-	function fetchPlayersIfNeeded() {
-		return function (dispatch, getState) {
-
-			var state = getState();
-
-			if (shouldFetchPlayers(state)) {
-				console.log('need to fetch players again');
-				return dispatch(fetchPlayers(state));
-			} else {
-				console.log('dont need to fetch players again');
-
-				if (shouldRecalculatePlayers(state)) {
-					console.log('need to recalculate players');
-
-					computePlayerValues(state.players.data, state);
-				}
-				// Let the calling code know there's nothing to wait for.
-				return Promise.resolve();
-			}
-		};
-	}
-
-	function reducer() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
-		var action = arguments[1];
-
-		switch (action.type) {
-			case 'INVALIDATE_PLAYERS':
-				return Object.assign({}, state, {
-					didInvalidate: true
-				});
-				break;
-
-			case 'REQUEST_PLAYERS':
-				return Object.assign({}, state, {
-					fetching: true,
-					didInvalidate: false
-				});
-
-			case 'RECEIVE_PLAYERS':
-				console.log('receiving players');
-				return Object.assign({}, state, {
-					fetching: false,
-					didInvalidate: false,
-					data: action.players,
-					playerLists: returnPlayerLists(action.players)
-
-				});
-
-			case 'UPDATE_PLAYER_FAVORITED':
-				var updatedPlayers = state.data.map(function (player, index) {
-					if (player.id === action.id) {
-						return Object.assign({}, player, {
-							isFavorited: !player.isFavorited
-						});
-					}
-					return player;
-				});
-
-				return Object.assign({}, state, {
-					data: updatedPlayers,
-					playerLists: returnPlayerLists(updatedPlayers)
-				});
-
-			case 'UPDATE_ACTIVE_PLAYER':
-				var activePlayer = state.data.filter(function (player) {
-					return player.id === action.id;
-				});
-
-				return Object.assign({}, state, {
-					activePlayer: activePlayer[0]
-				});
-
-			case 'UPDATE_PLAYER_COST':
-				var _action$props = action.props;
-				var id = _action$props.id;
-				var cost = _action$props.cost;
-
-				var updatedPlayers = state.data.map(function (player, index) {
-					if (player.id === id) {
-						var isSelected = cost > 0;
-						return Object.assign({}, player, {
-							cost: cost,
-							isSelected: isSelected
-						});
-					}
-					return player;
-				});
-
-				return Object.assign({}, state, {
-					data: updatedPlayers,
-					playerLists: returnPlayerLists(updatedPlayers),
-					didInvalidate: true
-				});
-
-			case 'UPDATE_PLAYER_STAT':
-				var _action$props2 = action.props;
-				var id = _action$props2.id;
-				var stat = _action$props2.stat;
-				var value = _action$props2.value;
-
-				var updatedPlayers = state.data.map(function (player, index) {
-					if (player.id === id) {
-						return Object.assign({}, player, _defineProperty({}, stat, value));
-					}
-					return player;
-				});
-
-				return Object.assign({}, state, {
-					data: updatedPlayers,
-					playerLists: returnPlayerLists(updatedPlayers),
-					didInvalidate: true
-				});
-
-			case 'ASSIGN_PLAYER':
-				var _action$props3 = action.props;
-				var id = _action$props3.id;
-				var cost = _action$props3.cost;
-				var team = _action$props3.team;
-
-				var updatedPlayers = state.data.map(function (player, index) {
-					if (player.id === id) {
-						var isSelected = cost > 0;
-						return Object.assign({}, player, {
-							team: team,
-							cost: cost,
-							isSelected: isSelected
-						});
-					}
-					return player;
-				});
-
-				return Object.assign({}, state, {
-					data: updatedPlayers,
-					playerLists: returnPlayerLists(updatedPlayers),
-					isInvalidated: true
-				});
-
-			default:
-				return state;
-		}
-	}
-
-	function shouldFetchPlayers(state) {
-		var players = state.players.data;
-		if (!players && !state.players.fetching) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	function shouldRecalculatePlayers(state) {
-		return state.players.didInvalidate;
-	}
-
-	function returnPlayerLists(players) {
-		var rankedBatters = players.filter(function (player) {
-			return player.value && player.type === 'batter';
-		}),
-		    rankedPitchers = players.filter(function (player) {
-			return player.value && player.type === 'pitcher';
-		}),
-		    unusedBatters = players.filter(function (player) {
-			return !player.value && player.type === 'batter';
-		}),
-		    unusedPitchers = players.filter(function (player) {
-			return !player.value && player.type === 'pitcher';
-		});
-
-		return { rankedBatters: rankedBatters, rankedPitchers: rankedPitchers, unusedBatters: unusedBatters, unusedPitchers: unusedPitchers };
-	}
-
-	function computePlayerValues(players, state) {
-		var _state$settings$data = state.settings.data;
-		var numTeams = _state$settings$data.numTeams;
-		var teamSalary = _state$settings$data.teamSalary;
-		var startingSalary = _state$settings$data.startingSalary;
-		var battingPercentage = _state$settings$data.battingPercentage;
-		var rosterSpots = _state$settings$data.rosterSpots;
-		var numBatters = _state$settings$data.numBatters;
-		var categories = state.categories.data;
-		var positions = state.positions.data;
-		var teams = state.teams.data;
-
-		var batters = (0, _filterUtils.filterBy)(players, 'type', 'batter'),
-		    pitchers = (0, _filterUtils.filterBy)(players, 'type', 'pitcher');
-
-		var battingCategories = SettingsUtils.getCategories(categories.batter),
-		    pitchingCategories = SettingsUtils.getCategories(categories.pitcher);
-
-		var numPitchers = rosterSpots - numBatters;
-
-		var battersWithSGP = (0, _PlayerSgpUtils2.default)(batters, battingCategories, numBatters, 'batter'),
-		    pitchersWithSGP = (0, _PlayerSgpUtils2.default)(pitchers, pitchingCategories, numPitchers, 'pitcher');
-
-		var numBattersToDraft = numBatters * numTeams,
-		    numPitchersToDraft = (rosterSpots - numBatters) * numTeams;
-
-		var batterConditions = SettingsUtils.getScarcePositions(positions.batter),
-		    pitcherConditions = SettingsUtils.getScarcePositions(positions.pitcher);
-
-		var _PlayerListUtils$getP = PlayerListUtils.getPlayerList(battersWithSGP, numBattersToDraft, batterConditions);
-
-		var _PlayerListUtils$getP2 = _slicedToArray(_PlayerListUtils$getP, 2);
-
-		var draftableBatters = _PlayerListUtils$getP2[0];
-		var unusedBatters = _PlayerListUtils$getP2[1];
-
-		var _PlayerListUtils$getP3 = PlayerListUtils.getPlayerList(pitchersWithSGP, numPitchersToDraft, pitcherConditions);
-
-		var _PlayerListUtils$getP4 = _slicedToArray(_PlayerListUtils$getP3, 2);
-
-		var draftablePitchers = _PlayerListUtils$getP4[0];
-		var unusedPitchers = _PlayerListUtils$getP4[1];
-
-		var totalSalary = teamSalary * numTeams;
-
-		var battingDollarsToSpend = totalSalary * (battingPercentage / 100),
-		    pitchingDollarsToSpend = totalSalary * ((100 - battingPercentage) / 100);
-
-		var rankedBatters = (0, _PlayerValueUtils2.default)(draftableBatters, numBattersToDraft, batters, battingDollarsToSpend, batterConditions),
-		    rankedPitchers = (0, _PlayerValueUtils2.default)(draftablePitchers, numPitchersToDraft, pitchers, pitchingDollarsToSpend, pitcherConditions);
-
-		var allPlayers = [].concat(rankedBatters, rankedPitchers, unusedBatters, unusedPitchers);
-
-		return allPlayers;
-	}
+	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _slicedToArray=function(){function sliceIterator(arr,i){var _arr=[];var _n=true;var _d=false;var _e=undefined;try{for(var _i=arr[Symbol.iterator](),_s;!(_n=(_s=_i.next()).done);_n=true){_arr.push(_s.value);if(i&&_arr.length===i)break;}}catch(err){_d=true;_e=err;}finally {try{if(!_n&&_i["return"])_i["return"]();}finally {if(_d)throw _e;}}return _arr;}return function(arr,i){if(Array.isArray(arr)){return arr;}else if(Symbol.iterator in Object(arr)){return sliceIterator(arr,i);}else {throw new TypeError("Invalid attempt to destructure non-iterable instance");}};}();exports.requestPlayers=requestPlayers;exports.receivePlayers=receivePlayers;exports.updatePlayerFavorited=updatePlayerFavorited;exports.updateActivePlayer=updateActivePlayer;exports.updatePlayerCost=updatePlayerCost;exports.updatePlayerStat=updatePlayerStat;exports.assignPlayer=assignPlayer;exports.fetchPlayersIfNeeded=fetchPlayersIfNeeded;exports.default=reducer;var _isomorphicFetch=__webpack_require__(557);var _isomorphicFetch2=_interopRequireDefault(_isomorphicFetch);var _filterUtils=__webpack_require__(559);var _PlayerSgpUtils=__webpack_require__(560);var _PlayerSgpUtils2=_interopRequireDefault(_PlayerSgpUtils);var _PlayerListUtils=__webpack_require__(561);var PlayerListUtils=_interopRequireWildcard(_PlayerListUtils);var _SettingsUtils=__webpack_require__(551);var SettingsUtils=_interopRequireWildcard(_SettingsUtils);var _PlayerValueUtils=__webpack_require__(562);var _PlayerValueUtils2=_interopRequireDefault(_PlayerValueUtils);function _interopRequireWildcard(obj){if(obj&&obj.__esModule){return obj;}else {var newObj={};if(obj!=null){for(var key in obj){if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key]=obj[key];}}newObj.default=obj;return newObj;}}function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true});}else {obj[key]=value;}return obj;}var initialState={fetching:false,didInvalidate:false,data:[{"id":1,"name":"Mike Trout","isFavorited":true,"type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":643,"AB":539,"R":103,"HR":40,"RBI":103,"SB":15,"AVG":0.307,"OBP":0.41,"SLG":0.585,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":2,"name":"Bryce Harper","isFavorited":"","type":"batter","isSelected":true,"cost":42,"pos":"OF","PA":621,"AB":515,"R":95,"HR":37,"RBI":100,"SB":7,"AVG":0.301,"OBP":0.412,"SLG":0.564,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":3,"name":"Paul Goldschmidt","isFavorited":"","type":"batter","isSelected":true,"cost":49,"pos":"1B","PA":653,"AB":544,"R":93,"HR":31,"RBI":100,"SB":14,"AVG":0.29,"OBP":0.401,"SLG":0.531,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":4,"name":"Anthony Rizzo","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":644,"AB":552,"R":98,"HR":35,"RBI":105,"SB":10,"AVG":0.285,"OBP":0.374,"SLG":0.519,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":5,"name":"Manny Machado","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":664,"AB":599,"R":94,"HR":30,"RBI":105,"SB":18,"AVG":0.298,"OBP":0.345,"SLG":0.484,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":6,"name":"Giancarlo Stanton","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":563,"AB":483,"R":87,"HR":44,"RBI":100,"SB":7,"AVG":0.275,"OBP":0.372,"SLG":0.576,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":7,"name":"Miguel Cabrera","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":602,"AB":520,"R":93,"HR":28,"RBI":96,"SB":1,"AVG":0.314,"OBP":0.398,"SLG":0.534,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":8,"name":"Mookie Betts","isFavorited":"","type":"batter","isSelected":true,"cost":6,"pos":"OF","PA":665,"AB":596,"R":100,"HR":20,"RBI":70,"SB":24,"AVG":0.302,"OBP":0.361,"SLG":0.474,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":9,"name":"Andrew McCutchen","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":654,"AB":555,"R":88,"HR":23,"RBI":92,"SB":12,"AVG":0.293,"OBP":0.395,"SLG":0.496,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":10,"name":"Jose Altuve","isFavorited":"","type":"batter","isSelected":true,"cost":21,"pos":"2B","PA":685,"AB":630,"R":98,"HR":11,"RBI":60,"SB":36,"AVG":0.307,"OBP":0.35,"SLG":0.433,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":11,"name":"Kris Bryant","isFavorited":"","type":"batter","isSelected":true,"cost":9,"pos":"3B","PA":632,"AB":549,"R":87,"HR":31,"RBI":101,"SB":13,"AVG":0.27,"OBP":0.36,"SLG":0.507,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":12,"name":"Jose Abreu","isFavorited":"","type":"batter","isSelected":true,"cost":25,"pos":"1B","PA":646,"AB":581,"R":90,"HR":31,"RBI":103,"SB":2,"AVG":0.29,"OBP":0.35,"SLG":0.52,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":13,"name":"Joey Votto","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":620,"AB":496,"R":84,"HR":25,"RBI":75,"SB":7,"AVG":0.293,"OBP":0.418,"SLG":0.479,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":14,"name":"Carlos Correa","isFavorited":"","type":"batter","isSelected":true,"cost":2,"pos":"SS","PA":632,"AB":568,"R":91,"HR":22,"RBI":86,"SB":22,"AVG":0.28,"OBP":0.339,"SLG":0.457,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":15,"name":"Nolan Arenado","isFavorited":"","type":"batter","isSelected":true,"cost":24,"pos":"3B","PA":629,"AB":582,"R":85,"HR":33,"RBI":100,"SB":4,"AVG":0.292,"OBP":0.333,"SLG":0.516,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":16,"name":"Starling Marte","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":627,"AB":571,"R":82,"HR":19,"RBI":82,"SB":27,"AVG":0.284,"OBP":0.34,"SLG":0.45,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":17,"name":"George Springer","isFavorited":"","type":"batter","isSelected":true,"cost":9,"pos":"OF","PA":583,"AB":507,"R":90,"HR":31,"RBI":85,"SB":19,"AVG":0.265,"OBP":0.343,"SLG":0.463,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":18,"name":"Justin Upton","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":632,"AB":554,"R":90,"HR":28,"RBI":95,"SB":13,"AVG":0.264,"OBP":0.351,"SLG":0.485,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":19,"name":"Josh Donaldson","isFavorited":"","type":"batter","isSelected":true,"cost":25,"pos":"3B","PA":659,"AB":578,"R":96,"HR":30,"RBI":93,"SB":4,"AVG":0.274,"OBP":0.352,"SLG":0.497,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":20,"name":"Dee Gordon","isFavorited":"","type":"batter","isSelected":true,"cost":14,"pos":"2B","PA":632,"AB":585,"R":85,"HR":3,"RBI":43,"SB":52,"AVG":0.29,"OBP":0.325,"SLG":0.365,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":21,"name":"A.J. Pollock","isFavorited":"","type":"batter","isSelected":true,"cost":17,"pos":"OF","PA":662,"AB":601,"R":90,"HR":15,"RBI":63,"SB":28,"AVG":0.285,"OBP":0.337,"SLG":0.433,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":22,"name":"Charlie Blackmon","isFavorited":"","type":"batter","isSelected":true,"cost":17,"pos":"OF","PA":626,"AB":569,"R":85,"HR":16,"RBI":61,"SB":31,"AVG":0.279,"OBP":0.333,"SLG":0.43,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":23,"name":"Jose Bautista","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":590,"AB":494,"R":84,"HR":31,"RBI":90,"SB":5,"AVG":0.257,"OBP":0.37,"SLG":0.5,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":24,"name":"Ryan Braun","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":580,"AB":522,"R":82,"HR":23,"RBI":83,"SB":15,"AVG":0.276,"OBP":0.341,"SLG":0.477,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":25,"name":"Jason Heyward","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":657,"AB":575,"R":87,"HR":18,"RBI":72,"SB":17,"AVG":0.28,"OBP":0.362,"SLG":0.449,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":26,"name":"Edwin Encarnacion","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":540,"AB":467,"R":80,"HR":32,"RBI":93,"SB":3,"AVG":0.26,"OBP":0.356,"SLG":0.514,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":27,"name":"Chris Davis","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":623,"AB":540,"R":85,"HR":38,"RBI":97,"SB":3,"AVG":0.245,"OBP":0.338,"SLG":0.503,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":28,"name":"Prince Fielder","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":639,"AB":559,"R":80,"HR":24,"RBI":90,"SB":1,"AVG":0.285,"OBP":0.371,"SLG":0.474,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":29,"name":"Freddie Freeman","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":620,"AB":535,"R":77,"HR":23,"RBI":84,"SB":3,"AVG":0.287,"OBP":0.374,"SLG":0.48,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":30,"name":"J.D. Martinez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":609,"AB":554,"R":82,"HR":30,"RBI":95,"SB":4,"AVG":0.273,"OBP":0.33,"SLG":0.486,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":31,"name":"Xander Bogaerts","isFavorited":"","type":"batter","isSelected":true,"cost":15,"pos":"SS","PA":635,"AB":581,"R":85,"HR":16,"RBI":80,"SB":11,"AVG":0.3,"OBP":0.343,"SLG":0.441,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":32,"name":"Lorenzo Cain","isFavorited":"","type":"batter","isSelected":true,"cost":8,"pos":"OF","PA":584,"AB":535,"R":83,"HR":13,"RBI":74,"SB":23,"AVG":0.284,"OBP":0.334,"SLG":0.417,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":33,"name":"Eric Hosmer","isFavorited":"","type":"batter","isSelected":true,"cost":11,"pos":"1B","PA":638,"AB":574,"R":80,"HR":19,"RBI":87,"SB":7,"AVG":0.293,"OBP":0.348,"SLG":0.448,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":34,"name":"Miguel Sano","isFavorited":"","type":"batter","isSelected":true,"cost":2,"pos":"3B","PA":588,"AB":511,"R":79,"HR":32,"RBI":90,"SB":4,"AVG":0.255,"OBP":0.344,"SLG":0.501,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":35,"name":"Buster Posey","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":559,"AB":498,"R":72,"HR":19,"RBI":83,"SB":2,"AVG":0.306,"OBP":0.373,"SLG":0.473,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":36,"name":"Christian Yelich","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":594,"AB":524,"R":80,"HR":12,"RBI":58,"SB":20,"AVG":0.288,"OBP":0.361,"SLG":0.426,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":37,"name":"Carlos Gonzalez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":538,"AB":488,"R":74,"HR":28,"RBI":84,"SB":4,"AVG":0.273,"OBP":0.336,"SLG":0.511,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":38,"name":"Billy Hamilton","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":591,"AB":540,"R":65,"HR":7,"RBI":39,"SB":61,"AVG":0.247,"OBP":0.301,"SLG":0.347,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":39,"name":"Yasiel Puig","isFavorited":"","type":"batter","isSelected":true,"cost":16,"pos":"OF","PA":574,"AB":506,"R":69,"HR":20,"RBI":72,"SB":10,"AVG":0.279,"OBP":0.359,"SLG":0.489,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":40,"name":"Todd Frazier","isFavorited":"","type":"batter","isSelected":true,"cost":23,"pos":"3B","PA":635,"AB":570,"R":80,"HR":28,"RBI":93,"SB":13,"AVG":0.25,"OBP":0.318,"SLG":0.448,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":41,"name":"Nelson Cruz","isFavorited":"","type":"batter","isSelected":true,"cost":25,"pos":"OF","PA":612,"AB":552,"R":77,"HR":33,"RBI":94,"SB":3,"AVG":0.262,"OBP":0.321,"SLG":0.476,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":42,"name":"Adam Jones","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":637,"AB":596,"R":78,"HR":29,"RBI":92,"SB":5,"AVG":0.272,"OBP":0.31,"SLG":0.465,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":43,"name":"David Ortiz","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":544,"AB":474,"R":74,"HR":25,"RBI":83,"SB":1,"AVG":0.272,"OBP":0.358,"SLG":0.493,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":44,"name":"Adrian Beltre","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":584,"AB":534,"R":80,"HR":20,"RBI":85,"SB":1,"AVG":0.291,"OBP":0.344,"SLG":0.462,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":45,"name":"Gregory Polanco","isFavorited":"","type":"batter","isSelected":true,"cost":9,"pos":"OF","PA":637,"AB":571,"R":83,"HR":14,"RBI":60,"SB":27,"AVG":0.263,"OBP":0.328,"SLG":0.401,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":46,"name":"Delino Deshields","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":637,"AB":562,"R":85,"HR":8,"RBI":48,"SB":41,"AVG":0.25,"OBP":0.326,"SLG":0.359,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":47,"name":"Robinson Cano","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":648,"AB":587,"R":80,"HR":20,"RBI":80,"SB":3,"AVG":0.28,"OBP":0.344,"SLG":0.444,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":48,"name":"Brandon Belt","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":526,"AB":466,"R":70,"HR":19,"RBI":80,"SB":8,"AVG":0.28,"OBP":0.34,"SLG":0.446,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":49,"name":"Albert Pujols","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":584,"AB":530,"R":76,"HR":29,"RBI":90,"SB":3,"AVG":0.26,"OBP":0.32,"SLG":0.464,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":50,"name":"Adam Eaton","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":636,"AB":564,"R":93,"HR":10,"RBI":55,"SB":19,"AVG":0.275,"OBP":0.343,"SLG":0.395,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":51,"name":"Yoenis Cespedes","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":593,"AB":549,"R":73,"HR":26,"RBI":90,"SB":7,"AVG":0.262,"OBP":0.305,"SLG":0.464,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":52,"name":"Adrian Gonzalez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":622,"AB":560,"R":75,"HR":24,"RBI":86,"SB":1,"AVG":0.272,"OBP":0.337,"SLG":0.456,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":53,"name":"Matt Carpenter","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":674,"AB":577,"R":93,"HR":17,"RBI":62,"SB":5,"AVG":0.269,"OBP":0.363,"SLG":0.426,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":54,"name":"Kyle Seager","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":634,"AB":568,"R":76,"HR":22,"RBI":78,"SB":7,"AVG":0.265,"OBP":0.332,"SLG":0.443,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":55,"name":"Rougned Odor","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":578,"AB":531,"R":76,"HR":18,"RBI":70,"SB":13,"AVG":0.265,"OBP":0.321,"SLG":0.449,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":56,"name":"Kyle Schwarber","isFavorited":"","type":"batter","isSelected":true,"cost":2,"pos":"C","PA":544,"AB":475,"R":72,"HR":25,"RBI":76,"SB":5,"AVG":0.25,"OBP":0.345,"SLG":0.474,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":57,"name":"Gerardo Parra","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":547,"AB":503,"R":62,"HR":12,"RBI":65,"SB":14,"AVG":0.293,"OBP":0.336,"SLG":0.436,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":58,"name":"Hanley Ramirez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":476,"AB":429,"R":61,"HR":18,"RBI":68,"SB":8,"AVG":0.282,"OBP":0.345,"SLG":0.475,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":59,"name":"Matt Kemp","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":580,"AB":528,"R":65,"HR":21,"RBI":76,"SB":10,"AVG":0.268,"OBP":0.325,"SLG":0.45,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":60,"name":"Maikel Franco","isFavorited":"","type":"batter","isSelected":true,"cost":5,"pos":"3B","PA":567,"AB":526,"R":70,"HR":24,"RBI":83,"SB":3,"AVG":0.275,"OBP":0.315,"SLG":0.463,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":61,"name":"Alex Gordon","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":609,"AB":530,"R":74,"HR":17,"RBI":73,"SB":7,"AVG":0.268,"OBP":0.355,"SLG":0.432,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":62,"name":"Anthony Rendon","isFavorited":"","type":"batter","isSelected":true,"cost":7,"pos":"2B","PA":584,"AB":516,"R":80,"HR":15,"RBI":63,"SB":7,"AVG":0.28,"OBP":0.35,"SLG":0.438,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":63,"name":"Khris Davis","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":576,"AB":516,"R":69,"HR":29,"RBI":81,"SB":6,"AVG":0.247,"OBP":0.316,"SLG":0.466,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":64,"name":"Carlos Gomez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":553,"AB":501,"R":70,"HR":17,"RBI":73,"SB":17,"AVG":0.256,"OBP":0.316,"SLG":0.426,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":65,"name":"Jacoby Ellsbury","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":575,"AB":525,"R":70,"HR":11,"RBI":62,"SB":24,"AVG":0.264,"OBP":0.323,"SLG":0.396,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":66,"name":"Ben Revere","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":573,"AB":536,"R":69,"HR":2,"RBI":38,"SB":29,"AVG":0.299,"OBP":0.336,"SLG":0.368,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":67,"name":"Carlos Santana","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":611,"AB":506,"R":74,"HR":22,"RBI":80,"SB":6,"AVG":0.239,"OBP":0.362,"SLG":0.416,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":68,"name":"Jason Kipnis","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":621,"AB":548,"R":80,"HR":10,"RBI":56,"SB":16,"AVG":0.274,"OBP":0.342,"SLG":0.399,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":69,"name":"Matt Holliday","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":542,"AB":467,"R":70,"HR":16,"RBI":72,"SB":3,"AVG":0.272,"OBP":0.367,"SLG":0.44,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":70,"name":"Evan Longoria","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":650,"AB":584,"R":80,"HR":22,"RBI":84,"SB":3,"AVG":0.26,"OBP":0.323,"SLG":0.434,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":71,"name":"Francisco Lindor","isFavorited":"","type":"batter","isSelected":true,"cost":2,"pos":"SS","PA":644,"AB":589,"R":80,"HR":8,"RBI":62,"SB":20,"AVG":0.274,"OBP":0.319,"SLG":0.39,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":72,"name":"Daniel Murphy","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":565,"AB":523,"R":75,"HR":13,"RBI":58,"SB":5,"AVG":0.29,"OBP":0.35,"SLG":0.44,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":73,"name":"Mike Moustakas","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":588,"AB":532,"R":72,"HR":24,"RBI":80,"SB":2,"AVG":0.27,"OBP":0.322,"SLG":0.435,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":74,"name":"David Peralta","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":604,"AB":551,"R":63,"HR":15,"RBI":72,"SB":7,"AVG":0.279,"OBP":0.334,"SLG":0.449,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":75,"name":"Hunter Pence","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":596,"AB":542,"R":66,"HR":19,"RBI":75,"SB":9,"AVG":0.267,"OBP":0.323,"SLG":0.435,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":76,"name":"Shin-Soo Choo","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":614,"AB":520,"R":78,"HR":17,"RBI":62,"SB":5,"AVG":0.263,"OBP":0.365,"SLG":0.422,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":77,"name":"Wil Myers","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":563,"AB":501,"R":76,"HR":20,"RBI":65,"SB":10,"AVG":0.256,"OBP":0.328,"SLG":0.431,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":78,"name":"Ian Kinsler","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":649,"AB":595,"R":85,"HR":13,"RBI":68,"SB":11,"AVG":0.272,"OBP":0.318,"SLG":0.41,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":79,"name":"Matt Duffy","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":586,"AB":540,"R":75,"HR":13,"RBI":70,"SB":12,"AVG":0.276,"OBP":0.323,"SLG":0.394,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":80,"name":"Kevin Pillar","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":531,"AB":495,"R":63,"HR":11,"RBI":63,"SB":18,"AVG":0.275,"OBP":0.315,"SLG":0.414,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":81,"name":"Ben Zobrist","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":555,"AB":485,"R":80,"HR":12,"RBI":54,"SB":8,"AVG":0.273,"OBP":0.356,"SLG":0.424,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":82,"name":"Jose Reyes","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":400,"AB":373.3333333,"R":55.11111111,"HR":7.111111111,"RBI":37.33333333,"SB":16,"AVG":0.293,"OBP":0.343,"SLG":0.419,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":83,"name":"Brian Dozier","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":673,"AB":593,"R":85,"HR":24,"RBI":71,"SB":12,"AVG":0.235,"OBP":0.32,"SLG":0.406,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":84,"name":"Joc Pederson","isFavorited":"","type":"batter","isSelected":true,"cost":5,"pos":"OF","PA":587,"AB":493,"R":71,"HR":25,"RBI":66,"SB":12,"AVG":0.228,"OBP":0.34,"SLG":0.415,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":85,"name":"Josh Reddick","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":574,"AB":518,"R":62,"HR":19,"RBI":70,"SB":7,"AVG":0.27,"OBP":0.325,"SLG":0.444,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":86,"name":"Mark Trumbo","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":556,"AB":507,"R":68,"HR":26,"RBI":80,"SB":1,"AVG":0.263,"OBP":0.308,"SLG":0.455,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":87,"name":"Victor Martinez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":526,"AB":474,"R":63,"HR":15,"RBI":69,"SB":1,"AVG":0.289,"OBP":0.35,"SLG":0.445,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":88,"name":"Troy Tulowitzki","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":528,"AB":467,"R":72,"HR":19,"RBI":74,"SB":2,"AVG":0.266,"OBP":0.334,"SLG":0.441,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":89,"name":"Lucas Duda","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":545,"AB":466,"R":68,"HR":26,"RBI":80,"SB":2,"AVG":0.24,"OBP":0.34,"SLG":0.435,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":90,"name":"Melky Cabrera","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":628,"AB":574,"R":75,"HR":14,"RBI":68,"SB":4,"AVG":0.279,"OBP":0.334,"SLG":0.42,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":91,"name":"Dexter Fowler","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":584,"AB":499,"R":82,"HR":14,"RBI":46,"SB":15,"AVG":0.255,"OBP":0.347,"SLG":0.39,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":92,"name":"Brett Gardner","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":599,"AB":529,"R":78,"HR":13,"RBI":56,"SB":16,"AVG":0.256,"OBP":0.331,"SLG":0.395,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":93,"name":"Josh Harrison","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":577,"AB":537,"R":65,"HR":10,"RBI":56,"SB":15,"AVG":0.282,"OBP":0.321,"SLG":0.414,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":94,"name":"DJ LeMahieu","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":603,"AB":551,"R":65,"HR":6,"RBI":53,"SB":17,"AVG":0.287,"OBP":0.338,"SLG":0.383,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":95,"name":"Billy Burns","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":622,"AB":567,"R":75,"HR":4,"RBI":44,"SB":30,"AVG":0.27,"OBP":0.317,"SLG":0.347,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":96,"name":"Kendrys Morales","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":584,"AB":525,"R":67,"HR":19,"RBI":74,"SB":1,"AVG":0.27,"OBP":0.334,"SLG":0.44,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":97,"name":"Byung Ho Park","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":430,"AB":380,"R":60,"HR":20,"RBI":65,"SB":4,"AVG":0.265,"OBP":0.328,"SLG":0.48,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":98,"name":"Corey Seager","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":589,"AB":540,"R":73,"HR":17,"RBI":66,"SB":6,"AVG":0.276,"OBP":0.315,"SLG":0.423,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":99,"name":"Dustin Pedroia","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":558,"AB":501,"R":73,"HR":11,"RBI":60,"SB":6,"AVG":0.28,"OBP":0.347,"SLG":0.412,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":100,"name":"Randal Grichuk","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":527,"AB":488,"R":65,"HR":23,"RBI":76,"SB":7,"AVG":0.252,"OBP":0.295,"SLG":0.445,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":101,"name":"Denard Span","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":550,"AB":495,"R":70,"HR":5,"RBI":40,"SB":19,"AVG":0.285,"OBP":0.335,"SLG":0.383,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":102,"name":"Nick Castellanos","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":566,"AB":518,"R":65,"HR":18,"RBI":75,"SB":2,"AVG":0.272,"OBP":0.321,"SLG":0.431,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":103,"name":"Steven Souza","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":540,"AB":470,"R":72,"HR":18,"RBI":55,"SB":15,"AVG":0.242,"OBP":0.317,"SLG":0.412,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":104,"name":"Ender Inciarte","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":554,"AB":513,"R":63,"HR":8,"RBI":43,"SB":23,"AVG":0.281,"OBP":0.315,"SLG":0.369,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":105,"name":"Kole Calhoun","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":621,"AB":564,"R":76,"HR":22,"RBI":62,"SB":5,"AVG":0.259,"OBP":0.316,"SLG":0.426,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":106,"name":"Stephen Piscotty","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":535,"AB":550,"R":75,"HR":14,"RBI":60,"SB":7,"AVG":0.272,"OBP":0.327,"SLG":0.407,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":107,"name":"Jay Bruce","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":591,"AB":530,"R":65,"HR":25,"RBI":78,"SB":8,"AVG":0.235,"OBP":0.305,"SLG":0.432,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":108,"name":"Elvis Andrus","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":593,"AB":538,"R":65,"HR":5,"RBI":55,"SB":25,"AVG":0.263,"OBP":0.323,"SLG":0.354,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":109,"name":"Marcus Semien","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":586,"AB":525,"R":67,"HR":17,"RBI":67,"SB":10,"AVG":0.256,"OBP":0.318,"SLG":0.411,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":110,"name":"Marcell Ozuna","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":537,"AB":493,"R":63,"HR":20,"RBI":72,"SB":3,"AVG":0.262,"OBP":0.318,"SLG":0.439,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":111,"name":"Corey Dickerson","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":500,"AB":465,"R":64,"HR":18,"RBI":70,"SB":4,"AVG":0.272,"OBP":0.306,"SLG":0.437,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":112,"name":"Brett Lawrie","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":544,"AB":498,"R":65,"HR":17,"RBI":70,"SB":8,"AVG":0.26,"OBP":0.309,"SLG":0.422,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":113,"name":"Curtis Granderson","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":639,"AB":548,"R":81,"HR":21,"RBI":62,"SB":9,"AVG":0.232,"OBP":0.328,"SLG":0.411,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":114,"name":"David Wright","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":520,"AB":460,"R":65,"HR":14,"RBI":63,"SB":6,"AVG":0.27,"OBP":0.337,"SLG":0.41,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":115,"name":"Starlin Castro","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":573,"AB":532,"R":67,"HR":16,"RBI":74,"SB":7,"AVG":0.27,"OBP":0.308,"SLG":0.397,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":116,"name":"Evan Gattis","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":534,"AB":493,"R":64,"HR":26,"RBI":77,"SB":1,"AVG":0.246,"OBP":0.296,"SLG":0.471,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":117,"name":"Michael Conforto","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":534,"AB":483,"R":60,"HR":20,"RBI":68,"SB":3,"AVG":0.267,"OBP":0.321,"SLG":0.435,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":118,"name":"Pablo Sandoval","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":554,"AB":511,"R":62,"HR":14,"RBI":70,"SB":1,"AVG":0.28,"OBP":0.33,"SLG":0.435,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":119,"name":"Neil Walker","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":564,"AB":502,"R":68,"HR":18,"RBI":65,"SB":3,"AVG":0.263,"OBP":0.329,"SLG":0.427,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":120,"name":"Kolten Wong","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":579,"AB":529,"R":61,"HR":12,"RBI":58,"SB":16,"AVG":0.264,"OBP":0.316,"SLG":0.393,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":121,"name":"Michael Brantley","isFavorited":"","type":"batter","isSelected":true,"cost":19,"pos":"OF","PA":450,"AB":402.2222222,"R":53.33333333,"HR":10,"RBI":53.33333333,"SB":8.888888889,"AVG":0.295,"OBP":0.359,"SLG":0.441,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":122,"name":"Eddie Rosario","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":536,"AB":504,"R":62,"HR":15,"RBI":60,"SB":14,"AVG":0.262,"OBP":0.292,"SLG":0.412,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":123,"name":"Mark Teixeira","isFavorited":"","type":"batter","isSelected":true,"cost":5,"pos":"1B","PA":477,"AB":413,"R":60,"HR":24,"RBI":68,"SB":2,"AVG":0.233,"OBP":0.328,"SLG":0.451,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":124,"name":"Jonathan Schoop","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":545,"AB":505,"R":67,"HR":25,"RBI":80,"SB":3,"AVG":0.245,"OBP":0.288,"SLG":0.422,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":125,"name":"Jarrod Dyson","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":377,"AB":341,"R":41,"HR":3,"RBI":32,"SB":36,"AVG":0.25,"OBP":0.309,"SLG":0.341,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":126,"name":"Jorge Soler","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":470,"AB":422,"R":53,"HR":17,"RBI":60,"SB":4,"AVG":0.268,"OBP":0.324,"SLG":0.44,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":127,"name":"Ketel Marte","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":546,"AB":505,"R":64,"HR":5,"RBI":45,"SB":22,"AVG":0.269,"OBP":0.312,"SLG":0.356,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":128,"name":"Trea Turner","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":436,"AB":403,"R":46,"HR":7,"RBI":43,"SB":17,"AVG":0.282,"OBP":0.325,"SLG":0.398,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":129,"name":"Jean Segura","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":513,"AB":481,"R":62,"HR":7,"RBI":44,"SB":22,"AVG":0.265,"OBP":0.3,"SLG":0.372,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":130,"name":"Howie Kendrick","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":513,"AB":473,"R":62,"HR":9,"RBI":57,"SB":6,"AVG":0.282,"OBP":0.326,"SLG":0.403,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":131,"name":"Justin Turner","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":496,"AB":445,"R":57,"HR":12,"RBI":55,"SB":5,"AVG":0.273,"OBP":0.338,"SLG":0.418,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":132,"name":"Yasmany Tomas","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":510,"AB":260,"R":54,"HR":16,"RBI":65,"SB":6,"AVG":0.263,"OBP":0.302,"SLG":0.426,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":133,"name":"Ian Desmond","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":578,"AB":526,"R":70,"HR":18,"RBI":65,"SB":12,"AVG":0.24,"OBP":0.294,"SLG":0.39,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":134,"name":"Desmond Jennings","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":531,"AB":473,"R":54,"HR":10,"RBI":58,"SB":17,"AVG":0.251,"OBP":0.317,"SLG":0.379,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":135,"name":"Cory Spangenberg","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":617,"AB":566,"R":62,"HR":8,"RBI":50,"SB":20,"AVG":0.26,"OBP":0.309,"SLG":0.371,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":136,"name":"Brandon Phillips","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":572,"AB":533,"R":70,"HR":10,"RBI":54,"SB":12,"AVG":0.266,"OBP":0.306,"SLG":0.385,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":137,"name":"Russell Martin","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":455,"AB":393,"R":60,"HR":16,"RBI":62,"SB":5,"AVG":0.243,"OBP":0.331,"SLG":0.415,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":138,"name":"Chase Headley","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":552,"AB":488,"R":64,"HR":14,"RBI":65,"SB":4,"AVG":0.253,"OBP":0.334,"SLG":0.401,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":139,"name":"Jung-ho Kang","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":507,"AB":460,"R":55,"HR":15,"RBI":63,"SB":4,"AVG":0.265,"OBP":0.32,"SLG":0.418,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":140,"name":"Jonathan Lucroy","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":519,"AB":465,"R":60,"HR":12,"RBI":53,"SB":3,"AVG":0.273,"OBP":0.339,"SLG":0.417,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":141,"name":"Alcides Escobar","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":651,"AB":608,"R":72,"HR":5,"RBI":49,"SB":22,"AVG":0.268,"OBP":0.297,"SLG":0.345,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":142,"name":"Kevin Kiermaier","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":568,"AB":524,"R":62,"HR":10,"RBI":48,"SB":15,"AVG":0.261,"OBP":0.306,"SLG":0.401,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":143,"name":"Brian McCann","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":497,"AB":444,"R":59,"HR":23,"RBI":67,"SB":1,"AVG":0.241,"OBP":0.312,"SLG":0.434,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":144,"name":"Alex Rodriguez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":527,"AB":456,"R":61,"HR":19,"RBI":65,"SB":3,"AVG":0.239,"OBP":0.333,"SLG":0.41,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":145,"name":"Adam Lind","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":470,"AB":416,"R":53,"HR":15,"RBI":57,"SB":1,"AVG":0.268,"OBP":0.342,"SLG":0.431,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":146,"name":"Joe Mauer","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":573,"AB":501,"R":63,"HR":9,"RBI":56,"SB":2,"AVG":0.274,"OBP":0.355,"SLG":0.39,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":147,"name":"Justin Bour","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":524,"AB":473,"R":56,"HR":18,"RBI":66,"SB":2,"AVG":0.256,"OBP":0.318,"SLG":0.425,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":148,"name":"Nori Aoki","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":549,"AB":493,"R":63,"HR":6,"RBI":43,"SB":15,"AVG":0.27,"OBP":0.332,"SLG":0.36,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":149,"name":"Mitch Moreland","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":530,"AB":480,"R":59,"HR":20,"RBI":70,"SB":1,"AVG":0.246,"OBP":0.313,"SLG":0.432,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":150,"name":"Matt Adams","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":392,"AB":363,"R":50,"HR":15,"RBI":55,"SB":2,"AVG":0.278,"OBP":0.314,"SLG":0.457,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":151,"name":"Avisail Garcia","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":418,"AB":384,"R":52,"HR":16,"RBI":60,"SB":6,"AVG":0.258,"OBP":0.314,"SLG":0.409,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":152,"name":"Jhonny Peralta","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":558,"AB":502,"R":59,"HR":14,"RBI":64,"SB":3,"AVG":0.262,"OBP":0.327,"SLG":0.406,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":153,"name":"Trevor Plouffe","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":555,"AB":500,"R":61,"HR":18,"RBI":68,"SB":2,"AVG":0.249,"OBP":0.314,"SLG":0.419,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":154,"name":"Logan Forsythe","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":577,"AB":513,"R":63,"HR":13,"RBI":59,"SB":7,"AVG":0.254,"OBP":0.327,"SLG":0.388,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":155,"name":"Anthony Gose","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":380,"AB":338,"R":55,"HR":6,"RBI":35,"SB":24,"AVG":0.242,"OBP":0.31,"SLG":0.355,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":156,"name":"Addison Russell","isFavorited":"","type":"batter","isSelected":true,"cost":5,"pos":"2B","PA":560,"AB":507,"R":60,"HR":14,"RBI":63,"SB":8,"AVG":0.255,"OBP":0.307,"SLG":0.394,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":157,"name":"Rusney Castillo","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":414,"AB":382,"R":48,"HR":11,"RBI":54,"SB":10,"AVG":0.265,"OBP":0.314,"SLG":0.404,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":158,"name":"Erick Aybar","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":609,"AB":567,"R":65,"HR":5,"RBI":48,"SB":15,"AVG":0.273,"OBP":0.309,"SLG":0.371,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":159,"name":"Billy Butler","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":556,"AB":496,"R":59,"HR":14,"RBI":63,"SB":1,"AVG":0.263,"OBP":0.333,"SLG":0.403,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":160,"name":"Odubel Herrera","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":612,"AB":563,"R":61,"HR":7,"RBI":50,"SB":17,"AVG":0.262,"OBP":0.313,"SLG":0.365,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":161,"name":"C.J. Cron","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":475,"AB":443,"R":52,"HR":17,"RBI":61,"SB":3,"AVG":0.259,"OBP":0.298,"SLG":0.432,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":162,"name":"Nick Markakis","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":655,"AB":582,"R":70,"HR":9,"RBI":54,"SB":3,"AVG":0.269,"OBP":0.34,"SLG":0.369,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":163,"name":"Aaron Altherr","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":582,"AB":530,"R":56,"HR":15,"RBI":61,"SB":13,"AVG":0.239,"OBP":0.298,"SLG":0.391,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":164,"name":"Ryan Zimmerman","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":410,"AB":369,"R":47,"HR":14,"RBI":54,"SB":2,"AVG":0.263,"OBP":0.328,"SLG":0.44,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":165,"name":"Nick Hundley","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":366,"AB":338,"R":42,"HR":12,"RBI":50,"SB":4,"AVG":0.28,"OBP":0.32,"SLG":0.438,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":166,"name":"Yonder Alonso","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":475,"AB":422,"R":51,"HR":9,"RBI":49,"SB":5,"AVG":0.272,"OBP":0.342,"SLG":0.397,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":167,"name":"Jose Iglesias","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":477,"AB":437,"R":49,"HR":4,"RBI":45,"SB":13,"AVG":0.28,"OBP":0.327,"SLG":0.364,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":168,"name":"Salvador Perez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":476,"AB":450,"R":50,"HR":15,"RBI":59,"SB":1,"AVG":0.273,"OBP":0.302,"SLG":0.432,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":169,"name":"Andre Ethier","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":448,"AB":399,"R":47,"HR":12,"RBI":50,"SB":3,"AVG":0.27,"OBP":0.339,"SLG":0.418,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":170,"name":"Joe Panik","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":566,"AB":512,"R":63,"HR":7,"RBI":48,"SB":4,"AVG":0.278,"OBP":0.337,"SLG":0.38,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":171,"name":"Derek Norris","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":472,"AB":421,"R":55,"HR":15,"RBI":57,"SB":4,"AVG":0.261,"OBP":0.312,"SLG":0.39,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":172,"name":"Domingo Santana","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":413,"AB":364,"R":45,"HR":15,"RBI":52,"SB":5,"AVG":0.248,"OBP":0.328,"SLG":0.431,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":173,"name":"Stephen Vogt","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":490,"AB":440,"R":53,"HR":13,"RBI":58,"SB":2,"AVG":0.26,"OBP":0.326,"SLG":0.414,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":174,"name":"Chris Carter","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":414,"AB":358,"R":49,"HR":22,"RBI":57,"SB":2,"AVG":0.222,"OBP":0.317,"SLG":0.456,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":175,"name":"Javier Baez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":333,"AB":306,"R":39,"HR":15,"RBI":46,"SB":8,"AVG":0.252,"OBP":0.302,"SLG":0.457,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":176,"name":"Travis d'Arnaud","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":426,"AB":385,"R":47,"HR":16,"RBI":55,"SB":1,"AVG":0.257,"OBP":0.32,"SLG":0.445,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":177,"name":"Leonys Martin","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":500,"AB":465,"R":50,"HR":8,"RBI":45,"SB":24,"AVG":0.242,"OBP":0.293,"SLG":0.35,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":178,"name":"Mark Canha","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":445,"AB":400,"R":49,"HR":13,"RBI":52,"SB":4,"AVG":0.259,"OBP":0.324,"SLG":0.417,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":179,"name":"Carlos Beltran","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":416,"AB":378,"R":47,"HR":15,"RBI":55,"SB":1,"AVG":0.259,"OBP":0.322,"SLG":0.435,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":180,"name":"Cameron Maybin","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":385,"AB":347.5059382,"R":42.98099762,"HR":6.401425178,"RBI":38.40855107,"SB":11.88836105,"AVG":0.263,"OBP":0.322,"SLG":0.382,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":181,"name":"Rajai Davis","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":324,"AB":289,"R":45,"HR":6,"RBI":31,"SB":23,"AVG":0.248,"OBP":0.287,"SLG":0.357,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":182,"name":"Jackie Bradley Jr.","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":450,"AB":375,"R":50,"HR":12,"RBI":53,"SB":5,"AVG":0.252,"OBP":0.327,"SLG":0.406,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":183,"name":"Mark Reynolds","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":336,"AB":294,"R":40,"HR":15,"RBI":46,"SB":3,"AVG":0.251,"OBP":0.334,"SLG":0.465,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":184,"name":"Devin Mesoraco","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":447,"AB":399,"R":48,"HR":17,"RBI":56,"SB":3,"AVG":0.243,"OBP":0.314,"SLG":0.431,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":185,"name":"Scott Schebler","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":400,"AB":370,"R":50,"HR":14,"RBI":60,"SB":7,"AVG":0.245,"OBP":0.289,"SLG":0.402,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":186,"name":"Brad Miller","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":462,"AB":412,"R":51,"HR":11,"RBI":47,"SB":9,"AVG":0.252,"OBP":0.32,"SLG":0.394,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":187,"name":"Jayson Werth","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":437,"AB":381,"R":50,"HR":11,"RBI":45,"SB":3,"AVG":0.255,"OBP":0.349,"SLG":0.419,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":188,"name":"Byron Buxton","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":505,"AB":463,"R":56,"HR":9,"RBI":47,"SB":20,"AVG":0.253,"OBP":0.309,"SLG":0.398,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":189,"name":"Logan Morrison","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":457,"AB":406,"R":50,"HR":15,"RBI":52,"SB":6,"AVG":0.24,"OBP":0.316,"SLG":0.41,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":190,"name":"Martin Prado","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":541,"AB":494,"R":55,"HR":9,"RBI":54,"SB":2,"AVG":0.273,"OBP":0.325,"SLG":0.392,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":191,"name":"Eugenio Suarez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":459,"AB":417,"R":46,"HR":14,"RBI":51,"SB":6,"AVG":0.254,"OBP":0.311,"SLG":0.41,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":192,"name":"J.T. Realmuto","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":433,"AB":400,"R":45,"HR":10,"RBI":50,"SB":10,"AVG":0.262,"OBP":0.302,"SLG":0.387,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":193,"name":"Brandon Moss","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":412,"AB":363,"R":45,"HR":18,"RBI":56,"SB":1,"AVG":0.233,"OBP":0.322,"SLG":0.445,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":194,"name":"David Freese","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":482,"AB":432,"R":49,"HR":13,"RBI":54,"SB":2,"AVG":0.259,"OBP":0.326,"SLG":0.404,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":195,"name":"Devon Travis","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":351,"AB":320,"R":42,"HR":9,"RBI":39,"SB":7,"AVG":0.272,"OBP":0.324,"SLG":0.419,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":196,"name":"Austin Jackson","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":463,"AB":419,"R":46,"HR":7,"RBI":43,"SB":13,"AVG":0.259,"OBP":0.317,"SLG":0.376,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":197,"name":"Joey Gallo","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":390,"AB":350,"R":47,"HR":20,"RBI":48,"SB":3,"AVG":0.22,"OBP":0.307,"SLG":0.471,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":198,"name":"Matt Wieters","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":444,"AB":404,"R":50,"HR":17,"RBI":55,"SB":2,"AVG":0.25,"OBP":0.303,"SLG":0.411,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":199,"name":"Yasmani Grandal","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":419,"AB":355,"R":46,"HR":14,"RBI":49,"SB":2,"AVG":0.241,"OBP":0.347,"SLG":0.411,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":200,"name":"Ben Paulsen","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":308,"AB":281,"R":40,"HR":12,"RBI":58,"SB":2,"AVG":0.26,"OBP":0.306,"SLG":0.42,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":201,"name":"Oswaldo Arcia","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":341,"AB":309,"R":40,"HR":15,"RBI":46,"SB":2,"AVG":0.253,"OBP":0.312,"SLG":0.46,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":202,"name":"Lonnie Chisenhall","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":432,"AB":394,"R":46,"HR":12,"RBI":50,"SB":3,"AVG":0.26,"OBP":0.315,"SLG":0.417,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":203,"name":"Brandon Crawford","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":526,"AB":472,"R":49,"HR":14,"RBI":63,"SB":5,"AVG":0.245,"OBP":0.31,"SLG":0.381,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":204,"name":"Colby Rasmus","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":506,"AB":454,"R":56,"HR":22,"RBI":62,"SB":3,"AVG":0.222,"OBP":0.292,"SLG":0.41,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":205,"name":"Luis Valbuena","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":460,"AB":401,"R":52,"HR":16,"RBI":53,"SB":2,"AVG":0.234,"OBP":0.323,"SLG":0.411,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":206,"name":"Blake Swihart","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":350,"AB":322,"R":45,"HR":8,"RBI":53,"SB":5,"AVG":0.265,"OBP":0.311,"SLG":0.385,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":207,"name":"Josh Hamilton","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":360,"AB":327,"R":42,"HR":14,"RBI":47,"SB":2,"AVG":0.255,"OBP":0.313,"SLG":0.442,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":208,"name":"Didi Gregorius","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":535,"AB":484,"R":56,"HR":10,"RBI":55,"SB":5,"AVG":0.256,"OBP":0.313,"SLG":0.377,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":209,"name":"Danny Valencia","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":464,"AB":427,"R":49,"HR":14,"RBI":56,"SB":3,"AVG":0.25,"OBP":0.3,"SLG":0.41,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":210,"name":"Hector Olivera","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":494,"AB":456,"R":48,"HR":12,"RBI":54,"SB":3,"AVG":0.261,"OBP":0.308,"SLG":0.4,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":211,"name":"Welington Castillo","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":463,"AB":411,"R":51,"HR":18,"RBI":54,"SB":1,"AVG":0.24,"OBP":0.306,"SLG":0.411,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":212,"name":"Adam Duvall","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":435,"AB":400,"R":45,"HR":19,"RBI":53,"SB":3,"AVG":0.225,"OBP":0.291,"SLG":0.464,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":213,"name":"Chris Colabello","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":329,"AB":299,"R":39,"HR":13,"RBI":44,"SB":1,"AVG":0.262,"OBP":0.318,"SLG":0.452,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":214,"name":"Seth Smith","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":459,"AB":402,"R":50,"HR":12,"RBI":49,"SB":1,"AVG":0.248,"OBP":0.331,"SLG":0.408,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":215,"name":"Yunel Escobar","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":565,"AB":509,"R":58,"HR":8,"RBI":50,"SB":3,"AVG":0.266,"OBP":0.327,"SLG":0.36,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":216,"name":"Gregory Bird","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":0,"AB":0,"R":0,"HR":0,"RBI":0,"SB":0,"AVG":0.265,"OBP":0.338,"SLG":0.483,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":217,"name":"Steve Pearce","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":372,"AB":331,"R":42,"HR":14,"RBI":46,"SB":3,"AVG":0.242,"OBP":0.316,"SLG":0.427,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":218,"name":"Pedro Alvarez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":298,"AB":263,"R":35,"HR":15,"RBI":42,"SB":2,"AVG":0.242,"OBP":0.321,"SLG":0.462,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":219,"name":"Adonis Garcia","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":457,"AB":431,"R":42,"HR":11,"RBI":51,"SB":4,"AVG":0.267,"OBP":0.298,"SLG":0.398,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":220,"name":"Zack Cozart","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":499,"AB":460,"R":62,"HR":13,"RBI":48,"SB":6,"AVG":0.245,"OBP":0.291,"SLG":0.373,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":221,"name":"John Jaso","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":363,"AB":317,"R":40,"HR":9,"RBI":38,"SB":3,"AVG":0.26,"OBP":0.344,"SLG":0.406,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":222,"name":"Dalton Pompey","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":283,"AB":255,"R":33,"HR":5,"RBI":28,"SB":13,"AVG":0.261,"OBP":0.322,"SLG":0.387,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":223,"name":"Yadier Molina","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":424,"AB":390,"R":40,"HR":7,"RBI":45,"SB":2,"AVG":0.278,"OBP":0.326,"SLG":0.397,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":224,"name":"Asdrubal Cabrera","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":500,"AB":451,"R":48,"HR":13,"RBI":53,"SB":6,"AVG":0.243,"OBP":0.305,"SLG":0.393,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":225,"name":"Yan Gomes","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":442,"AB":411,"R":46,"HR":15,"RBI":53,"SB":1,"AVG":0.252,"OBP":0.292,"SLG":0.416,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":226,"name":"Scooter Gennett","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":414,"AB":388,"R":42,"HR":8,"RBI":40,"SB":5,"AVG":0.274,"OBP":0.309,"SLG":0.397,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":227,"name":"Andrelton Simmons","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":543,"AB":496,"R":52,"HR":8,"RBI":53,"SB":5,"AVG":0.26,"OBP":0.311,"SLG":0.364,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":228,"name":"Jed Lowrie","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":483,"AB":430,"R":51,"HR":10,"RBI":49,"SB":2,"AVG":0.252,"OBP":0.324,"SLG":0.383,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":229,"name":"Aaron Hicks","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":279,"AB":246,"R":30,"HR":6,"RBI":30,"SB":11,"AVG":0.26,"OBP":0.326,"SLG":0.394,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":230,"name":"Alexei Ramirez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":539,"AB":506,"R":50,"HR":8,"RBI":52,"SB":14,"AVG":0.249,"OBP":0.283,"SLG":0.347,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":231,"name":"Jake Lamb","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"3B","PA":376,"AB":338,"R":38,"HR":9,"RBI":41,"SB":3,"AVG":0.261,"OBP":0.325,"SLG":0.413,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":232,"name":"Jon Singleton","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":347,"AB":297,"R":41,"HR":14,"RBI":42,"SB":2,"AVG":0.229,"OBP":0.329,"SLG":0.422,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":233,"name":"Johnny Giavotella","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":445,"AB":406,"R":45,"HR":5,"RBI":42,"SB":5,"AVG":0.27,"OBP":0.322,"SLG":0.373,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":234,"name":"Ryan Howard","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":456,"AB":414,"R":46,"HR":18,"RBI":56,"SB":1,"AVG":0.228,"OBP":0.291,"SLG":0.412,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":235,"name":"Chris Young","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":297,"AB":265,"R":36,"HR":10,"RBI":36,"SB":4,"AVG":0.248,"OBP":0.318,"SLG":0.427,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":236,"name":"Mike Napoli","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":380,"AB":326,"R":42,"HR":14,"RBI":44,"SB":3,"AVG":0.224,"OBP":0.324,"SLG":0.399,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":237,"name":"Eduardo Escobar","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":417,"AB":383,"R":42,"HR":8,"RBI":43,"SB":4,"AVG":0.26,"OBP":0.309,"SLG":0.393,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":238,"name":"Cesar Hernandez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":472,"AB":427,"R":45,"HR":3,"RBI":32,"SB":14,"AVG":0.259,"OBP":0.316,"SLG":0.338,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":239,"name":"Adam LaRoche","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":407,"AB":353,"R":46,"HR":15,"RBI":49,"SB":1,"AVG":0.223,"OBP":0.317,"SLG":0.394,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":240,"name":"Francisco Cervelli","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":428,"AB":381,"R":39,"HR":6,"RBI":42,"SB":2,"AVG":0.268,"OBP":0.338,"SLG":0.376,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":241,"name":"Wilmer Flores","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":358,"AB":334,"R":35,"HR":11,"RBI":43,"SB":1,"AVG":0.264,"OBP":0.302,"SLG":0.421,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":242,"name":"Wilson Ramos","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"C","PA":404,"AB":377,"R":41,"HR":14,"RBI":48,"SB":1,"AVG":0.252,"OBP":0.29,"SLG":0.407,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":243,"name":"Justin Morneau","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"1B","PA":332,"AB":303,"R":35,"HR":9,"RBI":40,"SB":1,"AVG":0.264,"OBP":0.321,"SLG":0.417,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":244,"name":"Jose Ramirez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"2B","PA":300,"AB":273,"R":32,"HR":4,"RBI":27,"SB":13,"AVG":0.258,"OBP":0.311,"SLG":0.363,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":245,"name":"Michael Taylor","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"OF","PA":337,"AB":304,"R":33,"HR":9,"RBI":34,"SB":11,"AVG":0.24,"OBP":0.3,"SLG":0.379,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":246,"name":"Jimmy Rollins","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":413,"AB":371,"R":45,"HR":8,"RBI":36,"SB":11,"AVG":0.237,"OBP":0.302,"SLG":0.358,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":247,"name":"Michael Saunders","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":298,"AB":262,"R":35,"HR":8,"RBI":33,"SB":5,"AVG":0.246,"OBP":0.324,"SLG":0.411,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":248,"name":"Jonathan Villar","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":255,"AB":230,"R":26,"HR":5,"RBI":24,"SB":16,"AVG":0.239,"OBP":0.301,"SLG":0.364,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":249,"name":"Brandon Guyer","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":302,"AB":270,"R":32,"HR":5,"RBI":29,"SB":7,"AVG":0.26,"OBP":0.326,"SLG":0.387,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":250,"name":"Jace Peterson","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":508,"AB":452,"R":44,"HR":5,"RBI":39,"SB":14,"AVG":0.24,"OBP":0.311,"SLG":0.331,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":251,"name":"Jordy Mercer","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":464,"AB":424,"R":41,"HR":8,"RBI":46,"SB":3,"AVG":0.256,"OBP":0.307,"SLG":0.374,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":252,"name":"Yangervis Solarte","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":392,"AB":356,"R":40,"HR":8,"RBI":36,"SB":2,"AVG":0.261,"OBP":0.317,"SLG":0.383,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":253,"name":"Preston Tucker","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":264,"AB":240,"R":30,"HR":10,"RBI":33,"SB":2,"AVG":0.253,"OBP":0.308,"SLG":0.431,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":254,"name":"Scott Van Slyke","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":285,"AB":251,"R":31,"HR":9,"RBI":34,"SB":3,"AVG":0.243,"OBP":0.325,"SLG":0.41,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":255,"name":"Brock Holt","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":347,"AB":313,"R":38,"HR":2,"RBI":31,"SB":5,"AVG":0.272,"OBP":0.331,"SLG":0.365,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":256,"name":"Miguel Montero","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":358,"AB":310,"R":36,"HR":9,"RBI":38,"SB":2,"AVG":0.244,"OBP":0.333,"SLG":0.379,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":257,"name":"J.P. Crawford","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":346,"AB":309,"R":36,"HR":5,"RBI":28,"SB":7,"AVG":0.256,"OBP":0.325,"SLG":0.369,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":258,"name":"Abraham Almonte","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":338,"AB":306,"R":34,"HR":6,"RBI":33,"SB":8,"AVG":0.247,"OBP":0.308,"SLG":0.371,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":259,"name":"Marlon Byrd","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":381,"AB":352,"R":36,"HR":12,"RBI":44,"SB":2,"AVG":0.243,"OBP":0.29,"SLG":0.401,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":260,"name":"Darin Ruf","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":328,"AB":295,"R":33,"HR":11,"RBI":37,"SB":2,"AVG":0.242,"OBP":0.308,"SLG":0.407,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":261,"name":"Gregor Blanco","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":299,"AB":262,"R":28,"HR":3,"RBI":26,"SB":8,"AVG":0.261,"OBP":0.337,"SLG":0.365,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":262,"name":"Will Venable","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":305,"AB":275,"R":32,"HR":7,"RBI":30,"SB":8,"AVG":0.243,"OBP":0.305,"SLG":0.378,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":263,"name":"Chris Coghlan","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":307,"AB":270,"R":31,"HR":6,"RBI":32,"SB":5,"AVG":0.247,"OBP":0.328,"SLG":0.388,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":264,"name":"Derek Dietrich","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":280,"AB":251,"R":29,"HR":9,"RBI":33,"SB":2,"AVG":0.249,"OBP":0.319,"SLG":0.419,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":265,"name":"Carl Crawford","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":230,"AB":213,"R":25,"HR":5,"RBI":23,"SB":8,"AVG":0.263,"OBP":0.306,"SLG":0.397,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":266,"name":"Jose Peraza","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":224,"AB":211,"R":21,"HR":2,"RBI":20,"SB":12,"AVG":0.275,"OBP":0.303,"SLG":0.368,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":267,"name":"Henry Urrutia","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":262,"AB":243,"R":28,"HR":6,"RBI":28,"SB":2,"AVG":0.277,"OBP":0.319,"SLG":0.404,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":268,"name":"Kennys Vargas","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":227,"AB":204,"R":26,"HR":9,"RBI":29,"SB":1,"AVG":0.256,"OBP":0.319,"SLG":0.435,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":269,"name":"A.J. Reed","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":236,"AB":211,"R":27,"HR":8,"RBI":29,"SB":1,"AVG":0.258,"OBP":0.327,"SLG":0.424,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":270,"name":"Justin Smoak","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":285,"AB":252,"R":32,"HR":11,"RBI":35,"SB":1,"AVG":0.233,"OBP":0.312,"SLG":0.414,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":271,"name":"James Loney","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":321,"AB":295,"R":31,"HR":5,"RBI":32,"SB":2,"AVG":0.273,"OBP":0.322,"SLG":0.381,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":272,"name":"Adeiny Hechavarria","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":509,"AB":472,"R":41,"HR":4,"RBI":44,"SB":6,"AVG":0.261,"OBP":0.301,"SLG":0.354,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":273,"name":"Cody Asche","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":304,"AB":278,"R":29,"HR":9,"RBI":33,"SB":2,"AVG":0.254,"OBP":0.307,"SLG":0.41,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":274,"name":"Marwin Gonzalez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":324,"AB":300,"R":34,"HR":7,"RBI":33,"SB":5,"AVG":0.252,"OBP":0.294,"SLG":0.381,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":275,"name":"Enrique Hernandez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":362,"AB":333,"R":35,"HR":8,"RBI":37,"SB":4,"AVG":0.248,"OBP":0.297,"SLG":0.38,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":276,"name":"Jake Marisnick","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":233,"AB":215,"R":24,"HR":5,"RBI":24,"SB":12,"AVG":0.237,"OBP":0.282,"SLG":0.372,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":277,"name":"Juan Uribe","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":292,"AB":267,"R":29,"HR":7,"RBI":32,"SB":2,"AVG":0.26,"OBP":0.312,"SLG":0.395,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":278,"name":"Danny Santana","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":259,"AB":243,"R":27,"HR":3,"RBI":23,"SB":9,"AVG":0.264,"OBP":0.296,"SLG":0.376,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":279,"name":"Matt Joyce","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":281,"AB":243,"R":30,"HR":8,"RBI":30,"SB":3,"AVG":0.236,"OBP":0.328,"SLG":0.388,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":280,"name":"Robinson Chirinos","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":326,"AB":291,"R":36,"HR":10,"RBI":36,"SB":2,"AVG":0.234,"OBP":0.303,"SLG":0.387,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":281,"name":"Coco Crisp","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":310,"AB":273,"R":35,"HR":6,"RBI":26,"SB":7,"AVG":0.238,"OBP":0.315,"SLG":0.359,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":282,"name":"David Murphy","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":309,"AB":282,"R":29,"HR":7,"RBI":33,"SB":2,"AVG":0.258,"OBP":0.311,"SLG":0.39,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":283,"name":"Angel Pagan","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":348,"AB":320,"R":32,"HR":3,"RBI":29,"SB":7,"AVG":0.261,"OBP":0.308,"SLG":0.355,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":284,"name":"Alex Rios","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":324,"AB":303,"R":30,"HR":6,"RBI":33,"SB":7,"AVG":0.249,"OBP":0.287,"SLG":0.369,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":285,"name":"Dustin Ackley","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":209,"AB":190,"R":23,"HR":6,"RBI":24,"SB":3,"AVG":0.261,"OBP":0.318,"SLG":0.418,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":286,"name":"Travis Shaw","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":212,"AB":191,"R":24,"HR":7,"RBI":26,"SB":1,"AVG":0.259,"OBP":0.323,"SLG":0.427,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":287,"name":"Nolan Reimold","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":282,"AB":251,"R":31,"HR":8,"RBI":29,"SB":3,"AVG":0.241,"OBP":0.312,"SLG":0.384,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":288,"name":"Jesus Montero","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":207,"AB":192,"R":22,"HR":7,"RBI":26,"SB":1,"AVG":0.268,"OBP":0.31,"SLG":0.437,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":289,"name":"Tommy Pham","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":210,"AB":189,"R":23,"HR":4,"RBI":21,"SB":4,"AVG":0.265,"OBP":0.328,"SLG":0.405,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":290,"name":"Justin Ruggiano","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":185,"AB":165,"R":22,"HR":6,"RBI":21,"SB":4,"AVG":0.251,"OBP":0.319,"SLG":0.417,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":291,"name":"Ike Davis","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":234,"AB":203,"R":25,"HR":8,"RBI":27,"SB":1,"AVG":0.239,"OBP":0.332,"SLG":0.408,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":292,"name":"Freddy Galvis","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":435,"AB":404,"R":36,"HR":8,"RBI":40,"SB":5,"AVG":0.246,"OBP":0.288,"SLG":0.364,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":293,"name":"Tim Anderson","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":208,"AB":196,"R":20,"HR":3,"RBI":20,"SB":10,"AVG":0.258,"OBP":0.288,"SLG":0.363,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":294,"name":"Darnell Sweeney","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":296,"AB":268,"R":27,"HR":5,"RBI":26,"SB":11,"AVG":0.231,"OBP":0.291,"SLG":0.351,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":295,"name":"James McCann","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":513,"AB":387,"R":39,"HR":6,"RBI":42,"SB":2,"AVG":0.256,"OBP":0.291,"SLG":0.372,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":296,"name":"Juan Lagares","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":334,"AB":311,"R":29,"HR":5,"RBI":31,"SB":5,"AVG":0.257,"OBP":0.297,"SLG":0.366,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":297,"name":"Michael Morse","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":269,"AB":244,"R":26,"HR":8,"RBI":31,"SB":1,"AVG":0.247,"OBP":0.305,"SLG":0.401,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":298,"name":"Travis Snider","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":232,"AB":206,"R":25,"HR":6,"RBI":25,"SB":2,"AVG":0.249,"OBP":0.323,"SLG":0.4,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":299,"name":"Christian Colon","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":246,"AB":225,"R":24,"HR":3,"RBI":23,"SB":6,"AVG":0.264,"OBP":0.316,"SLG":0.352,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":300,"name":"Jon Jay","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":300,"AB":266,"R":27,"HR":4,"RBI":25,"SB":3,"AVG":0.263,"OBP":0.334,"SLG":0.359,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":301,"name":"A.J. Pierzynski","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":337,"AB":316,"R":29,"HR":7,"RBI":35,"SB":1,"AVG":0.261,"OBP":0.298,"SLG":0.378,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":302,"name":"Jason Castro","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":360,"AB":321,"R":38,"HR":10,"RBI":38,"SB":2,"AVG":0.224,"OBP":0.296,"SLG":0.373,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":303,"name":"Tyler Saladino","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":216,"AB":196,"R":24,"HR":4,"RBI":20,"SB":8,"AVG":0.243,"OBP":0.301,"SLG":0.36,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":304,"name":"Efren Navarro","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":294,"AB":266,"R":29,"HR":4,"RBI":27,"SB":2,"AVG":0.263,"OBP":0.322,"SLG":0.367,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":305,"name":"Max Kepler","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":218,"AB":197,"R":22,"HR":4,"RBI":22,"SB":5,"AVG":0.254,"OBP":0.313,"SLG":0.384,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":306,"name":"J.J. Hardy","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":453,"AB":422,"R":43,"HR":11,"RBI":46,"SB":1,"AVG":0.239,"OBP":0.28,"SLG":0.363,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":307,"name":"Peter O'Brien","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":196,"AB":181,"R":22,"HR":9,"RBI":26,"SB":1,"AVG":0.238,"OBP":0.281,"SLG":0.453,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":308,"name":"Chris Owings","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":274,"AB":256,"R":25,"HR":5,"RBI":26,"SB":7,"AVG":0.248,"OBP":0.286,"SLG":0.369,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":309,"name":"Giovanny Urshela","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":335,"AB":311,"R":33,"HR":8,"RBI":36,"SB":2,"AVG":0.242,"OBP":0.284,"SLG":0.381,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":310,"name":"Paulo Orlando","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":237,"AB":221,"R":23,"HR":4,"RBI":23,"SB":7,"AVG":0.254,"OBP":0.289,"SLG":0.363,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":311,"name":"Dioner Navarro","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":219,"AB":198,"R":23,"HR":6,"RBI":25,"SB":1,"AVG":0.257,"OBP":0.315,"SLG":0.397,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":312,"name":"Will Middlebrooks","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":248,"AB":230,"R":25,"HR":10,"RBI":30,"SB":2,"AVG":0.233,"OBP":0.276,"SLG":0.41,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":313,"name":"Michael Bourn","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":357,"AB":321,"R":31,"HR":2,"RBI":26,"SB":10,"AVG":0.244,"OBP":0.308,"SLG":0.327,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":314,"name":"Brandon Barnes","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":218,"AB":200,"R":21,"HR":4,"RBI":22,"SB":5,"AVG":0.252,"OBP":0.302,"SLG":0.383,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":315,"name":"Daniel Nava","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":311,"AB":273,"R":31,"HR":5,"RBI":28,"SB":3,"AVG":0.241,"OBP":0.321,"SLG":0.347,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":316,"name":"Shane Victorino","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":264,"AB":240,"R":27,"HR":5,"RBI":24,"SB":5,"AVG":0.242,"OBP":0.301,"SLG":0.364,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":317,"name":"Jarrod Saltalamacchia","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":232,"AB":204,"R":26,"HR":8,"RBI":27,"SB":1,"AVG":0.227,"OBP":0.306,"SLG":0.399,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":318,"name":"Jedd Gyorko","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":178,"AB":162,"R":19,"HR":6,"RBI":22,"SB":1,"AVG":0.254,"OBP":0.31,"SLG":0.423,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":319,"name":"Domonic Brown","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":209,"AB":191,"R":21,"HR":6,"RBI":23,"SB":3,"AVG":0.247,"OBP":0.3,"SLG":0.39,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":320,"name":"David DeJesus","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":254,"AB":226,"R":25,"HR":5,"RBI":25,"SB":3,"AVG":0.243,"OBP":0.314,"SLG":0.373,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":321,"name":"Melvin Upton","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":294,"AB":262,"R":28,"HR":7,"RBI":26,"SB":9,"AVG":0.213,"OBP":0.286,"SLG":0.348,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":322,"name":"Travis Jankowski","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":182,"AB":166,"R":16,"HR":1,"RBI":15,"SB":9,"AVG":0.258,"OBP":0.311,"SLG":0.344,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":323,"name":"Chase Utley","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":272,"AB":245,"R":27,"HR":5,"RBI":26,"SB":3,"AVG":0.243,"OBP":0.309,"SLG":0.367,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":324,"name":"Franklin Gutierrez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":234,"AB":213,"R":24,"HR":8,"RBI":27,"SB":1,"AVG":0.237,"OBP":0.293,"SLG":0.399,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":325,"name":"Jimmy Paredes","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":224,"AB":209,"R":23,"HR":5,"RBI":22,"SB":4,"AVG":0.253,"OBP":0.289,"SLG":0.377,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":326,"name":"Tyler Moore","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":182,"AB":164,"R":20,"HR":6,"RBI":22,"SB":1,"AVG":0.247,"OBP":0.306,"SLG":0.421,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":327,"name":"Chris Iannetta","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":296,"AB":251,"R":31,"HR":8,"RBI":29,"SB":2,"AVG":0.215,"OBP":0.323,"SLG":0.353,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":328,"name":"Tommy La Stella","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":180,"AB":160,"R":18,"HR":2,"RBI":17,"SB":2,"AVG":0.277,"OBP":0.343,"SLG":0.379,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":329,"name":"Conor Gillaspie","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":256,"AB":235,"R":24,"HR":5,"RBI":27,"SB":1,"AVG":0.253,"OBP":0.305,"SLG":0.384,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":330,"name":"Ezequiel Carrera","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":178,"AB":163,"R":19,"HR":2,"RBI":16,"SB":7,"AVG":0.254,"OBP":0.304,"SLG":0.347,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":331,"name":"Danny Espinosa","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":295,"AB":267,"R":28,"HR":7,"RBI":29,"SB":4,"AVG":0.229,"OBP":0.291,"SLG":0.368,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":332,"name":"Clint Robinson","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":166,"AB":147,"R":18,"HR":4,"RBI":19,"SB":1,"AVG":0.261,"OBP":0.335,"SLG":0.397,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":333,"name":"Omar Infante","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":333,"AB":313,"R":31,"HR":4,"RBI":31,"SB":4,"AVG":0.253,"OBP":0.284,"SLG":0.352,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":334,"name":"Matt McBride","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":127,"AB":119,"R":14,"HR":4,"RBI":16,"SB":1,"AVG":0.279,"OBP":0.316,"SLG":0.446,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":335,"name":"Eduardo Nunez","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":158,"AB":147,"R":16,"HR":2,"RBI":16,"SB":5,"AVG":0.264,"OBP":0.305,"SLG":0.383,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":336,"name":"Ryan Raburn","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"","PA":169,"AB":150,"R":18,"HR":6,"RBI":20,"SB":1,"AVG":0.242,"OBP":0.314,"SLG":0.412,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":337,"name":"Trevor Story","isFavorited":"","type":"batter","isSelected":false,"cost":null,"pos":"SS","PA":450,"AB":407.7348066,"R":47.23756906,"HR":14.91712707,"RBI":52.20994475,"SB":14.08839779,"AVG":0.244,"OBP":0.308,"SLG":0.441,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":338,"name":"Clayton Kershaw","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":218.7,"BB":43.9,"K":270.1,"W":16.8,"SV":0,"HD":0,"ERA":2.15,"WHIP":0.9,"QS":24.7,"Earned Runs":52.245,"H":164.5,"H + BB":""},{"id":339,"name":"Max Scherzer","isFavorited":"","type":"pitcher","isSelected":true,"cost":39,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":220,"BB":46.38117647,"K":263.4823529,"W":16,"SV":0,"HD":0,"ERA":2.6,"WHIP":1.02,"QS":23.50117647,"Earned Runs":63.55555556,"H":177.9670588,"H + BB":""},{"id":340,"name":"Chris Sale","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":206.4,"BB":47.1,"K":251.4,"W":14.6,"SV":0,"HD":0,"ERA":2.82122093,"WHIP":1.03,"QS":21.8,"Earned Runs":64.7,"H":165.2,"H + BB":""},{"id":341,"name":"Jake Arrieta","isFavorited":"","type":"pitcher","isSelected":true,"cost":20,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":218,"BB":59.08411215,"K":220,"W":16,"SV":0,"HD":0,"ERA":2.75,"WHIP":1.05,"QS":22.73290703,"Earned Runs":66.61111111,"H":184.758485,"H + BB":""},{"id":342,"name":"Madison Bumgarner","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":215,"BB":47.84622732,"K":221.3658071,"W":16,"SV":0,"HD":0,"ERA":2.85,"WHIP":1.05,"QS":22.79369628,"Earned Runs":68.08333333,"H":182.3495702,"H + BB":""},{"id":343,"name":"David Price","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":220,"BB":44.51764706,"K":224.3482353,"W":16.04705882,"SV":0,"HD":0,"ERA":2.956235294,"WHIP":1.08,"QS":22.77647059,"Earned Runs":72.26352941,"H":193.3929412,"H + BB":""},{"id":344,"name":"Jacob deGrom","isFavorited":"","type":"pitcher","isSelected":true,"cost":16,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":205,"BB":52.00405885,"K":211.5525114,"W":15,"SV":0,"HD":0,"ERA":2.8,"WHIP":1.05,"QS":21.00963978,"Earned Runs":63.77777778,"H":179.5180112,"H + BB":""},{"id":345,"name":"Gerrit Cole","isFavorited":"","type":"pitcher","isSelected":true,"cost":16,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":215,"BB":54.5257732,"K":210,"W":15,"SV":0,"HD":0,"ERA":3.05,"WHIP":1.06,"QS":21.72164948,"Earned Runs":72.86111111,"H":194.4974227,"H + BB":""},{"id":346,"name":"Corey Kluber","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":212.5,"BB":46.4,"K":224.1,"W":14,"SV":0,"HD":0,"ERA":3.12,"WHIP":1.08,"QS":21.9,"Earned Runs":73.66666667,"H":183.4,"H + BB":""},{"id":347,"name":"Jose Fernandez","isFavorited":"","type":"pitcher","isSelected":true,"cost":10,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":180,"BB":50.34271726,"K":212.7172583,"W":12.3378213,"SV":0,"HD":0,"ERA":2.770501836,"WHIP":1.05,"QS":19.60832313,"Earned Runs":55.41003672,"H":143.0966952,"H + BB":""},{"id":348,"name":"Carlos Carrasco","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":195,"BB":49.81373071,"K":209.217669,"W":13.07610431,"SV":0,"HD":0,"ERA":3.041511442,"WHIP":1.07,"QS":20.44438531,"Earned Runs":65.89941458,"H":166.6684407,"H + BB":""},{"id":349,"name":"Matt Harvey","isFavorited":"","type":"pitcher","isSelected":true,"cost":20,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":200,"BB":42.99262381,"K":203.7934668,"W":14,"SV":0,"HD":0,"ERA":3.082191781,"WHIP":1.09,"QS":20.65331928,"Earned Runs":68.49315068,"H":175.9747102,"H + BB":""},{"id":350,"name":"Stephen Strasburg","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":180,"BB":40.56840714,"K":204.6265697,"W":12.72967614,"SV":0,"HD":0,"ERA":2.938532716,"WHIP":1.07,"QS":19.39193655,"Earned Runs":58.77065433,"H":152.6371447,"H + BB":""},{"id":351,"name":"Noah Syndergaard","isFavorited":"","type":"pitcher","isSelected":true,"cost":2,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":184,"BB":47.8,"K":202.4,"W":14,"SV":0,"HD":0,"ERA":3.05,"WHIP":1.08,"QS":18.9,"Earned Runs":62.35555556,"H":156.4,"H + BB":""},{"id":352,"name":"Zack Greinke","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":210,"BB":45.19480519,"K":196.5584416,"W":14,"SV":0,"HD":0,"ERA":3.35,"WHIP":1.12,"QS":21.42857143,"Earned Runs":78.16666667,"H":190.7142857,"H + BB":""},{"id":353,"name":"Chris Archer","isFavorited":"","type":"pitcher","isSelected":true,"cost":15,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":200,"BB":63.97905759,"K":225,"W":12.67015707,"SV":0,"HD":0,"ERA":3.15,"WHIP":1.14,"QS":20.31413613,"Earned Runs":70,"H":170.6806283,"H + BB":""},{"id":354,"name":"Jon Lester","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":205,"BB":50.23592085,"K":203.8559107,"W":14.35312024,"SV":0,"HD":0,"ERA":3.4,"WHIP":1.13,"QS":21.00963978,"Earned Runs":77.44444444,"H":181.5981735,"H + BB":""},{"id":355,"name":"Dallas Keuchel","isFavorited":"","type":"pitcher","isSelected":true,"cost":3,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":215.6,"BB":54.9,"K":185.1,"W":14.6,"SV":0,"HD":0,"ERA":3.038961039,"WHIP":1.18,"QS":22.1,"Earned Runs":72.8,"H":203,"H + BB":""},{"id":356,"name":"Danny Salazar","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":195,"BB":57.9895288,"K":202.8612565,"W":12.45549738,"SV":0,"HD":0,"ERA":3.25,"WHIP":1.12,"QS":19.39790576,"Earned Runs":70.41666667,"H":170.395288,"H + BB":""},{"id":357,"name":"Johnny Cueto","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":203.3,"BB":50.2,"K":180,"W":12.8,"SV":0,"HD":0,"ERA":3.25,"WHIP":1.15,"QS":20.8,"Earned Runs":73.41388889,"H":185.4,"H + BB":""},{"id":358,"name":"Felix Hernandez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":190,"BB":47.35764236,"K":184.5904096,"W":13,"SV":0,"HD":0,"ERA":3.3,"WHIP":1.15,"QS":19.36063936,"Earned Runs":69.66666667,"H":170.8291708,"H + BB":""},{"id":359,"name":"Jeff Samardzija","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":210,"BB":48.43023256,"K":185,"W":12,"SV":0,"HD":0,"ERA":3.52,"WHIP":1.17,"QS":20.65406977,"Earned Runs":82.13333333,"H":198.2994186,"H + BB":""},{"id":360,"name":"Cole Hamels","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":203.3,"BB":57.4,"K":195,"W":13,"SV":0,"HD":0,"ERA":3.65,"WHIP":1.2,"QS":19.3,"Earned Runs":82.44944444,"H":192,"H + BB":""},{"id":361,"name":"Tyson Ross","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":190,"BB":71.56703424,"K":198.1601857,"W":10.69645966,"SV":0,"HD":0,"ERA":3.2,"WHIP":1.24,"QS":19.18746373,"Earned Runs":67.55555556,"H":163.7550784,"H + BB":""},{"id":362,"name":"Masahiro Tanaka","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":170,"BB":34.80541455,"K":154.7546531,"W":11.12239143,"SV":0,"HD":0,"ERA":3.304568528,"WHIP":1.1,"QS":17.06711788,"Earned Runs":62.41962775,"H":158.1105471,"H + BB":""},{"id":363,"name":"Garrett Richards","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":200.2,"BB":66.9,"K":180,"W":13,"SV":0,"HD":0,"ERA":3.5,"WHIP":1.24,"QS":19.5,"Earned Runs":77.85555556,"H":187.6,"H + BB":""},{"id":364,"name":"Wei-Yin Chen","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":192,"BB":42.6009245,"K":157.9784284,"W":11.83359014,"SV":0,"HD":0,"ERA":3.416024653,"WHIP":1.18,"QS":19.13097072,"Earned Runs":72.8751926,"H":184.4067797,"H + BB":""},{"id":365,"name":"Steven Matz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":175,"BB":58.69341564,"K":175,"W":11,"SV":0,"HD":0,"ERA":3.4,"WHIP":1.15,"QS":17.04389575,"Earned Runs":66.11111111,"H":158.7962963,"H + BB":""},{"id":366,"name":"Yordano Ventura","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":185,"BB":65.85301063,"K":180,"W":13,"SV":0,"HD":0,"ERA":3.506493506,"WHIP":1.24,"QS":18.34710744,"Earned Runs":72.07792208,"H":165.7792208,"H + BB":""},{"id":367,"name":"Francisco Liriano","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":175.2,"BB":65.5,"K":185,"W":12,"SV":0,"HD":0,"ERA":3.35,"WHIP":1.23,"QS":17.7,"Earned Runs":65.21333333,"H":150.1,"H + BB":""},{"id":368,"name":"Taijuan Walker","isFavorited":"","type":"pitcher","isSelected":true,"cost":8,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":185,"BB":55.36894923,"K":178,"W":11.2485242,"SV":0,"HD":0,"ERA":3.55,"WHIP":1.19,"QS":17.91027155,"Earned Runs":72.97222222,"H":169.9291617,"H + BB":""},{"id":369,"name":"Jose Quintana","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":200,"BB":50.53272451,"K":171.6894977,"W":12.27803146,"SV":0,"HD":0,"ERA":3.6,"WHIP":1.23,"QS":19.07661086,"Earned Runs":80,"H":195.5352613,"H + BB":""},{"id":370,"name":"Michael Pineda","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":160,"BB":27.91817088,"K":143.6341757,"W":12,"SV":0,"HD":0,"ERA":3.35,"WHIP":1.12,"QS":16.07701564,"Earned Runs":59.55555556,"H":151.7208183,"H + BB":""},{"id":371,"name":"Sonny Gray","isFavorited":"","type":"pitcher","isSelected":true,"cost":29,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":206.4,"BB":64.8,"K":169,"W":11.8,"SV":0,"HD":0,"ERA":3.55,"WHIP":1.24,"QS":19.7,"Earned Runs":81.41333333,"H":201,"H + BB":""},{"id":372,"name":"Adam Wainwright","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":179,"BB":38.71847826,"K":139,"W":12,"SV":0,"HD":0,"ERA":3.52173913,"WHIP":1.15,"QS":17.51086957,"Earned Runs":70.04347826,"H":178.3190217,"H + BB":""},{"id":373,"name":"Collin McHugh","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":197.1,"BB":52.4,"K":166.5,"W":13,"SV":0,"HD":0,"ERA":3.794520548,"WHIP":1.24,"QS":18.6,"Earned Runs":83.1,"H":190.2,"H + BB":""},{"id":374,"name":"Scott Kazmir","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":172.3,"BB":48.1,"K":156.8,"W":11.5,"SV":0,"HD":0,"ERA":3.45,"WHIP":1.19,"QS":16.9,"Earned Runs":66.04833333,"H":159.9,"H + BB":""},{"id":375,"name":"Lance McCullers","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":27,"GS":27,"IP":162,"BB":67.7755102,"K":166.6492347,"W":12,"SV":0,"HD":0,"ERA":3.55,"WHIP":1.22,"QS":15.39413265,"Earned Runs":63.9,"H":142.059949,"H + BB":""},{"id":376,"name":"Jake Odorizzi","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":185,"BB":56.19595733,"K":175,"W":10,"SV":0,"HD":0,"ERA":3.6,"WHIP":1.2,"QS":17.86636721,"Earned Runs":74,"H":170.7692308,"H + BB":""},{"id":377,"name":"Kyle Hendricks","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":170,"BB":42.05844156,"K":141.8506494,"W":11.7012987,"SV":0,"HD":0,"ERA":3.500649351,"WHIP":1.18,"QS":16.88961039,"Earned Runs":66.12337662,"H":164.1493506,"H + BB":""},{"id":378,"name":"John Lackey","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":183,"BB":45.22773973,"K":155.6335616,"W":12.3,"SV":0,"HD":0,"ERA":3.7,"WHIP":1.22,"QS":17.65239726,"Earned Runs":75.23333333,"H":176.9417808,"H + BB":""},{"id":379,"name":"Patrick Corbin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":165,"BB":42.95542636,"K":155,"W":12,"SV":0,"HD":0,"ERA":3.511627907,"WHIP":1.21,"QS":16.52131783,"Earned Runs":64.37984496,"H":156.3662791,"H + BB":""},{"id":380,"name":"Mike Fiers","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":180,"BB":54.95924765,"K":170,"W":11.62382445,"SV":0,"HD":0,"ERA":3.763636364,"WHIP":1.23,"QS":17.15360502,"Earned Runs":75.27272727,"H":167.0219436,"H + BB":""},{"id":381,"name":"James Shields","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":187.9,"BB":58.1,"K":178,"W":9.8,"SV":0,"HD":0,"ERA":3.664183076,"WHIP":1.24,"QS":18.1,"Earned Runs":76.5,"H":174.8,"H + BB":""},{"id":382,"name":"Raisel Iglesias","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":155,"BB":48.00626959,"K":154,"W":9.037617555,"SV":0,"HD":0,"ERA":3.25,"WHIP":1.15,"QS":15.25705329,"Earned Runs":55.97222222,"H":138.6739812,"H + BB":""},{"id":383,"name":"Drew Smyly","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":155.1,"BB":48,"K":150.1,"W":10,"SV":0,"HD":0,"ERA":3.38,"WHIP":1.17,"QS":15.8,"Earned Runs":58.24866667,"H":137.1,"H + BB":""},{"id":384,"name":"Aroldis Chapman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":27.8,"K":100.8,"W":3.9,"SV":30,"HD":6,"ERA":2.236111111,"WHIP":1.03,"QS":0,"Earned Runs":16.1,"H":38.8,"H + BB":""},{"id":385,"name":"Jordan Zimmermann","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":193,"BB":39.2368281,"K":146,"W":12.6,"SV":0,"HD":0,"ERA":3.865353912,"WHIP":1.23,"QS":18.0777009,"Earned Runs":82.89036722,"H":197.6221394,"H + BB":""},{"id":386,"name":"Hisashi Iwakuma","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":160,"BB":28.97421203,"K":130.5673352,"W":9,"SV":0,"HD":0,"ERA":3.429799427,"WHIP":1.1,"QS":15.86246418,"Earned Runs":60.97421203,"H":157.0659026,"H + BB":""},{"id":387,"name":"Jason Hammel","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":160,"BB":41.77131527,"K":160,"W":11,"SV":0,"HD":0,"ERA":3.62,"WHIP":1.2,"QS":15.33377396,"Earned Runs":64.35555556,"H":150.7997356,"H + BB":""},{"id":388,"name":"Julio Teheran","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":198,"BB":60.06386376,"K":170,"W":10.32676956,"SV":0,"HD":0,"ERA":3.7,"WHIP":1.27,"QS":18.65141032,"Earned Runs":81.4,"H":190.623736,"H + BB":""},{"id":389,"name":"Michael Wacha","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":175.2,"BB":54,"K":155.6,"W":10.7,"SV":0,"HD":0,"ERA":3.6,"WHIP":1.25,"QS":16.9,"Earned Runs":70.08,"H":165.6,"H + BB":""},{"id":390,"name":"Aaron Nola","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":180,"BB":45.4109589,"K":153,"W":9.143835616,"SV":0,"HD":0,"ERA":3.58,"WHIP":1.21,"QS":16.95205479,"Earned Runs":71.6,"H":177.3287671,"H + BB":""},{"id":391,"name":"Carlos Martinez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":160,"BB":56.63030303,"K":152,"W":11,"SV":0,"HD":0,"ERA":3.496363636,"WHIP":1.25,"QS":15.80606061,"Earned Runs":62.15757576,"H":143.9030303,"H + BB":""},{"id":392,"name":"Justin Verlander","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":184,"BB":52.9,"K":151.8,"W":11.5,"SV":0,"HD":0,"ERA":3.795652174,"WHIP":1.26,"QS":17.4,"Earned Runs":77.6,"H":178.1,"H + BB":""},{"id":393,"name":"Luis Severino","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":165,"BB":55.24553571,"K":155,"W":11.5,"SV":0,"HD":0,"ERA":3.7,"WHIP":1.25,"QS":15.57397959,"Earned Runs":67.83333333,"H":155.7397959,"H + BB":""},{"id":394,"name":"Carlos Rodon","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":170,"BB":78.76489028,"K":177.1410658,"W":12,"SV":0,"HD":0,"ERA":3.65,"WHIP":1.32,"QS":15.6677116,"Earned Runs":68.94444444,"H":150.6018809,"H + BB":""},{"id":395,"name":"Marcus Stroman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":160,"BB":43.83561644,"K":133.1506849,"W":11,"SV":0,"HD":0,"ERA":3.6,"WHIP":1.2,"QS":15.43378995,"Earned Runs":64,"H":156.803653,"H + BB":""},{"id":396,"name":"Mike Leake","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":200,"BB":51.64890918,"K":134.9568747,"W":11.16184678,"SV":0,"HD":0,"ERA":3.75,"WHIP":1.26,"QS":18.36631152,"Earned Runs":83.33333333,"H":213.4956875,"H + BB":""},{"id":397,"name":"Ian Kennedy","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":178,"BB":57.16637681,"K":168,"W":10,"SV":0,"HD":0,"ERA":3.850434783,"WHIP":1.26,"QS":16.81971014,"Earned Runs":76.15304348,"H":166.546087,"H + BB":""},{"id":398,"name":"Rick Porcello","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":178.1,"BB":41,"K":138.3,"W":11.5,"SV":0,"HD":0,"ERA":3.815272319,"WHIP":1.25,"QS":16.8,"Earned Runs":75.5,"H":181.6,"H + BB":""},{"id":399,"name":"Gio Gonzalez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":170,"BB":61.76537585,"K":159.9316629,"W":10.64920273,"SV":0,"HD":0,"ERA":3.72,"WHIP":1.3,"QS":16.36104784,"Earned Runs":70.26666667,"H":158.5763098,"H + BB":""},{"id":400,"name":"Andrew Cashner","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":175.2,"BB":52.7,"K":152.5,"W":9.3,"SV":0,"HD":0,"ERA":3.724315068,"WHIP":1.26,"QS":16.8,"Earned Runs":72.5,"H":168.3,"H + BB":""},{"id":401,"name":"Clay Buchholz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":155,"BB":41.5298913,"K":132.1711957,"W":10.36141304,"SV":0,"HD":0,"ERA":3.653804348,"WHIP":1.24,"QS":14.91032609,"Earned Runs":62.92663043,"H":150.3668478,"H + BB":""},{"id":402,"name":"Shelby Miller","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":191,"BB":66.5,"K":158.8,"W":10.5,"SV":0,"HD":0,"ERA":3.9,"WHIP":1.32,"QS":17.4,"Earned Runs":82.76666667,"H":186.3,"H + BB":""},{"id":403,"name":"Yu Darvish","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":21,"IP":130,"BB":42.51184834,"K":150,"W":9,"SV":0,"HD":0,"ERA":3.5,"WHIP":1.24,"QS":13.18483412,"Earned Runs":50.55555556,"H":111.6398104,"H + BB":""},{"id":404,"name":"Nate Karns","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":26,"IP":160,"BB":58.94736842,"K":150,"W":10.3,"SV":0,"HD":0,"ERA":3.8,"WHIP":1.28,"QS":14.70877193,"Earned Runs":67.55555556,"H":150.1192982,"H + BB":""},{"id":405,"name":"Nathan Eovaldi","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":180,"BB":51.08418367,"K":143,"W":11.5,"SV":0,"HD":0,"ERA":3.92,"WHIP":1.32,"QS":16.64540816,"Earned Runs":78.4,"H":182.1811224,"H + BB":""},{"id":406,"name":"Eduardo Rodriguez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":159.5,"BB":49.9,"K":129.2,"W":10.6,"SV":0,"HD":0,"ERA":3.73,"WHIP":1.27,"QS":15.1,"Earned Runs":66.10388889,"H":156.7,"H + BB":""},{"id":407,"name":"Erasmo Ramirez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":163,"BB":47.42689199,"K":130,"W":9.581190301,"SV":0,"HD":0,"ERA":3.75,"WHIP":1.25,"QS":15.09037472,"Earned Runs":67.91666667,"H":161.6825863,"H + BB":""},{"id":408,"name":"David Robertson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":60,"GS":0,"IP":65.9,"BB":20.7,"K":80.6,"W":3.6,"SV":35,"HD":6,"ERA":2.963581184,"WHIP":1.11,"QS":0,"Earned Runs":21.7,"H":52.6,"H + BB":""},{"id":409,"name":"Cody Allen","isFavorited":"","type":"pitcher","isSelected":true,"cost":15,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":23.1,"K":80,"W":3.5,"SV":35,"HD":6,"ERA":2.805555556,"WHIP":1.12,"QS":0,"Earned Runs":20.2,"H":49.5,"H + BB":""},{"id":410,"name":"Derek Holland","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":172.3,"BB":52.4,"K":147.2,"W":10.7,"SV":0,"HD":0,"ERA":4.016831109,"WHIP":1.3,"QS":15.9,"Earned Runs":76.9,"H":171.4,"H + BB":""},{"id":411,"name":"Craig Kimbrel","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":62,"GS":0,"IP":61.6,"BB":22.8,"K":81.1,"W":3.6,"SV":40,"HD":0,"ERA":2.62987013,"WHIP":1.09,"QS":0,"Earned Runs":18,"H":44.4,"H + BB":""},{"id":412,"name":"Zach Britton","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":20.5,"K":70.7,"W":3.7,"SV":30,"HD":6,"ERA":2.513888889,"WHIP":1.14,"QS":0,"Earned Runs":18.1,"H":53.5,"H + BB":""},{"id":413,"name":"Wade Davis","isFavorited":"","type":"pitcher","isSelected":true,"cost":10,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":20.9,"K":71.7,"W":3.5,"SV":35,"HD":6,"ERA":2.75,"WHIP":1.12,"QS":0,"Earned Runs":19.8,"H":51.8,"H + BB":""},{"id":414,"name":"Anthony DeSclafani","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":175.2,"BB":50.3,"K":143.3,"W":9.3,"SV":0,"HD":0,"ERA":4.02739726,"WHIP":1.27,"QS":16.1,"Earned Runs":78.4,"H":171.5,"H + BB":""},{"id":415,"name":"Wade Miley","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":187.9,"BB":61.2,"K":142.4,"W":10.7,"SV":0,"HD":0,"ERA":3.999467802,"WHIP":1.33,"QS":17.3,"Earned Runs":83.5,"H":188.8,"H + BB":""},{"id":416,"name":"Kevin Gausman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":143.4,"BB":43.4,"K":130,"W":8.8,"SV":0,"HD":0,"ERA":3.65,"WHIP":1.24,"QS":13.5,"Earned Runs":58.15666667,"H":137.3,"H + BB":""},{"id":417,"name":"Trevor Bauer","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":178.6,"BB":75.2,"K":164,"W":10.1,"SV":0,"HD":0,"ERA":4.182530795,"WHIP":1.33,"QS":16.1,"Earned Runs":83,"H":166.8,"H + BB":""},{"id":418,"name":"Hyun-Jin Ryu","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":18,"GS":18,"IP":125,"BB":30.08241758,"K":104.532967,"W":9,"SV":0,"HD":0,"ERA":3.5,"WHIP":1.19,"QS":12.77472527,"Earned Runs":48.61111111,"H":119.2307692,"H + BB":""},{"id":419,"name":"Jimmy Nelson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":176,"BB":61.79918746,"K":153.9361579,"W":9.5,"SV":0,"HD":0,"ERA":4.1,"WHIP":1.31,"QS":15.62855485,"Earned Runs":80.17777778,"H":174.0591991,"H + BB":""},{"id":420,"name":"Andrew Heaney","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":16,"IP":140,"BB":41.44351464,"K":120,"W":9,"SV":0,"HD":0,"ERA":3.7,"WHIP":1.23,"QS":13.17991632,"Earned Runs":57.55555556,"H":136.6317992,"H + BB":""},{"id":421,"name":"Alex Wood","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":162.3,"BB":49.6,"K":126.5,"W":9.8,"SV":0,"HD":0,"ERA":3.837338262,"WHIP":1.3,"QS":15.3,"Earned Runs":69.2,"H":160.7,"H + BB":""},{"id":422,"name":"Kenley Jansen","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":15.2,"K":73.3,"W":3.3,"SV":35,"HD":0,"ERA":2.444444444,"WHIP":0.99,"QS":0,"Earned Runs":15.4,"H":41.2,"H + BB":""},{"id":423,"name":"Phil Hughes","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":178.1,"BB":27.4,"K":119.7,"W":9.9,"SV":0,"HD":0,"ERA":4.204379562,"WHIP":1.25,"QS":15.9,"Earned Runs":83.2,"H":195.2,"H + BB":""},{"id":424,"name":"J.A. Happ","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":151.3,"BB":46.9,"K":128.6,"W":10,"SV":0,"HD":0,"ERA":3.955717118,"WHIP":1.29,"QS":14.1,"Earned Runs":66.5,"H":147.5,"H + BB":""},{"id":425,"name":"Anibal Sanchez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":26,"IP":140,"BB":39.54198473,"K":118.8931298,"W":8.727735369,"SV":0,"HD":0,"ERA":3.64,"WHIP":1.25,"QS":13.18066158,"Earned Runs":56.62222222,"H":135.3689567,"H + BB":""},{"id":426,"name":"Joe Ross","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":138.5,"BB":41.8,"K":115.8,"W":8.5,"SV":0,"HD":0,"ERA":3.6,"WHIP":1.24,"QS":13,"Earned Runs":55.4,"H":137,"H + BB":""},{"id":427,"name":"Ubaldo Jimenez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":178.6,"BB":71.9,"K":155.2,"W":10.3,"SV":0,"HD":0,"ERA":4.217805151,"WHIP":1.36,"QS":16,"Earned Runs":83.7,"H":170.3,"H + BB":""},{"id":428,"name":"Ervin Santana","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":197.1,"BB":61,"K":149.2,"W":10.6,"SV":0,"HD":0,"ERA":4.342465753,"WHIP":1.35,"QS":17.3,"Earned Runs":95.1,"H":205.3,"H + BB":""},{"id":429,"name":"Brad Boxberger","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":23.5,"K":67.7,"W":3,"SV":35,"HD":6,"ERA":3.14922813,"WHIP":1.19,"QS":0,"Earned Runs":20.4,"H":45.9,"H + BB":""},{"id":430,"name":"Mark Melancon","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":13.2,"K":50,"W":3,"SV":35,"HD":6,"ERA":2.825396825,"WHIP":1.16,"QS":0,"Earned Runs":17.8,"H":52.8,"H + BB":""},{"id":431,"name":"Jaime Garcia","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":25,"GS":25,"IP":125,"BB":32.14786265,"K":100.9985985,"W":7.971268395,"SV":0,"HD":0,"ERA":3.405746321,"WHIP":1.23,"QS":12.52627891,"Earned Runs":47.30203224,"H":122.9852838,"H + BB":""},{"id":432,"name":"Daniel Norris","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":19,"IP":150,"BB":62.01030928,"K":130,"W":8,"SV":0,"HD":0,"ERA":3.8,"WHIP":1.28,"QS":13.29896907,"Earned Runs":63.33333333,"H":145.9793814,"H + BB":""},{"id":433,"name":"R.A. Dickey","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":184,"BB":57.1,"K":127.2,"W":10.9,"SV":0,"HD":0,"ERA":4.284782609,"WHIP":1.34,"QS":16.3,"Earned Runs":87.6,"H":190.3,"H + BB":""},{"id":434,"name":"Jake Peavy","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":25,"GS":25,"IP":143.8,"BB":39.6,"K":107.8,"W":8.4,"SV":0,"HD":0,"ERA":3.78650904,"WHIP":1.26,"QS":13.7,"Earned Runs":60.5,"H":141.4,"H + BB":""},{"id":435,"name":"Rubby de la Rosa","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":162.3,"BB":55.5,"K":135.2,"W":9.1,"SV":0,"HD":0,"ERA":4.131238447,"WHIP":1.32,"QS":14.7,"Earned Runs":74.5,"H":159,"H + BB":""},{"id":436,"name":"Edinson Volquez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":184.8,"BB":66.4,"K":140.9,"W":10.1,"SV":0,"HD":0,"ERA":4.266233766,"WHIP":1.36,"QS":16.4,"Earned Runs":87.6,"H":184.5,"H + BB":""},{"id":437,"name":"Dellin Betances","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":71.3,"BB":28.1,"K":101.7,"W":4.1,"SV":3,"HD":14,"ERA":2.549789621,"WHIP":1.06,"QS":0,"Earned Runs":20.2,"H":47.6,"H + BB":""},{"id":438,"name":"Vincent Velasquez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":13,"GS":13,"IP":110,"BB":39.95726496,"K":128.019943,"W":5.641025641,"SV":0,"HD":0,"ERA":3.4,"WHIP":1.21,"QS":11.43874644,"Earned Runs":41.55555556,"H":89.31623932,"H + BB":""},{"id":439,"name":"Kyle Gibson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":187.9,"BB":61.3,"K":130.8,"W":10.7,"SV":0,"HD":0,"ERA":4.15274082,"WHIP":1.39,"QS":16.9,"Earned Runs":86.7,"H":199.1,"H + BB":""},{"id":440,"name":"Hector Santiago","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":151.3,"BB":58.2,"K":126.3,"W":9.2,"SV":0,"HD":0,"ERA":4.050892267,"WHIP":1.32,"QS":13.9,"Earned Runs":68.1,"H":141.7,"H + BB":""},{"id":441,"name":"Kenta Maeda","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":19,"IP":135,"BB":24,"K":103,"W":7.5,"SV":0,"HD":0,"ERA":3.6,"WHIP":1.19,"QS":10.6,"Earned Runs":54,"H":0,"H + BB":""},{"id":442,"name":"Hector Rondon","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":17.1,"K":56.8,"W":3.1,"SV":30,"HD":8,"ERA":3.142857143,"WHIP":1.18,"QS":0,"Earned Runs":19.8,"H":49.6,"H + BB":""},{"id":443,"name":"Trevor Rosenthal","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":21.9,"K":69.9,"W":3.1,"SV":35,"HD":0,"ERA":2.857142857,"WHIP":1.15,"QS":0,"Earned Runs":18,"H":43.3,"H + BB":""},{"id":444,"name":"Brett Anderson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":140.9,"BB":40.6,"K":99.7,"W":8.8,"SV":0,"HD":0,"ERA":3.577004968,"WHIP":1.32,"QS":13.8,"Earned Runs":56,"H":145.4,"H + BB":""},{"id":445,"name":"Jeff Locke","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":163.5,"BB":57.9,"K":124.6,"W":9.5,"SV":0,"HD":0,"ERA":4.018348624,"WHIP":1.36,"QS":15.1,"Earned Runs":73,"H":164,"H + BB":""},{"id":446,"name":"Marco Estrada","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":175.2,"BB":53.4,"K":132.3,"W":10.4,"SV":0,"HD":0,"ERA":4.479452055,"WHIP":1.33,"QS":15,"Earned Runs":87.2,"H":179.5,"H + BB":""},{"id":447,"name":"C.J. Wilson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":25,"GS":25,"IP":156.2,"BB":60.9,"K":128.4,"W":8.9,"SV":0,"HD":0,"ERA":4.039052497,"WHIP":1.34,"QS":14.3,"Earned Runs":70.1,"H":148.6,"H + BB":""},{"id":448,"name":"Matt Moore","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":128.8,"BB":48,"K":115.1,"W":7.8,"SV":0,"HD":0,"ERA":3.794254658,"WHIP":1.29,"QS":12.3,"Earned Runs":54.3,"H":118.1,"H + BB":""},{"id":449,"name":"Glen Perkins","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":60,"GS":0,"IP":59.9,"BB":15.9,"K":58.7,"W":3.1,"SV":25,"HD":6,"ERA":3.230383973,"WHIP":1.18,"QS":0,"Earned Runs":21.5,"H":54.5,"H + BB":""},{"id":450,"name":"Chase Anderson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":138.5,"BB":39.8,"K":113.3,"W":8,"SV":0,"HD":0,"ERA":3.996389892,"WHIP":1.28,"QS":12.8,"Earned Runs":61.5,"H":137.2,"H + BB":""},{"id":451,"name":"Ken Giles","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":22.1,"K":63.3,"W":3,"SV":30,"HD":6,"ERA":3.301587302,"WHIP":1.21,"QS":0,"Earned Runs":20.8,"H":46.8,"H + BB":""},{"id":452,"name":"Drew Storen","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":17.4,"K":57.7,"W":3,"SV":25,"HD":6,"ERA":3.365079365,"WHIP":1.19,"QS":0,"Earned Runs":21.2,"H":50,"H + BB":""},{"id":453,"name":"Jeremy Hellickson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":148.5,"BB":42.2,"K":122.7,"W":7.3,"SV":0,"HD":0,"ERA":4.181818182,"WHIP":1.28,"QS":13.4,"Earned Runs":69,"H":148,"H + BB":""},{"id":454,"name":"Jesse Hahn","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":145.8,"BB":47.3,"K":113.5,"W":8.4,"SV":0,"HD":0,"ERA":3.956790123,"WHIP":1.33,"QS":13.5,"Earned Runs":64.1,"H":146.2,"H + BB":""},{"id":455,"name":"Chris Tillman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":172.5,"BB":58,"K":127.1,"W":9.6,"SV":0,"HD":0,"ERA":4.330434783,"WHIP":1.36,"QS":15.1,"Earned Runs":83,"H":177,"H + BB":""},{"id":456,"name":"A.J. Ramos","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":28.6,"K":72.7,"W":3.2,"SV":30,"HD":0,"ERA":3.333333333,"WHIP":1.25,"QS":0,"Earned Runs":24,"H":52.6,"H + BB":""},{"id":457,"name":"Andrew Miller","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":60,"GS":0,"IP":59.9,"BB":20.2,"K":84.2,"W":3.5,"SV":3,"HD":13,"ERA":2.404006678,"WHIP":1.02,"QS":0,"Earned Runs":16,"H":40.9,"H + BB":""},{"id":458,"name":"Jeurys Familia","isFavorited":"","type":"pitcher","isSelected":true,"cost":2,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":19.6,"K":59,"W":2.9,"SV":35,"HD":0,"ERA":3.142857143,"WHIP":1.21,"QS":0,"Earned Runs":19.8,"H":48.9,"H + BB":""},{"id":459,"name":"Jonathan Papelbon","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":58,"GS":0,"IP":64.1,"BB":16.5,"K":56,"W":3.2,"SV":30,"HD":0,"ERA":3.608424337,"WHIP":1.22,"QS":0,"Earned Runs":25.7,"H":61.9,"H + BB":""},{"id":460,"name":"Sean Doolittle","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":54,"GS":0,"IP":59.3,"BB":16.9,"K":63.5,"W":3.2,"SV":20,"HD":3,"ERA":2.86846543,"WHIP":1.12,"QS":0,"Earned Runs":18.9,"H":49.5,"H + BB":""},{"id":461,"name":"Francisco Rodriguez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":16.8,"K":50.8,"W":2.8,"SV":30,"HD":6,"ERA":3.777777778,"WHIP":1.25,"QS":0,"Earned Runs":23.8,"H":54,"H + BB":""},{"id":462,"name":"Joaquin Benoit","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":21.7,"K":63.3,"W":3.2,"SV":15,"HD":10,"ERA":3.402777778,"WHIP":1.21,"QS":0,"Earned Runs":24.5,"H":56.8,"H + BB":""},{"id":463,"name":"Huston Street","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":17.7,"K":48.3,"W":2.8,"SV":30,"HD":6,"ERA":3.73015873,"WHIP":1.25,"QS":0,"Earned Runs":23.5,"H":53.2,"H + BB":""},{"id":464,"name":"Shawn Tolleson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":18.9,"K":55.4,"W":2.9,"SV":30,"HD":3,"ERA":3.603174603,"WHIP":1.25,"QS":0,"Earned Runs":22.7,"H":51.9,"H + BB":""},{"id":465,"name":"Tony Watson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":17.3,"K":60.8,"W":3.4,"SV":2,"HD":17,"ERA":3.111111111,"WHIP":1.16,"QS":0,"Earned Runs":22.4,"H":58.1,"H + BB":""},{"id":466,"name":"Santiago Casilla","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":51,"BB":19,"K":48.3,"W":2.5,"SV":25,"HD":3,"ERA":3.282352941,"WHIP":1.25,"QS":0,"Earned Runs":18.6,"H":44.8,"H + BB":""},{"id":467,"name":"Will Smith","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":51.8,"BB":19,"K":66.6,"W":2.7,"SV":8,"HD":12,"ERA":2.936293436,"WHIP":1.15,"QS":0,"Earned Runs":16.9,"H":40.5,"H + BB":""},{"id":468,"name":"Kevin Siegrist","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":25.5,"K":68.5,"W":3,"SV":6,"HD":15,"ERA":3.14922813,"WHIP":1.23,"QS":0,"Earned Runs":20.4,"H":46.2,"H + BB":""},{"id":469,"name":"Sergio Romo","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":51.8,"BB":13.2,"K":52.3,"W":2.8,"SV":2,"HD":17,"ERA":2.814671815,"WHIP":1.1,"QS":0,"Earned Runs":16.2,"H":43.7,"H + BB":""},{"id":470,"name":"Carter Capps","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":null,"GS":null,"IP":null,"BB":null,"K":null,"W":null,"SV":null,"HD":null,"ERA":null,"WHIP":null,"QS":null,"Earned Runs":null,"H":null,"H + BB":""},{"id":471,"name":"Pedro Strop","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":23.2,"K":65.8,"W":3.2,"SV":3,"HD":16,"ERA":3.072041166,"WHIP":1.2,"QS":0,"Earned Runs":19.9,"H":46.8,"H + BB":""},{"id":472,"name":"Corey Knebel","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":23,"K":66.7,"W":2.8,"SV":15,"HD":7,"ERA":3.26984127,"WHIP":1.23,"QS":0,"Earned Runs":20.6,"H":46.8,"H + BB":""},{"id":473,"name":"Darren O’Day","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":18.9,"K":67.6,"W":3.4,"SV":3,"HD":13,"ERA":3.263888889,"WHIP":1.15,"QS":0,"Earned Runs":23.5,"H":55.7,"H + BB":""},{"id":474,"name":"Jose Diaz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":18.9,"K":61.9,"W":2.8,"SV":12,"HD":7,"ERA":3.206349206,"WHIP":1.16,"QS":0,"Earned Runs":20.2,"H":47,"H + BB":""},{"id":475,"name":"Liam Hendriks","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":58,"GS":0,"IP":64.1,"BB":11.4,"K":62.6,"W":3.4,"SV":3,"HD":10,"ERA":2.948517941,"WHIP":1.08,"QS":0,"Earned Runs":21,"H":57.9,"H + BB":""},{"id":476,"name":"Carson Smith","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":23,"K":70.2,"W":3.6,"SV":0,"HD":14,"ERA":3.041666667,"WHIP":1.2,"QS":0,"Earned Runs":21.9,"H":54.5,"H + BB":""},{"id":477,"name":"Hunter Strickland","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":51,"BB":13.8,"K":56,"W":2.8,"SV":0,"HD":13,"ERA":2.664705882,"WHIP":1.08,"QS":0,"Earned Runs":15.1,"H":41.1,"H + BB":""},{"id":478,"name":"Joe Smith","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":17.5,"K":49.7,"W":3,"SV":3,"HD":15,"ERA":3.272727273,"WHIP":1.23,"QS":0,"Earned Runs":21.2,"H":54.3,"H + BB":""},{"id":479,"name":"Roberto Osuna","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":18.5,"K":63.2,"W":3.1,"SV":3,"HD":11,"ERA":3.222222222,"WHIP":1.16,"QS":0,"Earned Runs":20.3,"H":47.3,"H + BB":""},{"id":480,"name":"Luke Gregerson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":17.1,"K":59.2,"W":3.4,"SV":0,"HD":14,"ERA":3.305555556,"WHIP":1.18,"QS":0,"Earned Runs":23.8,"H":59.6,"H + BB":""},{"id":481,"name":"Kelvin Herrera","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":23.9,"K":65.7,"W":3.3,"SV":0,"HD":13,"ERA":3.263888889,"WHIP":1.21,"QS":0,"Earned Runs":23.5,"H":54.8,"H + BB":""},{"id":482,"name":"Jake McGee","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":46,"GS":0,"IP":46.2,"BB":14.8,"K":53.6,"W":2.5,"SV":8,"HD":8,"ERA":3.116883117,"WHIP":1.16,"QS":0,"Earned Runs":16,"H":39,"H + BB":""},{"id":483,"name":"J.J. Hoover","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":28,"K":63,"W":3,"SV":8,"HD":11,"ERA":3.819444444,"WHIP":1.32,"QS":0,"Earned Runs":27.5,"H":57.4,"H + BB":""},{"id":484,"name":"Yimi Garcia","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":58,"GS":0,"IP":52.5,"BB":15.6,"K":58,"W":2.8,"SV":0,"HD":12,"ERA":3.034285714,"WHIP":1.12,"QS":0,"Earned Runs":17.7,"H":43.2,"H + BB":""},{"id":485,"name":"Brett Cecil","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":63,"GS":0,"IP":56.9,"BB":20,"K":66.4,"W":3.2,"SV":0,"HD":10,"ERA":2.910369069,"WHIP":1.15,"QS":0,"Earned Runs":18.4,"H":45.6,"H + BB":""},{"id":486,"name":"Evan Scribner","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":54,"GS":0,"IP":58.9,"BB":12.7,"K":59.6,"W":3.1,"SV":0,"HD":10,"ERA":3.101867572,"WHIP":1.09,"QS":0,"Earned Runs":20.3,"H":51.7,"H + BB":""},{"id":487,"name":"Jeremy Jeffress","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":21.6,"K":55.6,"W":2.8,"SV":5,"HD":13,"ERA":3.53516295,"WHIP":1.3,"QS":0,"Earned Runs":22.9,"H":54.4,"H + BB":""},{"id":488,"name":"Fernando Salas","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":15.1,"K":56.3,"W":3,"SV":0,"HD":12,"ERA":3.288164666,"WHIP":1.14,"QS":0,"Earned Runs":21.3,"H":51.7,"H + BB":""},{"id":489,"name":"Antonio Bastardo","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":25.6,"K":67.5,"W":2.9,"SV":0,"HD":13,"ERA":3.349914237,"WHIP":1.24,"QS":0,"Earned Runs":21.7,"H":46.7,"H + BB":""},{"id":490,"name":"Mike Dunn","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":51.8,"BB":21.5,"K":58,"W":2.6,"SV":0,"HD":14,"ERA":3.162162162,"WHIP":1.23,"QS":0,"Earned Runs":18.2,"H":42,"H + BB":""},{"id":491,"name":"Kevin Jepsen","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":22,"K":54.6,"W":2.8,"SV":5,"HD":13,"ERA":3.674099485,"WHIP":1.31,"QS":0,"Earned Runs":23.8,"H":54.1,"H + BB":""},{"id":492,"name":"Brad Brach","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":73.7,"BB":30.5,"K":77.7,"W":3.7,"SV":0,"HD":11,"ERA":3.590230665,"WHIP":1.27,"QS":0,"Earned Runs":29.4,"H":62.8,"H + BB":""},{"id":493,"name":"Jon Niese","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":165,"BB":46.5,"K":105.4,"W":9.3,"SV":0,"HD":0,"ERA":4.058181818,"WHIP":1.35,"QS":15.1,"Earned Runs":74.4,"H":176.3,"H + BB":""},{"id":494,"name":"CC Sabathia","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":23,"GS":23,"IP":135.1,"BB":39.1,"K":107.6,"W":8,"SV":0,"HD":0,"ERA":4.123612139,"WHIP":1.29,"QS":12.2,"Earned Runs":61.9,"H":135.4,"H + BB":""},{"id":495,"name":"Tom Koehler","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":31,"IP":185.3,"BB":70.6,"K":137.3,"W":9.6,"SV":0,"HD":0,"ERA":4.376146789,"WHIP":1.41,"QS":16.2,"Earned Runs":90.1,"H":190.4,"H + BB":""},{"id":496,"name":"Jorge de la Rosa","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":156.8,"BB":61.2,"K":136.9,"W":8.9,"SV":0,"HD":0,"ERA":4.281887755,"WHIP":1.39,"QS":13.9,"Earned Runs":74.6,"H":157,"H + BB":""},{"id":497,"name":"Martin Perez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":26,"IP":145,"BB":43.9,"K":102.3,"W":8.9,"SV":0,"HD":0,"ERA":4.034482759,"WHIP":1.35,"QS":13.3,"Earned Runs":65,"H":152,"H + BB":""},{"id":498,"name":"Jerad Eickhoff","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":23,"GS":23,"IP":129.4,"BB":42.8,"K":114.5,"W":6.6,"SV":0,"HD":0,"ERA":3.992272025,"WHIP":1.29,"QS":12,"Earned Runs":57.4,"H":123.8,"H + BB":""},{"id":499,"name":"Rich Hill","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":110,"BB":50.66713982,"K":107.1114265,"W":6.089425124,"SV":0,"HD":0,"ERA":3.5,"WHIP":1.27,"QS":10.22711143,"Earned Runs":42.77777778,"H":97.82114975,"H + BB":""},{"id":500,"name":"Jesse Chavez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":16,"IP":118.3,"BB":35.7,"K":102.6,"W":7.8,"SV":0,"HD":2,"ERA":3.887573964,"WHIP":1.27,"QS":8.8,"Earned Runs":51.1,"H":114.5,"H + BB":""},{"id":501,"name":"Matt Wisler","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":28,"IP":154,"BB":47.6,"K":116.8,"W":7.6,"SV":0,"HD":0,"ERA":4.272077922,"WHIP":1.34,"QS":13.6,"Earned Runs":73.1,"H":158.6,"H + BB":""},{"id":502,"name":"Tommy Milone","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":23,"GS":23,"IP":130.5,"BB":35.7,"K":98,"W":7.7,"SV":0,"HD":0,"ERA":4.103448276,"WHIP":1.31,"QS":11.9,"Earned Runs":59.5,"H":135.1,"H + BB":""},{"id":503,"name":"Jonathan Gray","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":128.8,"BB":45.2,"K":118.2,"W":7.5,"SV":0,"HD":0,"ERA":4.220496894,"WHIP":1.34,"QS":11.5,"Earned Runs":60.4,"H":127.9,"H + BB":""},{"id":504,"name":"Jered Weaver","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":148.2,"BB":39,"K":90.8,"W":8.1,"SV":0,"HD":0,"ERA":4.329959514,"WHIP":1.31,"QS":13,"Earned Runs":71.3,"H":155.4,"H + BB":""},{"id":505,"name":"John Lamb","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":19,"IP":102.8,"BB":38.3,"K":99.1,"W":6,"SV":0,"HD":0,"ERA":3.808365759,"WHIP":1.27,"QS":9.8,"Earned Runs":43.5,"H":92.2,"H + BB":""},{"id":506,"name":"James Paxton","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":16,"IP":115,"BB":43.56888361,"K":100,"W":7,"SV":0,"HD":0,"ERA":3.9,"WHIP":1.32,"QS":10.51662708,"Earned Runs":49.83333333,"H":113.087886,"H + BB":""},{"id":507,"name":"Robbie Ray","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":19,"IP":108.6,"BB":44.8,"K":106.7,"W":6.4,"SV":0,"HD":0,"ERA":3.919889503,"WHIP":1.31,"QS":10.2,"Earned Runs":47.3,"H":97.6,"H + BB":""},{"id":508,"name":"Danny Duffy","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":36,"GS":19,"IP":125.5,"BB":46.7,"K":96.2,"W":7.6,"SV":0,"HD":2,"ERA":3.929880478,"WHIP":1.34,"QS":9.6,"Earned Runs":54.8,"H":120.9,"H + BB":""},{"id":509,"name":"Mike Foltynewicz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":19,"IP":108.6,"BB":41.8,"K":108.8,"W":5.5,"SV":0,"HD":0,"ERA":3.886740331,"WHIP":1.3,"QS":10.2,"Earned Runs":46.9,"H":99,"H + BB":""},{"id":510,"name":"Colby Lewis","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":26,"IP":155.4,"BB":38.6,"K":109,"W":8.6,"SV":0,"HD":0,"ERA":4.650579151,"WHIP":1.34,"QS":13,"Earned Runs":80.3,"H":169.5,"H + BB":""},{"id":511,"name":"Josh Tomlin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":16,"IP":97.2,"BB":18.3,"K":78.1,"W":5.8,"SV":0,"HD":0,"ERA":3.796296296,"WHIP":1.2,"QS":9.2,"Earned Runs":41,"H":98,"H + BB":""},{"id":512,"name":"Drew Hutchison","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":16,"IP":105.3,"BB":32.4,"K":91.9,"W":6.8,"SV":0,"HD":2,"ERA":4.094017094,"WHIP":1.28,"QS":7.8,"Earned Runs":47.9,"H":102.2,"H + BB":""},{"id":513,"name":"Miguel Gonzalez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":26,"IP":146.7,"BB":47.1,"K":106.4,"W":8.1,"SV":0,"HD":0,"ERA":4.509202454,"WHIP":1.36,"QS":12.5,"Earned Runs":73.5,"H":152.9,"H + BB":""},{"id":514,"name":"Charlie Morton","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":23,"GS":23,"IP":127.1,"BB":42.2,"K":96.3,"W":6.4,"SV":0,"HD":0,"ERA":4.014948859,"WHIP":1.35,"QS":11.7,"Earned Runs":56.7,"H":128.9,"H + BB":""},{"id":515,"name":"Chris Heston","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":13,"IP":90.3,"BB":28.3,"K":77.3,"W":5.1,"SV":0,"HD":2,"ERA":3.408637874,"WHIP":1.24,"QS":7.5,"Earned Runs":34.2,"H":83.8,"H + BB":""},{"id":516,"name":"Arodys Vizcaino","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":51,"BB":20.1,"K":59,"W":2.5,"SV":15,"HD":6,"ERA":3.194117647,"WHIP":1.21,"QS":0,"Earned Runs":18.1,"H":41.7,"H + BB":""},{"id":517,"name":"John Danks","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":29,"IP":172.3,"BB":55.8,"K":120.4,"W":9,"SV":0,"HD":0,"ERA":4.742890308,"WHIP":1.4,"QS":14.2,"Earned Runs":90.8,"H":184.6,"H + BB":""},{"id":518,"name":"Homer Bailey","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":18,"GS":18,"IP":104.9,"BB":30.1,"K":83.8,"W":5.7,"SV":0,"HD":0,"ERA":3.938036225,"WHIP":1.27,"QS":9.8,"Earned Runs":45.9,"H":102.9,"H + BB":""},{"id":519,"name":"Matt Shoemaker","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":16,"IP":90.7,"BB":20.5,"K":72.5,"W":5.4,"SV":0,"HD":0,"ERA":3.770672547,"WHIP":1.21,"QS":8.7,"Earned Runs":38,"H":89.2,"H + BB":""},{"id":520,"name":"Tanner Roark","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":21,"IP":116.1,"BB":28.6,"K":82.2,"W":6.8,"SV":0,"HD":0,"ERA":4.139534884,"WHIP":1.31,"QS":10.5,"Earned Runs":53.4,"H":123.8,"H + BB":""},{"id":521,"name":"Kris Medlen","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":16,"IP":113.4,"BB":30.8,"K":77.4,"W":6.6,"SV":0,"HD":2,"ERA":3.992063492,"WHIP":1.3,"QS":8.3,"Earned Runs":50.3,"H":116.6,"H + BB":""},{"id":522,"name":"Matt Garza","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":140.9,"BB":45.5,"K":108,"W":7,"SV":0,"HD":0,"ERA":4.47125621,"WHIP":1.38,"QS":12.1,"Earned Runs":70,"H":149.2,"H + BB":""},{"id":523,"name":"Chris Bassitt","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":16,"IP":118.3,"BB":42.6,"K":93.7,"W":6.5,"SV":0,"HD":2,"ERA":4.100591716,"WHIP":1.35,"QS":8.5,"Earned Runs":53.9,"H":116.6,"H + BB":""},{"id":524,"name":"Steve Cishek","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":58,"GS":0,"IP":52.5,"BB":19.1,"K":45.9,"W":2.5,"SV":15,"HD":9,"ERA":3.857142857,"WHIP":1.31,"QS":0,"Earned Runs":22.5,"H":49.5,"H + BB":""},{"id":525,"name":"Chad Bettis","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":23,"GS":23,"IP":129.4,"BB":45.1,"K":106.1,"W":7.2,"SV":0,"HD":0,"ERA":4.430448223,"WHIP":1.4,"QS":11.2,"Earned Runs":63.7,"H":135.9,"H + BB":""},{"id":526,"name":"Brad Ziegler","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":21,"K":44.1,"W":3.2,"SV":20,"HD":3,"ERA":3.416666667,"WHIP":1.35,"QS":0,"Earned Runs":24.6,"H":66.5,"H + BB":""},{"id":527,"name":"Doug Fister","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":23,"GS":23,"IP":129.4,"BB":29.5,"K":78.2,"W":7.2,"SV":0,"HD":0,"ERA":4.444358578,"WHIP":1.33,"QS":11.2,"Earned Runs":63.9,"H":143.3,"H + BB":""},{"id":528,"name":"Yusmeiro Petit","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":34,"GS":10,"IP":94.7,"BB":22,"K":76.9,"W":5.2,"SV":0,"HD":4,"ERA":4.020063358,"WHIP":1.25,"QS":5.4,"Earned Runs":42.3,"H":96.3,"H + BB":""},{"id":529,"name":"Colin Rea","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":21,"IP":111.8,"BB":39.2,"K":90.3,"W":5.6,"SV":0,"HD":0,"ERA":4.177996422,"WHIP":1.35,"QS":10.1,"Earned Runs":51.9,"H":111.4,"H + BB":""},{"id":530,"name":"David Phelps","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":19,"IP":107,"BB":35.7,"K":79.6,"W":6,"SV":0,"HD":0,"ERA":4.087850467,"WHIP":1.35,"QS":9.8,"Earned Runs":48.6,"H":108.7,"H + BB":""},{"id":531,"name":"Brandon Maurer","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":13,"IP":81.2,"BB":26.6,"K":74.2,"W":3.8,"SV":0,"HD":3,"ERA":3.646551724,"WHIP":1.26,"QS":6.4,"Earned Runs":32.9,"H":75.8,"H + BB":""},{"id":532,"name":"Joe Kelly","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":13,"IP":86.4,"BB":28.3,"K":73.9,"W":5,"SV":0,"HD":2,"ERA":3.729166667,"WHIP":1.3,"QS":6.8,"Earned Runs":35.8,"H":83.8,"H + BB":""},{"id":533,"name":"Wily Peralta","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":26,"IP":139.9,"BB":45.7,"K":98.7,"W":6.9,"SV":0,"HD":0,"ERA":4.483917084,"WHIP":1.41,"QS":12,"Earned Runs":69.7,"H":151.6,"H + BB":""},{"id":534,"name":"Matt Cain","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":18,"GS":18,"IP":91,"BB":27.5,"K":68.2,"W":5.3,"SV":0,"HD":0,"ERA":3.936263736,"WHIP":1.29,"QS":8.5,"Earned Runs":39.8,"H":89.8,"H + BB":""},{"id":535,"name":"Ryan Vogelsong","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":19,"IP":122,"BB":41.9,"K":88.8,"W":6.7,"SV":0,"HD":2,"ERA":4.404098361,"WHIP":1.38,"QS":8.9,"Earned Runs":59.7,"H":126.5,"H + BB":""},{"id":536,"name":"Bartolo Colon","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":13,"GS":13,"IP":80.6,"BB":11.3,"K":57,"W":4.5,"SV":0,"HD":0,"ERA":3.830024814,"WHIP":1.2,"QS":7.6,"Earned Runs":34.3,"H":85.3,"H + BB":""},{"id":537,"name":"Blake Treinen","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":60,"GS":0,"IP":65.9,"BB":20.1,"K":62.3,"W":3.4,"SV":0,"HD":11,"ERA":3.127465857,"WHIP":1.24,"QS":0,"Earned Runs":22.9,"H":61.5,"H + BB":""},{"id":538,"name":"Kendall Graveman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":133.7,"BB":42,"K":85.2,"W":7,"SV":0,"HD":0,"ERA":4.43605086,"WHIP":1.4,"QS":11.5,"Earned Runs":65.9,"H":145.5,"H + BB":""},{"id":539,"name":"Taylor Jungmann","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":24,"IP":138.5,"BB":60,"K":118.3,"W":6.8,"SV":0,"HD":0,"ERA":4.659205776,"WHIP":1.44,"QS":11.5,"Earned Runs":71.7,"H":139.2,"H + BB":""},{"id":540,"name":"Michael Lorenzen","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":26,"IP":138,"BB":56.3,"K":105.6,"W":6.8,"SV":0,"HD":1,"ERA":4.623913043,"WHIP":1.42,"QS":10.8,"Earned Runs":70.9,"H":139.5,"H + BB":""},{"id":541,"name":"David Hernandez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":45.4,"BB":16.2,"K":46.9,"W":2,"SV":15,"HD":3,"ERA":3.568281938,"WHIP":1.23,"QS":0,"Earned Runs":18,"H":39.9,"H + BB":""},{"id":542,"name":"Pedro Baez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":52,"GS":0,"IP":51.8,"BB":15.6,"K":54.9,"W":2.7,"SV":0,"HD":11,"ERA":3.17953668,"WHIP":1.15,"QS":0,"Earned Runs":18.3,"H":43.9,"H + BB":""},{"id":543,"name":"Shawn Kelley","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":54,"GS":0,"IP":53.5,"BB":17.9,"K":58.5,"W":2.8,"SV":0,"HD":11,"ERA":3.162616822,"WHIP":1.19,"QS":0,"Earned Runs":18.8,"H":45.7,"H + BB":""},{"id":544,"name":"Tony Sipp","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":60,"GS":0,"IP":53.9,"BB":19,"K":56.9,"W":2.8,"SV":0,"HD":12,"ERA":3.306122449,"WHIP":1.21,"QS":0,"Earned Runs":19.8,"H":45.9,"H + BB":""},{"id":545,"name":"Junichi Tazawa","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":62,"GS":0,"IP":61.6,"BB":17.2,"K":57.5,"W":3.3,"SV":0,"HD":10,"ERA":3.316558442,"WHIP":1.19,"QS":0,"Earned Runs":22.7,"H":56.4,"H + BB":""},{"id":546,"name":"Will Harris","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":64.8,"BB":23,"K":63.5,"W":3.2,"SV":0,"HD":12,"ERA":3.611111111,"WHIP":1.26,"QS":0,"Earned Runs":26,"H":58.4,"H + BB":""},{"id":547,"name":"Keone Kela","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":60,"GS":0,"IP":53.9,"BB":22.2,"K":58.1,"W":2.8,"SV":0,"HD":13,"ERA":3.489795918,"WHIP":1.27,"QS":0,"Earned Runs":20.9,"H":46.3,"H + BB":""},{"id":548,"name":"Brad Hand","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":34,"GS":10,"IP":82.5,"BB":27,"K":68.4,"W":3.9,"SV":0,"HD":4,"ERA":3.665454545,"WHIP":1.29,"QS":4.8,"Earned Runs":33.6,"H":79.8,"H + BB":""},{"id":549,"name":"Jason Motte","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":45.4,"BB":14.3,"K":36.8,"W":2.1,"SV":15,"HD":8,"ERA":4.400881057,"WHIP":1.37,"QS":0,"Earned Runs":22.2,"H":47.9,"H + BB":""},{"id":550,"name":"Fernando Rodney","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":51,"BB":21,"K":51.6,"W":2.3,"SV":10,"HD":6,"ERA":3.494117647,"WHIP":1.28,"QS":0,"Earned Runs":19.8,"H":44.2,"H + BB":""},{"id":551,"name":"Steve Geltz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":23.3,"K":58.4,"W":2.8,"SV":0,"HD":13,"ERA":3.581475129,"WHIP":1.27,"QS":0,"Earned Runs":23.2,"H":50.7,"H + BB":""},{"id":552,"name":"Ivan Nova","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":16,"IP":108.5,"BB":33.9,"K":76.1,"W":6.1,"SV":0,"HD":2,"ERA":4.421198157,"WHIP":1.36,"QS":7.7,"Earned Runs":53.3,"H":114.2,"H + BB":""},{"id":553,"name":"Justin Wilson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":51.8,"BB":20.4,"K":52.2,"W":2.7,"SV":0,"HD":13,"ERA":3.422779923,"WHIP":1.26,"QS":0,"Earned Runs":19.7,"H":44.9,"H + BB":""},{"id":554,"name":"Ryan Madson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":62,"GS":0,"IP":55.4,"BB":16.8,"K":51.2,"W":2.7,"SV":0,"HD":12,"ERA":3.362815884,"WHIP":1.22,"QS":0,"Earned Runs":20.7,"H":50.8,"H + BB":""},{"id":555,"name":"Kevin Quackenbush","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":20.6,"K":55.5,"W":2.5,"SV":5,"HD":9,"ERA":3.619047619,"WHIP":1.26,"QS":0,"Earned Runs":22.8,"H":51,"H + BB":""},{"id":556,"name":"Chris Hatcher","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":45.4,"BB":14.3,"K":48.1,"W":2.3,"SV":0,"HD":12,"ERA":3.191629956,"WHIP":1.17,"QS":0,"Earned Runs":16.1,"H":38.7,"H + BB":""},{"id":557,"name":"Addison Reed","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":18.9,"K":55.8,"W":2.7,"SV":0,"HD":12,"ERA":3.53968254,"WHIP":1.23,"QS":0,"Earned Runs":22.3,"H":50.9,"H + BB":""},{"id":558,"name":"Bryan Shaw","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":19.4,"K":47.7,"W":2.7,"SV":2,"HD":14,"ERA":3.843910806,"WHIP":1.3,"QS":0,"Earned Runs":24.9,"H":56.7,"H + BB":""},{"id":559,"name":"Jonathan Broxton","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":20.2,"K":54.7,"W":2.8,"SV":0,"HD":13,"ERA":3.596912521,"WHIP":1.27,"QS":0,"Earned Runs":23.3,"H":53.7,"H + BB":""},{"id":560,"name":"Vidal Nuno","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":37,"GS":5,"IP":63.9,"BB":14.3,"K":57.4,"W":3.4,"SV":0,"HD":4,"ERA":3.394366197,"WHIP":1.16,"QS":2.6,"Earned Runs":24.1,"H":59.6,"H + BB":""},{"id":561,"name":"Seth Maness","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":51.8,"BB":12.9,"K":37.1,"W":2.5,"SV":3,"HD":13,"ERA":3.474903475,"WHIP":1.28,"QS":0,"Earned Runs":20,"H":53.5,"H + BB":""},{"id":562,"name":"Hansel Robles","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":51,"BB":17.6,"K":54.5,"W":2.5,"SV":0,"HD":11,"ERA":3.335294118,"WHIP":1.2,"QS":0,"Earned Runs":18.9,"H":43.4,"H + BB":""},{"id":563,"name":"Sam Dyson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":60,"GS":0,"IP":59.9,"BB":20,"K":52.6,"W":3,"SV":0,"HD":13,"ERA":3.560934891,"WHIP":1.29,"QS":0,"Earned Runs":23.7,"H":57.5,"H + BB":""},{"id":564,"name":"Brandon Finnegan","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":10,"IP":75.7,"BB":33.5,"K":74.9,"W":4.3,"SV":0,"HD":2,"ERA":3.745046235,"WHIP":1.32,"QS":5,"Earned Runs":31.5,"H":66.2,"H + BB":""},{"id":565,"name":"Casey Fien","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":62,"GS":0,"IP":61.6,"BB":14.5,"K":50.1,"W":3,"SV":0,"HD":12,"ERA":3.637987013,"WHIP":1.23,"QS":0,"Earned Runs":24.9,"H":61.1,"H + BB":""},{"id":566,"name":"Adam Warren","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":36,"GS":3,"IP":57.1,"BB":16.7,"K":56.3,"W":3.1,"SV":0,"HD":5,"ERA":3.089316988,"WHIP":1.17,"QS":1.9,"Earned Runs":19.6,"H":50.2,"H + BB":""},{"id":567,"name":"Joe Blanton","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":4,"IP":57.5,"BB":12.9,"K":56.6,"W":3,"SV":0,"HD":3,"ERA":3.005217391,"WHIP":1.12,"QS":2.3,"Earned Runs":19.2,"H":51.3,"H + BB":""},{"id":568,"name":"Roenis Elias","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":13,"IP":93.5,"BB":35,"K":73.6,"W":5.8,"SV":0,"HD":2,"ERA":4.244919786,"WHIP":1.37,"QS":6.6,"Earned Runs":44.1,"H":93.1,"H + BB":""},{"id":569,"name":"Joakim Soria","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":51,"BB":15.6,"K":48.2,"W":2.6,"SV":0,"HD":11,"ERA":3.247058824,"WHIP":1.19,"QS":0,"Earned Runs":18.4,"H":45.2,"H + BB":""},{"id":570,"name":"Tom Wilhelmsen","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":68,"BB":30.2,"K":62.9,"W":3.3,"SV":5,"HD":11,"ERA":4.102941176,"WHIP":1.38,"QS":0,"Earned Runs":31,"H":63.4,"H + BB":""},{"id":571,"name":"Kyle Kendrick","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":26,"IP":137.3,"BB":39.5,"K":79.5,"W":7.1,"SV":0,"HD":0,"ERA":4.693372178,"WHIP":1.4,"QS":11.3,"Earned Runs":71.6,"H":153.2,"H + BB":""},{"id":572,"name":"Trevor May","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":16.7,"K":54.9,"W":3,"SV":0,"HD":10,"ERA":3.476190476,"WHIP":1.21,"QS":0,"Earned Runs":21.9,"H":52.1,"H + BB":""},{"id":573,"name":"Zach Duke","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":24.4,"K":57.9,"W":2.9,"SV":0,"HD":13,"ERA":3.658662093,"WHIP":1.32,"QS":0,"Earned Runs":23.7,"H":52.6,"H + BB":""},{"id":574,"name":"Xavier Cedeno","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":45.4,"BB":16.4,"K":43.9,"W":2.3,"SV":0,"HD":13,"ERA":3.27092511,"WHIP":1.24,"QS":0,"Earned Runs":16.5,"H":39.8,"H + BB":""},{"id":575,"name":"Arquimedes Caminero","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":21.5,"K":56.3,"W":2.8,"SV":0,"HD":11,"ERA":3.46031746,"WHIP":1.26,"QS":0,"Earned Runs":21.8,"H":49.8,"H + BB":""},{"id":576,"name":"Oliver Perez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":38.9,"BB":14.4,"K":45.1,"W":2.1,"SV":0,"HD":12,"ERA":3.100257069,"WHIP":1.19,"QS":0,"Earned Runs":13.4,"H":31.9,"H + BB":""},{"id":577,"name":"Robbie Erlin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":13,"GS":13,"IP":74.1,"BB":21,"K":60.2,"W":3.8,"SV":0,"HD":0,"ERA":3.813765182,"WHIP":1.27,"QS":7,"Earned Runs":31.4,"H":72.8,"H + BB":""},{"id":578,"name":"Mark Lowe","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":18.8,"K":54.1,"W":2.9,"SV":0,"HD":11,"ERA":3.619047619,"WHIP":1.25,"QS":0,"Earned Runs":22.8,"H":51.8,"H + BB":""},{"id":579,"name":"Tyler Chatwood","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":16,"IP":81,"BB":25.3,"K":67.1,"W":4.8,"SV":0,"HD":0,"ERA":4.111111111,"WHIP":1.35,"QS":7.4,"Earned Runs":37,"H":83.8,"H + BB":""},{"id":580,"name":"Carlos Torres","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":17.6,"K":51.1,"W":2.7,"SV":0,"HD":11,"ERA":3.571428571,"WHIP":1.25,"QS":0,"Earned Runs":22.5,"H":53.4,"H + BB":""},{"id":581,"name":"Daniel Hudson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":48.6,"BB":16.8,"K":51.3,"W":2.5,"SV":0,"HD":9,"ERA":3.185185185,"WHIP":1.19,"QS":0,"Earned Runs":17.2,"H":41.2,"H + BB":""},{"id":582,"name":"George Kontos","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":15.6,"K":45.6,"W":2.7,"SV":0,"HD":11,"ERA":3.523809524,"WHIP":1.23,"QS":0,"Earned Runs":22.2,"H":54.3,"H + BB":""},{"id":583,"name":"Fernando Rodriguez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":21.3,"K":58.8,"W":2.8,"SV":0,"HD":9,"ERA":3.46031746,"WHIP":1.24,"QS":0,"Earned Runs":21.8,"H":49.1,"H + BB":""},{"id":584,"name":"Jake Diekman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":51,"BB":22.9,"K":56,"W":2.6,"SV":0,"HD":11,"ERA":3.494117647,"WHIP":1.29,"QS":0,"Earned Runs":19.8,"H":43,"H + BB":""},{"id":585,"name":"Randall Delgado","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":53.5,"BB":19.1,"K":51.8,"W":2.6,"SV":3,"HD":8,"ERA":3.56635514,"WHIP":1.25,"QS":0,"Earned Runs":21.2,"H":47.8,"H + BB":""},{"id":586,"name":"Travis Wood","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":36,"GS":3,"IP":58.1,"BB":19.5,"K":56.4,"W":3.3,"SV":0,"HD":5,"ERA":3.376936317,"WHIP":1.22,"QS":1.6,"Earned Runs":21.8,"H":51.4,"H + BB":""},{"id":587,"name":"Zach McAllister","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":53.5,"BB":14.6,"K":53.8,"W":2.7,"SV":0,"HD":7,"ERA":3.246728972,"WHIP":1.16,"QS":0,"Earned Runs":19.3,"H":47.4,"H + BB":""},{"id":588,"name":"Koji Uehara","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":44,"GS":0,"IP":39.3,"BB":9.3,"K":39.7,"W":2.2,"SV":0,"HD":9,"ERA":2.93129771,"WHIP":1.1,"QS":0,"Earned Runs":12.8,"H":33.9,"H + BB":""},{"id":589,"name":"Luis Avilan","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":45.4,"BB":17.2,"K":39.6,"W":2.2,"SV":0,"HD":14,"ERA":3.568281938,"WHIP":1.31,"QS":0,"Earned Runs":18,"H":42,"H + BB":""},{"id":590,"name":"Tyler Lyons","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":5,"IP":49.8,"BB":10.2,"K":49.2,"W":2.8,"SV":0,"HD":2,"ERA":3.036144578,"WHIP":1.11,"QS":2.7,"Earned Runs":16.8,"H":45,"H + BB":""},{"id":591,"name":"Alex Colome","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":53.5,"BB":16.1,"K":46.9,"W":2.8,"SV":0,"HD":10,"ERA":3.56635514,"WHIP":1.24,"QS":0,"Earned Runs":21.2,"H":50,"H + BB":""},{"id":592,"name":"Aaron Sanchez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":45,"GS":5,"IP":63.4,"BB":27.8,"K":55.5,"W":3.2,"SV":0,"HD":9,"ERA":3.847003155,"WHIP":1.39,"QS":2.6,"Earned Runs":27.1,"H":60.1,"H + BB":""},{"id":593,"name":"Bud Norris","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":10,"IP":65.7,"BB":21,"K":58.5,"W":3.6,"SV":0,"HD":2,"ERA":3.876712329,"WHIP":1.28,"QS":4.7,"Earned Runs":28.3,"H":63.3,"H + BB":""},{"id":594,"name":"Nate Jones","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":40.5,"BB":14.9,"K":47.6,"W":2.1,"SV":0,"HD":9,"ERA":3.088888889,"WHIP":1.18,"QS":0,"Earned Runs":13.9,"H":32.9,"H + BB":""},{"id":595,"name":"Dan Straily","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":23,"GS":7,"IP":54.2,"BB":14.8,"K":52.2,"W":2.9,"SV":0,"HD":2,"ERA":3.437269373,"WHIP":1.18,"QS":3.4,"Earned Runs":20.7,"H":49.3,"H + BB":""},{"id":596,"name":"Aaron Loup","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":60,"GS":0,"IP":41.9,"BB":13.7,"K":39.5,"W":2.2,"SV":0,"HD":11,"ERA":3.264916468,"WHIP":1.23,"QS":0,"Earned Runs":15.2,"H":38,"H + BB":""},{"id":597,"name":"Henry Owens","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":15,"GS":15,"IP":87.2,"BB":39.3,"K":72.8,"W":5.4,"SV":0,"HD":0,"ERA":4.345183486,"WHIP":1.42,"QS":7.6,"Earned Runs":42.1,"H":84.3,"H + BB":""},{"id":598,"name":"Chad Qualls","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":60,"GS":0,"IP":47.9,"BB":12,"K":40.5,"W":2.4,"SV":3,"HD":9,"ERA":3.551148225,"WHIP":1.26,"QS":0,"Earned Runs":18.9,"H":48.6,"H + BB":""},{"id":599,"name":"Chris Young","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":13,"IP":95.8,"BB":33.3,"K":67.1,"W":5,"SV":0,"HD":2,"ERA":4.396659708,"WHIP":1.35,"QS":6.2,"Earned Runs":46.8,"H":96.3,"H + BB":""},{"id":600,"name":"Andrew Chafin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":62.4,"BB":22.3,"K":53.3,"W":3,"SV":0,"HD":10,"ERA":3.548076923,"WHIP":1.31,"QS":0,"Earned Runs":24.6,"H":59.3,"H + BB":""},{"id":601,"name":"Josh Fields","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":48.6,"BB":18.1,"K":54.3,"W":2.6,"SV":0,"HD":7,"ERA":3.240740741,"WHIP":1.19,"QS":0,"Earned Runs":17.5,"H":40,"H + BB":""},{"id":602,"name":"Jose Alvarez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":56.7,"BB":17.8,"K":48.4,"W":2.8,"SV":0,"HD":9,"ERA":3.476190476,"WHIP":1.24,"QS":0,"Earned Runs":21.9,"H":52.6,"H + BB":""},{"id":603,"name":"Juan Nicasio","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":52,"GS":0,"IP":57,"BB":18.8,"K":55.1,"W":2.9,"SV":0,"HD":7,"ERA":3.315789474,"WHIP":1.23,"QS":0,"Earned Runs":21,"H":51.1,"H + BB":""},{"id":604,"name":"Williams Perez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":19,"IP":110.6,"BB":40.6,"K":79.1,"W":5.2,"SV":0,"HD":0,"ERA":4.524412297,"WHIP":1.42,"QS":9.4,"Earned Runs":55.6,"H":116.8,"H + BB":""},{"id":605,"name":"Pat Neshek","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":45.4,"BB":12.7,"K":40.7,"W":2.3,"SV":0,"HD":11,"ERA":3.707048458,"WHIP":1.22,"QS":0,"Earned Runs":18.7,"H":42.8,"H + BB":""},{"id":606,"name":"Tyler Duffey","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":13,"GS":13,"IP":75.4,"BB":21.1,"K":55.7,"W":4.4,"SV":0,"HD":0,"ERA":4.177718833,"WHIP":1.33,"QS":6.8,"Earned Runs":35,"H":79.1,"H + BB":""},{"id":607,"name":"Chasen Shreve","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":58,"GS":0,"IP":58.3,"BB":25.3,"K":58.1,"W":2.9,"SV":0,"HD":9,"ERA":3.612349914,"WHIP":1.31,"QS":0,"Earned Runs":23.4,"H":51,"H + BB":""},{"id":608,"name":"Robbie Ross","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":54,"GS":0,"IP":58.9,"BB":19.2,"K":49.9,"W":3,"SV":0,"HD":9,"ERA":3.575551783,"WHIP":1.29,"QS":0,"Earned Runs":23.4,"H":56.6,"H + BB":""},{"id":609,"name":"Rafael Montero","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":8,"IP":64,"BB":22.4,"K":56.9,"W":3.7,"SV":0,"HD":2,"ERA":3.965625,"WHIP":1.3,"QS":4.3,"Earned Runs":28.2,"H":61,"H + BB":""},{"id":610,"name":"Zack Wheeler","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":11,"GS":11,"IP":54,"BB":20.2,"K":52.9,"W":3.3,"SV":0,"HD":0,"ERA":3.7,"WHIP":1.28,"QS":5.3,"Earned Runs":22.2,"H":48.6,"H + BB":""},{"id":611,"name":"Tyler Clippard","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":48.6,"BB":18.6,"K":46.3,"W":2.4,"SV":0,"HD":10,"ERA":3.722222222,"WHIP":1.27,"QS":0,"Earned Runs":20.1,"H":43.2,"H + BB":""},{"id":612,"name":"J.P. Howell","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":45.4,"BB":17.4,"K":38.4,"W":2.2,"SV":0,"HD":12,"ERA":3.607929515,"WHIP":1.32,"QS":0,"Earned Runs":18.2,"H":42.7,"H + BB":""},{"id":613,"name":"Brian Matusz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":45.4,"BB":16.9,"K":45.7,"W":2.3,"SV":0,"HD":9,"ERA":3.508810573,"WHIP":1.24,"QS":0,"Earned Runs":17.7,"H":39.6,"H + BB":""},{"id":614,"name":"Jim Johnson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":21.2,"K":46,"W":2.7,"SV":0,"HD":12,"ERA":3.843910806,"WHIP":1.36,"QS":0,"Earned Runs":24.9,"H":57.8,"H + BB":""},{"id":615,"name":"Tony Cingrani","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":36.5,"BB":15.7,"K":42.2,"W":1.8,"SV":3,"HD":7,"ERA":3.230136986,"WHIP":1.23,"QS":0,"Earned Runs":13.1,"H":29.1,"H + BB":""},{"id":616,"name":"Bryan Morris","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":58,"GS":0,"IP":52.5,"BB":20.6,"K":42.6,"W":2.5,"SV":0,"HD":12,"ERA":3.668571429,"WHIP":1.36,"QS":0,"Earned Runs":21.4,"H":50.8,"H + BB":""},{"id":617,"name":"Blaine Hardy","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":21.2,"K":49.1,"W":2.9,"SV":0,"HD":10,"ERA":3.782161235,"WHIP":1.32,"QS":0,"Earned Runs":24.5,"H":55.5,"H + BB":""},{"id":618,"name":"Vance Worley","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":10,"IP":76.7,"BB":18.2,"K":52.1,"W":4,"SV":0,"HD":2,"ERA":4.142112125,"WHIP":1.3,"QS":4.7,"Earned Runs":35.3,"H":81.6,"H + BB":""},{"id":619,"name":"Lucas Giolito","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":10,"GS":10,"IP":56.1,"BB":20.7,"K":53.4,"W":3.5,"SV":0,"HD":0,"ERA":3.86631016,"WHIP":1.3,"QS":5.3,"Earned Runs":24.1,"H":52.4,"H + BB":""},{"id":620,"name":"Chris Rusin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":16,"IP":116.6,"BB":35.6,"K":71.5,"W":6.3,"SV":0,"HD":2,"ERA":4.646655232,"WHIP":1.44,"QS":7.7,"Earned Runs":60.2,"H":132.8,"H + BB":""},{"id":621,"name":"Dylan Bundy","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":10,"IP":64.7,"BB":22.4,"K":54.9,"W":3.7,"SV":0,"HD":2,"ERA":4.103554869,"WHIP":1.32,"QS":4.4,"Earned Runs":29.5,"H":62.7,"H + BB":""},{"id":622,"name":"Brett Oberholtzer","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":13,"GS":13,"IP":65,"BB":16.4,"K":48,"W":3.3,"SV":0,"HD":0,"ERA":4.056923077,"WHIP":1.28,"QS":6,"Earned Runs":29.3,"H":66.7,"H + BB":""},{"id":623,"name":"Boone Logan","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":60,"GS":0,"IP":35.9,"BB":14.1,"K":37.2,"W":1.7,"SV":0,"HD":12,"ERA":3.835654596,"WHIP":1.31,"QS":0,"Earned Runs":15.3,"H":33,"H + BB":""},{"id":624,"name":"Trevor Cahill","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":52.7,"BB":20.4,"K":48.7,"W":2.7,"SV":0,"HD":8,"ERA":3.535104364,"WHIP":1.3,"QS":0,"Earned Runs":20.7,"H":48.2,"H + BB":""},{"id":625,"name":"Mike Pelfrey","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":19,"IP":106.7,"BB":31.8,"K":60.4,"W":6,"SV":0,"HD":0,"ERA":4.681349578,"WHIP":1.42,"QS":8.8,"Earned Runs":55.5,"H":120,"H + BB":""},{"id":626,"name":"Odrisamer Despaigne","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":10,"IP":78.6,"BB":22.6,"K":54.6,"W":3.7,"SV":0,"HD":2,"ERA":4.08778626,"WHIP":1.34,"QS":5,"Earned Runs":35.7,"H":82.4,"H + BB":""},{"id":627,"name":"Marco Gonzales","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":13,"GS":13,"IP":65,"BB":22.1,"K":49.9,"W":3.8,"SV":0,"HD":0,"ERA":4.056923077,"WHIP":1.34,"QS":6,"Earned Runs":29.3,"H":65,"H + BB":""},{"id":628,"name":"Logan Verrett","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":5,"IP":51.7,"BB":11.9,"K":45.9,"W":2.5,"SV":0,"HD":2,"ERA":3.481624758,"WHIP":1.19,"QS":2.7,"Earned Runs":20,"H":49.5,"H + BB":""},{"id":629,"name":"Erik Johnson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":16,"IP":94,"BB":39.9,"K":76.5,"W":5.1,"SV":0,"HD":0,"ERA":4.710638298,"WHIP":1.44,"QS":7.8,"Earned Runs":49.2,"H":95.5,"H + BB":""},{"id":630,"name":"Matt Boyd","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":13,"GS":13,"IP":65,"BB":20.1,"K":50.5,"W":4,"SV":0,"HD":0,"ERA":4.306153846,"WHIP":1.32,"QS":5.7,"Earned Runs":31.1,"H":65.9,"H + BB":""},{"id":631,"name":"Danny Farquhar","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":44.6,"BB":14.9,"K":43,"W":2.2,"SV":0,"HD":7,"ERA":3.30941704,"WHIP":1.22,"QS":0,"Earned Runs":16.4,"H":39.4,"H + BB":""},{"id":632,"name":"Jarred Cosart","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":16,"IP":82.6,"BB":36,"K":61.1,"W":4.5,"SV":0,"HD":0,"ERA":4.18401937,"WHIP":1.45,"QS":7.4,"Earned Runs":38.4,"H":83.5,"H + BB":""},{"id":633,"name":"Zach Putnam","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":48.6,"BB":20,"K":50.6,"W":2.4,"SV":0,"HD":8,"ERA":3.777777778,"WHIP":1.29,"QS":0,"Earned Runs":20.4,"H":42.8,"H + BB":""},{"id":634,"name":"Mike Bolsinger","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":10,"GS":10,"IP":50.4,"BB":18,"K":46.3,"W":3.2,"SV":0,"HD":0,"ERA":3.785714286,"WHIP":1.29,"QS":4.9,"Earned Runs":21.2,"H":47.1,"H + BB":""},{"id":635,"name":"Mike Morin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":38.9,"BB":11.9,"K":37.8,"W":2,"SV":0,"HD":7,"ERA":3.192802057,"WHIP":1.17,"QS":0,"Earned Runs":13.8,"H":33.8,"H + BB":""},{"id":636,"name":"Luke Hochevar","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":48.6,"BB":16.7,"K":45.2,"W":2.4,"SV":0,"HD":7,"ERA":3.537037037,"WHIP":1.24,"QS":0,"Earned Runs":19.1,"H":43.7,"H + BB":""},{"id":637,"name":"Luis Garcia","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":51,"BB":23.3,"K":47.2,"W":2.2,"SV":0,"HD":10,"ERA":3.635294118,"WHIP":1.37,"QS":0,"Earned Runs":20.6,"H":46.5,"H + BB":""},{"id":638,"name":"John Axford","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":51,"BB":24.2,"K":51.9,"W":2.4,"SV":0,"HD":9,"ERA":3.829411765,"WHIP":1.35,"QS":0,"Earned Runs":21.7,"H":44.8,"H + BB":""},{"id":639,"name":"Justin Miller","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":48.6,"BB":17.3,"K":48.6,"W":2.4,"SV":0,"HD":8,"ERA":3.814814815,"WHIP":1.29,"QS":0,"Earned Runs":20.6,"H":45.5,"H + BB":""},{"id":640,"name":"Alex Wilson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":68,"BB":21.2,"K":47.7,"W":3.2,"SV":0,"HD":10,"ERA":4.142647059,"WHIP":1.35,"QS":0,"Earned Runs":31.3,"H":70.9,"H + BB":""},{"id":641,"name":"Cody Martin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":44.6,"BB":14.7,"K":40.5,"W":2.1,"SV":0,"HD":9,"ERA":3.793721973,"WHIP":1.27,"QS":0,"Earned Runs":18.8,"H":41.7,"H + BB":""},{"id":642,"name":"Jared Hughes","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":51,"BB":16.6,"K":34.6,"W":2.4,"SV":0,"HD":11,"ERA":3.688235294,"WHIP":1.36,"QS":0,"Earned Runs":20.9,"H":52.6,"H + BB":""},{"id":643,"name":"Jerry Blevins","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":34,"BB":12,"K":34.2,"W":1.7,"SV":0,"HD":9,"ERA":3.361764706,"WHIP":1.23,"QS":0,"Earned Runs":12.7,"H":29.9,"H + BB":""},{"id":644,"name":"Edwin Jackson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":58.3,"BB":19.3,"K":47,"W":2.9,"SV":0,"HD":8,"ERA":3.890222985,"WHIP":1.31,"QS":0,"Earned Runs":25.2,"H":57.2,"H + BB":""},{"id":645,"name":"Frankie Montas","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":5,"IP":48.8,"BB":19.4,"K":48.2,"W":2.7,"SV":0,"HD":3,"ERA":3.706967213,"WHIP":1.28,"QS":2.4,"Earned Runs":20.1,"H":43.2,"H + BB":""},{"id":646,"name":"Adam Conley","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":11,"GS":11,"IP":58.3,"BB":21.6,"K":46.2,"W":3.4,"SV":0,"HD":0,"ERA":3.951972556,"WHIP":1.34,"QS":5.4,"Earned Runs":25.6,"H":56.3,"H + BB":""},{"id":647,"name":"Brandon McCarthy","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":6,"GS":6,"IP":36,"BB":6.7,"K":32.7,"W":2.4,"SV":0,"HD":0,"ERA":3.2,"WHIP":1.12,"QS":3.7,"Earned Runs":12.8,"H":33.8,"H + BB":""},{"id":648,"name":"Trevor Gott","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":48.6,"BB":19.6,"K":41,"W":2.3,"SV":0,"HD":11,"ERA":3.944444444,"WHIP":1.39,"QS":0,"Earned Runs":21.3,"H":47.7,"H + BB":""},{"id":649,"name":"Steven Wright","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":7,"IP":74.2,"BB":23.3,"K":54.7,"W":4,"SV":0,"HD":2,"ERA":4.148247978,"WHIP":1.34,"QS":3.4,"Earned Runs":34.2,"H":76,"H + BB":""},{"id":650,"name":"Chris Capuano","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":22,"GS":4,"IP":47.7,"BB":14.3,"K":43.3,"W":2.4,"SV":0,"HD":3,"ERA":3.509433962,"WHIP":1.24,"QS":2.1,"Earned Runs":18.6,"H":44.6,"H + BB":""},{"id":651,"name":"Nick Vincent","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":43.7,"BB":14.5,"K":45.4,"W":2.1,"SV":0,"HD":5,"ERA":3.274599542,"WHIP":1.2,"QS":0,"Earned Runs":15.9,"H":37.9,"H + BB":""},{"id":652,"name":"Ricky Nolasco","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":13,"GS":13,"IP":65,"BB":17,"K":46.8,"W":3.7,"SV":0,"HD":0,"ERA":4.347692308,"WHIP":1.33,"QS":5.7,"Earned Runs":31.4,"H":69.6,"H + BB":""},{"id":653,"name":"Drew Pomeranz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":36.5,"BB":12.5,"K":38.5,"W":1.8,"SV":0,"HD":6,"ERA":3.082191781,"WHIP":1.19,"QS":0,"Earned Runs":12.5,"H":30.8,"H + BB":""},{"id":654,"name":"Neftali Feliz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":48.6,"BB":16.9,"K":41.7,"W":2.4,"SV":0,"HD":7,"ERA":3.555555556,"WHIP":1.29,"QS":0,"Earned Runs":19.2,"H":45.6,"H + BB":""},{"id":655,"name":"Mychal Givens","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":48.6,"BB":20.1,"K":49.3,"W":2.4,"SV":0,"HD":6,"ERA":3.703703704,"WHIP":1.29,"QS":0,"Earned Runs":20,"H":42.4,"H + BB":""},{"id":656,"name":"Nicholas Tropeano","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":8,"GS":8,"IP":42.1,"BB":13.6,"K":37.8,"W":2.7,"SV":0,"HD":0,"ERA":3.719714964,"WHIP":1.24,"QS":4.1,"Earned Runs":17.4,"H":38.7,"H + BB":""},{"id":657,"name":"Ian Thomas","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":38.9,"BB":13.3,"K":39.5,"W":2,"SV":0,"HD":5,"ERA":3.16966581,"WHIP":1.2,"QS":0,"Earned Runs":13.7,"H":33.6,"H + BB":""},{"id":658,"name":"Cam Bedrosian","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":40.5,"BB":17.8,"K":43.7,"W":2,"SV":0,"HD":6,"ERA":3.444444444,"WHIP":1.27,"QS":0,"Earned Runs":15.5,"H":33.5,"H + BB":""},{"id":659,"name":"Scott Feldman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":10,"IP":74.4,"BB":21.4,"K":47.1,"W":4.1,"SV":0,"HD":2,"ERA":4.548387097,"WHIP":1.37,"QS":4.9,"Earned Runs":37.6,"H":80.8,"H + BB":""},{"id":660,"name":"Tyler Skaggs","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":8,"GS":8,"IP":39.5,"BB":12.8,"K":35.3,"W":2.5,"SV":0,"HD":0,"ERA":3.508860759,"WHIP":1.24,"QS":4,"Earned Runs":15.4,"H":36.2,"H + BB":""},{"id":661,"name":"Scott Oberg","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":58.3,"BB":25.6,"K":50.1,"W":2.7,"SV":0,"HD":11,"ERA":4.353344768,"WHIP":1.45,"QS":0,"Earned Runs":28.2,"H":58.7,"H + BB":""},{"id":662,"name":"Felipe Rivero","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":40.5,"BB":14.6,"K":38,"W":2,"SV":0,"HD":7,"ERA":3.533333333,"WHIP":1.28,"QS":0,"Earned Runs":15.9,"H":37.5,"H + BB":""},{"id":663,"name":"Cody Anderson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":10,"IP":73.4,"BB":22.4,"K":45.2,"W":3.9,"SV":0,"HD":2,"ERA":4.414168937,"WHIP":1.38,"QS":5,"Earned Runs":36,"H":79.1,"H + BB":""},{"id":664,"name":"Tony Zych","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":42.1,"BB":13.1,"K":39.8,"W":2.1,"SV":0,"HD":5,"ERA":3.399049881,"WHIP":1.21,"QS":0,"Earned Runs":15.9,"H":37.9,"H + BB":""},{"id":665,"name":"Alex Meyer","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":18,"GS":8,"IP":55.3,"BB":24.8,"K":54.8,"W":2.9,"SV":0,"HD":1,"ERA":4.068716094,"WHIP":1.36,"QS":3.8,"Earned Runs":25,"H":50.6,"H + BB":""},{"id":666,"name":"Kyle Lobstein","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":8,"IP":68,"BB":21.9,"K":43.2,"W":3.9,"SV":0,"HD":2,"ERA":4.102941176,"WHIP":1.38,"QS":4,"Earned Runs":31,"H":71.8,"H + BB":""},{"id":667,"name":"Shane Greene","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":10,"IP":65.7,"BB":19.6,"K":45,"W":3.6,"SV":0,"HD":2,"ERA":4.342465753,"WHIP":1.36,"QS":4.3,"Earned Runs":31.7,"H":69.8,"H + BB":""},{"id":668,"name":"Tommy Layne","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":39.7,"BB":18.2,"K":35.1,"W":2,"SV":0,"HD":10,"ERA":3.899244332,"WHIP":1.4,"QS":0,"Earned Runs":17.2,"H":37.2,"H + BB":""},{"id":669,"name":"Jordan Lyles","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":16,"IP":81,"BB":27.9,"K":57.4,"W":4.5,"SV":0,"HD":0,"ERA":4.622222222,"WHIP":1.44,"QS":6.7,"Earned Runs":41.6,"H":89,"H + BB":""},{"id":670,"name":"T.J. House","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":12,"GS":12,"IP":58.5,"BB":20.1,"K":40.1,"W":3.4,"SV":0,"HD":0,"ERA":4.030769231,"WHIP":1.38,"QS":5.4,"Earned Runs":26.2,"H":60.5,"H + BB":""},{"id":671,"name":"Fernando Abad","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":62,"GS":0,"IP":49.3,"BB":17.6,"K":41.3,"W":2.3,"SV":0,"HD":8,"ERA":3.943204868,"WHIP":1.34,"QS":0,"Earned Runs":21.6,"H":48.3,"H + BB":""},{"id":672,"name":"Chris Withrow","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":40.5,"BB":17.6,"K":48,"W":1.9,"SV":0,"HD":4,"ERA":3.266666667,"WHIP":1.24,"QS":0,"Earned Runs":14.7,"H":32.5,"H + BB":""},{"id":673,"name":"Carlos Frias","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":23,"GS":7,"IP":60.1,"BB":18.2,"K":41.7,"W":3.5,"SV":0,"HD":2,"ERA":4.088186356,"WHIP":1.35,"QS":3.3,"Earned Runs":27.3,"H":62.7,"H + BB":""},{"id":674,"name":"Jake Petricka","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":62,"GS":0,"IP":49.3,"BB":20.8,"K":38.3,"W":2.3,"SV":0,"HD":10,"ERA":4.034482759,"WHIP":1.43,"QS":0,"Earned Runs":22.1,"H":49.6,"H + BB":""},{"id":675,"name":"Jameson Taillon","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":7,"GS":7,"IP":36,"BB":11.4,"K":33.7,"W":2.3,"SV":0,"HD":0,"ERA":3.575,"WHIP":1.23,"QS":3.6,"Earned Runs":14.3,"H":33.1,"H + BB":""},{"id":676,"name":"Michael Blazek","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":58.3,"BB":22.4,"K":52.8,"W":2.6,"SV":0,"HD":6,"ERA":3.967409949,"WHIP":1.35,"QS":0,"Earned Runs":25.7,"H":56.2,"H + BB":""},{"id":677,"name":"Felix Doubront","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":5,"IP":49.3,"BB":16.7,"K":42,"W":2.5,"SV":0,"HD":2,"ERA":3.778904665,"WHIP":1.3,"QS":2.4,"Earned Runs":20.7,"H":47.3,"H + BB":""},{"id":678,"name":"Matt Andriese","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":3,"IP":52.5,"BB":14.8,"K":38.9,"W":3.1,"SV":0,"HD":3,"ERA":3.96,"WHIP":1.29,"QS":1.5,"Earned Runs":23.1,"H":52.7,"H + BB":""},{"id":679,"name":"Sam Freeman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":54,"GS":0,"IP":37.5,"BB":17.8,"K":36,"W":1.8,"SV":0,"HD":9,"ERA":3.96,"WHIP":1.39,"QS":0,"Earned Runs":16.5,"H":34.2,"H + BB":""},{"id":680,"name":"Josh Collmenter","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":36,"GS":3,"IP":57.1,"BB":13,"K":37.6,"W":2.7,"SV":0,"HD":4,"ERA":4.066549912,"WHIP":1.29,"QS":1.7,"Earned Runs":25.8,"H":60.4,"H + BB":""},{"id":681,"name":"Dan Jennings","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":53.5,"BB":22.8,"K":46.9,"W":2.5,"SV":0,"HD":7,"ERA":3.953271028,"WHIP":1.38,"QS":0,"Earned Runs":23.5,"H":51.3,"H + BB":""},{"id":682,"name":"Bruce Rondon","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":36.5,"BB":15.7,"K":39.1,"W":1.8,"SV":0,"HD":6,"ERA":3.624657534,"WHIP":1.29,"QS":0,"Earned Runs":14.7,"H":31.3,"H + BB":""},{"id":683,"name":"Sean Gilmartin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":35.6,"BB":10.8,"K":32.9,"W":1.8,"SV":0,"HD":5,"ERA":3.387640449,"WHIP":1.22,"QS":0,"Earned Runs":13.4,"H":32.7,"H + BB":""},{"id":684,"name":"Manny Banuelos","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":13,"GS":13,"IP":65,"BB":28.6,"K":53.9,"W":3.2,"SV":0,"HD":0,"ERA":4.444615385,"WHIP":1.43,"QS":5.6,"Earned Runs":32.1,"H":64.3,"H + BB":""},{"id":685,"name":"Tyler Wilson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":10,"IP":72.8,"BB":21.6,"K":45.4,"W":4,"SV":0,"HD":2,"ERA":4.574175824,"WHIP":1.39,"QS":4.1,"Earned Runs":37,"H":79.5,"H + BB":""},{"id":686,"name":"Blake Wood","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":40.5,"BB":19.1,"K":45.8,"W":1.9,"SV":0,"HD":4,"ERA":3.511111111,"WHIP":1.28,"QS":0,"Earned Runs":15.8,"H":32.8,"H + BB":""},{"id":687,"name":"Jeanmar Gomez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":62.4,"BB":19.9,"K":46.5,"W":2.6,"SV":0,"HD":6,"ERA":4.024038462,"WHIP":1.34,"QS":0,"Earned Runs":27.9,"H":63.6,"H + BB":""},{"id":688,"name":"Michael Tonkin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":38.9,"BB":12.3,"K":35.9,"W":1.9,"SV":0,"HD":5,"ERA":3.562982005,"WHIP":1.26,"QS":0,"Earned Runs":15.4,"H":36.8,"H + BB":""},{"id":689,"name":"Erik Goeddel","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":40.5,"BB":15.5,"K":38.2,"W":1.9,"SV":0,"HD":6,"ERA":3.844444444,"WHIP":1.3,"QS":0,"Earned Runs":17.3,"H":37.3,"H + BB":""},{"id":690,"name":"Jose Urena","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":20,"GS":9,"IP":63.1,"BB":19.5,"K":39.2,"W":3.4,"SV":0,"HD":1,"ERA":4.278922345,"WHIP":1.38,"QS":4.2,"Earned Runs":30,"H":67.4,"H + BB":""},{"id":691,"name":"Mike Montgomery","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":5,"IP":46.9,"BB":16.1,"K":36.7,"W":2.4,"SV":0,"HD":2,"ERA":3.933901919,"WHIP":1.32,"QS":2.6,"Earned Runs":20.5,"H":46,"H + BB":""},{"id":692,"name":"Zachary Davies","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":10,"GS":10,"IP":55.3,"BB":20.6,"K":43.4,"W":2.9,"SV":0,"HD":0,"ERA":4.280289331,"WHIP":1.4,"QS":4.9,"Earned Runs":26.3,"H":56.6,"H + BB":""},{"id":693,"name":"Clayton Richard","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":2,"IP":38.8,"BB":9.2,"K":25.5,"W":2,"SV":0,"HD":5,"ERA":3.595360825,"WHIP":1.29,"QS":0.9,"Earned Runs":15.5,"H":40.8,"H + BB":""},{"id":694,"name":"Dan Otero","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":44.6,"BB":9.7,"K":28.9,"W":2.1,"SV":0,"HD":6,"ERA":3.713004484,"WHIP":1.29,"QS":0,"Earned Runs":18.4,"H":47.7,"H + BB":""},{"id":695,"name":"Justin Nicolino","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":12,"GS":12,"IP":76.3,"BB":20.5,"K":38.4,"W":3.8,"SV":0,"HD":0,"ERA":4.612057667,"WHIP":1.4,"QS":6.4,"Earned Runs":39.1,"H":86.3,"H + BB":""},{"id":696,"name":"Aaron Brooks","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":5,"IP":50.8,"BB":11.1,"K":33.1,"W":2.7,"SV":0,"HD":2,"ERA":4.145669291,"WHIP":1.29,"QS":2.4,"Earned Runs":23.4,"H":54.7,"H + BB":""},{"id":697,"name":"Deolis Guerra","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":38.9,"BB":12.4,"K":34.9,"W":1.9,"SV":0,"HD":4,"ERA":3.516709512,"WHIP":1.24,"QS":0,"Earned Runs":15.2,"H":35.8,"H + BB":""},{"id":698,"name":"Ariel Pena","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":5,"IP":48.8,"BB":22.2,"K":48.3,"W":2.4,"SV":0,"HD":2,"ERA":4.094262295,"WHIP":1.37,"QS":2.2,"Earned Runs":22.2,"H":44.9,"H + BB":""},{"id":699,"name":"Tyler Glasnow","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":7,"GS":7,"IP":36,"BB":16.3,"K":36.4,"W":2.2,"SV":0,"HD":0,"ERA":3.825,"WHIP":1.33,"QS":3.5,"Earned Runs":15.3,"H":31.6,"H + BB":""},{"id":700,"name":"J.R. Graham","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":48.6,"BB":16.3,"K":40.5,"W":2.3,"SV":0,"HD":5,"ERA":3.944444444,"WHIP":1.32,"QS":0,"Earned Runs":21.3,"H":48,"H + BB":""},{"id":701,"name":"Dillon Gee","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":5,"IP":50.8,"BB":13,"K":35.9,"W":2.8,"SV":0,"HD":2,"ERA":4.269685039,"WHIP":1.31,"QS":2.3,"Earned Runs":24.1,"H":53.7,"H + BB":""},{"id":702,"name":"Kyle Zimmer","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":7,"GS":7,"IP":36,"BB":13,"K":31.5,"W":2.2,"SV":0,"HD":0,"ERA":3.825,"WHIP":1.29,"QS":3.4,"Earned Runs":15.3,"H":33.5,"H + BB":""},{"id":703,"name":"Miguel Socolovich","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":35.6,"BB":12.9,"K":33.1,"W":1.7,"SV":0,"HD":5,"ERA":3.58988764,"WHIP":1.28,"QS":0,"Earned Runs":14.2,"H":32.6,"H + BB":""},{"id":704,"name":"Enny Romero","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":36.5,"BB":14.1,"K":34.8,"W":1.8,"SV":0,"HD":4,"ERA":3.42739726,"WHIP":1.27,"QS":0,"Earned Runs":13.9,"H":32.3,"H + BB":""},{"id":705,"name":"Tanner Scheppers","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":43.7,"BB":18.8,"K":37,"W":2,"SV":0,"HD":8,"ERA":4.304347826,"WHIP":1.41,"QS":0,"Earned Runs":20.9,"H":43,"H + BB":""},{"id":706,"name":"Keyvius Sampson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":10,"IP":64.7,"BB":32.9,"K":53.7,"W":3.3,"SV":0,"HD":2,"ERA":4.590417311,"WHIP":1.47,"QS":4.1,"Earned Runs":33,"H":62.1,"H + BB":""},{"id":707,"name":"Michael Feliz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":3,"IP":40.3,"BB":14,"K":36.8,"W":2,"SV":0,"HD":2,"ERA":3.774193548,"WHIP":1.28,"QS":1.5,"Earned Runs":16.9,"H":37.6,"H + BB":""},{"id":708,"name":"Miguel Almonte","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":5,"IP":40.7,"BB":15.3,"K":34.5,"W":2.1,"SV":0,"HD":2,"ERA":3.936117936,"WHIP":1.32,"QS":2.3,"Earned Runs":17.8,"H":38.4,"H + BB":""},{"id":709,"name":"Matt Albers","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":48.6,"BB":16.6,"K":35.1,"W":2.3,"SV":0,"HD":7,"ERA":4.12962963,"WHIP":1.38,"QS":0,"Earned Runs":22.3,"H":50.7,"H + BB":""},{"id":710,"name":"Henderson Alvarez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":10,"GS":10,"IP":54.3,"BB":13.5,"K":30.4,"W":2.9,"SV":0,"HD":0,"ERA":4.276243094,"WHIP":1.37,"QS":4.8,"Earned Runs":25.8,"H":60.7,"H + BB":""},{"id":711,"name":"Justin De Fratus","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":48.6,"BB":17.3,"K":36,"W":2.2,"SV":0,"HD":7,"ERA":4.277777778,"WHIP":1.37,"QS":0,"Earned Runs":23.1,"H":49.1,"H + BB":""},{"id":712,"name":"Todd Redmond","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":5,"IP":48.8,"BB":15.8,"K":39.1,"W":2.5,"SV":0,"HD":2,"ERA":4.297131148,"WHIP":1.33,"QS":2.2,"Earned Runs":23.3,"H":49.2,"H + BB":""},{"id":713,"name":"Matt Barnes","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":0,"IP":33.9,"BB":12,"K":31.3,"W":1.7,"SV":0,"HD":5,"ERA":3.743362832,"WHIP":1.29,"QS":0,"Earned Runs":14.1,"H":31.7,"H + BB":""},{"id":714,"name":"Jeff Manship","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":38.9,"BB":13.3,"K":32.7,"W":1.8,"SV":0,"HD":5,"ERA":3.794344473,"WHIP":1.3,"QS":0,"Earned Runs":16.4,"H":37.4,"H + BB":""},{"id":715,"name":"Edward Mujica","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":40.5,"BB":9.8,"K":32,"W":1.8,"SV":0,"HD":4,"ERA":3.755555556,"WHIP":1.24,"QS":0,"Earned Runs":16.9,"H":40.5,"H + BB":""},{"id":716,"name":"Christian Friedrich","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":43.7,"BB":16.6,"K":37.2,"W":2,"SV":0,"HD":7,"ERA":4.221967963,"WHIP":1.4,"QS":0,"Earned Runs":20.5,"H":44.4,"H + BB":""},{"id":717,"name":"Bo Schultz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":38.9,"BB":11.9,"K":30.2,"W":1.9,"SV":0,"HD":6,"ERA":4.071979434,"WHIP":1.32,"QS":0,"Earned Runs":17.6,"H":39.3,"H + BB":""},{"id":718,"name":"Blake Snell","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":8,"GS":8,"IP":41,"BB":20.6,"K":38.6,"W":2.3,"SV":0,"HD":0,"ERA":4.082926829,"WHIP":1.4,"QS":3.8,"Earned Runs":18.6,"H":36.7,"H + BB":""},{"id":719,"name":"T.J. McFarland","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":0,"IP":40,"BB":13.3,"K":29.7,"W":2,"SV":0,"HD":5,"ERA":3.6675,"WHIP":1.33,"QS":0,"Earned Runs":16.3,"H":40.1,"H + BB":""},{"id":720,"name":"Nick Martinez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":13,"IP":96.5,"BB":35.5,"K":58.9,"W":5,"SV":0,"HD":2,"ERA":5.045595855,"WHIP":1.49,"QS":5.9,"Earned Runs":54.1,"H":108.2,"H + BB":""},{"id":721,"name":"Asher Wojciechowski","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":23,"GS":7,"IP":56.8,"BB":19.9,"K":41.2,"W":3.2,"SV":0,"HD":2,"ERA":4.626760563,"WHIP":1.39,"QS":2.7,"Earned Runs":29.2,"H":59.3,"H + BB":""},{"id":722,"name":"James Russell","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":49,"GS":0,"IP":34,"BB":12,"K":25.6,"W":1.6,"SV":0,"HD":7,"ERA":4.102941176,"WHIP":1.36,"QS":0,"Earned Runs":15.5,"H":34.1,"H + BB":""},{"id":723,"name":"Mike Wright","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":18,"GS":10,"IP":56.6,"BB":19,"K":39.2,"W":3.1,"SV":0,"HD":1,"ERA":4.722614841,"WHIP":1.4,"QS":3.9,"Earned Runs":29.7,"H":60.1,"H + BB":""},{"id":724,"name":"Kyle Lohse","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":20,"GS":5,"IP":55.2,"BB":14.2,"K":35.1,"W":2.9,"SV":0,"HD":2,"ERA":4.483695652,"WHIP":1.35,"QS":2.4,"Earned Runs":27.5,"H":60.2,"H + BB":""},{"id":725,"name":"Scott Alexander","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":48.6,"BB":19.3,"K":36.1,"W":2.3,"SV":0,"HD":5,"ERA":3.944444444,"WHIP":1.38,"QS":0,"Earned Runs":21.3,"H":47.6,"H + BB":""},{"id":726,"name":"Ryan Tepera","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":32.4,"BB":11.7,"K":29.1,"W":1.6,"SV":0,"HD":5,"ERA":3.916666667,"WHIP":1.31,"QS":0,"Earned Runs":14.1,"H":30.8,"H + BB":""},{"id":727,"name":"Carlos Villanueva","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":36.5,"BB":10.9,"K":32.3,"W":1.6,"SV":0,"HD":3,"ERA":3.624657534,"WHIP":1.24,"QS":0,"Earned Runs":14.7,"H":34.5,"H + BB":""},{"id":728,"name":"Luis Cessa","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":7,"IP":43.7,"BB":12.7,"K":30.4,"W":2.5,"SV":0,"HD":1,"ERA":4.469107551,"WHIP":1.35,"QS":3,"Earned Runs":21.7,"H":46.1,"H + BB":""},{"id":729,"name":"Elvis Araujo","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":36.5,"BB":17.8,"K":36.5,"W":1.6,"SV":0,"HD":4,"ERA":3.77260274,"WHIP":1.36,"QS":0,"Earned Runs":15.3,"H":31.9,"H + BB":""},{"id":730,"name":"Phil Klein","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":2,"IP":34.7,"BB":15.7,"K":33.3,"W":1.7,"SV":0,"HD":4,"ERA":4.123919308,"WHIP":1.38,"QS":0.7,"Earned Runs":15.9,"H":32,"H + BB":""},{"id":731,"name":"Michael Fulmer","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":7,"GS":7,"IP":36,"BB":11.8,"K":28,"W":2.1,"SV":0,"HD":0,"ERA":4.3,"WHIP":1.34,"QS":3.2,"Earned Runs":17.2,"H":36.5,"H + BB":""},{"id":732,"name":"Justin Masterson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":15,"GS":5,"IP":41,"BB":17.2,"K":31.3,"W":2.3,"SV":0,"HD":2,"ERA":4.280487805,"WHIP":1.42,"QS":2.2,"Earned Runs":19.5,"H":41.2,"H + BB":""},{"id":733,"name":"Craig Breslow","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":2,"IP":41.1,"BB":15.8,"K":32.5,"W":1.9,"SV":0,"HD":3,"ERA":4.072992701,"WHIP":1.37,"QS":0.9,"Earned Runs":18.6,"H":40.6,"H + BB":""},{"id":734,"name":"Hector Neris","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":42.1,"BB":16.9,"K":38.7,"W":1.8,"SV":0,"HD":3,"ERA":4.040380048,"WHIP":1.34,"QS":0,"Earned Runs":18.9,"H":39.3,"H + BB":""},{"id":735,"name":"Arnold Leon","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":34,"BB":9.5,"K":26.8,"W":1.6,"SV":0,"HD":3,"ERA":3.811764706,"WHIP":1.28,"QS":0,"Earned Runs":14.4,"H":33.9,"H + BB":""},{"id":736,"name":"Jonathan Aro","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":36.5,"BB":12.8,"K":30.7,"W":1.7,"SV":0,"HD":3,"ERA":3.945205479,"WHIP":1.31,"QS":0,"Earned Runs":16,"H":34.9,"H + BB":""},{"id":737,"name":"Rob Scahill","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":42.1,"BB":15.2,"K":32.7,"W":2,"SV":0,"HD":3,"ERA":3.912114014,"WHIP":1.35,"QS":0,"Earned Runs":18.3,"H":41.9,"H + BB":""},{"id":738,"name":"Chi Chi Gonzalez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":29,"GS":13,"IP":98.4,"BB":40.4,"K":59.6,"W":4.9,"SV":0,"HD":2,"ERA":5.140243902,"WHIP":1.53,"QS":5.7,"Earned Runs":56.2,"H":110.2,"H + BB":""},{"id":739,"name":"Stephen Johnson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":32.4,"BB":15.8,"K":32.4,"W":1.5,"SV":0,"HD":3,"ERA":3.916666667,"WHIP":1.36,"QS":0,"Earned Runs":14.1,"H":28.3,"H + BB":""},{"id":740,"name":"Kevin Chapman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":36.5,"BB":18,"K":37,"W":1.8,"SV":0,"HD":2,"ERA":3.871232877,"WHIP":1.37,"QS":0,"Earned Runs":15.7,"H":31.9,"H + BB":""},{"id":741,"name":"Ernesto Frieri","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":35.6,"BB":15.5,"K":34,"W":1.5,"SV":0,"HD":3,"ERA":4.146067416,"WHIP":1.35,"QS":0,"Earned Runs":16.4,"H":32.7,"H + BB":""},{"id":742,"name":"Sean Nolin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":8,"GS":8,"IP":40.5,"BB":15.5,"K":28.6,"W":2.1,"SV":0,"HD":0,"ERA":4.511111111,"WHIP":1.42,"QS":3.4,"Earned Runs":20.3,"H":42.1,"H + BB":""},{"id":743,"name":"Buck Farmer","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":5,"IP":48.8,"BB":17.1,"K":33.1,"W":2.7,"SV":0,"HD":2,"ERA":4.776639344,"WHIP":1.42,"QS":2,"Earned Runs":25.9,"H":52.3,"H + BB":""},{"id":744,"name":"Jacob Turner","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":5,"IP":48.8,"BB":16.6,"K":35,"W":2.4,"SV":0,"HD":2,"ERA":4.758196721,"WHIP":1.42,"QS":2,"Earned Runs":25.8,"H":52.7,"H + BB":""},{"id":745,"name":"Hector Noesi","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":10,"GS":5,"IP":33.8,"BB":11.2,"K":26,"W":1.8,"SV":0,"HD":1,"ERA":4.5,"WHIP":1.37,"QS":2.1,"Earned Runs":16.9,"H":35.1,"H + BB":""},{"id":746,"name":"Adam Morgan","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":10,"GS":10,"IP":54.3,"BB":17.1,"K":33.1,"W":2.3,"SV":0,"HD":0,"ERA":4.922651934,"WHIP":1.41,"QS":4.3,"Earned Runs":29.7,"H":59.5,"H + BB":""},{"id":747,"name":"David Buchanan","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":10,"GS":10,"IP":48.5,"BB":16.1,"K":29.1,"W":2.2,"SV":0,"HD":0,"ERA":4.67628866,"WHIP":1.43,"QS":4,"Earned Runs":25.2,"H":53.4,"H + BB":""},{"id":748,"name":"Jerome Williams","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":5,"IP":39.2,"BB":11.4,"K":24.9,"W":1.7,"SV":0,"HD":2,"ERA":4.591836735,"WHIP":1.39,"QS":2,"Earned Runs":20,"H":43.1,"H + BB":""},{"id":749,"name":"Christian Bergman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":0,"IP":38.9,"BB":8,"K":26.7,"W":1.8,"SV":0,"HD":3,"ERA":4.419023136,"WHIP":1.33,"QS":0,"Earned Runs":19.1,"H":43.7,"H + BB":""},{"id":750,"name":"David Hale","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":8,"GS":8,"IP":46.2,"BB":16.1,"K":31.5,"W":2.4,"SV":0,"HD":0,"ERA":4.87012987,"WHIP":1.46,"QS":3.7,"Earned Runs":25,"H":51.5,"H + BB":""},{"id":751,"name":"Anthony Bass","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":36.5,"BB":11.7,"K":26.4,"W":1.7,"SV":0,"HD":3,"ERA":4.24109589,"WHIP":1.37,"QS":0,"Earned Runs":17.2,"H":38.5,"H + BB":""},{"id":752,"name":"Tyler Thornburg","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":34,"BB":12.7,"K":28.8,"W":1.5,"SV":0,"HD":3,"ERA":4.341176471,"WHIP":1.38,"QS":0,"Earned Runs":16.4,"H":34.2,"H + BB":""},{"id":753,"name":"Jeremy Guthrie","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":11,"GS":5,"IP":40,"BB":11.2,"K":24.2,"W":2,"SV":0,"HD":1,"ERA":4.7025,"WHIP":1.39,"QS":2.2,"Earned Runs":20.9,"H":44.6,"H + BB":""},{"id":754,"name":"Kyle Ryan","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":11,"GS":3,"IP":32.5,"BB":8.9,"K":20.1,"W":1.5,"SV":0,"HD":1,"ERA":4.181538462,"WHIP":1.35,"QS":1.5,"Earned Runs":15.1,"H":35.1,"H + BB":""},{"id":755,"name":"Tyler Cravy","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":11,"GS":5,"IP":34.3,"BB":13,"K":26.5,"W":1.7,"SV":0,"HD":1,"ERA":4.644314869,"WHIP":1.43,"QS":2,"Earned Runs":17.7,"H":35.9,"H + BB":""},{"id":756,"name":"Gonzalez Germen","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":26,"GS":2,"IP":34.7,"BB":16.3,"K":30.1,"W":1.6,"SV":0,"HD":3,"ERA":4.590778098,"WHIP":1.47,"QS":0.7,"Earned Runs":17.7,"H":34.8,"H + BB":""},{"id":757,"name":"Yohan Flande","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":15,"GS":5,"IP":43.9,"BB":14.1,"K":27.6,"W":2.4,"SV":0,"HD":1,"ERA":4.612756264,"WHIP":1.46,"QS":2,"Earned Runs":22.5,"H":49.8,"H + BB":""},{"id":758,"name":"Tyler Matzek","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":10,"GS":10,"IP":48.5,"BB":25.4,"K":39.5,"W":2.5,"SV":0,"HD":0,"ERA":4.973195876,"WHIP":1.56,"QS":3.8,"Earned Runs":26.8,"H":50.1,"H + BB":""},{"id":759,"name":"Daniel Webb","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":35.6,"BB":19.1,"K":29.6,"W":1.6,"SV":0,"HD":4,"ERA":4.676966292,"WHIP":1.52,"QS":0,"Earned Runs":18.5,"H":35.1,"H + BB":""},{"id":760,"name":"Eddie Butler","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":10,"GS":10,"IP":48.5,"BB":20.1,"K":31.2,"W":2.5,"SV":0,"HD":0,"ERA":5.103092784,"WHIP":1.55,"QS":3.7,"Earned Runs":27.5,"H":55,"H + BB":""},{"id":761,"name":"Chris Beck","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":13,"GS":5,"IP":36,"BB":13,"K":22.6,"W":1.8,"SV":0,"HD":1,"ERA":5.1,"WHIP":1.48,"QS":2.2,"Earned Runs":20.4,"H":40.2,"H + BB":""},{"id":762,"name":"Scott Carroll","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":36.5,"BB":13.8,"K":19.7,"W":1.8,"SV":0,"HD":3,"ERA":5.030136986,"WHIP":1.52,"QS":0,"Earned Runs":20.4,"H":41.8,"H + BB":""},{"id":763,"name":"Matt Reynolds","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":32.4,"BB":11.9,"K":29.2,"W":1.5,"SV":0,"HD":7,"ERA":3.75,"WHIP":1.3,"QS":0,"Earned Runs":13.5,"H":30.2,"H + BB":""},{"id":764,"name":"Marc Rzepczynski","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":32.4,"BB":12.6,"K":30.3,"W":1.6,"SV":0,"HD":12,"ERA":3.5,"WHIP":1.31,"QS":0,"Earned Runs":12.6,"H":29.7,"H + BB":""},{"id":765,"name":"Ryan Pressly","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":32.4,"BB":12.4,"K":27.9,"W":1.5,"SV":0,"HD":5,"ERA":3.916666667,"WHIP":1.36,"QS":0,"Earned Runs":14.1,"H":31.6,"H + BB":""},{"id":766,"name":"Justin Grimm","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":32.4,"BB":12.2,"K":37.3,"W":1.8,"SV":0,"HD":9,"ERA":3.055555556,"WHIP":1.18,"QS":0,"Earned Runs":11,"H":26,"H + BB":""},{"id":767,"name":"Josh Osich","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":32.4,"BB":12.4,"K":32.8,"W":1.6,"SV":0,"HD":9,"ERA":3.194444444,"WHIP":1.23,"QS":0,"Earned Runs":11.5,"H":27.5,"H + BB":""},{"id":768,"name":"Chris O’Grady","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":32.4,"BB":10.9,"K":29.6,"W":1.5,"SV":0,"HD":3,"ERA":3.5,"WHIP":1.25,"QS":0,"Earned Runs":12.6,"H":29.6,"H + BB":""},{"id":769,"name":"Caleb Cotham","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":32.4,"BB":10.1,"K":29.1,"W":1.5,"SV":0,"HD":4,"ERA":3.638888889,"WHIP":1.24,"QS":0,"Earned Runs":13.1,"H":30.2,"H + BB":""},{"id":770,"name":"Ian Krol","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":32.4,"BB":13.4,"K":34.7,"W":1.5,"SV":0,"HD":6,"ERA":3.388888889,"WHIP":1.27,"QS":0,"Earned Runs":12.2,"H":27.9,"H + BB":""},{"id":771,"name":"Ryan Mattheus","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":32.4,"BB":10.5,"K":24.3,"W":1.5,"SV":0,"HD":5,"ERA":3.861111111,"WHIP":1.33,"QS":0,"Earned Runs":13.9,"H":32.5,"H + BB":""},{"id":772,"name":"Javier Lopez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":65,"GS":0,"IP":32.4,"BB":13,"K":23.9,"W":1.5,"SV":0,"HD":14,"ERA":3.555555556,"WHIP":1.37,"QS":0,"Earned Runs":12.8,"H":31.3,"H + BB":""},{"id":773,"name":"Alexi Ogando","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":32.4,"BB":11.9,"K":30.8,"W":1.5,"SV":0,"HD":5,"ERA":3.638888889,"WHIP":1.28,"QS":0,"Earned Runs":13.1,"H":29.7,"H + BB":""},{"id":774,"name":"Shawn Armstrong","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":32.4,"BB":14.2,"K":38.5,"W":1.7,"SV":0,"HD":5,"ERA":3.222222222,"WHIP":1.22,"QS":0,"Earned Runs":11.6,"H":25.5,"H + BB":""},{"id":775,"name":"Severino Gonzalez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":3,"IP":32.2,"BB":6.7,"K":24.8,"W":1.4,"SV":0,"HD":2,"ERA":3.885093168,"WHIP":1.22,"QS":1.5,"Earned Runs":13.9,"H":32.6,"H + BB":""},{"id":776,"name":"Bryan Mitchell","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":31.6,"BB":12.9,"K":29.4,"W":1.5,"SV":0,"HD":2,"ERA":3.787974684,"WHIP":1.32,"QS":0,"Earned Runs":13.3,"H":28.9,"H + BB":""},{"id":777,"name":"Jason Grilli","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"CP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":35,"GS":0,"IP":31.6,"BB":10.1,"K":36.7,"W":1.6,"SV":10,"HD":5,"ERA":2.905063291,"WHIP":1.13,"QS":0,"Earned Runs":10.2,"H":25.6,"H + BB":""},{"id":778,"name":"Ryan Webb","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":31.6,"BB":9.5,"K":23.6,"W":1.5,"SV":0,"HD":3,"ERA":3.759493671,"WHIP":1.31,"QS":0,"Earned Runs":13.2,"H":31.8,"H + BB":""},{"id":779,"name":"Ryan Dull","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":31.6,"BB":11,"K":29.3,"W":1.5,"SV":0,"HD":4,"ERA":3.64556962,"WHIP":1.28,"QS":0,"Earned Runs":12.8,"H":29.3,"H + BB":""},{"id":780,"name":"Dalier Hinojosa","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":31.6,"BB":13.6,"K":29.9,"W":1.3,"SV":0,"HD":3,"ERA":3.930379747,"WHIP":1.34,"QS":0,"Earned Runs":13.8,"H":28.9,"H + BB":""},{"id":781,"name":"Drew VerHagen","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":31.6,"BB":10.7,"K":21,"W":1.5,"SV":0,"HD":4,"ERA":4.101265823,"WHIP":1.39,"QS":0,"Earned Runs":14.4,"H":33.2,"H + BB":""},{"id":782,"name":"Adam Liberatore","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":39,"GS":0,"IP":31.1,"BB":11.2,"K":32.3,"W":1.6,"SV":0,"HD":9,"ERA":3.270096463,"WHIP":1.22,"QS":0,"Earned Runs":11.3,"H":26.6,"H + BB":""},{"id":783,"name":"Roberto Hernandez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":9,"GS":3,"IP":30.8,"BB":10.8,"K":18.1,"W":1.6,"SV":0,"HD":1,"ERA":4.733766234,"WHIP":1.46,"QS":1.5,"Earned Runs":16.2,"H":34.1,"H + BB":""},{"id":784,"name":"Jordan Walden","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":34,"GS":0,"IP":30.6,"BB":12.2,"K":34.1,"W":1.6,"SV":0,"HD":10,"ERA":3.294117647,"WHIP":1.22,"QS":0,"Earned Runs":11.2,"H":25.2,"H + BB":""},{"id":785,"name":"Chris Narveson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":15,"GS":2,"IP":30.3,"BB":9.6,"K":27.3,"W":1.6,"SV":0,"HD":2,"ERA":3.504950495,"WHIP":1.25,"QS":1,"Earned Runs":11.8,"H":28.1,"H + BB":""},{"id":786,"name":"Carlos Contreras","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":23,"GS":0,"IP":29.5,"BB":16.3,"K":29.4,"W":1.3,"SV":0,"HD":2,"ERA":4.240677966,"WHIP":1.43,"QS":0,"Earned Runs":13.9,"H":26,"H + BB":""},{"id":787,"name":"Alfredo Simon","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":29.4,"BB":9.9,"K":18.9,"W":1.5,"SV":0,"HD":0,"ERA":4.530612245,"WHIP":1.41,"QS":2.5,"Earned Runs":14.8,"H":31.5,"H + BB":""},{"id":788,"name":"Dominic Leone","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":29.2,"BB":11.9,"K":27.1,"W":1.4,"SV":0,"HD":3,"ERA":3.636986301,"WHIP":1.32,"QS":0,"Earned Runs":11.8,"H":26.6,"H + BB":""},{"id":789,"name":"Cory Rasmus","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":29.2,"BB":11.1,"K":30.5,"W":1.5,"SV":0,"HD":4,"ERA":3.23630137,"WHIP":1.21,"QS":0,"Earned Runs":10.5,"H":24.3,"H + BB":""},{"id":790,"name":"Austin Adams","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":29.2,"BB":11.1,"K":27.8,"W":1.4,"SV":0,"HD":4,"ERA":3.698630137,"WHIP":1.29,"QS":0,"Earned Runs":12,"H":26.6,"H + BB":""},{"id":791,"name":"Jairo Diaz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":29.2,"BB":13.8,"K":28.7,"W":1.4,"SV":0,"HD":6,"ERA":4.130136986,"WHIP":1.41,"QS":0,"Earned Runs":13.4,"H":27.5,"H + BB":""},{"id":792,"name":"Alex Torres","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":29.2,"BB":14.2,"K":30.4,"W":1.3,"SV":0,"HD":5,"ERA":3.667808219,"WHIP":1.34,"QS":0,"Earned Runs":11.9,"H":25.1,"H + BB":""},{"id":793,"name":"Jeff Hoffman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":29.2,"BB":9.8,"K":20.1,"W":1.7,"SV":0,"HD":0,"ERA":4.592465753,"WHIP":1.4,"QS":2.4,"Earned Runs":14.9,"H":31,"H + BB":""},{"id":794,"name":"Daniel Winkler","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":29.2,"BB":9.6,"K":28.6,"W":1.4,"SV":0,"HD":2,"ERA":3.482876712,"WHIP":1.24,"QS":0,"Earned Runs":11.3,"H":26.5,"H + BB":""},{"id":795,"name":"Tommy Kahnle","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":29.2,"BB":16.4,"K":31.5,"W":1.4,"SV":0,"HD":6,"ERA":4.22260274,"WHIP":1.42,"QS":0,"Earned Runs":13.7,"H":25.2,"H + BB":""},{"id":796,"name":"Steve Delabar","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":29.2,"BB":13.2,"K":29.8,"W":1.5,"SV":0,"HD":6,"ERA":3.914383562,"WHIP":1.34,"QS":0,"Earned Runs":12.7,"H":25.8,"H + BB":""},{"id":797,"name":"Silvino Bracho","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":29.2,"BB":9.5,"K":33.1,"W":1.5,"SV":0,"HD":4,"ERA":3.020547945,"WHIP":1.14,"QS":0,"Earned Runs":9.8,"H":23.9,"H + BB":""},{"id":798,"name":"Jhoulys Chacin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":28.9,"BB":10.2,"K":21.5,"W":1.4,"SV":0,"HD":0,"ERA":4.235294118,"WHIP":1.39,"QS":2.6,"Earned Runs":13.6,"H":29.9,"H + BB":""},{"id":799,"name":"Aaron Harang","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":28.9,"BB":9,"K":18.9,"W":1.5,"SV":0,"HD":0,"ERA":4.60899654,"WHIP":1.39,"QS":2.4,"Earned Runs":14.8,"H":31.3,"H + BB":""},{"id":800,"name":"Nick Hagadone","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":36,"GS":0,"IP":28.5,"BB":11.4,"K":30.2,"W":1.5,"SV":0,"HD":5,"ERA":3.189473684,"WHIP":1.24,"QS":0,"Earned Runs":10.1,"H":23.9,"H + BB":""},{"id":801,"name":"Joba Chamberlain","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":36,"GS":0,"IP":28.5,"BB":10.7,"K":25.5,"W":1.4,"SV":0,"HD":7,"ERA":3.694736842,"WHIP":1.29,"QS":0,"Earned Runs":11.7,"H":26.1,"H + BB":""},{"id":802,"name":"Joe Thatcher","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":57,"GS":0,"IP":28.4,"BB":10.2,"K":24.3,"W":1.3,"SV":0,"HD":10,"ERA":3.897887324,"WHIP":1.31,"QS":0,"Earned Runs":12.3,"H":27,"H + BB":""},{"id":803,"name":"Neil Ramirez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":41,"GS":0,"IP":28.4,"BB":11.3,"K":30.9,"W":1.5,"SV":0,"HD":8,"ERA":3.39084507,"WHIP":1.23,"QS":0,"Earned Runs":10.7,"H":23.6,"H + BB":""},{"id":804,"name":"Brandon Morrow","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":28.4,"BB":8.8,"K":23.9,"W":1.5,"SV":0,"HD":0,"ERA":3.992957746,"WHIP":1.29,"QS":2.6,"Earned Runs":12.6,"H":28,"H + BB":""},{"id":805,"name":"Ryan Weber","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":27.9,"BB":6.3,"K":18,"W":1.5,"SV":0,"HD":0,"ERA":4.032258065,"WHIP":1.31,"QS":2.6,"Earned Runs":12.5,"H":30.4,"H + BB":""},{"id":806,"name":"Ryan Cook","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":0,"IP":27.5,"BB":10.8,"K":23.8,"W":1.3,"SV":0,"HD":5,"ERA":3.894545455,"WHIP":1.33,"QS":0,"Earned Runs":11.9,"H":25.7,"H + BB":""},{"id":807,"name":"Mayckol Guaipe","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":0,"IP":27.4,"BB":9.5,"K":21.3,"W":1.3,"SV":0,"HD":3,"ERA":4.072992701,"WHIP":1.34,"QS":0,"Earned Runs":12.4,"H":27.2,"H + BB":""},{"id":808,"name":"Yovani Gallardo","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":27.4,"BB":8.8,"K":19.2,"W":1.5,"SV":0,"HD":0,"ERA":4.237226277,"WHIP":1.37,"QS":2.4,"Earned Runs":12.9,"H":28.8,"H + BB":""},{"id":809,"name":"Wandy Rodriguez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":27.4,"BB":9.3,"K":21.2,"W":1.6,"SV":0,"HD":0,"ERA":4.434306569,"WHIP":1.37,"QS":2.4,"Earned Runs":13.5,"H":28.2,"H + BB":""},{"id":810,"name":"Ross Detwiler","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":3,"IP":27.3,"BB":10.6,"K":20.4,"W":1.2,"SV":0,"HD":2,"ERA":4.351648352,"WHIP":1.42,"QS":1.4,"Earned Runs":13.2,"H":28,"H + BB":""},{"id":811,"name":"Eric Stults","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":27,"BB":6.9,"K":18.3,"W":1.3,"SV":0,"HD":0,"ERA":4.3,"WHIP":1.33,"QS":2.4,"Earned Runs":12.9,"H":28.9,"H + BB":""},{"id":812,"name":"Sean O’Sullivan","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":27,"BB":8.7,"K":16.6,"W":1.1,"SV":0,"HD":0,"ERA":5,"WHIP":1.44,"QS":2.1,"Earned Runs":15,"H":30.2,"H + BB":""},{"id":813,"name":"Tim Hudson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":27,"BB":6.8,"K":16.1,"W":1.6,"SV":0,"HD":0,"ERA":3.866666667,"WHIP":1.32,"QS":2.6,"Earned Runs":11.6,"H":28.8,"H + BB":""},{"id":814,"name":"Samuel Tuivailala","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":26.7,"BB":13.6,"K":29.4,"W":1.3,"SV":0,"HD":4,"ERA":3.674157303,"WHIP":1.34,"QS":0,"Earned Runs":10.9,"H":22.3,"H + BB":""},{"id":815,"name":"Pat Venditte","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":26.7,"BB":9.9,"K":22.4,"W":1.3,"SV":0,"HD":4,"ERA":4.04494382,"WHIP":1.34,"QS":0,"Earned Runs":12,"H":25.9,"H + BB":""},{"id":816,"name":"Chaz Roe","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":26.7,"BB":10.5,"K":23.9,"W":1.3,"SV":0,"HD":4,"ERA":3.91011236,"WHIP":1.33,"QS":0,"Earned Runs":11.6,"H":25,"H + BB":""},{"id":817,"name":"Branden Pinder","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":26.7,"BB":10.3,"K":24.1,"W":1.3,"SV":0,"HD":2,"ERA":3.97752809,"WHIP":1.32,"QS":0,"Earned Runs":11.8,"H":25,"H + BB":""},{"id":818,"name":"Esmil Rogers","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":18,"GS":0,"IP":26.7,"BB":8.7,"K":22.9,"W":1.3,"SV":0,"HD":3,"ERA":3.943820225,"WHIP":1.3,"QS":0,"Earned Runs":11.7,"H":25.9,"H + BB":""},{"id":819,"name":"Mat Latos","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":26,"BB":7.6,"K":20.6,"W":1.5,"SV":0,"HD":0,"ERA":4.015384615,"WHIP":1.29,"QS":2.4,"Earned Runs":11.6,"H":25.9,"H + BB":""},{"id":820,"name":"Chad Billingsley","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":26,"BB":7.6,"K":15.6,"W":1.4,"SV":0,"HD":0,"ERA":4.603846154,"WHIP":1.39,"QS":2.2,"Earned Runs":13.3,"H":28.6,"H + BB":""},{"id":821,"name":"Jason Marquis","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":26,"BB":8.7,"K":18.9,"W":1.3,"SV":0,"HD":0,"ERA":4.430769231,"WHIP":1.37,"QS":2.2,"Earned Runs":12.8,"H":26.8,"H + BB":""},{"id":822,"name":"Cesar Ramos","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":25.9,"BB":9.5,"K":20.7,"W":1.2,"SV":0,"HD":5,"ERA":4.135135135,"WHIP":1.37,"QS":0,"Earned Runs":11.9,"H":26,"H + BB":""},{"id":823,"name":"Tom Gorzelanny","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":25.9,"BB":11,"K":22.9,"W":1.2,"SV":0,"HD":5,"ERA":4.065637066,"WHIP":1.36,"QS":0,"Earned Runs":11.7,"H":24.3,"H + BB":""},{"id":824,"name":"Louis Coleman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":25.9,"BB":10.2,"K":21.7,"W":1.2,"SV":0,"HD":3,"ERA":3.822393822,"WHIP":1.33,"QS":0,"Earned Runs":11,"H":24.4,"H + BB":""},{"id":825,"name":"David Carpenter","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":25.9,"BB":8.5,"K":25.4,"W":1.2,"SV":0,"HD":5,"ERA":3.544401544,"WHIP":1.24,"QS":0,"Earned Runs":10.2,"H":23.5,"H + BB":""},{"id":826,"name":"Matt Marksberry","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":25.9,"BB":12.4,"K":23.3,"W":1.1,"SV":0,"HD":4,"ERA":4.065637066,"WHIP":1.42,"QS":0,"Earned Runs":11.7,"H":24.3,"H + BB":""},{"id":827,"name":"Jon Edwards","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":25.9,"BB":13.2,"K":30.7,"W":1.2,"SV":0,"HD":4,"ERA":3.544401544,"WHIP":1.3,"QS":0,"Earned Runs":10.2,"H":20.6,"H + BB":""},{"id":828,"name":"Tim Cooney","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":25.5,"BB":7.1,"K":19.9,"W":1.5,"SV":0,"HD":0,"ERA":3.952941176,"WHIP":1.29,"QS":2.4,"Earned Runs":11.2,"H":25.7,"H + BB":""},{"id":829,"name":"Jorge Lopez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":25.5,"BB":10.4,"K":21.3,"W":1.3,"SV":0,"HD":0,"ERA":4.447058824,"WHIP":1.41,"QS":2.2,"Earned Runs":12.6,"H":25.7,"H + BB":""},{"id":830,"name":"David Rollins","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":0,"IP":25.2,"BB":7.9,"K":22.2,"W":1.2,"SV":0,"HD":3,"ERA":3.571428571,"WHIP":1.24,"QS":0,"Earned Runs":10,"H":23.4,"H + BB":""},{"id":831,"name":"Tim Lincecum","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":25,"BB":9.8,"K":18.5,"W":1.3,"SV":0,"HD":0,"ERA":4.752,"WHIP":1.43,"QS":2,"Earned Runs":13.2,"H":26,"H + BB":""},{"id":832,"name":"Brian Ellington","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":23,"GS":0,"IP":25,"BB":11.2,"K":23.9,"W":1.2,"SV":0,"HD":3,"ERA":3.744,"WHIP":1.34,"QS":0,"Earned Runs":10.4,"H":22.3,"H + BB":""},{"id":833,"name":"Spencer Patton","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":28,"GS":0,"IP":24.8,"BB":9.7,"K":27.4,"W":1.3,"SV":0,"HD":6,"ERA":3.338709677,"WHIP":1.22,"QS":0,"Earned Runs":9.2,"H":20.6,"H + BB":""},{"id":834,"name":"Radhames Liz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":15,"GS":0,"IP":24.8,"BB":8.9,"K":27.1,"W":1.3,"SV":0,"HD":2,"ERA":3.302419355,"WHIP":1.2,"QS":0,"Earned Runs":9.1,"H":20.9,"H + BB":""},{"id":835,"name":"Shaun Marcum","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":7.2,"K":18.8,"W":1.4,"SV":0,"HD":0,"ERA":4.187755102,"WHIP":1.31,"QS":2.2,"Earned Runs":11.4,"H":24.9,"H + BB":""},{"id":836,"name":"Casey Kelly","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":7.8,"K":19.6,"W":1.1,"SV":0,"HD":0,"ERA":3.930612245,"WHIP":1.32,"QS":2.3,"Earned Runs":10.7,"H":24.6,"H + BB":""},{"id":837,"name":"Allen Webster","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":9.1,"K":18.5,"W":1.3,"SV":0,"HD":0,"ERA":4.334693878,"WHIP":1.38,"QS":2.1,"Earned Runs":11.8,"H":24.6,"H + BB":""},{"id":838,"name":"Jon Moscot","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":8.6,"K":17.7,"W":1.3,"SV":0,"HD":0,"ERA":4.444897959,"WHIP":1.38,"QS":2.1,"Earned Runs":12.1,"H":25.1,"H + BB":""},{"id":839,"name":"Zach Lee","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":6.9,"K":17.9,"W":1.5,"SV":0,"HD":0,"ERA":4.040816327,"WHIP":1.3,"QS":2.3,"Earned Runs":11,"H":25,"H + BB":""},{"id":840,"name":"Randy Wolf","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":8.3,"K":17.1,"W":1.4,"SV":0,"HD":0,"ERA":4.444897959,"WHIP":1.38,"QS":2.1,"Earned Runs":12.1,"H":25.5,"H + BB":""},{"id":841,"name":"A.J. Griffin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":6.6,"K":19,"W":1.4,"SV":0,"HD":0,"ERA":4.371428571,"WHIP":1.31,"QS":2.1,"Earned Runs":11.9,"H":25.5,"H + BB":""},{"id":842,"name":"Brandon Beachy","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":9.3,"K":18.7,"W":1.4,"SV":0,"HD":0,"ERA":4.371428571,"WHIP":1.39,"QS":2.1,"Earned Runs":11.9,"H":24.6,"H + BB":""},{"id":843,"name":"Robert Stephenson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":11.9,"K":24.1,"W":1.3,"SV":0,"HD":0,"ERA":4.114285714,"WHIP":1.37,"QS":2.2,"Earned Runs":11.2,"H":21.7,"H + BB":""},{"id":844,"name":"Archie Bradley","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":11.3,"K":20.7,"W":1.3,"SV":0,"HD":0,"ERA":4.371428571,"WHIP":1.42,"QS":2.1,"Earned Runs":11.9,"H":23.6,"H + BB":""},{"id":845,"name":"Anthony Ranaudo","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":10.1,"K":17.2,"W":1.3,"SV":0,"HD":0,"ERA":5.032653061,"WHIP":1.5,"QS":1.9,"Earned Runs":13.7,"H":26.5,"H + BB":""},{"id":846,"name":"Josh Smith","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":8.5,"K":19.2,"W":1.2,"SV":0,"HD":0,"ERA":4.444897959,"WHIP":1.35,"QS":2.1,"Earned Runs":12.1,"H":24.6,"H + BB":""},{"id":847,"name":"David Holmberg","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":9.6,"K":16,"W":1.1,"SV":0,"HD":0,"ERA":4.959183673,"WHIP":1.48,"QS":1.9,"Earned Runs":13.5,"H":26.6,"H + BB":""},{"id":848,"name":"Tsuyoshi Wada","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":7.6,"K":19.4,"W":1.6,"SV":0,"HD":0,"ERA":3.967346939,"WHIP":1.29,"QS":2.3,"Earned Runs":10.8,"H":24.1,"H + BB":""},{"id":849,"name":"A.J. Cole","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":7.3,"K":19.2,"W":1.5,"SV":0,"HD":0,"ERA":4.114285714,"WHIP":1.32,"QS":2.2,"Earned Runs":11.2,"H":25,"H + BB":""},{"id":850,"name":"Alec Asher","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":7.6,"K":18.9,"W":1.2,"SV":0,"HD":0,"ERA":4.408163265,"WHIP":1.34,"QS":2.1,"Earned Runs":12,"H":25.1,"H + BB":""},{"id":851,"name":"Adalberto Mejia","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":8.9,"K":18.7,"W":1.4,"SV":0,"HD":0,"ERA":3.893877551,"WHIP":1.33,"QS":2.3,"Earned Runs":10.6,"H":23.8,"H + BB":""},{"id":852,"name":"Tyler Wagner","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":9.5,"K":16.9,"W":1.2,"SV":0,"HD":0,"ERA":4.848979592,"WHIP":1.48,"QS":1.9,"Earned Runs":13.2,"H":26.7,"H + BB":""},{"id":853,"name":"Zack Godley","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":9.7,"K":19.5,"W":1.3,"SV":0,"HD":0,"ERA":4.444897959,"WHIP":1.4,"QS":2.1,"Earned Runs":12.1,"H":24.5,"H + BB":""},{"id":854,"name":"Brad Peacock","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":9.4,"K":22.1,"W":1.2,"SV":0,"HD":0,"ERA":4.07755102,"WHIP":1.33,"QS":2.2,"Earned Runs":11.1,"H":23.1,"H + BB":""},{"id":855,"name":"Kevin Correia","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":5,"GS":5,"IP":24.5,"BB":6.7,"K":14.6,"W":1.1,"SV":0,"HD":0,"ERA":4.702040816,"WHIP":1.4,"QS":2,"Earned Runs":12.8,"H":27.7,"H + BB":""},{"id":856,"name":"Marcos Mateo","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":9.1,"K":26.9,"W":1.1,"SV":0,"HD":3,"ERA":3.296296296,"WHIP":1.21,"QS":0,"Earned Runs":8.9,"H":20.4,"H + BB":""},{"id":857,"name":"Evan Rutckyj","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":12.3,"K":23.4,"W":1.1,"SV":0,"HD":2,"ERA":4.074074074,"WHIP":1.4,"QS":0,"Earned Runs":11,"H":21.7,"H + BB":""},{"id":858,"name":"Kirby Yates","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":9.5,"K":24.6,"W":1.2,"SV":0,"HD":2,"ERA":3.851851852,"WHIP":1.28,"QS":0,"Earned Runs":10.4,"H":21.6,"H + BB":""},{"id":859,"name":"Mitch Harris","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":9.9,"K":18.7,"W":1.1,"SV":0,"HD":3,"ERA":4.222222222,"WHIP":1.41,"QS":0,"Earned Runs":11.4,"H":24.4,"H + BB":""},{"id":860,"name":"Tommy Hunter","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":6.5,"K":22,"W":1.2,"SV":0,"HD":4,"ERA":3.407407407,"WHIP":1.21,"QS":0,"Earned Runs":9.2,"H":22.9,"H + BB":""},{"id":861,"name":"Burke Badenhop","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":7.6,"K":14.2,"W":1.1,"SV":0,"HD":4,"ERA":4.222222222,"WHIP":1.41,"QS":0,"Earned Runs":11.4,"H":26.7,"H + BB":""},{"id":862,"name":"Dale Thayer","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":8.4,"K":19.9,"W":1.1,"SV":0,"HD":4,"ERA":4.111111111,"WHIP":1.33,"QS":0,"Earned Runs":11.1,"H":24,"H + BB":""},{"id":863,"name":"Brandon Gomes","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":7.6,"K":21.6,"W":1.2,"SV":0,"HD":5,"ERA":3.666666667,"WHIP":1.25,"QS":0,"Earned Runs":9.9,"H":22.7,"H + BB":""},{"id":864,"name":"Blaine Boyer","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":7.5,"K":17.4,"W":1.1,"SV":0,"HD":5,"ERA":4,"WHIP":1.34,"QS":0,"Earned Runs":10.8,"H":25,"H + BB":""},{"id":865,"name":"Ray Marimon","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":24.3,"BB":7.5,"K":18.4,"W":1,"SV":0,"HD":2,"ERA":4.111111111,"WHIP":1.33,"QS":0,"Earned Runs":11.1,"H":24.9,"H + BB":""},{"id":866,"name":"Josh Ravin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":11,"K":26.9,"W":1.2,"SV":0,"HD":4,"ERA":3.481481481,"WHIP":1.28,"QS":0,"Earned Runs":9.4,"H":20,"H + BB":""},{"id":867,"name":"Matt Belisle","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":8.2,"K":17.8,"W":1.1,"SV":0,"HD":4,"ERA":4.074074074,"WHIP":1.36,"QS":0,"Earned Runs":11,"H":24.9,"H + BB":""},{"id":868,"name":"Zach Jones","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":12.8,"K":26.4,"W":1.1,"SV":0,"HD":2,"ERA":4,"WHIP":1.39,"QS":0,"Earned Runs":10.8,"H":21.1,"H + BB":""},{"id":869,"name":"Pedro Villarreal","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":24.3,"BB":6.8,"K":19.2,"W":1.1,"SV":0,"HD":2,"ERA":3.888888889,"WHIP":1.27,"QS":0,"Earned Runs":10.5,"H":24,"H + BB":""},{"id":870,"name":"Josh Martin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":8.5,"K":22.5,"W":1.2,"SV":0,"HD":2,"ERA":3.62962963,"WHIP":1.27,"QS":0,"Earned Runs":9.8,"H":22.4,"H + BB":""},{"id":871,"name":"Jean Machi","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":8.3,"K":18.9,"W":1.2,"SV":0,"HD":3,"ERA":3.925925926,"WHIP":1.34,"QS":0,"Earned Runs":10.6,"H":24.3,"H + BB":""},{"id":872,"name":"Jacob Lindgren","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":11.5,"K":25.2,"W":1.2,"SV":0,"HD":2,"ERA":3.777777778,"WHIP":1.34,"QS":0,"Earned Runs":10.2,"H":21,"H + BB":""},{"id":873,"name":"Kyle Barraclough","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":14.2,"K":26.7,"W":1.1,"SV":0,"HD":5,"ERA":3.888888889,"WHIP":1.41,"QS":0,"Earned Runs":10.5,"H":20,"H + BB":""},{"id":874,"name":"R.J. Alvarez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":24.3,"BB":11.2,"K":24.6,"W":1.1,"SV":0,"HD":3,"ERA":3.888888889,"WHIP":1.35,"QS":0,"Earned Runs":10.5,"H":21.5,"H + BB":""},{"id":875,"name":"Michael Mariot","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":24.3,"BB":8.8,"K":21.8,"W":1.2,"SV":0,"HD":2,"ERA":3.62962963,"WHIP":1.28,"QS":0,"Earned Runs":9.8,"H":22.3,"H + BB":""},{"id":876,"name":"Jeff Francis","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":15,"GS":0,"IP":23.4,"BB":5.3,"K":20.6,"W":1.2,"SV":0,"HD":2,"ERA":3.461538462,"WHIP":1.19,"QS":0,"Earned Runs":9,"H":22.4,"H + BB":""},{"id":877,"name":"Cesar Jimenez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":0,"IP":23.3,"BB":8.7,"K":18.3,"W":1.1,"SV":0,"HD":3,"ERA":3.939914163,"WHIP":1.35,"QS":0,"Earned Runs":10.2,"H":22.9,"H + BB":""},{"id":878,"name":"J.C. Ramirez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":0,"IP":23.3,"BB":9.9,"K":20,"W":1,"SV":0,"HD":3,"ERA":4.17167382,"WHIP":1.37,"QS":0,"Earned Runs":10.8,"H":22.1,"H + BB":""},{"id":879,"name":"David Goforth","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":0,"IP":23.3,"BB":10.3,"K":19.1,"W":1,"SV":0,"HD":2,"ERA":4.364806867,"WHIP":1.45,"QS":0,"Earned Runs":11.3,"H":23.4,"H + BB":""},{"id":880,"name":"Scott Copeland","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":8,"GS":3,"IP":23.2,"BB":7.6,"K":12.7,"W":1.2,"SV":0,"HD":1,"ERA":4.849137931,"WHIP":1.46,"QS":1.2,"Earned Runs":12.5,"H":26.3,"H + BB":""},{"id":881,"name":"Jason Garcia","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":22.7,"BB":11.8,"K":19.1,"W":1,"SV":0,"HD":2,"ERA":4.599118943,"WHIP":1.48,"QS":0,"Earned Runs":11.6,"H":22,"H + BB":""},{"id":882,"name":"Charlie Furbush","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":32,"GS":0,"IP":22.7,"BB":7.6,"K":22.5,"W":1.1,"SV":0,"HD":6,"ERA":3.370044053,"WHIP":1.21,"QS":0,"Earned Runs":8.5,"H":19.9,"H + BB":""},{"id":883,"name":"Andrew Bellatti","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":22.7,"BB":8.3,"K":19.5,"W":1.1,"SV":0,"HD":3,"ERA":3.885462555,"WHIP":1.31,"QS":0,"Earned Runs":9.8,"H":21.4,"H + BB":""},{"id":884,"name":"Joe Beimel","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":8.1,"K":14.7,"W":1,"SV":0,"HD":4,"ERA":4.315068493,"WHIP":1.42,"QS":0,"Earned Runs":10.5,"H":23,"H + BB":""},{"id":885,"name":"Jason Frasor","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":9,"K":19.4,"W":1,"SV":0,"HD":4,"ERA":3.98630137,"WHIP":1.35,"QS":0,"Earned Runs":9.7,"H":20.6,"H + BB":""},{"id":886,"name":"Nick Rumbelow","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":7.8,"K":21,"W":1.1,"SV":0,"HD":2,"ERA":3.698630137,"WHIP":1.27,"QS":0,"Earned Runs":9,"H":19.9,"H + BB":""},{"id":887,"name":"Frank Garces","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":10.3,"K":19.2,"W":0.9,"SV":0,"HD":3,"ERA":4.315068493,"WHIP":1.42,"QS":0,"Earned Runs":10.5,"H":20.8,"H + BB":""},{"id":888,"name":"Brandon Cunniff","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":11.1,"K":21.3,"W":0.9,"SV":0,"HD":4,"ERA":4.068493151,"WHIP":1.41,"QS":0,"Earned Runs":9.9,"H":19.8,"H + BB":""},{"id":889,"name":"Joel Peralta","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":7,"K":19.7,"W":1.1,"SV":0,"HD":3,"ERA":3.739726027,"WHIP":1.26,"QS":0,"Earned Runs":9.1,"H":20.6,"H + BB":""},{"id":890,"name":"Franklin Morales","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":7.3,"K":17.3,"W":1,"SV":0,"HD":4,"ERA":3.904109589,"WHIP":1.33,"QS":0,"Earned Runs":9.5,"H":21.7,"H + BB":""},{"id":891,"name":"Rafael Betancourt","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":7.1,"K":19.4,"W":1,"SV":0,"HD":4,"ERA":3.945205479,"WHIP":1.27,"QS":0,"Earned Runs":9.6,"H":20.8,"H + BB":""},{"id":892,"name":"Angel Nesbitt","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":9.2,"K":16.2,"W":1,"SV":0,"HD":4,"ERA":4.479452055,"WHIP":1.44,"QS":0,"Earned Runs":10.9,"H":22.4,"H + BB":""},{"id":893,"name":"David Aardsma","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":9.4,"K":21.8,"W":1,"SV":0,"HD":4,"ERA":3.98630137,"WHIP":1.33,"QS":0,"Earned Runs":9.7,"H":19.6,"H + BB":""},{"id":894,"name":"Al Alburquerque","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":9.5,"K":22.3,"W":1.1,"SV":0,"HD":4,"ERA":3.575342466,"WHIP":1.28,"QS":0,"Earned Runs":8.7,"H":18.6,"H + BB":""},{"id":895,"name":"Neal Cotts","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":7.7,"K":20,"W":1.1,"SV":0,"HD":4,"ERA":3.657534247,"WHIP":1.27,"QS":0,"Earned Runs":8.9,"H":20.2,"H + BB":""},{"id":896,"name":"LaTroy Hawkins","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":5.4,"K":17.3,"W":1.1,"SV":0,"HD":4,"ERA":3.657534247,"WHIP":1.25,"QS":0,"Earned Runs":8.9,"H":21.9,"H + BB":""},{"id":897,"name":"Chris Martin","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":7.3,"K":19,"W":1.1,"SV":0,"HD":4,"ERA":3.780821918,"WHIP":1.29,"QS":0,"Earned Runs":9.2,"H":20.9,"H + BB":""},{"id":898,"name":"Brooks Brown","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":7.3,"K":18.1,"W":1.1,"SV":0,"HD":5,"ERA":3.698630137,"WHIP":1.29,"QS":0,"Earned Runs":9,"H":20.9,"H + BB":""},{"id":899,"name":"Brian Duensing","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":8.6,"K":16.1,"W":1,"SV":0,"HD":4,"ERA":4.109589041,"WHIP":1.4,"QS":0,"Earned Runs":10,"H":22,"H + BB":""},{"id":900,"name":"Nick Masset","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":8.2,"K":16.9,"W":1,"SV":0,"HD":4,"ERA":4.109589041,"WHIP":1.38,"QS":0,"Earned Runs":10,"H":22,"H + BB":""},{"id":901,"name":"Enrique Burgos","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":21.9,"BB":11.5,"K":26.3,"W":1.1,"SV":0,"HD":3,"ERA":3.575342466,"WHIP":1.31,"QS":0,"Earned Runs":8.7,"H":17.1,"H + BB":""},{"id":902,"name":"Yohan Pino","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":8,"GS":2,"IP":21.5,"BB":5.2,"K":17.4,"W":1.1,"SV":0,"HD":1,"ERA":3.641860465,"WHIP":1.21,"QS":0.8,"Earned Runs":8.7,"H":20.8,"H + BB":""},{"id":903,"name":"Tim Stauffer","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":18,"GS":0,"IP":21.4,"BB":6.4,"K":17.2,"W":1,"SV":0,"HD":3,"ERA":3.785046729,"WHIP":1.3,"QS":0,"Earned Runs":9,"H":21.3,"H + BB":""},{"id":904,"name":"Sammy Solis","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":18,"GS":0,"IP":21.4,"BB":7.1,"K":19.1,"W":1.1,"SV":0,"HD":3,"ERA":3.61682243,"WHIP":1.28,"QS":0,"Earned Runs":8.6,"H":20.4,"H + BB":""},{"id":905,"name":"Sam LeCure","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":0,"IP":21.3,"BB":8.3,"K":16.4,"W":0.9,"SV":0,"HD":3,"ERA":4.183098592,"WHIP":1.38,"QS":0,"Earned Runs":9.9,"H":21.1,"H + BB":""},{"id":906,"name":"Samuel Deduno","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":8,"GS":2,"IP":21.2,"BB":8.3,"K":16.3,"W":1.1,"SV":0,"HD":1,"ERA":4.330188679,"WHIP":1.41,"QS":0.8,"Earned Runs":10.2,"H":21.5,"H + BB":""},{"id":907,"name":"Junior Guerra","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":21.1,"BB":7.8,"K":25.4,"W":1.1,"SV":0,"HD":2,"ERA":3.113744076,"WHIP":1.18,"QS":0,"Earned Runs":7.3,"H":17.1,"H + BB":""},{"id":908,"name":"Alex Cobb","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":4,"GS":4,"IP":21,"BB":6.1,"K":18,"W":1.3,"SV":0,"HD":0,"ERA":3.514285714,"WHIP":1.23,"QS":2.1,"Earned Runs":8.2,"H":19.8,"H + BB":""},{"id":909,"name":"Brandon Cumpton","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":4,"GS":4,"IP":20.5,"BB":6,"K":14,"W":1.2,"SV":0,"HD":0,"ERA":4.126829268,"WHIP":1.34,"QS":1.9,"Earned Runs":9.4,"H":21.5,"H + BB":""},{"id":910,"name":"Andre Rienzo","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":15,"GS":0,"IP":20.4,"BB":7.8,"K":17.3,"W":0.9,"SV":0,"HD":2,"ERA":3.926470588,"WHIP":1.35,"QS":0,"Earned Runs":8.9,"H":19.7,"H + BB":""},{"id":911,"name":"Scott Atchison","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":23,"GS":0,"IP":20.4,"BB":5.4,"K":14.2,"W":1,"SV":0,"HD":4,"ERA":3.882352941,"WHIP":1.3,"QS":0,"Earned Runs":8.8,"H":21.2,"H + BB":""},{"id":912,"name":"Shae Simmons","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":20,"GS":0,"IP":20.4,"BB":8.4,"K":22.9,"W":1,"SV":0,"HD":2,"ERA":3.308823529,"WHIP":1.25,"QS":0,"Earned Runs":7.5,"H":17,"H + BB":""},{"id":913,"name":"Alex Reyes","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":4,"GS":4,"IP":20.4,"BB":11.4,"K":20.5,"W":1.1,"SV":0,"HD":0,"ERA":4.279411765,"WHIP":1.44,"QS":1.8,"Earned Runs":9.7,"H":18.1,"H + BB":""},{"id":914,"name":"Dustin McGowan","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":13,"GS":0,"IP":19.5,"BB":9.2,"K":16.8,"W":0.8,"SV":0,"HD":2,"ERA":4.338461538,"WHIP":1.43,"QS":0,"Earned Runs":9.4,"H":18.6,"H + BB":""},{"id":915,"name":"Zac Rosscup","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":19.4,"BB":9.1,"K":22.7,"W":1,"SV":0,"HD":5,"ERA":3.386597938,"WHIP":1.26,"QS":0,"Earned Runs":7.3,"H":15.5,"H + BB":""},{"id":916,"name":"Logan Kensing","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":19.4,"BB":7.4,"K":15.1,"W":0.9,"SV":0,"HD":6,"ERA":4.221649485,"WHIP":1.37,"QS":0,"Earned Runs":9.1,"H":19.1,"H + BB":""},{"id":917,"name":"Bobby Parnell","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":19.4,"BB":9.1,"K":14.7,"W":0.9,"SV":0,"HD":4,"ERA":4.360824742,"WHIP":1.47,"QS":0,"Earned Runs":9.4,"H":19.4,"H + BB":""},{"id":918,"name":"Casey Janssen","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":19.4,"BB":5.3,"K":13.6,"W":0.9,"SV":0,"HD":5,"ERA":4.128865979,"WHIP":1.32,"QS":0,"Earned Runs":8.9,"H":20.3,"H + BB":""},{"id":919,"name":"Adam Loewen","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":19,"GS":0,"IP":19.4,"BB":10.4,"K":19.5,"W":0.8,"SV":0,"HD":3,"ERA":4.128865979,"WHIP":1.42,"QS":0,"Earned Runs":8.9,"H":17.1,"H + BB":""},{"id":920,"name":"Heath Hembree","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":19.4,"BB":7.3,"K":17,"W":1,"SV":0,"HD":2,"ERA":3.850515464,"WHIP":1.32,"QS":0,"Earned Runs":8.3,"H":18.4,"H + BB":""},{"id":921,"name":"Manny Parra","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":19.4,"BB":6.8,"K":17.6,"W":0.9,"SV":0,"HD":4,"ERA":3.664948454,"WHIP":1.28,"QS":0,"Earned Runs":7.9,"H":18.1,"H + BB":""},{"id":922,"name":"Matt Stites","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":19.4,"BB":7.8,"K":15.8,"W":0.9,"SV":0,"HD":3,"ERA":4.175257732,"WHIP":1.38,"QS":0,"Earned Runs":9,"H":19,"H + BB":""},{"id":923,"name":"Yoervis Medina","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":19.4,"BB":9.4,"K":18.1,"W":1,"SV":0,"HD":3,"ERA":3.896907216,"WHIP":1.39,"QS":0,"Earned Runs":8.4,"H":17.5,"H + BB":""},{"id":924,"name":"Ryan O’Rourke","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":19.4,"BB":8.8,"K":18.9,"W":0.9,"SV":0,"HD":3,"ERA":3.711340206,"WHIP":1.35,"QS":0,"Earned Runs":8,"H":17.5,"H + BB":""},{"id":925,"name":"Aaron Thompson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":19.4,"BB":7.5,"K":14,"W":0.9,"SV":0,"HD":4,"ERA":4.407216495,"WHIP":1.43,"QS":0,"Earned Runs":9.5,"H":20.2,"H + BB":""},{"id":926,"name":"Ross Ohlendorf","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":21,"GS":0,"IP":19,"BB":6.1,"K":19.3,"W":1,"SV":0,"HD":4,"ERA":3.315789474,"WHIP":1.2,"QS":0,"Earned Runs":7,"H":16.8,"H + BB":""},{"id":927,"name":"Kyle Crockett","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":31,"GS":0,"IP":18.5,"BB":6.7,"K":15.9,"W":0.9,"SV":0,"HD":5,"ERA":3.6,"WHIP":1.3,"QS":0,"Earned Runs":7.4,"H":17.4,"H + BB":""},{"id":928,"name":"Nate Adcock","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":13,"GS":0,"IP":18.2,"BB":7.3,"K":15.6,"W":0.8,"SV":0,"HD":2,"ERA":4.054945055,"WHIP":1.35,"QS":0,"Earned Runs":8.2,"H":17.3,"H + BB":""},{"id":929,"name":"Parker Bridwell","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":4,"GS":4,"IP":18,"BB":8.4,"K":13.3,"W":0.9,"SV":0,"HD":0,"ERA":4.9,"WHIP":1.49,"QS":1.4,"Earned Runs":9.8,"H":18.5,"H + BB":""},{"id":930,"name":"Tim Collins","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":18,"GS":0,"IP":18,"BB":7.6,"K":17.2,"W":0.9,"SV":0,"HD":2,"ERA":3.6,"WHIP":1.3,"QS":0,"Earned Runs":7.2,"H":15.7,"H + BB":""},{"id":931,"name":"Cory Mazzoni","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":17.8,"BB":5.7,"K":19.1,"W":0.9,"SV":0,"HD":2,"ERA":3.084269663,"WHIP":1.18,"QS":0,"Earned Runs":6.1,"H":15.2,"H + BB":""},{"id":932,"name":"Miguel Castro","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":18,"GS":0,"IP":17.8,"BB":8.1,"K":18.1,"W":0.8,"SV":0,"HD":2,"ERA":4.146067416,"WHIP":1.39,"QS":0,"Earned Runs":8.2,"H":16.7,"H + BB":""},{"id":933,"name":"Sergio Santos","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":15,"GS":0,"IP":17.5,"BB":7.2,"K":17.3,"W":0.8,"SV":0,"HD":2,"ERA":3.908571429,"WHIP":1.31,"QS":0,"Earned Runs":7.6,"H":15.6,"H + BB":""},{"id":934,"name":"Chad Jenkins","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":14,"GS":0,"IP":17.3,"BB":5.1,"K":10.4,"W":0.9,"SV":0,"HD":1,"ERA":4.578034682,"WHIP":1.4,"QS":0,"Earned Runs":8.8,"H":19.1,"H + BB":""},{"id":935,"name":"Jeremy Affeldt","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":17,"BB":6.1,"K":12.6,"W":0.8,"SV":0,"HD":4,"ERA":3.547058824,"WHIP":1.33,"QS":0,"Earned Runs":6.7,"H":16.5,"H + BB":""},{"id":936,"name":"Eric O’Flaherty","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":17,"BB":6.6,"K":12.9,"W":0.8,"SV":0,"HD":4,"ERA":3.917647059,"WHIP":1.38,"QS":0,"Earned Runs":7.4,"H":16.9,"H + BB":""},{"id":937,"name":"Matt Thornton","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":24,"GS":0,"IP":17,"BB":5.4,"K":13.3,"W":0.8,"SV":0,"HD":5,"ERA":3.758823529,"WHIP":1.3,"QS":0,"Earned Runs":7.1,"H":16.7,"H + BB":""},{"id":938,"name":"Ryan Merritt","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":2.6,"K":11.3,"W":0.8,"SV":0,"HD":2,"ERA":3.611111111,"WHIP":1.19,"QS":0,"Earned Runs":6.5,"H":16.7,"H + BB":""},{"id":939,"name":"Dylan Ford Baker","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":8.5,"K":11.8,"W":0.7,"SV":0,"HD":2,"ERA":4.777777778,"WHIP":1.54,"QS":0,"Earned Runs":8.6,"H":16.4,"H + BB":""},{"id":940,"name":"Damien Magnifico","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6.9,"K":14.7,"W":0.7,"SV":0,"HD":2,"ERA":4.111111111,"WHIP":1.39,"QS":0,"Earned Runs":7.4,"H":15.6,"H + BB":""},{"id":941,"name":"Jandel Gustave","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":7.1,"K":13.4,"W":0.7,"SV":0,"HD":2,"ERA":4.333333333,"WHIP":1.41,"QS":0,"Earned Runs":7.8,"H":15.8,"H + BB":""},{"id":942,"name":"Shawn Morimando","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6,"K":13.2,"W":0.8,"SV":0,"HD":2,"ERA":3.888888889,"WHIP":1.34,"QS":0,"Earned Runs":7,"H":15.6,"H + BB":""},{"id":943,"name":"Logan Darnell","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":5.3,"K":13.1,"W":0.8,"SV":0,"HD":2,"ERA":3.888888889,"WHIP":1.32,"QS":0,"Earned Runs":7,"H":16.2,"H + BB":""},{"id":944,"name":"Jim Henderson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6.8,"K":16.4,"W":0.7,"SV":0,"HD":2,"ERA":4,"WHIP":1.33,"QS":0,"Earned Runs":7.2,"H":14.8,"H + BB":""},{"id":945,"name":"Curtis Partch","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":7,"K":18.3,"W":0.8,"SV":0,"HD":2,"ERA":3.444444444,"WHIP":1.24,"QS":0,"Earned Runs":6.2,"H":13.1,"H + BB":""},{"id":946,"name":"Victor Alfonso Alcantara","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":8.9,"K":10.1,"W":0.8,"SV":0,"HD":2,"ERA":5.166666667,"WHIP":1.6,"QS":0,"Earned Runs":9.3,"H":17,"H + BB":""},{"id":947,"name":"Andrew McKirahan","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6,"K":14.8,"W":0.7,"SV":0,"HD":2,"ERA":3.555555556,"WHIP":1.3,"QS":0,"Earned Runs":6.4,"H":15,"H + BB":""},{"id":948,"name":"German Andres Marquez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6.2,"K":10.9,"W":0.7,"SV":0,"HD":2,"ERA":4.388888889,"WHIP":1.42,"QS":0,"Earned Runs":7.9,"H":16.7,"H + BB":""},{"id":949,"name":"John Holdzkom","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6.9,"K":17.9,"W":0.8,"SV":0,"HD":2,"ERA":3.277777778,"WHIP":1.25,"QS":0,"Earned Runs":5.9,"H":13.3,"H + BB":""},{"id":950,"name":"Trey Haley","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":8.1,"K":15.2,"W":0.7,"SV":0,"HD":2,"ERA":4,"WHIP":1.41,"QS":0,"Earned Runs":7.2,"H":14.7,"H + BB":""},{"id":951,"name":"Derek Law","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6.1,"K":16.3,"W":0.8,"SV":0,"HD":2,"ERA":3.222222222,"WHIP":1.23,"QS":0,"Earned Runs":5.8,"H":13.8,"H + BB":""},{"id":952,"name":"Daniel Burawa","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":7.8,"K":15.7,"W":0.7,"SV":0,"HD":2,"ERA":3.944444444,"WHIP":1.39,"QS":0,"Earned Runs":7.1,"H":14.7,"H + BB":""},{"id":953,"name":"John Barbato","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6.7,"K":14.4,"W":0.8,"SV":0,"HD":2,"ERA":4.111111111,"WHIP":1.36,"QS":0,"Earned Runs":7.4,"H":15.3,"H + BB":""},{"id":954,"name":"Jake Faria","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":5.7,"K":15.9,"W":0.8,"SV":0,"HD":2,"ERA":3.388888889,"WHIP":1.23,"QS":0,"Earned Runs":6.1,"H":14.3,"H + BB":""},{"id":955,"name":"Colton Murray","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6.8,"K":15.2,"W":0.7,"SV":0,"HD":2,"ERA":3.833333333,"WHIP":1.33,"QS":0,"Earned Runs":6.9,"H":14.8,"H + BB":""},{"id":956,"name":"Mason Melotakis","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6.8,"K":15,"W":0.8,"SV":0,"HD":2,"ERA":3.888888889,"WHIP":1.35,"QS":0,"Earned Runs":7,"H":15.1,"H + BB":""},{"id":957,"name":"Tayron Guerrero","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":8.4,"K":16.1,"W":0.7,"SV":0,"HD":2,"ERA":4,"WHIP":1.41,"QS":0,"Earned Runs":7.2,"H":14.4,"H + BB":""},{"id":958,"name":"Leonel Campos","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":7.6,"K":19.5,"W":0.8,"SV":0,"HD":2,"ERA":3.277777778,"WHIP":1.25,"QS":0,"Earned Runs":5.9,"H":12.7,"H + BB":""},{"id":959,"name":"J.T. Chargois","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":7.5,"K":15.2,"W":0.8,"SV":0,"HD":2,"ERA":4.055555556,"WHIP":1.39,"QS":0,"Earned Runs":7.3,"H":15.1,"H + BB":""},{"id":960,"name":"Nick Lee","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":8.8,"K":15.4,"W":0.7,"SV":0,"HD":2,"ERA":4.166666667,"WHIP":1.46,"QS":0,"Earned Runs":7.5,"H":14.9,"H + BB":""},{"id":961,"name":"Evan Marshall","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":5.9,"K":14,"W":0.8,"SV":0,"HD":3,"ERA":3.777777778,"WHIP":1.32,"QS":0,"Earned Runs":6.8,"H":15.4,"H + BB":""},{"id":962,"name":"Jacob Barnes","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":5.9,"K":15,"W":0.7,"SV":0,"HD":2,"ERA":3.888888889,"WHIP":1.32,"QS":0,"Earned Runs":7,"H":15.5,"H + BB":""},{"id":963,"name":"Matthew Bowman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":4.5,"K":12.2,"W":0.8,"SV":0,"HD":2,"ERA":3.833333333,"WHIP":1.29,"QS":0,"Earned Runs":6.9,"H":16.4,"H + BB":""},{"id":964,"name":"Michael Jose Ynoa","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":10.2,"K":13.3,"W":0.7,"SV":0,"HD":2,"ERA":5.222222222,"WHIP":1.63,"QS":0,"Earned Runs":9.4,"H":16.1,"H + BB":""},{"id":965,"name":"Dayan Diaz","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6.9,"K":15.6,"W":0.7,"SV":0,"HD":2,"ERA":3.777777778,"WHIP":1.32,"QS":0,"Earned Runs":6.8,"H":14.4,"H + BB":""},{"id":966,"name":"Buddy Boshers","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":7.1,"K":15.5,"W":0.8,"SV":0,"HD":2,"ERA":3.555555556,"WHIP":1.32,"QS":0,"Earned Runs":6.4,"H":14.2,"H + BB":""},{"id":967,"name":"Pat Dean","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":3.1,"K":9.9,"W":0.8,"SV":0,"HD":2,"ERA":4.055555556,"WHIP":1.29,"QS":0,"Earned Runs":7.3,"H":17.8,"H + BB":""},{"id":968,"name":"Nick Burdi","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":8,"K":16.2,"W":0.8,"SV":0,"HD":2,"ERA":4,"WHIP":1.4,"QS":0,"Earned Runs":7.2,"H":14.6,"H + BB":""},{"id":969,"name":"Zach Phillips","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":7.2,"K":15.8,"W":0.8,"SV":0,"HD":2,"ERA":3.944444444,"WHIP":1.36,"QS":0,"Earned Runs":7.1,"H":14.8,"H + BB":""},{"id":970,"name":"Ryan Kelly","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6,"K":14.9,"W":0.7,"SV":0,"HD":2,"ERA":3.777777778,"WHIP":1.31,"QS":0,"Earned Runs":6.8,"H":15.2,"H + BB":""},{"id":971,"name":"Daniel Tillman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6.7,"K":14.4,"W":0.8,"SV":0,"HD":2,"ERA":3.888888889,"WHIP":1.34,"QS":0,"Earned Runs":7,"H":15.1,"H + BB":""},{"id":972,"name":"Daniel Stumpf","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6.5,"K":15.7,"W":0.7,"SV":0,"HD":2,"ERA":3.611111111,"WHIP":1.3,"QS":0,"Earned Runs":6.5,"H":14.5,"H + BB":""},{"id":973,"name":"Juan Minaya","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":7.1,"K":15.1,"W":0.8,"SV":0,"HD":2,"ERA":4,"WHIP":1.36,"QS":0,"Earned Runs":7.2,"H":14.9,"H + BB":""},{"id":974,"name":"Dean Kiekhefer","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":4,"K":12.2,"W":0.8,"SV":0,"HD":2,"ERA":3.611111111,"WHIP":1.25,"QS":0,"Earned Runs":6.5,"H":16.3,"H + BB":""},{"id":975,"name":"Andury Acevedo","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":8.3,"K":14.1,"W":0.8,"SV":0,"HD":2,"ERA":4.222222222,"WHIP":1.45,"QS":0,"Earned Runs":7.6,"H":15.2,"H + BB":""},{"id":976,"name":"Dan Runzler","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":8.7,"K":16.5,"W":0.8,"SV":0,"HD":2,"ERA":3.722222222,"WHIP":1.38,"QS":0,"Earned Runs":6.7,"H":13.6,"H + BB":""},{"id":977,"name":"Daniel Reynolds","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":7.2,"K":14,"W":0.8,"SV":0,"HD":2,"ERA":4,"WHIP":1.37,"QS":0,"Earned Runs":7.2,"H":15,"H + BB":""},{"id":978,"name":"Mario Hollands","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":5.8,"K":14.9,"W":0.7,"SV":0,"HD":2,"ERA":3.555555556,"WHIP":1.28,"QS":0,"Earned Runs":6.4,"H":14.9,"H + BB":""},{"id":979,"name":"Brandon Kintzler","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":5.3,"K":11.9,"W":0.7,"SV":0,"HD":2,"ERA":3.944444444,"WHIP":1.38,"QS":0,"Earned Runs":7.1,"H":17.1,"H + BB":""},{"id":980,"name":"Jose Ramirez","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":8.1,"K":16.7,"W":0.7,"SV":0,"HD":2,"ERA":3.888888889,"WHIP":1.37,"QS":0,"Earned Runs":7,"H":14.2,"H + BB":""},{"id":981,"name":"Jake Reed","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":16,"GS":0,"IP":16.2,"BB":6.6,"K":12.5,"W":0.7,"SV":0,"HD":2,"ERA":4.333333333,"WHIP":1.43,"QS":0,"Earned Runs":7.8,"H":16.5,"H + BB":""},{"id":982,"name":"Daniel Coulombe","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":15,"GS":0,"IP":16.1,"BB":8.8,"K":14,"W":0.7,"SV":0,"HD":2,"ERA":4.360248447,"WHIP":1.49,"QS":0,"Earned Runs":7.8,"H":15.2,"H + BB":""},{"id":983,"name":"Joe Musgrove","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":3.5,"K":14.7,"W":0.8,"SV":0,"HD":0,"ERA":3.31875,"WHIP":1.15,"QS":1.7,"Earned Runs":5.9,"H":15,"H + BB":""},{"id":984,"name":"Brian Johnson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":6.1,"K":12.8,"W":1,"SV":0,"HD":0,"ERA":4.21875,"WHIP":1.37,"QS":1.4,"Earned Runs":7.5,"H":15.9,"H + BB":""},{"id":985,"name":"Dallas Beeler","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":5.6,"K":10.8,"W":1,"SV":0,"HD":0,"ERA":4.33125,"WHIP":1.39,"QS":1.4,"Earned Runs":7.7,"H":16.7,"H + BB":""},{"id":986,"name":"Ty Blach","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":4.1,"K":9.6,"W":0.9,"SV":0,"HD":0,"ERA":4.05,"WHIP":1.31,"QS":1.5,"Earned Runs":7.2,"H":16.8,"H + BB":""},{"id":987,"name":"Jake Thompson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":6,"K":13.3,"W":0.8,"SV":0,"HD":0,"ERA":4.275,"WHIP":1.36,"QS":1.4,"Earned Runs":7.6,"H":15.7,"H + BB":""},{"id":988,"name":"Kyle Crick","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":10.4,"K":16.3,"W":0.8,"SV":0,"HD":0,"ERA":4.275,"WHIP":1.49,"QS":1.4,"Earned Runs":7.6,"H":13.5,"H + BB":""},{"id":989,"name":"Chris Stratton","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":6.8,"K":11.6,"W":0.9,"SV":0,"HD":0,"ERA":4.275,"WHIP":1.42,"QS":1.4,"Earned Runs":7.6,"H":15.9,"H + BB":""},{"id":990,"name":"Michael Clevinger","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":5.3,"K":12.4,"W":0.9,"SV":0,"HD":0,"ERA":4.275,"WHIP":1.34,"QS":1.4,"Earned Runs":7.6,"H":16.1,"H + BB":""},{"id":991,"name":"Nicholas Kingham","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":5,"K":12.7,"W":0.9,"SV":0,"HD":0,"ERA":3.9375,"WHIP":1.31,"QS":1.5,"Earned Runs":7,"H":15.8,"H + BB":""},{"id":992,"name":"Clayton Blackburn","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":4.7,"K":12.9,"W":1,"SV":0,"HD":0,"ERA":3.7125,"WHIP":1.25,"QS":1.6,"Earned Runs":6.6,"H":15.3,"H + BB":""},{"id":993,"name":"Taylor Rogers","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":5,"K":10.1,"W":0.9,"SV":0,"HD":0,"ERA":4.6125,"WHIP":1.41,"QS":1.3,"Earned Runs":8.2,"H":17.5,"H + BB":""},{"id":994,"name":"Tyler Anderson","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":5.7,"K":15.1,"W":0.8,"SV":0,"HD":0,"ERA":3.825,"WHIP":1.32,"QS":1.5,"Earned Runs":6.8,"H":15.4,"H + BB":""},{"id":995,"name":"Alex Claudio","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"RP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":18,"GS":0,"IP":16,"BB":5,"K":12.9,"W":0.8,"SV":0,"HD":3,"ERA":3.825,"WHIP":1.3,"QS":0,"Earned Runs":6.8,"H":15.9,"H + BB":""},{"id":996,"name":"Raul Alcantara","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":4.4,"K":11.6,"W":0.7,"SV":0,"HD":0,"ERA":3.99375,"WHIP":1.3,"QS":1.5,"Earned Runs":7.1,"H":16.4,"H + BB":""},{"id":997,"name":"Brandon Workman","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":5.5,"K":12.2,"W":1,"SV":0,"HD":0,"ERA":4.275,"WHIP":1.36,"QS":1.4,"Earned Runs":7.6,"H":16.3,"H + BB":""},{"id":998,"name":"Luis David Perdomo","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":7.2,"K":12.1,"W":0.6,"SV":0,"HD":0,"ERA":4.44375,"WHIP":1.46,"QS":1.4,"Earned Runs":7.9,"H":16.1,"H + BB":""},{"id":999,"name":"Joe Wieland","isFavorited":"","type":"pitcher","isSelected":false,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":3,"GS":3,"IP":16,"BB":4.2,"K":13.1,"W":0.9,"SV":0,"HD":0,"ERA":3.825,"WHIP":1.24,"QS":1.5,"Earned Runs":6.8,"H":15.6,"H + BB":""},{"id":1000,"name":"Jose Berrios","isFavorited":"","type":"pitcher","isSelected":true,"cost":null,"pos":"SP","PA":null,"AB":null,"R":null,"HR":null,"RBI":null,"SB":null,"AVG":null,"OBP":null,"SLG":null,"G":11,"GS":11,"IP":65,"BB":20,"K":57,"W":4,"SV":0,"HD":0,"ERA":4.09,"WHIP":1.29,"QS":14,"Earned Runs":null,"H":null,"H + BB":""}],playerLists:{rankedBatters:[],rankedPitchers:[]},activePlayer:null};function requestPlayers(){console.log('requesting players');return {type:'REQUEST_PLAYERS'};}function receivePlayers(players){console.log('receivePlayers');return {type:'RECEIVE_PLAYERS',players:players};}function updatePlayerFavorited(playerId){return {type:'UPDATE_PLAYER_FAVORITED',id:playerId};}function updateActivePlayer(playerId){return {type:'UPDATE_ACTIVE_PLAYER',id:playerId};}function updatePlayerCost(playerCost,playerId){return {type:'UPDATE_PLAYER_COST',props:{id:playerId,cost:playerCost}};}function updatePlayerStat(stat,value,playerId){return {type:'UPDATE_PLAYER_STAT',props:{id:playerId,stat:stat,value:value}};}function assignPlayer(playerId,cost,team){return {type:'ASSIGN_PLAYER',props:{id:playerId,cost:cost,team:team}};}function fetchPlayersIfNeeded(){return function(dispatch,getState){var state=getState();console.log('fetching players');dispatch(receivePlayers(computePlayerValues(state.players.data,state)));return Promise.resolve();};}function reducer(){var state=arguments.length<=0||arguments[0]===undefined?initialState:arguments[0];var action=arguments[1];switch(action.type){case 'INVALIDATE_PLAYERS':return Object.assign({},state,{didInvalidate:true});break;case 'REQUEST_PLAYERS':return Object.assign({},state,{fetching:true,didInvalidate:false});case 'RECEIVE_PLAYERS':console.log('receiving players');return Object.assign({},state,{fetching:false,didInvalidate:false,data:action.players,playerLists:returnPlayerLists(action.players)});case 'UPDATE_PLAYER_FAVORITED':var updatedPlayers=state.data.map(function(player,index){if(player.id===action.id){return Object.assign({},player,{isFavorited:!player.isFavorited});}return player;});return Object.assign({},state,{data:updatedPlayers,playerLists:returnPlayerLists(updatedPlayers)});case 'UPDATE_ACTIVE_PLAYER':var activePlayer=state.data.filter(function(player){return player.id===action.id;});return Object.assign({},state,{activePlayer:activePlayer[0]});case 'UPDATE_PLAYER_COST':var _action$props=action.props;var id=_action$props.id;var cost=_action$props.cost;var updatedPlayers=state.data.map(function(player,index){if(player.id===id){var isSelected=cost>0;return Object.assign({},player,{cost:cost,isSelected:isSelected});}return player;});return Object.assign({},state,{data:updatedPlayers,playerLists:returnPlayerLists(updatedPlayers),didInvalidate:true});case 'UPDATE_PLAYER_STAT':var _action$props2=action.props;var id=_action$props2.id;var stat=_action$props2.stat;var value=_action$props2.value;var updatedPlayers=state.data.map(function(player,index){if(player.id===id){return Object.assign({},player,_defineProperty({},stat,value));}return player;});return Object.assign({},state,{data:updatedPlayers,playerLists:returnPlayerLists(updatedPlayers),didInvalidate:true});case 'ASSIGN_PLAYER':var _action$props3=action.props;var id=_action$props3.id;var cost=_action$props3.cost;var team=_action$props3.team;var updatedPlayers=state.data.map(function(player,index){if(player.id===id){var isSelected=cost>0;return Object.assign({},player,{team:team,cost:cost,isSelected:isSelected});}return player;});return Object.assign({},state,{data:updatedPlayers,playerLists:returnPlayerLists(updatedPlayers),isInvalidated:true});default:return state;}}function shouldFetchPlayers(state){var players=state.players.data;if(!players&&!state.players.fetching){return true;}else {return false;}}function shouldRecalculatePlayers(state){return state.players.didInvalidate;}function returnPlayerLists(players){var rankedBatters=players.filter(function(player){return player.value&&player.type==='batter';}),rankedPitchers=players.filter(function(player){return player.value&&player.type==='pitcher';}),unusedBatters=players.filter(function(player){return !player.value&&player.type==='batter';}),unusedPitchers=players.filter(function(player){return !player.value&&player.type==='pitcher';});return {rankedBatters:rankedBatters,rankedPitchers:rankedPitchers,unusedBatters:unusedBatters,unusedPitchers:unusedPitchers};}function computePlayerValues(players,state){var _state$settings$data=state.settings.data;var numTeams=_state$settings$data.numTeams;var teamSalary=_state$settings$data.teamSalary;var startingSalary=_state$settings$data.startingSalary;var battingPercentage=_state$settings$data.battingPercentage;var rosterSpots=_state$settings$data.rosterSpots;var numBatters=_state$settings$data.numBatters;var categories=state.categories.data;var positions=state.positions.data;var teams=state.teams.data;var batters=(0,_filterUtils.filterBy)(players,'type','batter'),pitchers=(0,_filterUtils.filterBy)(players,'type','pitcher');var battingCategories=SettingsUtils.getCategories(categories.batter),pitchingCategories=SettingsUtils.getCategories(categories.pitcher);var numPitchers=rosterSpots-numBatters;var battersWithSGP=(0,_PlayerSgpUtils2.default)(batters,battingCategories,numBatters,'batter'),pitchersWithSGP=(0,_PlayerSgpUtils2.default)(pitchers,pitchingCategories,numPitchers,'pitcher');var numBattersToDraft=numBatters*numTeams,numPitchersToDraft=(rosterSpots-numBatters)*numTeams;var batterConditions=SettingsUtils.getScarcePositions(positions[0].positions),pitcherConditions=SettingsUtils.getScarcePositions(positions[1].positions);var _PlayerListUtils$getP=PlayerListUtils.getPlayerList(battersWithSGP,numBattersToDraft,batterConditions);var _PlayerListUtils$getP2=_slicedToArray(_PlayerListUtils$getP,2);var draftableBatters=_PlayerListUtils$getP2[0];var unusedBatters=_PlayerListUtils$getP2[1];var _PlayerListUtils$getP3=PlayerListUtils.getPlayerList(pitchersWithSGP,numPitchersToDraft,pitcherConditions);var _PlayerListUtils$getP4=_slicedToArray(_PlayerListUtils$getP3,2);var draftablePitchers=_PlayerListUtils$getP4[0];var unusedPitchers=_PlayerListUtils$getP4[1];var totalSalary=teamSalary*numTeams;var battingDollarsToSpend=totalSalary*(battingPercentage/100),pitchingDollarsToSpend=totalSalary*((100-battingPercentage)/100);var rankedBatters=(0,_PlayerValueUtils2.default)(draftableBatters,numBattersToDraft,batters,battingDollarsToSpend,batterConditions),rankedPitchers=(0,_PlayerValueUtils2.default)(draftablePitchers,numPitchersToDraft,pitchers,pitchingDollarsToSpend,pitcherConditions);var allPlayers=[].concat(rankedBatters,rankedPitchers,unusedBatters,unusedPitchers);return allPlayers;}
 
 /***/ },
-/* 568 */
+/* 557 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// the whatwg-fetch polyfill installs the fetch() function
 	// on the global object (window or self)
 	//
 	// Return that as the export for use in Webpack, Browserify etc.
-	__webpack_require__(569);
+	__webpack_require__(558);
 	module.exports = self.fetch.bind(self);
 
 
 /***/ },
-/* 569 */
+/* 558 */
 /***/ function(module, exports) {
 
 	(function(self) {
@@ -38158,7 +36694,7 @@
 
 
 /***/ },
-/* 570 */
+/* 559 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -38182,7 +36718,7 @@
 	exports.filterByPosition = filterByPosition;
 
 /***/ },
-/* 571 */
+/* 560 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -38306,7 +36842,7 @@
 	}
 
 /***/ },
-/* 572 */
+/* 561 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38317,11 +36853,12 @@
 	exports.getFavoritedPlayers = getFavoritedPlayers;
 	exports.getUnusedPlayers = getUnusedPlayers;
 	exports.rankPlayers = rankPlayers;
+	exports.getMatchingPlayers = getMatchingPlayers;
 	exports.getPlayerList = getPlayerList;
 
-	var _sortUtils = __webpack_require__(561);
+	var _sortUtils = __webpack_require__(546);
 
-	var _filterUtils = __webpack_require__(570);
+	var _filterUtils = __webpack_require__(559);
 
 	function getFavoritedPlayers(players) {
 		var type = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
@@ -38362,6 +36899,30 @@
 		});
 	}
 
+	function getMatchingPlayers(players, query) {
+
+		var searchValueString = query.toLowerCase(),
+		    matchingValues = players;
+
+		if (searchValueString.length >= 2) {
+			matchingValues = players.filter(function (selection) {
+				var selectionValue = selection.name.toLowerCase();
+				var eachWord = selectionValue.split(' '),
+				    valueMatch;
+
+				for (var i = 0; i < eachWord.length; i++) {
+					if (eachWord[i].indexOf(searchValueString) === 0 || selectionValue.indexOf(searchValueString) === 0) {
+						valueMatch = true;
+					}
+				}
+
+				return valueMatch;
+			});
+		}
+
+		return matchingValues;
+	}
+
 	function getPlayerList(players, listSize, positionalConditions) {
 
 		var playersSortedBySGP = (0, _sortUtils.sortBy)(players, 'sgp').reverse();
@@ -38369,14 +36930,13 @@
 		var draftablePlayers = playersSortedBySGP.slice(0, listSize);
 		var unusedPlayers = playersSortedBySGP.slice(listSize, 1000);
 
-		// if (this.get('observeScarcity')) {
 		positionalConditions.forEach(function (condition) {
-			var currentPlayersOfType = (0, _filterUtils.filterByPosition)(draftablePlayers, condition.position);
+			var currentPlayersOfType = (0, _filterUtils.filterByPosition)(draftablePlayers, condition.name);
 			if (currentPlayersOfType.length < condition.minimum) {
 				condition.invoked = true;
 
 				var difference = condition.minimum - currentPlayersOfType.length;
-				var selectableUnusedPlayers = (0, _filterUtils.filterByPosition)(unusedPlayers, condition.position);
+				var selectableUnusedPlayers = (0, _filterUtils.filterByPosition)(unusedPlayers, condition.name);
 				var playersToAdd = selectableUnusedPlayers.slice(0, difference);
 				var playersToRemove = [];
 				var removeIndex = draftablePlayers.length - 1;
@@ -38385,7 +36945,7 @@
 					var okayToUse = true;
 					positionalConditions.forEach(function (conditionCheck) {
 
-						if (playerToTryRemoving.pos === conditionCheck.position) {
+						if (playerToTryRemoving.pos === conditionCheck.name) {
 							okayToUse = false;
 						}
 					});
@@ -38417,52 +36977,7 @@
 	}
 
 /***/ },
-/* 573 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.getCategories = getCategories;
-	exports.getScarcePositions = getScarcePositions;
-	exports.getTeamNames = getTeamNames;
-	function getCategories(categories) {
-		var categoryList = [];
-
-		for (var key in categories) {
-			categoryList.push(categories[key]);
-		}
-
-		return categoryList;
-	}
-
-	function getScarcePositions(positions) {
-
-		var scarcePositions = [];
-
-		positions.forEach(function (position) {
-			if (position.minimum) {
-				scarcePositions.push(position);
-			}
-		});
-
-		return scarcePositions;
-	}
-
-	function getTeamNames(teams) {
-		var teamNames = [];
-
-		for (var key in teams) {
-			teamNames.push(key);
-		}
-
-		return teamNames;
-	}
-
-/***/ },
-/* 574 */
+/* 562 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38472,27 +36987,26 @@
 	});
 	exports.default = assignPlayerValues;
 
-	var _sortUtils = __webpack_require__(561);
+	var _sortUtils = __webpack_require__(546);
 
-	var _PlayerListUtils = __webpack_require__(572);
+	var _PlayerListUtils = __webpack_require__(561);
 
 	function determineSgpGroups(players, scarcePositions) {
 		// console.log(players);
 		var sgpGroups = [];
 		scarcePositions.forEach(function (position) {
 			/* --- Determine the minimum SGPs for each rare position --- */
-
 			var positionIndex = players.length - 1,
-			    positionType = position.position,
+			    positionType = position.name,
 			    lastDraftablePlayer = players[positionIndex];
 
-			var lastDraftPlayerPos = lastDraftablePlayer.pos;
-			while (lastDraftPlayerPos != positionType) {
+			while (lastDraftablePlayer.pos != positionType) {
 				positionIndex--;
 				// console.log(players[positionIndex],positionType);
 
-				lastDraftPlayerPos = players[positionIndex].pos;
+				lastDraftablePlayer = players[positionIndex];
 			}
+			console.log('lastDraftable:', lastDraftablePlayer);
 
 			var minSgp = lastDraftablePlayer.sgp;
 			sgpGroups.push({
@@ -38513,7 +37027,7 @@
 			lastDraftablePlayer = players[index];
 			scarcePositions.forEach(function (conditionalPosition) {
 
-				if (conditionalPosition.position === lastDraftablePlayer.pos) {
+				if (conditionalPosition.name === lastDraftablePlayer.pos) {
 					bool = true;
 				}
 			});
@@ -38561,10 +37075,10 @@
 			player.displayValue = value.toFixed(1);
 
 			if (inflationRate) {
-				var inflatedValue = value * inflationRate;
-				player.inflatedValue = inflatedValue;
-				player.displayInflatedValue = inflatedValue.toFixed(1);
-				player.bidPrice = inflatedValue.toFixed(0);
+				var adjustedValue = value * inflationRate;
+				player.adjustedValue = adjustedValue;
+				player.displayInflatedValue = adjustedValue.toFixed(1);
+				player.bidPrice = adjustedValue.toFixed(0);
 			}
 
 			return player;
@@ -38582,15 +37096,16 @@
 		});
 
 		var scarcePositionNames = scarcePositions.map(function (condition) {
-			return condition.position;
+			return condition.name;
 		});
 
 		var marginalSgp = 0;
 		var sgpGroups = [];
 
+		console.log(draftablePlayers.length);
 		if (scarcePositions.length > 0) {
 			sgpGroups = determineSgpGroups(draftablePlayers, scarcePositions);
-
+			console.log('sgpGroups', sgpGroups);
 			sgpGroups.forEach(function (sgpGroup) {
 
 				var playersToCalculateFrom;
@@ -38675,7 +37190,7 @@
 	}
 
 /***/ },
-/* 575 */
+/* 563 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38694,25 +37209,25 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _ValueInput = __webpack_require__(558);
+	var _ValueInput = __webpack_require__(543);
 
 	var _ValueInput2 = _interopRequireDefault(_ValueInput);
 
-	var _SuggestedSearchBox = __webpack_require__(576);
+	var _SuggestedSearchBox = __webpack_require__(564);
 
 	var _SuggestedSearchBox2 = _interopRequireDefault(_SuggestedSearchBox);
 
-	__webpack_require__(582);
+	__webpack_require__(570);
 
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : { default: obj };
@@ -38891,7 +37406,7 @@
 	exports.default = PlayerInput;
 
 /***/ },
-/* 576 */
+/* 564 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38910,25 +37425,25 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _ValueInput = __webpack_require__(558);
+	var _ValueInput = __webpack_require__(543);
 
 	var _ValueInput2 = _interopRequireDefault(_ValueInput);
 
-	var _SuggestedSearchResults = __webpack_require__(577);
+	var _SuggestedSearchResults = __webpack_require__(565);
 
 	var _SuggestedSearchResults2 = _interopRequireDefault(_SuggestedSearchResults);
 
-	__webpack_require__(580);
+	__webpack_require__(568);
 
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : { default: obj };
@@ -39167,7 +37682,7 @@
 	exports.default = SuggestedSearchBox;
 
 /***/ },
-/* 577 */
+/* 565 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39186,17 +37701,17 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	__webpack_require__(578);
+	__webpack_require__(566);
 
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : { default: obj };
@@ -39321,16 +37836,16 @@
 	exports.default = SuggestedSearchResults;
 
 /***/ },
-/* 578 */
+/* 566 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(579);
+	var content = __webpack_require__(567);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(526)(content, {});
+	var update = __webpack_require__(511)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -39347,30 +37862,30 @@
 	}
 
 /***/ },
-/* 579 */
+/* 567 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(525)();
+	exports = module.exports = __webpack_require__(510)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.search-results {\n  position: absolute;\n  display: none;\n  top: 100%;\n  left: 0;\n  width: 100%;\n  max-height: 200px;\n  overflow: auto;\n  overflow-x: hidden;\n  border: 2px solid grey;\n  background: white;\n  z-index: 2;\n  border-color: #81AECA;\n}\n\n.search-results.active {\n  display: block;\n}\n\n.search-results li {\n  cursor: pointer;\n  padding: 6px;\n  font-size: 12px;\n  text-transform: uppercase;\n  text-align: center;\n}\n\n.search-results li {\n  background-color: #92BDD6;\n}\n\n.search-results li:nth-child(odd) {\n  background-color: #81AECA;\n}\n\n.search-results li.selected {\n  background-color: #B6D1E2;\n}\n\n.pitchers .search-results {\n  border-color: #9E899E;\n}\n\n.pitchers .search-results li {\n  background-color: #AF93AF;\n}\n\n.pitchers .search-results li:nth-child(odd) {\n  background-color: #9E899E;\n}\n\n.pitchers .search-results li.selected {\n  background-color: #C7B2C7;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/search-results.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;EACC,mBAAmB;EACnB,cAAc;EACX,UAAU;EACV,QAAQ;EACR,YAAY;EACZ,kBAAkB;EAClB,eAAe;EACf,mBAAmB;EAEnB,uBAAuB;EACvB,kBAAkB;EAElB,WAAW;EAed,sBCrBmB;CDmDnB;;AA1DD;EAgBK,eAAc;CACd;;AAjBL;EAoBK,gBAAgB;EACnB,aAAa;EAEV,gBAAgB;EAChB,0BAA0B;EAC1B,mBAAmB;CACtB;;AA1BF;EA+BE,0BC1Be;CDmCf;;AAxCF;EAkCG,0BC3BiB;CD4BjB;;AAnCH;EAsCG,0BC9BsB;CD+BtB;;AAIC;EACC,sBC9BgB;CD2CnB;;AAdE;EAID,0BCnCe;CD4Cf;;AAbC;EAOA,0BCpCiB;CDqCjB;;AARA;EAWA,0BCvCsB;CDwCtB","file":"search-results.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.search-results {\n\tposition: absolute;\n\tdisplay: none;\n    top: 100%;\n    left: 0;\n    width: 100%;\n    max-height: 200px;\n    overflow: auto;\n    overflow-x: hidden;\n\n    border: 2px solid grey;\n    background: white;\n\n    z-index: 2;\n\n    &.active {\n    \tdisplay:block;\n    }\n\n    li {\n    \tcursor: pointer;\n\t\tpadding: 6px;\n\n\t    font-size: 12px;\n\t    text-transform: uppercase;\n\t    text-align: center;\n\t}\n\n\tborder-color: $batterAlt;\n\n\tli {\n\t\tbackground-color: $batter;\n\n\t\t&:nth-child(odd) {\n\t\t\tbackground-color: $batterAlt;\n\t\t}\n\n\t\t&.selected {\n\t\t\tbackground-color: $batterHighlight;\n\t\t}\n\t}\n\n\n    .pitchers & {\n    \tborder-color: $pitcherAlt;\n\n    \tli {\n\t\t\tbackground-color: $pitcher;\n\n\t\t\t&:nth-child(odd) {\n\t\t\t\tbackground-color: $pitcherAlt;\n\t\t\t}\n\n\t\t\t&.selected {\n\t\t\t\tbackground-color: $pitcherHighlight;\n\t\t\t}\n\t\t}\n\t}\n}\n","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n$batter : #92BDD6;\n$batterDark : #576B77;\n$batterAlt : #81AECA;\n$batterHighlight: #B6D1E2;\n$batterMuted: rgba(101, 113, 121, 0.6);\n$batterEditHover: #CBDEEA;\n\n$pitcher : #AF93AF;\n$pitcherDark : #5D545D;\n$pitcherAlt : #9E899E;\n$pitcherHighlight: #C7B2C7;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.search-results {\n  position: absolute;\n  display: none;\n  top: 100%;\n  left: 0;\n  width: 100%;\n  max-height: 200px;\n  overflow: auto;\n  overflow-x: hidden;\n  border: 2px solid grey;\n  background: white;\n  z-index: 2;\n  border-color: #d7dfeb;\n}\n\n.search-results.active {\n  display: block;\n}\n\n.search-results li {\n  cursor: pointer;\n  padding: 6px;\n  font-size: 12px;\n  text-transform: uppercase;\n  text-align: center;\n}\n\n.search-results li {\n  background-color: #e5e9ef;\n}\n\n.search-results li:nth-child(odd) {\n  background-color: #d7dfeb;\n}\n\n.search-results li.selected {\n  background-color: #F3F6F9;\n}\n\n.pitchers .search-results {\n  border-color: #D2C7D2;\n}\n\n.pitchers .search-results li {\n  background-color: #E2D7E2;\n}\n\n.pitchers .search-results li:nth-child(odd) {\n  background-color: #D2C7D2;\n}\n\n.pitchers .search-results li.selected {\n  background-color: #FFF6FF;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/search-results.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;EACC,mBAAmB;EACnB,cAAc;EACX,UAAU;EACV,QAAQ;EACR,YAAY;EACZ,kBAAkB;EAClB,eAAe;EACf,mBAAmB;EAEnB,uBAAuB;EACvB,kBAAkB;EAElB,WAAW;EAed,sBCawB;CDiBxB;;AA1DD;EAgBK,eAAc;CACd;;AAjBL;EAoBK,gBAAgB;EACnB,aAAa;EAEV,gBAAgB;EAChB,0BAA0B;EAC1B,mBAAmB;CACtB;;AA1BF;EA+BE,0BCSmB;CDAnB;;AAxCF;EAkCG,0BCOsB;CDNtB;;AAnCH;EAsCG,0BCKuB;CDJvB;;AAIC;EACC,sBClCgB;CD+CnB;;AAdE;EAID,0BCvCe;CDgDf;;AAbC;EAOA,0BCxCiB;CDyCjB;;AARA;EAWA,0BC3CsB;CD4CtB","file":"search-results.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.search-results {\n\tposition: absolute;\n\tdisplay: none;\n    top: 100%;\n    left: 0;\n    width: 100%;\n    max-height: 200px;\n    overflow: auto;\n    overflow-x: hidden;\n\n    border: 2px solid grey;\n    background: white;\n\n    z-index: 2;\n\n    &.active {\n    \tdisplay:block;\n    }\n\n    li {\n    \tcursor: pointer;\n\t\tpadding: 6px;\n\n\t    font-size: 12px;\n\t    text-transform: uppercase;\n\t    text-align: center;\n\t}\n\n\tborder-color: $batter-row-alt;\n\n\tli {\n\t\tbackground-color: $batter-row;\n\n\t\t&:nth-child(odd) {\n\t\t\tbackground-color: $batter-row-alt;\n\t\t}\n\n\t\t&.selected {\n\t\t\tbackground-color: $batter-highlight;\n\t\t}\n\t}\n\n\n    .pitchers & {\n    \tborder-color: $pitcherAlt;\n\n    \tli {\n\t\t\tbackground-color: $pitcher;\n\n\t\t\t&:nth-child(odd) {\n\t\t\t\tbackground-color: $pitcherAlt;\n\t\t\t}\n\n\t\t\t&.selected {\n\t\t\t\tbackground-color: $pitcherHighlight;\n\t\t\t}\n\t\t}\n\t}\n}\n","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n\n$batterEditHover: #CBDEEA;\n\n$pitcher : #E2D7E2;\n$pitcherDark : #5D545D;\n$pitcherAlt : #D2C7D2;\n$pitcherHighlight: #FFF6FF;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n\n$lightest-grey: #f2f2f2;\n$light-grey: #cecece;\n$medium-grey: #b7b7b7;\n$dark-grey: #4d4d4d;\n\n$headings: #d7dfeb;\n$headings-border: #bdc2c9;\n\n$batter-row : #e5e9ef;\n$batter-row-alt : #d7dfeb;\n$batter-dark : #8e9194;\n$batter-highlight: #F3F6F9;\n$batter-row-muted: rgba(101, 113, 121, 0.6);\n\n$sub-heading: #878787;\n$heading: $dark-grey;\n$price: #98a1ad;"],"sourceRoot":"webpack://"}]);
 
 	// exports
 
 
 /***/ },
-/* 580 */
+/* 568 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(581);
+	var content = __webpack_require__(569);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(526)(content, {});
+	var update = __webpack_require__(511)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -39387,30 +37902,30 @@
 	}
 
 /***/ },
-/* 581 */
+/* 569 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(525)();
+	exports = module.exports = __webpack_require__(510)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.suggested-search-box {\n  position: relative;\n  display: inline-block;\n}\n\n.suggested-search-box.is-editing:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  pointer-events: none;\n  border: 3px solid #576B77;\n}\n\n.suggested-search-box .search-results {\n  position: absolute;\n  width: 100%;\n}\n\n.batter .is-editing {\n  background: #92BDD6;\n}\n\n.pitcher .is-editing {\n  background: #AF93AF;\n}\n\n.is-positive {\n  color: green;\n}\n\n.is-negative {\n  color: red;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/suggested-search.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;EACC,mBAAmB;EACnB,sBAAsB;CAmBtB;;AArBD;EAMG,YAAY;EACZ,mBAAmB;EACnB,OAAO;EACP,UAAU;EACV,SAAS;EACT,QAAQ;EACR,qBAAqB;EACrB,0BCPkB;CDQlB;;AAdH;EAkBE,mBAAmB;EACnB,YAAY;CACZ;;AAGF;EAEE,oBCpBe;CDqBf;;AAEF;EAEE,oBClBgB;CDmBhB;;AAGF;EACC,aCfe;CDgBf;;AAED;EACC,WClBa;CDmBb","file":"suggested-search.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.suggested-search-box {\n\tposition: relative;\n\tdisplay: inline-block;\n\n\t&.is-editing {\n\t\t&:before {\n\t\t\tcontent: '';\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tbottom: 0;\n\t\t\tright: 0;\n\t\t\tleft: 0;\n\t\t\tpointer-events: none;\n\t\t\tborder: 3px solid $batterDark;\n\t\t}\n\t}\n\n\t.search-results {\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t}\n}\n\n.batter {\n\t.is-editing {\n\t\tbackground: $batter;\n\t}\n}\n.pitcher {\n\t.is-editing {\n\t\tbackground: $pitcher;\n\t}\n}\n\n.is-positive {\n\tcolor: $positive;\n}\n\n.is-negative {\n\tcolor: $negative;\n}\n","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n$batter : #92BDD6;\n$batterDark : #576B77;\n$batterAlt : #81AECA;\n$batterHighlight: #B6D1E2;\n$batterMuted: rgba(101, 113, 121, 0.6);\n$batterEditHover: #CBDEEA;\n\n$pitcher : #AF93AF;\n$pitcherDark : #5D545D;\n$pitcherAlt : #9E899E;\n$pitcherHighlight: #C7B2C7;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.suggested-search-box {\n  position: relative;\n  display: inline-block;\n}\n\n.suggested-search-box.is-editing:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  pointer-events: none;\n  border: 3px solid #8e9194;\n}\n\n.suggested-search-box .search-results {\n  position: absolute;\n  width: 100%;\n}\n\n.batter .is-editing {\n  background: #e5e9ef;\n}\n\n.pitcher .is-editing {\n  background: #E2D7E2;\n}\n\n.is-positive {\n  color: green;\n}\n\n.is-negative {\n  color: red;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/suggested-search.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;EACC,mBAAmB;EACnB,sBAAsB;CAmBtB;;AArBD;EAMG,YAAY;EACZ,mBAAmB;EACnB,OAAO;EACP,UAAU;EACV,SAAS;EACT,QAAQ;EACR,qBAAqB;EACrB,0BC6BmB;CD5BnB;;AAdH;EAkBE,mBAAmB;EACnB,YAAY;CACZ;;AAGF;EAEE,oBCemB;CDdnB;;AAEF;EAEE,oBCtBgB;CDuBhB;;AAGF;EACC,aCnBe;CDoBf;;AAED;EACC,WCtBa;CDuBb","file":"suggested-search.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.suggested-search-box {\n\tposition: relative;\n\tdisplay: inline-block;\n\n\t&.is-editing {\n\t\t&:before {\n\t\t\tcontent: '';\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tbottom: 0;\n\t\t\tright: 0;\n\t\t\tleft: 0;\n\t\t\tpointer-events: none;\n\t\t\tborder: 3px solid $batter-dark;\n\t\t}\n\t}\n\n\t.search-results {\n\t\tposition: absolute;\n\t\twidth: 100%;\n\t}\n}\n\n.batter {\n\t.is-editing {\n\t\tbackground: $batter-row;\n\t}\n}\n.pitcher {\n\t.is-editing {\n\t\tbackground: $pitcher;\n\t}\n}\n\n.is-positive {\n\tcolor: $positive;\n}\n\n.is-negative {\n\tcolor: $negative;\n}\n","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n\n$batterEditHover: #CBDEEA;\n\n$pitcher : #E2D7E2;\n$pitcherDark : #5D545D;\n$pitcherAlt : #D2C7D2;\n$pitcherHighlight: #FFF6FF;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n\n$lightest-grey: #f2f2f2;\n$light-grey: #cecece;\n$medium-grey: #b7b7b7;\n$dark-grey: #4d4d4d;\n\n$headings: #d7dfeb;\n$headings-border: #bdc2c9;\n\n$batter-row : #e5e9ef;\n$batter-row-alt : #d7dfeb;\n$batter-dark : #8e9194;\n$batter-highlight: #F3F6F9;\n$batter-row-muted: rgba(101, 113, 121, 0.6);\n\n$sub-heading: #878787;\n$heading: $dark-grey;\n$price: #98a1ad;"],"sourceRoot":"webpack://"}]);
 
 	// exports
 
 
 /***/ },
-/* 582 */
+/* 570 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(583);
+	var content = __webpack_require__(571);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(526)(content, {});
+	var update = __webpack_require__(511)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -39427,21 +37942,21 @@
 	}
 
 /***/ },
-/* 583 */
+/* 571 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(525)();
+	exports = module.exports = __webpack_require__(510)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.player-input {\n  font-family: \"Cantarell-Regular\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n  letter-spacing: -.03125em;\n  letter-spacing: inherit;\n  width: 100%;\n  background: #576B77;\n}\n\n.player-input form {\n  display: block;\n  margin: auto;\n  /*margin-bottom: 10px;*/\n  padding: 10px;\n  text-align: center;\n}\n\n.player-input form ::-webkit-input-placeholder {\n  /* WebKit, Blink, Edge */\n  color: #576B77;\n}\n\n.player-input form > *:not(:last-child) {\n  margin-right: 10px;\n}\n\n.player-input input {\n  outline: none;\n  background: none;\n}\n\n.player-input .player-input-box {\n  min-width: 225px;\n}\n\n.player-input .player-input-box,\n.player-input .cost-container {\n  position: relative;\n  display: inline-block;\n  padding: 10px 50px;\n  background: #92BDD6;\n  font-size: 12px;\n  text-align: center;\n  text-transform: uppercase;\n}\n\n.player-input .player-input-box.cost-input,\n.player-input .cost-container.cost-input {\n  padding: 10px;\n  min-width: 0;\n}\n\n.player-input .player-input-box:focus,\n.player-input .cost-container:focus {\n  background: #B6D1E2;\n}\n\n.player-input .cost-container {\n  padding: 10px;\n  width: 50px;\n}\n\n.player-input .cost-container.is-editing {\n  background: #B6D1E2;\n}\n\n.player-input .cost-container .player-input-box.cost-input {\n  padding: 0;\n}\n\n.player-input .submit {\n  min-width: inherit;\n  padding-top: 11px;\n  padding-bottom: 11px;\n  cursor: pointer;\n}\n\n.player-input .submit:hover, .player-input .submit:focus {\n  background: #B6D1E2;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/player-input.scss","/./project/stylesheets/project/stylesheets/helpers/fonts.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;ECqBmB,sFArBiD;EAqBhB,0BAA0B;EDlB7E,wBAAwB;EACxB,YAAY;EACZ,oBECoB;CFsEpB;;AA5ED;EAOE,eAAe;EACf,aAAa;EACb,wBAAwB;EACxB,cAAa;EACb,mBAAkB;CAUlB;;AArBF;EAYgC,yBAAyB;EACnD,eEPe;CFQlB;;AAdH;EAkBI,mBAAmB;CACnB;;AAnBJ;EAwBE,cAAc;EACd,iBAAiB;CACjB;;AA1BF;EA6BE,iBAAiB;CACjB;;AA9BF;;EAmCE,mBAAmB;EACnB,sBAAsB;EACtB,mBAAmB;EAEnB,oBElCe;EFoCf,gBAAgB;EAChB,mBAAmB;EACnB,0BAA0B;CAU1B;;AArDF;;EA8CG,cAAc;EACd,aAAa;CACb;;AAhDH;;EAmDM,oBE3CmB;CF4CnB;;AApDN;EAwDE,cAAc;EACd,YAAY;CAOZ;;AAhEF;EA2DM,oBEnDmB;CFoDtB;;AA5DH;EA8DG,WAAW;CACX;;AA/DH;EAmEE,mBAAmB;EACnB,kBAAkB;EAClB,qBAAqB;EAClB,gBAAgB;CAKnB;;AA3EF;EAyEM,oBEjEmB;CFkEnB","file":"player-input.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.player-input {\n\t@include cantarell;\n\n\tletter-spacing: inherit;\n\twidth: 100%;\n\tbackground: $batterDark;\n\tform {\n\t\tdisplay: block;\n\t\tmargin: auto;\n\t\t/*margin-bottom: 10px;*/\n\t\tpadding:10px;\n\t\ttext-align: center\n\t\t::-webkit-input-placeholder { /* WebKit, Blink, Edge */\n\t\t    color: $batterDark;\n\t\t}\n\n\t\t& > * {\n\t\t\t&:not(:last-child) {\n\t\t\t\tmargin-right: 10px;\n\t\t\t}\n\t\t}\n\t}\n\n\tinput {\n\t\toutline: none;\n\t\tbackground: none;\n\t}\n\n\t.player-input-box {\n\t\tmin-width: 225px;\n\t}\n\n\t.player-input-box,\n\t.cost-container {\n\n\t\tposition: relative;\n\t\tdisplay: inline-block;\n\t\tpadding: 10px 50px;\n\n\t\tbackground: $batter;\n\n\t\tfont-size: 12px;\n\t\ttext-align: center;\n\t\ttext-transform: uppercase;\n\n\t\t&.cost-input {\n\t\t\tpadding: 10px;\n\t\t\tmin-width: 0;\n\t\t}\n\n\t\t&:focus {\n\t    \tbackground: $batterHighlight;\n\t    }\n\t}\n\n\t.cost-container {\n\t\tpadding: 10px;\n\t\twidth: 50px;\n\t\t &.is-editing {\n\t    \tbackground: $batterHighlight;\n\t\t}\n\t\t.player-input-box.cost-input {\n\t\t\tpadding: 0;\n\t\t}\n\t}\n\n\t.submit {\n\t\tmin-width: inherit;\n\t\tpadding-top: 11px;\n\t\tpadding-bottom: 11px;\n\t    cursor: pointer;\n\t    &:hover,\n\t    &:focus {\n\t    \tbackground: $batterHighlight;\n\t    }\n\t}\n}\n\n","$helvetica     : 'Helvetica Neue', Helvetica, Arial, sans-serif !default;\n$georgia       : Georgia, Cambria, 'Times New Roman', Times, serif !default;\n$lucida-grande : 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif !default;\n$monospace     : 'Bitstream Vera Sans Mono', Consolas, Courier, monospace !default;\n$verdana       : Verdana, Geneva, sans-serif !default;\n\n$cantarell-bold     : 'Cantarell-Bold', $lucida-grande;\n$cantarell-boldoblique     : 'Cantarell-BoldOblique', $lucida-grande;\n$cantarell-oblique     : 'Cantarell-Oblique', $lucida-grande;\n$cantarell-regular     : 'Cantarell-Regular', $lucida-grande;\n\n$transandina-medium     : 'TrasandinaMedium', $lucida-grande;\n$transandina-black     : 'TrasandinaBlack', $lucida-grande;\n\n@mixin helvetica     { font-family: $helvetica; }\n@mixin georgia       { font-family: $georgia; }\n@mixin lucida-grande { font-family: $lucida-grande; }\n@mixin monospace     { font-family: $monospace; }\n@mixin verdana       { font-family: $verdana; }\n\n@mixin transandina-medium     { font-family: $transandina-medium; }\n@mixin transandina-black     { font-family: $transandina-black; }\n\n@mixin cantarell { font-family: $cantarell-regular; letter-spacing: -.03125em; }\n@mixin cantarell-bold { @include cantarell; font-family: $cantarell-bold; }\n@mixin cantarell-boldoblique { @include cantarell; font-family: $cantarell-boldoblique; }\n@mixin cantarell-oblique { @include cantarell; font-family: $cantarell-oblique; }","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n$batter : #92BDD6;\n$batterDark : #576B77;\n$batterAlt : #81AECA;\n$batterHighlight: #B6D1E2;\n$batterMuted: rgba(101, 113, 121, 0.6);\n$batterEditHover: #CBDEEA;\n\n$pitcher : #AF93AF;\n$pitcherDark : #5D545D;\n$pitcherAlt : #9E899E;\n$pitcherHighlight: #C7B2C7;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.player-input {\n  font-family: \"Cantarell-Regular\", \"Lucida Grande\", Tahoma, Verdana, Arial, sans-serif;\n  letter-spacing: -.03125em;\n  letter-spacing: inherit;\n  width: 100%;\n  border-radius: 5px;\n  background: #cecece;\n  margin: 10px 0;\n}\n\n.player-input form {\n  display: block;\n  margin: auto;\n  /*margin-bottom: 10px;*/\n  padding: 10px;\n  text-align: center;\n}\n\n.player-input form ::-webkit-input-placeholder {\n  /* WebKit, Blink, Edge */\n  color: #8e9194;\n}\n\n.player-input form > *:not(:last-child) {\n  margin-right: 10px;\n}\n\n.player-input input {\n  outline: none;\n  background: none;\n  border-radius: 3px;\n}\n\n.player-input .player-input-box {\n  min-width: 225px;\n}\n\n.player-input .player-input-box,\n.player-input .cost-container {\n  position: relative;\n  display: inline-block;\n  width: 100%;\n  padding: 10px 10px;\n  border-radius: 3px;\n  background: #f2f2f2;\n  font-size: 16px;\n  line-height: 18px;\n  letter-spacing: -1px;\n  text-align: center;\n  text-transform: uppercase;\n}\n\n.player-input .player-input-box.cost-input,\n.player-input .cost-container.cost-input {\n  padding: 10px;\n  min-width: 0;\n}\n\n.player-input .player-input-box:focus,\n.player-input .cost-container:focus {\n  background: #F3F6F9;\n}\n\n.player-input .cost-container {\n  padding: 10px;\n  width: 50px;\n}\n\n.player-input .cost-container.is-editing {\n  background: #F3F6F9;\n}\n\n.player-input .cost-container .player-input-box.cost-input {\n  padding: 0;\n}\n\n.player-input .submit {\n  min-width: inherit;\n  padding-top: 11px;\n  padding-bottom: 11px;\n  font-size: 12px;\n  cursor: pointer;\n}\n\n.player-input .submit:hover, .player-input .submit:focus {\n  background: #F3F6F9;\n}\n\n.player-input .suggested-search-box {\n  width: calc(40% - 10px);\n}\n\n.player-input .cost-container {\n  width: calc(10% - 10px);\n}\n\n.player-input .submit {\n  width: 10%;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/player-input.scss","/./project/stylesheets/project/stylesheets/helpers/fonts.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;ECqBmB,sFArBiD;EAqBhB,0BAA0B;EDlB7E,wBAAwB;EACxB,YAAY;EAET,mBAAmB;EACtB,oBE0BmB;EFxBnB,eAAe;CA2Ff;;AApGD;EAYE,eAAe;EACf,aAAa;EACb,wBAAwB;EACxB,cAAa;EACb,mBAAkB;CAUlB;;AA1BF;EAiBgC,yBAAyB;EACnD,eEwBgB;CFvBnB;;AAnBH;EAuBI,mBAAmB;CACnB;;AAxBJ;EA6BE,cAAc;EACd,iBAAiB;EACjB,mBAAmB;CACnB;;AAhCF;EAmCE,iBAAiB;CACjB;;AApCF;;EAyCE,mBAAmB;EACnB,sBAAsB;EACtB,YAAY;EACZ,mBAAmB;EAEnB,mBAAmB;EACnB,oBEfqB;EFiBrB,gBAAgB;EACb,kBAAkB;EAElB,qBAAqB;EAExB,mBAAmB;EACnB,0BAA0B;CAU1B;;AAjEF;;EA0DG,cAAc;EACd,aAAa;CACb;;AA5DH;;EA+DM,oBEpBoB;CFqBpB;;AAhEN;EAoEE,cAAc;EACd,YAAY;CAOZ;;AA5EF;EAuEM,oBE5BoB;CF6BvB;;AAxEH;EA0EG,WAAW;CACX;;AA3EH;EA+EE,mBAAmB;EACnB,kBAAkB;EAClB,qBAAqB;EAErB,gBAAgB;EAEb,gBAAgB;CAKnB;;AA1FF;EAwFM,oBE7CoB;CF8CpB;;AAzFN;EA4FK,wBAAW;CACd;;AA7FF;EA+FE,wBAAW;CACX;;AAhGF;EAkGE,WAAW;CACX","file":"player-input.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.player-input {\n\t@include cantarell;\n\n\tletter-spacing: inherit;\n\twidth: 100%;\n\n    border-radius: 5px;\n\tbackground: $light-grey;\n\n\tmargin: 10px 0;\n\n\tform {\n\t\tdisplay: block;\n\t\tmargin: auto;\n\t\t/*margin-bottom: 10px;*/\n\t\tpadding:10px;\n\t\ttext-align: center\n\t\t::-webkit-input-placeholder { /* WebKit, Blink, Edge */\n\t\t    color: $batter-dark;\n\t\t}\n\n\t\t& > * {\n\t\t\t&:not(:last-child) {\n\t\t\t\tmargin-right: 10px;\n\t\t\t}\n\t\t}\n\t}\n\n\tinput {\n\t\toutline: none;\n\t\tbackground: none;\n\t\tborder-radius: 3px;\n\t}\n\n\t.player-input-box {\n\t\tmin-width: 225px;\n\t}\n\n\t.player-input-box,\n\t.cost-container {\n\n\t\tposition: relative;\n\t\tdisplay: inline-block;\n\t\twidth: 100%;\n\t\tpadding: 10px 10px;\n\n\t\tborder-radius: 3px;\n\t\tbackground: $lightest-grey;\n\n\t\tfont-size: 16px;\n\t    line-height: 18px;\n\n\t    letter-spacing: -1px;\n\n\t\ttext-align: center;\n\t\ttext-transform: uppercase;\n\n\t\t&.cost-input {\n\t\t\tpadding: 10px;\n\t\t\tmin-width: 0;\n\t\t}\n\n\t\t&:focus {\n\t    \tbackground: $batter-highlight;\n\t    }\n\t}\n\n\t.cost-container {\n\t\tpadding: 10px;\n\t\twidth: 50px;\n\t\t &.is-editing {\n\t    \tbackground: $batter-highlight;\n\t\t}\n\t\t.player-input-box.cost-input {\n\t\t\tpadding: 0;\n\t\t}\n\t}\n\n\t.submit {\n\t\tmin-width: inherit;\n\t\tpadding-top: 11px;\n\t\tpadding-bottom: 11px;\n\n\t\tfont-size: 12px;\n\n\t    cursor: pointer;\n\t    &:hover,\n\t    &:focus {\n\t    \tbackground: $batter-highlight;\n\t    }\n\t}\n\t.suggested-search-box {\n\t    width: calc(40% - 10px);\n\t}\n\t.cost-container {\n\t\twidth: calc(10% - 10px);\n\t}\n\t.submit {\n\t\twidth: 10%;\n\t}\n}\n\n","$helvetica     : 'Helvetica Neue', Helvetica, Arial, sans-serif !default;\n$georgia       : Georgia, Cambria, 'Times New Roman', Times, serif !default;\n$lucida-grande : 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif !default;\n$monospace     : 'Bitstream Vera Sans Mono', Consolas, Courier, monospace !default;\n$verdana       : Verdana, Geneva, sans-serif !default;\n\n$cantarell-bold     : 'Cantarell-Bold', $lucida-grande;\n$cantarell-boldoblique     : 'Cantarell-BoldOblique', $lucida-grande;\n$cantarell-oblique     : 'Cantarell-Oblique', $lucida-grande;\n$cantarell-regular     : 'Cantarell-Regular', $lucida-grande;\n\n$transandina-medium     : 'TrasandinaMedium', $lucida-grande;\n$transandina-black     : 'TrasandinaBlack', $lucida-grande;\n\n@mixin helvetica     { font-family: $helvetica; }\n@mixin georgia       { font-family: $georgia; }\n@mixin lucida-grande { font-family: $lucida-grande; }\n@mixin monospace     { font-family: $monospace; }\n@mixin verdana       { font-family: $verdana; }\n\n@mixin transandina-medium     { font-family: $transandina-medium; }\n@mixin transandina-black     { font-family: $transandina-black; }\n\n@mixin cantarell { font-family: $cantarell-regular; letter-spacing: -.03125em; }\n@mixin cantarell-bold { @include cantarell; font-family: $cantarell-bold; }\n@mixin cantarell-boldoblique { @include cantarell; font-family: $cantarell-boldoblique; }\n@mixin cantarell-oblique { @include cantarell; font-family: $cantarell-oblique; }","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n\n$batterEditHover: #CBDEEA;\n\n$pitcher : #E2D7E2;\n$pitcherDark : #5D545D;\n$pitcherAlt : #D2C7D2;\n$pitcherHighlight: #FFF6FF;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n\n$lightest-grey: #f2f2f2;\n$light-grey: #cecece;\n$medium-grey: #b7b7b7;\n$dark-grey: #4d4d4d;\n\n$headings: #d7dfeb;\n$headings-border: #bdc2c9;\n\n$batter-row : #e5e9ef;\n$batter-row-alt : #d7dfeb;\n$batter-dark : #8e9194;\n$batter-highlight: #F3F6F9;\n$batter-row-muted: rgba(101, 113, 121, 0.6);\n\n$sub-heading: #878787;\n$heading: $dark-grey;\n$price: #98a1ad;"],"sourceRoot":"webpack://"}]);
 
 	// exports
 
 
 /***/ },
-/* 584 */
+/* 572 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39460,41 +37975,174 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
-
-	var _reactRedux = __webpack_require__(528);
-
-	var _redux = __webpack_require__(535);
-
-	var _players = __webpack_require__(567);
-
-	var playerActions = _interopRequireWildcard(_players);
-
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _SettingsUtils = __webpack_require__(573);
+	function _interopRequireDefault(obj) {
+		return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+		if (!(instance instanceof Constructor)) {
+			throw new TypeError("Cannot call a class as a function");
+		}
+	}
+
+	function _possibleConstructorReturn(self, call) {
+		if (!self) {
+			throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+		}return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	}
+
+	function _inherits(subClass, superClass) {
+		if (typeof superClass !== "function" && superClass !== null) {
+			throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+		}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+
+	// import { connect } from 'react-redux'
+	// import { bindActionCreators } from 'redux'
+	// import { browserHistory } from 'react-router'
+
+	var ListFilters = function (_Component) {
+		_inherits(ListFilters, _Component);
+
+		function ListFilters(props) {
+			_classCallCheck(this, ListFilters);
+
+			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(ListFilters).call(this, props));
+
+			_this2.state = {
+				searchValue: null
+			};
+			return _this2;
+		}
+
+		_createClass(ListFilters, [{
+			key: 'setSearchQuery',
+			value: function setSearchQuery(e) {
+				var searchValue = e.target.value;
+				this.setState({ searchValue: searchValue });
+
+				if (this.props.setSearchQuery) {
+					this.props.setSearchQuery(searchValue);
+				}
+			}
+		}, {
+			key: 'filterSelected',
+			value: function filterSelected(e) {
+
+				if (this.props.filterSelected) {
+					this.props.filterSelected(e);
+				}
+			}
+		}, {
+			key: 'getButtonClass',
+			value: function getButtonClass(buttonValue, buttonType) {
+				var className = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+
+				return (0, _classnames2.default)('player-list-filter', buttonValue, buttonType, className, { 'active': this.props.activeFilter === buttonValue });
+			}
+		}, {
+			key: 'getValue',
+			value: function getValue() {
+				return this.props.searchQuery;
+			}
+		}, {
+			key: 'getFilters',
+			value: function getFilters() {
+
+				if (!this.props.filters) {
+					return;
+				}
+				var _this = this;
+				return this.props.filters.map(function (filter, index) {
+					var text = filter.text || filter.value;
+					return _react2.default.createElement('button', {
+						className: _this.getButtonClass(filter.value, filter.property, filter.className),
+						key: index,
+						'data-param': filter.property,
+						'data-value': filter.value,
+						onClick: _this.filterSelected.bind(_this) }, text);
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement('div', { className: 'player-lists-filters' }, _react2.default.createElement('input', {
+					className: 'player-list-filter',
+					type: 'text',
+					onChange: this.setSearchQuery.bind(this),
+					placeholder: 'Search',
+					value: this.getValue() }), this.getFilters());
+			}
+		}]);
+
+		return ListFilters;
+	}(_react.Component);
+
+	exports.default = ListFilters;
+
+/***/ },
+/* 573 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () {
+		function defineProperties(target, props) {
+			for (var i = 0; i < props.length; i++) {
+				var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+			}
+		}return function (Constructor, protoProps, staticProps) {
+			if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+		};
+	}();
+
+	var _react = __webpack_require__(293);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(451);
+
+	var _reactRedux = __webpack_require__(513);
+
+	var _redux = __webpack_require__(520);
+
+	var _players = __webpack_require__(556);
+
+	var playerActions = _interopRequireWildcard(_players);
+
+	var _classnames = __webpack_require__(538);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _SettingsUtils = __webpack_require__(551);
 
 	var SettingsUtils = _interopRequireWildcard(_SettingsUtils);
 
-	var _PlayerListUtils = __webpack_require__(572);
+	var _PlayerListUtils = __webpack_require__(561);
 
 	var PlayerListUtils = _interopRequireWildcard(_PlayerListUtils);
 
-	var _FavoritePlayerList = __webpack_require__(585);
+	var _FavoritePlayerList = __webpack_require__(574);
 
 	var _FavoritePlayerList2 = _interopRequireDefault(_FavoritePlayerList);
 
-	var _PlayerInput = __webpack_require__(575);
+	var _PlayerInput = __webpack_require__(563);
 
 	var _PlayerInput2 = _interopRequireDefault(_PlayerInput);
 
-	__webpack_require__(562);
+	__webpack_require__(547);
 
 	function _interopRequireWildcard(obj) {
 		if (obj && obj.__esModule) {
@@ -39620,7 +38268,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FavoritePlayerListsContainer);
 
 /***/ },
-/* 585 */
+/* 574 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39639,27 +38287,27 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Player = __webpack_require__(555);
+	var _Player = __webpack_require__(540);
 
 	var _Player2 = _interopRequireDefault(_Player);
 
-	var _PlayerList2 = __webpack_require__(554);
+	var _PlayerList2 = __webpack_require__(539);
 
 	var _PlayerList3 = _interopRequireDefault(_PlayerList2);
 
-	var _sortUtils = __webpack_require__(561);
+	var _sortUtils = __webpack_require__(546);
 
-	__webpack_require__(586);
+	__webpack_require__(575);
 
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : { default: obj };
@@ -39729,7 +38377,7 @@
 			value: function render() {
 				var listClass = (0, _classnames2.default)('favorited-player-list', this.props.type);
 
-				return _react2.default.createElement('div', { className: 'player-list-container' }, _react2.default.createElement('table', { className: listClass }, _react2.default.createElement('tbody', null, _react2.default.createElement('tr', null, _react2.default.createElement('td', { className: 'list-type', colSpan: 3 }, (this.props.type + 's').toUpperCase())), _react2.default.createElement('tr', { className: 'headings' }, _react2.default.createElement('td', { className: 'player-info', onClick: this.sortList.bind(this), 'data-name': 'pos' }, 'Pos'), _react2.default.createElement('td', { className: 'player-info name', onClick: this.sortList.bind(this), 'data-name': 'name' }, 'Name'), _react2.default.createElement('td', { className: 'player-info value-info', onClick: this.sortList.bind(this), 'data-name': 'inflatedValue' }, 'Bid')), this.getPlayers())));
+				return _react2.default.createElement('div', { className: 'player-list-container' }, _react2.default.createElement('table', { className: listClass }, _react2.default.createElement('tbody', null, _react2.default.createElement('tr', null, _react2.default.createElement('td', { className: 'list-type', colSpan: 3 }, (this.props.type + 's').toUpperCase())), _react2.default.createElement('tr', { className: 'headings' }, _react2.default.createElement('td', { className: 'player-info', onClick: this.sortList.bind(this), 'data-name': 'pos' }, 'Pos'), _react2.default.createElement('td', { className: 'player-info name', onClick: this.sortList.bind(this), 'data-name': 'name' }, 'Name'), _react2.default.createElement('td', { className: 'player-info value-info', onClick: this.sortList.bind(this), 'data-name': 'adjustedValue' }, 'Bid')), this.getPlayers())));
 			}
 		}]);
 
@@ -39739,16 +38387,16 @@
 	exports.default = FavoritePlayerList;
 
 /***/ },
-/* 586 */
+/* 575 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(587);
+	var content = __webpack_require__(576);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(526)(content, {});
+	var update = __webpack_require__(511)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -39765,30 +38413,30 @@
 	}
 
 /***/ },
-/* 587 */
+/* 576 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(525)();
+	exports = module.exports = __webpack_require__(510)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.favorited-player-list {\n  margin-bottom: 0;\n}\n\n.favorited-player-list .player {\n  cursor: pointer;\n}\n\n.favorited-player-list .name {\n  width: 70%;\n}\n\n.favorited-player-list .number,\n.favorited-player-list .value-info {\n  width: 10%;\n}\n\n.favorited-player-list.batter {\n  background: #92BDD6;\n}\n\n.favorited-player-list.batter .player-info,\n.favorited-player-list.batter .player-type {\n  background: #576B77;\n}\n\n.favorited-player-list.batter .player-info:hover {\n  background: #B6D1E2;\n}\n\n.favorited-player-list.pitcher {\n  background: #AF93AF;\n}\n\n.favorited-player-list.pitcher .player-info,\n.favorited-player-list.pitcher .player-type {\n  background: #5D545D;\n}\n\n.favorited-player-list.pitcher .player-info:hover {\n  background: #C7B2C7;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/favorited-player-list.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;EACC,iBAAiB;CAqCjB;;AAtCD;EAGE,gBAAgB;CAChB;;AAJF;EAOE,WAAW;CACX;;AARF;;EAWE,WAAW;CACX;;AAZF;EAeE,oBCVe;CDoBf;;AAzBF;;EAkBG,oBCZkB;CDalB;;AAnBH;EAsBI,oBCdqB;CDerB;;AAvBJ;EA2BE,oBCfgB;CDyBhB;;AArCF;;EA8BG,oBCjBmB;CDkBnB;;AA/BH;EAkCI,oBCnBsB;CDoBtB","file":"favorited-player-list.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.favorited-player-list {\n\tmargin-bottom: 0;\n\t.player {\n\t\tcursor: pointer;\n\t}\n\n\t.name {\n\t\twidth: 70%;\n\t}\n\t.number,\n\t.value-info {\n\t\twidth: 10%;\n\t}\n\n\t &.batter {\n\t\tbackground: $batter;\n\t\t.player-info,\n\t\t.player-type {\n\t\t\tbackground: $batterDark;\n\t\t}\n\t\t.player-info {\n\t\t\t&:hover {\n\t\t\t\tbackground: $batterHighlight;\n\t\t\t}\n\t\t}\n\t}\n\t &.pitcher {\n\t\tbackground: $pitcher;\n\t\t.player-info,\n\t\t.player-type {\n\t\t\tbackground: $pitcherDark;\n\t\t}\n\t\t.player-info {\n\t\t\t&:hover {\n\t\t\t\tbackground: $pitcherHighlight;\n\t\t\t}\n\t\t}\n\t}\n}","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n$batter : #92BDD6;\n$batterDark : #576B77;\n$batterAlt : #81AECA;\n$batterHighlight: #B6D1E2;\n$batterMuted: rgba(101, 113, 121, 0.6);\n$batterEditHover: #CBDEEA;\n\n$pitcher : #AF93AF;\n$pitcherDark : #5D545D;\n$pitcherAlt : #9E899E;\n$pitcherHighlight: #C7B2C7;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.favorited-player-list {\n  margin-bottom: 0;\n}\n\n.favorited-player-list .player {\n  cursor: pointer;\n}\n\n.favorited-player-list .name {\n  width: 70%;\n}\n\n.favorited-player-list .number,\n.favorited-player-list .value-info {\n  width: 10%;\n}\n\n.favorited-player-list.batter {\n  background: #e5e9ef;\n}\n\n.favorited-player-list.batter .player-info,\n.favorited-player-list.batter .player-type {\n  background: #8e9194;\n}\n\n.favorited-player-list.batter .player-info:hover {\n  background: #F3F6F9;\n}\n\n.favorited-player-list.pitcher {\n  background: #E2D7E2;\n}\n\n.favorited-player-list.pitcher .player-info,\n.favorited-player-list.pitcher .player-type {\n  background: #5D545D;\n}\n\n.favorited-player-list.pitcher .player-info:hover {\n  background: #FFF6FF;\n}\n\n/*\n.favorited-players {\n    position: absolute;\n    height: 100vh;\n\twidth: 15%;\n    overflow-y: scroll;\n\tdisplay:inline-block;\n\tfloat:left;\n\tbackground: $batter-dark;\n\tz-index:5;\n}*/\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/favorited-player-list.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;EACC,iBAAiB;CAqCjB;;AAtCD;EAGE,gBAAgB;CAChB;;AAJF;EAOE,WAAW;CACX;;AARF;;EAWE,WAAW;CACX;;AAZF;EAeE,oBCyBmB;CDfnB;;AAzBF;;EAkBG,oBCwBmB;CDvBnB;;AAnBH;EAsBI,oBCqBsB;CDpBtB;;AAvBJ;EA2BE,oBCnBgB;CD6BhB;;AArCF;;EA8BG,oBCrBmB;CDsBnB;;AA/BH;EAkCI,oBCvBsB;CDwBtB;;AAKJ;;;;;;;;;;GAUG","file":"favorited-player-list.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.favorited-player-list {\n\tmargin-bottom: 0;\n\t.player {\n\t\tcursor: pointer;\n\t}\n\n\t.name {\n\t\twidth: 70%;\n\t}\n\t.number,\n\t.value-info {\n\t\twidth: 10%;\n\t}\n\n\t &.batter {\n\t\tbackground: $batter-row;\n\t\t.player-info,\n\t\t.player-type {\n\t\t\tbackground: $batter-dark;\n\t\t}\n\t\t.player-info {\n\t\t\t&:hover {\n\t\t\t\tbackground: $batter-highlight;\n\t\t\t}\n\t\t}\n\t}\n\t &.pitcher {\n\t\tbackground: $pitcher;\n\t\t.player-info,\n\t\t.player-type {\n\t\t\tbackground: $pitcherDark;\n\t\t}\n\t\t.player-info {\n\t\t\t&:hover {\n\t\t\t\tbackground: $pitcherHighlight;\n\t\t\t}\n\t\t}\n\t}\n}\n\n/*\n.favorited-players {\n    position: absolute;\n    height: 100vh;\n\twidth: 15%;\n    overflow-y: scroll;\n\tdisplay:inline-block;\n\tfloat:left;\n\tbackground: $batter-dark;\n\tz-index:5;\n}*/\n","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n\n$batterEditHover: #CBDEEA;\n\n$pitcher : #E2D7E2;\n$pitcherDark : #5D545D;\n$pitcherAlt : #D2C7D2;\n$pitcherHighlight: #FFF6FF;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n\n$lightest-grey: #f2f2f2;\n$light-grey: #cecece;\n$medium-grey: #b7b7b7;\n$dark-grey: #4d4d4d;\n\n$headings: #d7dfeb;\n$headings-border: #bdc2c9;\n\n$batter-row : #e5e9ef;\n$batter-row-alt : #d7dfeb;\n$batter-dark : #8e9194;\n$batter-highlight: #F3F6F9;\n$batter-row-muted: rgba(101, 113, 121, 0.6);\n\n$sub-heading: #878787;\n$heading: $dark-grey;\n$price: #98a1ad;"],"sourceRoot":"webpack://"}]);
 
 	// exports
 
 
 /***/ },
-/* 588 */
+/* 577 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(589);
+	var content = __webpack_require__(578);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(526)(content, {});
+	var update = __webpack_require__(511)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -39805,21 +38453,21 @@
 	}
 
 /***/ },
-/* 589 */
+/* 578 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(525)();
+	exports = module.exports = __webpack_require__(510)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n.favorited-players {\n  position: absolute;\n  height: 100vh;\n  width: 15%;\n  overflow-y: scroll;\n  display: inline-block;\n  float: left;\n  background: #576B77;\n  z-index: 5;\n}\n\n.combined-rankings {\n  width: 85%;\n  margin-left: 15%;\n  float: left;\n}\n\n.active-player {\n  border: 3px solid;\n}\n\n.active-player .player-list {\n  margin-bottom: 0;\n}\n\n.active-player.batter {\n  border-color: #576B77;\n}\n\n.active-player.pitcher {\n  border-color: #5D545D;\n}\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/players.scss","/./project/stylesheets/project/stylesheets/helpers/vars.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;EACI,mBAAmB;EACnB,cAAc;EACjB,WAAW;EACR,mBAAmB;EACtB,sBAAqB;EACrB,YAAW;EACX,oBCDoB;EDEpB,WAAU;CACV;;AAED;EACC,WAAW;EACX,iBAAiB;EACjB,YAAW;CACX;;AAED;EACC,kBAAkB;CAYlB;;AAbD;EAIE,iBAAgB;CAChB;;AALF;EAQE,sBCnBmB;CDoBnB;;AATF;EAWE,sBCfoB;CDgBpB","file":"players.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n.favorited-players {\n    position: absolute;\n    height: 100vh;\n\twidth: 15%;\n    overflow-y: scroll;\n\tdisplay:inline-block;\n\tfloat:left;\n\tbackground: $batterDark;\n\tz-index:5;\n}\n\n.combined-rankings{\n\twidth: 85%;\n\tmargin-left: 15%;\n\tfloat:left;\n}\n\n.active-player {\n\tborder: 3px solid;\n\n\t.player-list {\n\t\tmargin-bottom:0;\n\t}\n\n\t&.batter {\n\t\tborder-color: $batterDark;\n\t}\n\t&.pitcher {\n\t\tborder-color: $pitcherDark;\n\t}\n}","$red        : #f00;\n$black      : #222;\n$white      : #fefefe;\n$gray\t\t: grey;\n\n$link-color : $red;\n\n$batter : #92BDD6;\n$batterDark : #576B77;\n$batterAlt : #81AECA;\n$batterHighlight: #B6D1E2;\n$batterMuted: rgba(101, 113, 121, 0.6);\n$batterEditHover: #CBDEEA;\n\n$pitcher : #AF93AF;\n$pitcherDark : #5D545D;\n$pitcherAlt : #9E899E;\n$pitcherHighlight: #C7B2C7;\n$pitcherMuted: rgba(93, 81, 93, 0.6);\n\n$success: #A9E2A9;\n\n$positive: green;\n$negative: red;\n\n$neutral: lightgrey;\n\n\n$catcher: rgba(133,149,176,0.65); //#8595B0;\n$first-base: rgba(100,139,201,.65); //#648BC9;\n$second-base: rgba(190,214,252,.65); //#BED6FC;\n$third-base: rgba(142,185,252,.65); //#8EB9FC;\n$short-stop: rgba(160,176,255,.65); //#A0B0FF;\n$outfield: rgba(171,197,230,.65); //#ABC5E6;\n$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;\n$closer: rgba(153,111,201,.65); //#996FC9;\n$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nbutton {\n  color: inherit;\n  outline: none;\n  background: inherit;\n  text-align: left;\n  cursor: inherit;\n}\n\na {\n  color: inherit;\n}\n\n.dollar-amount {\n  position: relative;\n  margin-left: 0.3em;\n}\n\n.dollar-amount:after {\n  content: \"$\";\n  position: absolute;\n  top: .2em;\n  font-size: 0.6em;\n}\n\n.dollar-amount:after {\n  right: 100%;\n}\n\n/*.combined-rankings{\n\twidth: 85%;\n\tmargin-left: 15%;\n\tfloat:left;\n}*/\n", "", {"version":3,"sources":["/./project/stylesheets/project/stylesheets/helpers/reset.scss","/./project/stylesheets/project/stylesheets/helpers/mixins.scss","/./project/stylesheets/project/stylesheets/components/players.scss"],"names":[],"mappings":"AAAA;EACI,UAAU;EACV,WAAW;EACX,UAAU;EACV,gBAAgB;EAChB,cAAc;EACd,yBAAyB;EACzB,uBAAuB;CAC1B;;AAGD;;;;EAII,eAAe;CAClB;;AAED;EACI,eAAe;CAClB;;AAED;EACI,iBAAiB;CACpB;;AAED;EACI,aAAa;CAChB;;AAED;;EAEI,YAAY;EACZ,cAAc;CACjB;;AAED;EACI,0BAA0B;EAC1B,kBAAkB;CACrB;;AAED;EACI,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,iBAAiB;EACjB,gBAAgB;CACnB;;AAED;EACI,eAAe;CAClB;;AC0PD;EAjBI,mBAAmB;EACnB,mBAAmB;CAkBtB;;AAFD;EAdQ,aAQqB;EAPrB,mBAAmB;EACnB,UAAU;EACV,iBAAiB;CACpB;;AAUL;EAJQ,YAAY;CACf;;ACxSL;;;;GAIG","file":"players.scss","sourcesContent":["* {\n    margin: 0;\n    padding: 0;\n    border: 0;\n    font-size: 100%;\n    font: inherit;\n    vertical-align: baseline;\n    box-sizing: border-box;\n}\n\n// HTML5 display-role reset for older browsers\narticle, aside, details,\nsummary, figcaption, figure,\nfooter, header, hgroup,\nmenu, nav, section {\n    display: block;\n}\n\nbody {\n    line-height: 1;\n}\n\nol, ul {\n    list-style: none;\n}\n\nblockquote, q {\n    quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n    content: '';\n    content: none;\n}\n\ntable {\n    border-collapse: collapse;\n    border-spacing: 0;\n}\n\nbutton {\n    color: inherit;\n    outline: none;\n    background: inherit;\n    text-align: left;\n    cursor: inherit;\n}\n\na {\n    color: inherit;\n}","@mixin microfix {\n\n    &:before, &:after {\n        content: '';\n        display: table;\n    }\n\n    &:after {\n        clear: both;\n    }\n}\n\n@mixin aspect-ratio($width, $height) {\n    position: relative;\n\n    &:before {\n        content: \"\";\n        display: block;\n        width: 100%;\n        padding-top:($height / $width) * 100%;\n        opacity: 0;\n    }\n\n    .aspect-ratio {\n        @include bg-cover;\n        position: absolute;\n        left: 0;\n        top: 0;\n        bottom: 0;\n        right: 0;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n}\n\n@mixin bg-cover($bg-image: null, $bg-position: null) {\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n\n    @if $bg-image {\n        background-image: url($bg-image);\n    }\n\n    @if $bg-position {\n        background-position: $bg-position;\n    }\n\n}\n\n@mixin position-center($orientation: null) {\n    position: absolute;\n\n    @if($orientation == 'horizontal') {\n        left: 50%;\n        transform: translateX(-50%);\n    } @else if($orientation == 'vertical') {\n        top: 50%;\n        transform: translateY(-50%);\n    } @else {\n        left: 50%;\n        top: 50%;\n        transform: translate(-50%, -50%);\n    }\n}\n\n@mixin triangle($size, $direction, $color) {\n    content: '';\n    width: 0;\n    height: 0;\n    display: block;\n    position: absolute;\n\n    @if($direction == 'up') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-bottom: $size solid $color;\n\n    } @else if($direction == 'down') {\n        border-left:  $size solid transparent;\n        border-right:  $size solid transparent;\n        border-top: $size solid $color;\n\n    } @else if($direction == 'left') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-right: $size solid $color;\n\n    } @else if($direction == 'right') {\n        border-top:  $size solid transparent;\n        border-bottom:  $size solid transparent;\n        border-left: $size solid $color;\n    }\n}\n\n@mixin ellipsis($truncation-boundary : 100%) {\n    max-width: $truncation-boundary;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n@mixin brackets($position: null, $offset-left: -1px, $offset-top: -1px, $offset-right: -1px, $offset-bottom: -1px) {\n\n    &:before,\n    &:after {\n        content: '';\n        border: 1px solid $dark-gray;\n        position: absolute;\n        width: 8px;\n        height: 8px;\n    }\n\n    &:before {\n        left: $offset-left;\n    }\n\n    &:after {\n        right: $offset-right;\n    }\n\n    @if($position == 'top') {\n\n        &:before,\n        &:after {\n            top: $offset-top;\n        }\n\n        &:before {\n            border-width: 1px 0 0 1px;\n        }\n\n        &:after {\n            border-width: 1px 1px 0 0;\n        }\n\n    } @else if($position == 'bottom') {\n\n        &:before,\n        &:after {\n            bottom: $offset-bottom;\n        }\n\n        &:before {\n            border-width: 0 0 1px 1px;\n        }\n\n        &:after {\n            border-width: 0 1px 1px 0;\n        }\n    }\n}\n\n\n\n// -- media queries -- //\n@mixin width-under($width) {\n    @media only screen and(max-width: $width) { @content; }\n}\n\n@mixin width-over($width) {\n    @media only screen and(min-width: $width) { @content; }\n}\n\n@mixin width-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-width: $low) and(max-width: $high) { @content; }\n}\n\n@mixin height-under($height) {\n    @media only screen and(max-height: $height) { @content; }\n}\n\n@mixin height-over($height) {\n    @media only screen and(min-height: $height) { @content; }\n}\n\n@mixin height-between($low, $high) {\n    @if($high < $low) {\n        $temp : $high;\n        $high : $low;\n        $low : $temp;\n    }\n    @media only screen and(min-height: $low) and(max-height: $high) { @content; }\n}\n\n\n// -- easings -- //\n$ease-in-quad:      cubic-bezier(0.550, 0.085, 0.680, 0.530);\n$ease-out-quad:     cubic-bezier(0.250, 0.460, 0.450, 0.940);\n$ease-in-out-quad:  cubic-bezier(0.455, 0.030, 0.515, 0.955);\n\n$ease-in-cubic:     cubic-bezier(0.550, 0.055, 0.675, 0.190);\n$ease-out-cubic:    cubic-bezier(0.215, 0.610, 0.355, 1.000);\n$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);\n\n$ease-in-quart:     cubic-bezier(0.895, 0.030, 0.685, 0.220);\n$ease-out-quart:    cubic-bezier(0.165, 0.840, 0.440, 1.000);\n$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);\n\n$ease-in-quint:     cubic-bezier(0.755, 0.050, 0.855, 0.060);\n$ease-out-quint:    cubic-bezier(0.230, 1.000, 0.320, 1.000);\n$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);\n\n$ease-in-sine:      cubic-bezier(0.470, 0.000, 0.745, 0.715);\n$ease-out-sine:     cubic-bezier(0.390, 0.575, 0.565, 1.000);\n$ease-in-out-sine:  cubic-bezier(0.445, 0.050, 0.550, 0.950);\n\n$ease-in-expo:      cubic-bezier(0.950, 0.050, 0.795, 0.035);\n$ease-out-expo:     cubic-bezier(0.190, 1.000, 0.220, 1.000);\n$ease-in-out-expo:  cubic-bezier(1.000, 0.000, 0.000, 1.000);\n\n$ease-in-circ:      cubic-bezier(0.600, 0.040, 0.980, 0.335);\n$ease-out-circ:     cubic-bezier(0.075, 0.820, 0.165, 1.000);\n$ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);\n\n\n@mixin border-box-sizing() {\n   -moz-box-sizing:    border-box;\n   -webkit-box-sizing: border-box;\n    box-sizing:        border-box;\n}\n\n@mixin border-radius($radius-top, $radius-right, $radius-bottom,$radius-left){\n   $top:$radius-top;\n   $right:$radius-right;\n   $bottom:$radius-bottom;\n   $left:$radius-left;\n   -moz-border-radius: $top $right $bottom $left;\n   border-radius: $top $right $bottom $left;\n}\n\n@mixin box-shadow($top, $left, $blur, $color, $inset: false) {\n  @if $inset {\n    -webkit-box-shadow:inset $top $left $blur $color;\n    -moz-box-shadow:inset $top $left $blur $color;\n    box-shadow:inset $top $left $blur $color;\n  } @else {\n    -webkit-box-shadow: $top $left $blur $color;\n    -moz-box-shadow: $top $left $blur $color;\n    box-shadow: $top $left $blur $color;\n  }\n}\n\n@mixin rotate( $val: -2deg ) {\n  -webkit-transform: rotate($val);\n  -moz-transform: rotate($val);\n  -ms-transform: rotate($val);\n  -o-transform: rotate($val);\n  transform: rotate($val);\n}\n\n@mixin gradient($from, $to) {\n  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));\n  background: -moz-linear-gradient(top,  $from, $to);\n  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');\n}\n\n@mixin text-box() {\n    display: inline-block;\n    vertical-align: bottom;\n    font-weight: bold;\n    padding: .22em;\n    font-size: .6em;\n    border: 1px black solid;\n}\n\n@mixin super-script ($content) {\n    position: relative;\n    margin-left: 0.3em;\n    &:after {\n        content: $content;\n        position: absolute;\n        top: .2em;\n        font-size: 0.6em;\n    }\n}\n\n@mixin dollar-amount {\n    @include super-script('$');\n    &:after {\n        right: 100%;\n    }\n}\n\n.dollar-amount {\n    @include dollar-amount;\n}\n\n","@import '../init';\n\n/*.combined-rankings{\n\twidth: 85%;\n\tmargin-left: 15%;\n\tfloat:left;\n}*/"],"sourceRoot":"webpack://"}]);
 
 	// exports
 
 
 /***/ },
-/* 590 */
+/* 579 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39838,39 +38486,39 @@
 		};
 	}();
 
-	var _react = __webpack_require__(308);
+	var _react = __webpack_require__(293);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _reactRedux = __webpack_require__(528);
+	var _reactRedux = __webpack_require__(513);
 
-	var _redux = __webpack_require__(535);
+	var _redux = __webpack_require__(520);
 
-	var _ValueList = __webpack_require__(552);
+	var _ValueList = __webpack_require__(537);
 
 	var _ValueList2 = _interopRequireDefault(_ValueList);
 
-	var _ActivePlayer = __webpack_require__(565);
+	var _ActivePlayer = __webpack_require__(550);
 
 	var _ActivePlayer2 = _interopRequireDefault(_ActivePlayer);
 
-	var _PlayerListsContainer = __webpack_require__(566);
+	var _PlayerListsContainer = __webpack_require__(555);
 
 	var _PlayerListsContainer2 = _interopRequireDefault(_PlayerListsContainer);
 
-	var _FavoritePlayerListsContainer = __webpack_require__(584);
+	var _FavoritePlayerListsContainer = __webpack_require__(573);
 
 	var _FavoritePlayerListsContainer2 = _interopRequireDefault(_FavoritePlayerListsContainer);
 
-	var _classnames = __webpack_require__(553);
+	var _classnames = __webpack_require__(538);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	__webpack_require__(523);
+	__webpack_require__(508);
 
-	__webpack_require__(588);
+	__webpack_require__(577);
 
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : { default: obj };
@@ -39958,7 +38606,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Planner);
 
 /***/ },
-/* 591 */
+/* 580 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39968,7 +38616,7 @@
 	});
 	exports.routerMiddleware = exports.routerActions = exports.goForward = exports.goBack = exports.go = exports.replace = exports.push = exports.CALL_HISTORY_METHOD = exports.routerReducer = exports.LOCATION_CHANGE = exports.syncHistoryWithStore = undefined;
 
-	var _reducer = __webpack_require__(592);
+	var _reducer = __webpack_require__(581);
 
 	Object.defineProperty(exports, 'LOCATION_CHANGE', {
 	  enumerable: true,
@@ -39983,7 +38631,7 @@
 	  }
 	});
 
-	var _actions = __webpack_require__(593);
+	var _actions = __webpack_require__(582);
 
 	Object.defineProperty(exports, 'CALL_HISTORY_METHOD', {
 	  enumerable: true,
@@ -40028,11 +38676,11 @@
 	  }
 	});
 
-	var _sync = __webpack_require__(594);
+	var _sync = __webpack_require__(583);
 
 	var _sync2 = _interopRequireDefault(_sync);
 
-	var _middleware = __webpack_require__(595);
+	var _middleware = __webpack_require__(584);
 
 	var _middleware2 = _interopRequireDefault(_middleware);
 
@@ -40042,7 +38690,7 @@
 	exports.routerMiddleware = _middleware2['default'];
 
 /***/ },
-/* 592 */
+/* 581 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -40086,7 +38734,7 @@
 	}
 
 /***/ },
-/* 593 */
+/* 582 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -40128,7 +38776,7 @@
 	var routerActions = exports.routerActions = { push: push, replace: replace, go: go, goBack: goBack, goForward: goForward };
 
 /***/ },
-/* 594 */
+/* 583 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40141,7 +38789,7 @@
 
 	exports['default'] = syncHistoryWithStore;
 
-	var _reducer = __webpack_require__(592);
+	var _reducer = __webpack_require__(581);
 
 	var defaultSelectLocationState = function defaultSelectLocationState(state) {
 	  return state.routing;
@@ -40280,7 +38928,7 @@
 	}
 
 /***/ },
-/* 595 */
+/* 584 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40290,7 +38938,7 @@
 	});
 	exports['default'] = routerMiddleware;
 
-	var _actions = __webpack_require__(593);
+	var _actions = __webpack_require__(582);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -40318,7 +38966,7 @@
 	}
 
 /***/ },
-/* 596 */
+/* 585 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40328,17 +38976,17 @@
 	});
 	exports.default = configureStore;
 
-	var _reduxThunk = __webpack_require__(597);
+	var _reduxThunk = __webpack_require__(586);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _redux = __webpack_require__(535);
+	var _redux = __webpack_require__(520);
 
-	var _reactRouter = __webpack_require__(466);
+	var _reactRouter = __webpack_require__(451);
 
-	var _reactRouterRedux = __webpack_require__(591);
+	var _reactRouterRedux = __webpack_require__(580);
 
-	var _modules = __webpack_require__(598);
+	var _modules = __webpack_require__(587);
 
 	var _modules2 = _interopRequireDefault(_modules);
 
@@ -40353,7 +39001,7 @@
 	}
 
 /***/ },
-/* 597 */
+/* 586 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -40376,7 +39024,7 @@
 	}
 
 /***/ },
-/* 598 */
+/* 587 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40385,31 +39033,31 @@
 	    value: true
 	});
 
-	var _redux = __webpack_require__(535);
+	var _redux = __webpack_require__(520);
 
-	var _reactRouterRedux = __webpack_require__(591);
+	var _reactRouterRedux = __webpack_require__(580);
 
-	var _players = __webpack_require__(567);
+	var _players = __webpack_require__(556);
 
 	var _players2 = _interopRequireDefault(_players);
 
-	var _activePlayer = __webpack_require__(599);
+	var _activePlayer = __webpack_require__(588);
 
 	var _activePlayer2 = _interopRequireDefault(_activePlayer);
 
-	var _categories = __webpack_require__(600);
+	var _categories = __webpack_require__(589);
 
 	var _categories2 = _interopRequireDefault(_categories);
 
-	var _positions = __webpack_require__(601);
+	var _positions = __webpack_require__(590);
 
 	var _positions2 = _interopRequireDefault(_positions);
 
-	var _settings = __webpack_require__(602);
+	var _settings = __webpack_require__(591);
 
 	var _settings2 = _interopRequireDefault(_settings);
 
-	var _teams = __webpack_require__(603);
+	var _teams = __webpack_require__(592);
 
 	var _teams2 = _interopRequireDefault(_teams);
 
@@ -40430,7 +39078,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 599 */
+/* 588 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40440,25 +39088,25 @@
 	});
 	exports.default = reducer;
 
-	var _isomorphicFetch = __webpack_require__(568);
+	var _isomorphicFetch = __webpack_require__(557);
 
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
-	var _filterUtils = __webpack_require__(570);
+	var _filterUtils = __webpack_require__(559);
 
-	var _PlayerSgpUtils = __webpack_require__(571);
+	var _PlayerSgpUtils = __webpack_require__(560);
 
 	var _PlayerSgpUtils2 = _interopRequireDefault(_PlayerSgpUtils);
 
-	var _PlayerListUtils = __webpack_require__(572);
+	var _PlayerListUtils = __webpack_require__(561);
 
 	var PlayerListUtils = _interopRequireWildcard(_PlayerListUtils);
 
-	var _SettingsUtils = __webpack_require__(573);
+	var _SettingsUtils = __webpack_require__(551);
 
 	var SettingsUtils = _interopRequireWildcard(_SettingsUtils);
 
-	var _PlayerValueUtils = __webpack_require__(574);
+	var _PlayerValueUtils = __webpack_require__(562);
 
 	var _PlayerValueUtils2 = _interopRequireDefault(_PlayerValueUtils);
 
@@ -40503,7 +39151,7 @@
 	}
 
 /***/ },
-/* 600 */
+/* 589 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40515,7 +39163,7 @@
 	exports.receiveCategories = receiveCategories;
 	exports.default = reducer;
 
-	var _SettingsUtils = __webpack_require__(573);
+	var _SettingsUtils = __webpack_require__(551);
 
 	var SettingsUtils = _interopRequireWildcard(_SettingsUtils);
 
@@ -40664,7 +39312,7 @@
 	}
 
 /***/ },
-/* 601 */
+/* 590 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -40678,20 +39326,22 @@
 
 	var initialState = {
 		fetching: false,
-		data: {
-			'batter': [{ position: '1B' }, { position: '2B' }, { position: '3B' }, { position: 'SS' }, { position: 'OF' }, {
-				position: 'C',
+		data: [{
+			type: 'batter',
+			positions: [{ name: '1B' }, { name: '2B' }, { name: '3B' }, { name: 'SS' }, { name: 'OF' }, {
+				name: 'C',
 				minimum: 14
-			}],
-			//'UTIL':{}
-			'pitcher': [{ position: 'SP' }, {
-				position: 'RP',
+			}]
+		}, {
+			type: 'pitcher',
+			positions: [{ name: 'SP' }, {
+				name: 'RP',
 				minimum: 30
 			}, {
-				position: 'CP',
+				name: 'CP',
 				minimum: 30
 			}]
-		}
+		}]
 	};
 
 	function requestPositions() {
@@ -40724,7 +39374,7 @@
 	}
 
 /***/ },
-/* 602 */
+/* 591 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -40779,7 +39429,7 @@
 	}
 
 /***/ },
-/* 603 */
+/* 592 */
 /***/ function(module, exports) {
 
 	"use strict";
