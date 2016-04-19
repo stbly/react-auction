@@ -1,91 +1,23 @@
 @import '../init';
 
-
-.player-lists-container{
-
-}
-
-.player-lists-filters {
-	width: 140px;
-	float: left;
-	.player-list-filter {
-		@include transandina-medium;
-	    width: 100%;
-
-		padding: .65em .65em .4em;
-		margin: 0px 10px 10px 0;
-
-		border-radius: 5px;
-
-		cursor: pointer;
-
-	    color: $medium-grey;
-	    text-align: center;
-		text-transform: uppercase;
-
-		border: 2px solid $medium-grey;
-
-		&:hover,
-		&.active {
-			color: $dark-grey;
-		}
-
-		&.pos {
-			width: calc(33% - 3px);
-			margin-right: 5px;
-			float: left;
-
-			&.last {
-				margin-right: 0;
-			}
-		}
-	}
-	input[type=text] {
-		border-color: $lightest-grey;
-		color: $lightest-grey;
-		text-align: left;
-
-		&:focus,
-		&.hover {
-			border-color: $medium-grey;
-			color: $dark-grey;
-		}
-	}
-
-
-	::-webkit-input-placeholder {
-		color: $light-grey;
-	}
-}
-
-
-
-.player-lists-main {
-	width: calc(100% - 150px);
-	float: right;
-}
-
 .player-list-container {
 	position: relative;
 
 	.combined-rankings & {
-/*		width: 50%;
+		width: 50%;
 		float: left;
+		/*padding: 3%;*/
 		padding-right: 0;
 
 		&:not(:first-child) {
 			padding-left: 0;
+			/*padding-right: 3%;*/
 		}
-*/
+
 		.player-rankings {
 			width: 100%;
 		}
 	}
-}
-
-.player-lists-header{
-	width: 75%;
-    margin-left: 150px;
 }
 
 .player-list,
@@ -106,12 +38,10 @@
 	tr {
 		text-align: center;
 		padding: 10px;
-		border: solid white;
-		border-width: 1px 0;
 
 		&:not(.selected) {
 			.position {
-				/*
+
 				&.catcher { background: $catcher; }
 				&.first-base { background: $first-base; }
 				&.second-base { background: $second-base; }
@@ -121,7 +51,6 @@
 				&.starting-pitcher { background: $starting-pitcher; }
 				&.closer { background: $closer; }
 				&.relief-pitcher { background: $relief-pitcher; }
-				*/
 			}
 
 			&:hover {
@@ -146,8 +75,7 @@
 
 	td {
 		vertical-align: middle;
-
-	    padding: 15px 5px;
+		padding: 6px 3px;
 		border: solid;
 		border-width: 0;
 
@@ -158,69 +86,159 @@
 		}
 	}
 
-	.headings {
-		td {
-			position: relative;
-			background: $headings;
-			cursor: pointer;
+	 &.batter {
 
-			padding: 8px 0;
+		.player {
+			background: $batter;
+
+			&:nth-child(odd) {
+				background: $batterAlt;
+			}
+
+			.dark {
+				background: $batterMuted;
+
+				&.can-edit{
+					&:hover {
+						background: $batterEditHover
+					}
+				}
+			}
+
+			&.is-editing {
+				background: $batterHighlight;
+				/*border: 2px solid $batterHighlight;
+				z-index: 5;
+				box-shadow: 0 0 5px $batterDark;*/
+
+				.dark {
+					background: $batterHighlight;
+				}
+
+				&.selected {
+					td {
+						background: $batterHighlight;
+					}
+
+				}
+			}
 
 			&:hover {
-				background: $medium-grey;
+				background: $batterHighlight;
+
+				.dark {
+					background: $batterHighlight;
+				}
+			}
+		}
+		tr,
+		td {
+			border-color: $batterDark;
+		}
+
+		.selected {
+			td {
+				background: $batterDark;
 			}
 
-			&:after {
-				content: '';
-				display: block;
-				position: absolute;
-				width: 100%;
-				height: 50%;
-				bottom: 0;
-				left: 0;
-				border-style: solid;
-				border-width: 0 2px 5px 0;
-				border-color: #bdc2c9;
-				z-index: 1;
+			.dark {
+				background: $batterDark;
 			}
 
-			&:last-child {
-				&:after {
-					border-right-width: 0;
+			&:hover {
+				.dark {
+					background: $batterDark;
 				}
 			}
 		}
 	}
 
+	&.pitcher {
 
-	 &.batter,
-	 &.pitcher {
+		.player {
+			background: $pitcher;
 
-		.number,
-		.value-info,
-		.player-info {
-			width: 6%;
+			&:nth-child(odd) {
+				background: $pitcherAlt;
+			}
+
+			.dark {
+				background: $pitcherMuted;
+			}
+
+			&:hover {
+				background: $pitcherHighlight;
+
+				.dark {
+					background: $pitcherHighlight;
+				}
+			}
 		}
-
-		.name {
-			width: inherit;
+		tr,
+		td {
+			border-color: $pitcherDark;
 		}
+		.selected {
+			td {
+				background: $pitcherDark;
+			}
+
+			.dark {
+				background: $pitcherDark;
+			}
+
+			&:hover {
+				.dark {
+					background: $pitcherDark;
+				}
+			}
+		}
+	}
+
+	textarea,
+	input {
+		outline: none;
+	}
+
+	.categories{
+		text-align: center;
+	}
+
+	.player-info {
+		background: $gray;
+		cursor: pointer;
+
+		&:hover {
+			background: lightgrey;
+		}
+	}
+
+	.name {
+		width: 20%;
+	}
+
+	.number,
+	.value-info {
+		width: 5%;
 	}
 
 	.value-info {
 	}
 
-}
+	.is-complete {
+		background: $success;
+		color: $success;
+	}
 
-.player-cost {
-    display: inline-block;
-    width: calc(100% - 10px);
-    padding: 3px;
-    border-radius: 3px;
-    background: lightgrey;
-    text-transform: uppercase;
+	.favorite-toggle {
+		background-image:url('~!file!../../images/star.png');
+	    background-size: 50%;
+	    background-repeat: no-repeat;
+	    background-position: center;
+	    cursor: pointer;
 
-    .dollar-amount {
-    	@include cantarell-bold;
-    }
+	    &.favorited {
+	    	background-image: url('~!file!../../images/star.png');
+	    }
+	}
 }

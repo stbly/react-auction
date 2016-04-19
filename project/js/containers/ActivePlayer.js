@@ -12,7 +12,7 @@ import * as SettingsUtils from '../helpers/SettingsUtils'
 // import { bindActionCreators } from 'redux'
 // import { browserHistory } from 'react-router'
 
-import '../../stylesheets/components/active-player.scss'
+// import '../../stylesheets/components/active-player.scss'
 
 class ActivePlayer extends Component {
 	constructor(props) {

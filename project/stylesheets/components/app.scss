@@ -1,6 +1,7 @@
 @import '../init';
 
 body {
+	font-family: 'Roboto', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-size: 100%;
 }
@@ -10,33 +11,6 @@ body {
 }
 
 .app {
-}
-
-.headings {
-	@include transandina-medium;
-	text-transform: uppercase;
-}
-
-.page {
-	padding: 2.5% 100px;
-}
-
-button {
-	font-family: "TrasandinaMedium", "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
-    padding: 10px;
-    margin: 10px 10px 10px 0;
-    border-radius: 5px;
-    border: 2px solid $lightest-grey;
-    cursor: pointer;
-    text-transform: uppercase;
-    &:hover,
-    &.active {
-    	background: $lightest-grey;
-    }
-}
-
-input[type=text] {
-	&:focus {
-		outline: none;
-	}
+    height: 100vh;
+    overflow-y: scroll;
 }

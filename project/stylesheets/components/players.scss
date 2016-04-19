@@ -1,7 +1,33 @@
 @import '../init';
 
-/*.combined-rankings{
+.favorited-players {
+    position: absolute;
+    height: 100vh;
+	width: 15%;
+    overflow-y: scroll;
+	display:inline-block;
+	float:left;
+	background: $batterDark;
+	z-index:5;
+}
+
+.combined-rankings{
 	width: 85%;
 	margin-left: 15%;
 	float:left;
-}*/
+}
+
+.active-player {
+	border: 3px solid;
+
+	.player-list {
+		margin-bottom:0;
+	}
+
+	&.batter {
+		border-color: $batterDark;
+	}
+	&.pitcher {
+		border-color: $pitcherDark;
+	}
+}

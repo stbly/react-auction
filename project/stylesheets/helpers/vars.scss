@@ -5,13 +5,17 @@ $gray		: grey;
 
 $link-color : $red;
 
-
+$batter : #92BDD6;
+$batterDark : #576B77;
+$batterAlt : #81AECA;
+$batterHighlight: #B6D1E2;
+$batterMuted: rgba(101, 113, 121, 0.6);
 $batterEditHover: #CBDEEA;
 
-$pitcher : #E2D7E2;
+$pitcher : #AF93AF;
 $pitcherDark : #5D545D;
-$pitcherAlt : #D2C7D2;
-$pitcherHighlight: #FFF6FF;
+$pitcherAlt : #9E899E;
+$pitcherHighlight: #C7B2C7;
 $pitcherMuted: rgba(93, 81, 93, 0.6);
 
 $success: #A9E2A9;
@@ -31,21 +35,3 @@ $outfield: rgba(171,197,230,.65); //#ABC5E6;
 $starting-pitcher: rgba(186,171,230,.65); //#BAABE6;
 $closer: rgba(153,111,201,.65); //#996FC9;
 $relief-pitcher: rgba(172,137,212,.65); //#AC89D4;
-
-$lightest-grey: #f2f2f2;
-$light-grey: #cecece;
-$medium-grey: #b7b7b7;
-$dark-grey: #4d4d4d;
-
-$headings: #d7dfeb;
-$headings-border: #bdc2c9;
-
-$batter-row : #e5e9ef;
-$batter-row-alt : #d7dfeb;
-$batter-dark : #8e9194;
-$batter-highlight: #F3F6F9;
-$batter-row-muted: rgba(101, 113, 121, 0.6);
-
-$sub-heading: #878787;
-$heading: $dark-grey;
-$price: #98a1ad;
