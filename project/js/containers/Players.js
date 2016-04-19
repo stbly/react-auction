@@ -24,6 +24,8 @@ class Players extends Component {
 
 			<div className='players-route page'>
 
+				<FavoritePlayerListsContainer />
+
 				<div className='combined-rankings'>
 
 					<PlayerListsContainer />

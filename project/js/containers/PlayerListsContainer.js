@@ -91,16 +91,16 @@ class PlayerListsContainer extends Component {
 		return categoryType
 	}
 
-	getCategories () {
+	getCategories (type) {
 		if (!this.props.categories) {
 			return;
 		}
-		return SettingsUtils.getCategories( this.props.categories[this.getType()] )
+		return SettingsUtils.getCategories( this.props.categories[type] )
 	}
 
-	getPlayers () {
+	getPlayers (type) {
 
-		var players = this.getFilteredPlayers();
+		var players = this.getFilteredPlayers(type);
 
 		if (this.state.searchQuery) {
 			players = this.getSearchResults(players);
@@ -109,14 +109,14 @@ class PlayerListsContainer extends Component {
 		return players;
 	}
 
-	getFilteredPlayers () {
+	getFilteredPlayers (type) {
 		var players = this.props.players;
 
 		if (!players) {
 			return;
 		}
 
-		var filteredPlayers = filterBy(players, this.state.filter.property, this.state.filter.value);
+		var filteredPlayers = filterBy(players, 'type', type);
 
 		filteredPlayers = filteredPlayers.length === 0 ? players : filteredPlayers;
 
@@ -171,19 +171,23 @@ class PlayerListsContainer extends Component {
 				</div>
 				<div>
 
-					<ListFilters
-						activeFilter={this.state.filter.value}
-						searchQuery={this.state.searchQuery}
-						setSearchQuery={this.setSearchQuery.bind(this)}
-						filterSelected={this.togglePlayerList.bind(this)}
-						filters={this.getFilters()} />
-
 					<div className='player-lists-main'>
 						<div className={loading}>
 							<PlayerList
-								type={this.getType()}
-								players={this.getPlayers()}
-								categories={this.getCategories()}
+								type={'batter'}
+								players={this.getPlayers('batter')}
+								categories={this.getCategories('batter')}
+								sortPlayers={this.props.actions.sortPlayers}
+								playerSelected={this.props.actions.updateActivePlayer}
+								hideValueInfo={false}
+								updateStat={this.props.actions.updatePlayerStat}
+								updateCost={this.props.actions.updatePlayerCost}
+								updateFavorited={this.props.actions.updatePlayerFavorited} />
+
+							<PlayerList
+								type={'pitcher'}
+								players={this.getPlayers('pitcher')}
+								categories={this.getCategories('pitcher')}
 								sortPlayers={this.props.actions.sortPlayers}
 								playerSelected={this.props.actions.updateActivePlayer}
 								hideValueInfo={false}
