@@ -12,7 +12,7 @@
 		@include transandina-medium;
 	    width: 100%;
 
-		padding: 10px;
+		padding: .65em .65em .4em;
 		margin: 0px 10px 10px 0;
 
 		border-radius: 5px;
@@ -212,121 +212,15 @@
 
 }
 
-.player {
-	 &.batter {
-		background: $batter-row;
+.player-cost {
+    display: inline-block;
+    width: calc(100% - 10px);
+    padding: 3px;
+    border-radius: 3px;
+    background: lightgrey;
+    text-transform: uppercase;
 
-		&:nth-child(odd) {
-			background: $batter-row-alt;
-		}
-
-		.dark {
-			background: $batter-row-muted;
-
-			&.can-edit{
-				&:hover {
-					background: $batterEditHover
-				}
-			}
-		}
-
-		&.is-editing {
-			background: $batter-highlight;
-			/*border: 2px solid $batter-highlight;
-			z-index: 5;
-			box-shadow: 0 0 5px $batter-dark;*/
-
-			.dark {
-				background: $batter-highlight;
-			}
-
-			&.selected {
-				td {
-					background: $batter-highlight;
-				}
-			}
-		}
-
-		&:hover {
-			background: $batter-highlight;
-
-			.dark {
-				background: $batter-highlight;
-			}
-		}
-	}
-	&.pitcher {
-		background: $pitcher;
-
-		&:nth-child(odd) {
-			background: $pitcherAlt;
-		}
-
-		.dark {
-			background: $pitcherMuted;
-		}
-
-		&:hover {
-			background: $pitcherHighlight;
-
-			.dark {
-				background: $pitcherHighlight;
-			}
-		}
-	}
-
-	&.selected {
-		td {
-			background: $batter-dark;
-		}
-
-		.dark {
-			background: $batter-dark;
-		}
-
-		&:hover {
-			.dark {
-				background: $batter-dark;
-			}
-		}
-	}
-
-	textarea,
-	input {
-		outline: none;
-	}
-
-	.categories{
-		text-align: center;
-	}
-
-	.player-cost {
-	    display: inline-block;
-	    width: calc(100% - 10px);
-	    padding: 3px;
-	    border-radius: 3px;
-	    background: lightgrey;
-	    text-transform: uppercase;
-
-	    .dollar-amount {
-	    	@include cantarell-bold;
-	    }
-	}
-
-	.is-complete {
-		background: $success;
-		color: $success;
-	}
-
-	.favorite-toggle {
-		background-image:url('~!file!../../images/star.png');
-	    background-size: 50%;
-	    background-repeat: no-repeat;
-	    background-position: center;
-	    cursor: pointer;
-
-	    &.favorited {
-	    	background-image: url('~!file!../../images/star.png');
-	    }
-	}
+    .dollar-amount {
+    	@include cantarell-bold;
+    }
 }

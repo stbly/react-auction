@@ -90,13 +90,16 @@
 	.player-info,
 	.player-news {
 		display: inline-block;
+		vertical-align: bottom;
 		padding: 0 10px;
+		margin-bottom:10px;
 	}
 
 	.player-info {
 		width: 40%;
 
 		.player-value {
+		    margin-bottom: -.2em;
 			font-size: 6em;
 			color: $price;
 			.dollar-amount {
@@ -114,5 +117,26 @@
 			@include cantarell
 			font-size: 14px;
 		}
+	}
+
+	.player-cost {
+		@include cantarell;
+
+	    width: 100%;
+	    padding: 7px;
+	    margin: 3px 0;
+
+	    background: $medium-grey;
+
+	    text-align: center;
+
+	    .dollar-amount {
+			@include cantarell;
+	    }
+	}
+
+	.team-name {
+		font-size: 12px;
+		margin: 5px 0;
 	}
 }

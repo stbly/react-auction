@@ -19,6 +19,42 @@ class ActivePlayer extends Component {
 		super(props)
 	}
 
+	determineValueFields() {
+		if (this.props.activePlayer.cost) {
+			return this.getPlayerCost()
+		} else {
+			return this.getPlayerValue()
+		}
+	}
+
+	getPlayerValue () {
+		return (
+			<div className='player-value'>
+				<span className='dollar-amount'>
+					{this.props.activePlayer.adjustedValue.toFixed(0)}
+				</span>
+			</div>
+		)
+	}
+
+	getPlayerCost () {
+		console.log(this.props.activePlayer);
+		return (
+			<div>
+				<div className='player-cost'>
+					Drafted for <span className='dollar-amount'>{this.props.activePlayer.cost}</span>
+				</div>
+			</div>
+		)
+	}
+
+	getOwner () {
+		if (this.props.activePlayer.team) {
+			return <h3 className='team-name'>Owner: {this.props.activePlayer.team}</h3>
+		}
+		return;
+	}
+
 	render () {
 		if (!this.props.activePlayer) {
 			return <div></div>
@@ -42,11 +78,8 @@ class ActivePlayer extends Component {
 						<h1 className='player-name'>
 							{this.props.activePlayer.name}
 						</h1>
-						<div className='player-value'>
-							<span className='dollar-amount'>
-								{this.props.activePlayer.adjustedValue.toFixed(0)}
-							</span>
-						</div>
+						{this.determineValueFields()}
+						{this.getOwner()}
 					</div>
 					<div className='player-news'>
 						<h2>Player News</h2>

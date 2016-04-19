@@ -21,12 +21,15 @@ class ValueInput extends Component {
 	}
 
 	componentWillReceiveProps (nextProps) {
+		// console.log(nextProps);
 		var showValue = this.valueExists(nextProps.value);
-		// console.log(showValue);
+		// console.log(showValue, nextProps.currentEditElement === this);
+
 		if (nextProps.currentEditElement === this) {
 			showValue = false;
 		}
 		// console.log(startEditingValue);
+		// console.log('showValue:',showValue);
 		this.setState({showValue: showValue});
 		this.setState({inputValue: nextProps.value});
 	}

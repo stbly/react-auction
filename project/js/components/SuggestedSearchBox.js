@@ -30,8 +30,12 @@ class SuggestedSearchBox extends Component {
 		}
 	}
 
+	componentWillReceiveProps (nextProps) {
+		console.log('componentWillReceiveProps')
+	}
+
 	handleSearchValueUpdate (value) {
-		console.log('handleSearchValueUpdate')
+		// console.log('handleSearchValueUpdate')
 		this.setState({searchValue: value})
 	}
 
@@ -121,6 +125,9 @@ class SuggestedSearchBox extends Component {
 	}
 
 	setSearchValue (value) {
+		console.log('!!!!!!!!!!!!!!!!!!! setSearchValue',value)
+
+		console.log('set search value:',value)
 		// console.log('setSearchValue()')
 		this.setState({isSearching:false})
 		this.setState({currentEditElement:null})
@@ -139,20 +146,20 @@ class SuggestedSearchBox extends Component {
 	}
 
 	getValue () {
-		var value;
-		if (this.state.isSearching) {
+		var value = this.state.searchValue;
+		// if (this.state.isSearching) {
 			console.log('that is true')
-			value = this.state.searchValue;
 
 			if (!value) {
 				value = this.props.value;
 			}
-		}
-
+		// }
+		console.log('we have a value damn it', value)
 		return value;
 	}
 
 	getPlaceholder () {
+		console.log('getPlaceholder()',this.props.value,this.props.placeholder)
 		return this.props.value || this.props.placeholder;
 	}
 
@@ -169,6 +176,11 @@ class SuggestedSearchBox extends Component {
 				activeItemWasUpdated={this.updateActiveSearchItem.bind(this)} />
 		}
 		return el
+	}
+
+	reset () {
+		this.activeSearchItem = null;
+		this.setState({searchValue: ''})
 	}
 
 	render () {

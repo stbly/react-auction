@@ -28,6 +28,7 @@ class PlayerInput extends Component {
 			this.submitted = false;
 			this.playerInput.focusElement();
 		}
+		console.log(this.state)
 	}
 
 	setCostEditState (dispatcher) {
@@ -76,6 +77,9 @@ class PlayerInput extends Component {
 			}
 		}
 
+		this.playerInput.reset();
+		this.teamInput.reset();
+
 		this.setState({
 			playerName: null,
 			playerCost: null,
@@ -104,6 +108,7 @@ class PlayerInput extends Component {
 	}
 
 	setTeam (name) {
+		console.log('------------- setTeam()',name)
 		if (this.state.playerTeam === name) {
 			return;
 		}
