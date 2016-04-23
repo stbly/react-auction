@@ -1,1 +1,13 @@
-deploy/*
+*.diff
+*.err
+*.orig
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.psd
+
+node_modules
+
+project/deploy/*

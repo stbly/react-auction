@@ -1,0 +1,115 @@
+@import '../init';
+
+$collapsed-height: calc(1em + 8px);
+.player-notes {
+	position: absolute;
+	display: inline-block;
+	vertical-align: bottom;
+    width: 100%;
+    height: $collapsed-height;
+	left: 0;
+	bottom: 0;
+    padding: 6px 6px 3px;
+
+    overflow: hidden;
+
+	background: $lightest-grey;
+
+    text-transform: uppercase;
+
+    transition: .5s all;
+
+    .expand-button {
+    	position: absolute;
+    	width: 100%;
+    	height: $collapsed-height;
+    	top: 0;
+    	left: 0;
+    	z-index: 2;
+	    cursor: n-resize;
+    }
+
+	h2 {
+		color: $dark-grey;
+		text-align: right;
+	}
+
+	.fold {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 20px;
+		height: 20px;
+		overflow: hidden;
+		background: white;
+
+		&:after{
+			content:'';
+			position: absolute;
+			left: 6px;
+			top: 6px;
+			width: 30px;
+			height: 30px;
+			background: $dark-grey;
+		    transform: rotate(45deg);
+		}
+	}
+
+	.preview {
+		transition: opacity .3s;
+	    position: absolute;
+	    width: 60%;
+		height: 14px;
+	    left: 25px;
+	    color: $dark-grey;
+
+	    @include cantarell;
+	    font-size: 12px;
+	    text-transform: none;
+		overflow: hidden;
+	    white-space: nowrap;
+        text-overflow: ellipsis;
+	}
+
+	.player-notes-input {
+		transition: opacity .3s;
+		opacity: 0;
+
+		display: inherit;
+	    width: 100%;
+	    margin-top: 4px;
+	    height: calc(100% - 1em - 8px);
+	    text-align: left;
+	    background: none;
+
+	    padding: 5px;
+	    @include cantarell;
+	    font-size: .8em;
+	    line-height: 1.1em;
+	    text-transform: none;
+
+	    box-sizing: border-box;
+
+	    outline: none;
+	}
+
+	span:not(.preview) {
+		overflow-y: auto;
+	}
+
+	&.expanded{
+		height: 100%;
+
+		.preview {
+			opacity: 0;
+		}
+
+		.player-notes-input {
+			opacity: 1;
+		}
+
+	    .expand-button {
+		    cursor: s-resize;
+	    }
+	}
+}
