@@ -5,7 +5,7 @@ import Players from './containers/Players'
 import Planner from './containers/Planner'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
+import { Router, Route, Link, browserHistory, hashHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { fetchPlayers } from './redux/modules/players'
 
@@ -14,11 +14,11 @@ import configureStore from './redux/store'
 //import configureStore from './store/configureStore'
 //import * as actions from './actions/index'
 
-console.log(Provider);
-
 const store = configureStore();
 
-const history = syncHistoryWithStore(browserHistory, store)
+var historyType = process.env.NODE_ENV === 'development' ? browserHistory : hashHistory;
+
+const history = syncHistoryWithStore(historyType, store)
 
 store.dispatch(fetchPlayers(store.getState()))
 	.then( (res) => {

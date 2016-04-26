@@ -37,13 +37,14 @@ class PlayerNotes extends Component {
 	}
 
 	focusTextField () {
-		this.textInput.setFocus('in')
+		// console.log('focusTextField()')
+		this.textInput.startEditing()
 	}
 
 	componentDidUpdate() {
 		if (this.closeAfterUpdate) {
 			this.closeAfterUpdate = false;
-			this.toggleExpansion()
+			// this.toggleExpansion()
 		}
 	}
 

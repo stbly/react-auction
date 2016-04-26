@@ -53,8 +53,7 @@ export function fetchPlayers(state) {
 	console.log('fetching...');
 	return function (dispatch) {
 
-		var url = '/api/players';
-
+		var url = process.env.NODE_ENV === 'development' ? '/api/players' : './data/players.json'
 		dispatch(requestPlayers())
 
 		return fetch(url)
@@ -157,9 +156,11 @@ export default function reducer (state = initialState, action) {
 			var updatedPlayers = state.data.map((player, index) => {
 				if (player.id === id) {
 					var isSelected = (cost > 0);
+					var team = isSelected ? player.team : null;
 					return Object.assign({}, player, {
 						cost: cost,
-						isSelected: isSelected
+						isSelected: isSelected,
+						team: team
 					})
 
 				}

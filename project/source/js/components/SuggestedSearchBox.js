@@ -20,18 +20,14 @@ class SuggestedSearchBox extends Component {
 	}
 
 	handleEditStart (dispatcher) {
-		console.log('handleEditStart')
+		// console.log('handleEditStart')
 		this.setState({isSearching: true})
 		this.setState({currentEditElement: dispatcher})
-		this.focusElement();
+		this.startEditing()
 
 		if (this.props.didStartEditing) {
 			this.props.didStartEditing();
 		}
-	}
-
-	componentWillReceiveProps (nextProps) {
-		console.log('componentWillReceiveProps')
 	}
 
 	handleSearchValueUpdate (value) {
@@ -147,24 +143,22 @@ class SuggestedSearchBox extends Component {
 
 	getValue () {
 		var value = this.state.searchValue;
-		// if (this.state.isSearching) {
-			console.log('that is true')
+		// if (this.state.isSearching) f
 
 			if (!value) {
 				value = this.props.value;
 			}
 		// }
-		console.log('we have a value damn it', value)
 		return value;
 	}
 
 	getPlaceholder () {
-		console.log('getPlaceholder()',this.props.value,this.props.placeholder)
+		// console.log('getPlaceholder()',this.props.value,this.props.placeholder)
 		return this.props.value || this.props.placeholder;
 	}
 
-	focusElement () {
-		this.valueInput.setFocus('in');
+	startEditing () {
+		this.valueInput.startEditing()
 	}
 
 	getSearchResults () {

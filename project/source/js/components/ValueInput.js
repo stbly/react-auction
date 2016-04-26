@@ -34,10 +34,6 @@ class ValueInput extends Component {
 		this.setState({inputValue: nextProps.value});
 	}
 
-	componentDidUpdate() {
-		// console.log(this.state )
-	}
-
 	updateInputValue (e) {
 		// console.log('updateinputvalue',e.target.value);
 		this.setState({inputValue: e.target.value});
@@ -120,10 +116,22 @@ class ValueInput extends Component {
 		return classNames(classes);;
 	}
 
+	startEditing() {
+		this.forceEdit = true;
+		this.setState({'showValue':false})
+	}
+
 	setFocus (state) {
-		console.log('hi');
 		if (state === 'in') {
 			this.el.focus();
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (this.forceEdit) {
+			// console.log('force edit!');
+			this.forceEdit = false;
+			this.setFocus('in');
 		}
 	}
 

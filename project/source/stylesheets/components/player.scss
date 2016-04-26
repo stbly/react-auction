@@ -98,14 +98,14 @@
 	}
 
 	.favorite-toggle {
-		background-image:url('~!file!../../images/star.png');
+		/*background-image:url('~!file!../../images/star.png');*/
 	    background-size: 50%;
 	    background-repeat: no-repeat;
 	    background-position: center;
 	    cursor: pointer;
 
 	    &.favorited {
-	    	background-image: url('~!file!../../images/star.png');
+	    	/*background-image: url('~!file!../../images/star.png');*/
 	    }
 	}
 
@@ -155,5 +155,13 @@
 
 	input[type="checkbox"] {
 		background-color: $batter-row;
+	}
+
+	.display-value-td {
+		cursor: pointer;
+
+		> * {
+			pointer-events: none;
+		}
 	}
 }

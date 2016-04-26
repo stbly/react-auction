@@ -97,6 +97,7 @@ class PlayerList extends Component {
 
 	getPlayers () {
 		// console.log('sorted:',this.state.sortedPlayers)
+
 		var playerList = this.state.sortedPlayers || this.props.players;
 
 		if (!playerList) {
@@ -111,6 +112,10 @@ class PlayerList extends Component {
 			player.rank = index + 1
 			return player
 		})
+
+		if (this.props.hideDraftedPlayers) {
+			rankedPlayers = rankedPlayers.filter( player => !player.cost )
+		}
 
 		rankedPlayers = sortBy(rankedPlayers, this.state.currentSortOption, this.state.toggleSortDirection)
 

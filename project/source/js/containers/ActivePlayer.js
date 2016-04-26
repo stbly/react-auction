@@ -39,7 +39,6 @@ class ActivePlayer extends Component {
 	}
 
 	updatePlayerNotes (notes) {
-		console.log('notes updated!', notes)
 		this.props.actions.updatePlayerNotes(this.props.activePlayer.id, notes)
 	}
 

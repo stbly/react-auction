@@ -29,6 +29,8 @@ const NODE_ENV = process.env.NODE_ENV || 'development'
 const ENV_IS_PRODUCTION = NODE_ENV !== 'development'
 const BROWSER = true
 
+console.log('node environment:',process.env.NODE_ENV)
+
 const WEBPACK_ENV = {
   NODE_ENV: JSON.stringify(NODE_ENV),
   BROWSER: JSON.stringify(BROWSER)
@@ -38,12 +40,7 @@ module.exports = {
   debug: !ENV_IS_PRODUCTION,
   devtool: defineWebpackDevtool(),
 
-  entry: [
-      'babel-polyfill',
-      'eventsource-polyfill',
-      'webpack-hot-middleware/client?path=http://localhost:8080/__webpack_hmr',
-      './project/source/js/init.js' // try using CONFIG.src + '/js/init.js'
-  ],
+  entry: createEntry(),
 
   output: {
     path: CONFIG.static,
@@ -68,13 +65,26 @@ function defineWebpackDevtool () {
   return ENV_IS_PRODUCTION ? null : 'cheap-module-eval-source-map'
 }
 
+function createEntry () {
+  var entry;
+  if (ENV_IS_PRODUCTION){
+    entry = [
+      'babel-polyfill',
+      './project/source/js/init.js'
+    ]
+  } else {
+    entry = [
+      'babel-polyfill',
+      'eventsource-polyfill',
+      'webpack-hot-middleware/client?path=http://localhost:8080/__webpack_hmr',
+      './project/source/js/init.js' // try using CONFIG.src + '/js/init.js'
+    ]
+  }
+  return entry
+}
+
 function createWebpackLoaders () {
   var loaders = [{
-    test: /\.js$/,
-    loaders: ['react-hot', 'babel'],
-    exclude: /node_modules|bower_components/,
-    include: CONFIG.src
-  },{
       test: /\.svg$/,
       loader: 'svg-sprite?' + JSON.stringify({
           name: '[name]_[hash]'
@@ -93,7 +103,10 @@ function createWebpackLoaders () {
     }
   },{
     test: /\.json$/,
-    loader: 'json'
+    loader: 'json',
+    query: {
+      name: 'images/[name].[ext]'
+    }
   }]
 
   if (ENV_IS_PRODUCTION) {
@@ -101,6 +114,11 @@ function createWebpackLoaders () {
       test: /\.scss$/,
       loader: ExtractTextPlugin.extract('style',
         'css?sourceMap!postcss!sass'),
+      include: CONFIG.src
+    },{
+      test: /\.js$/,
+      loaders: ['babel'],
+      exclude: /node_modules|bower_components/,
       include: CONFIG.src
     })
   } else {
@@ -113,6 +131,11 @@ function createWebpackLoaders () {
           'postcss-loader',
           'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
       ]
+    },{
+      test: /\.js$/,
+      loaders: ['react-hot', 'babel'],
+      exclude: /node_modules|bower_components/,
+      include: CONFIG.src
     })
   }
 
@@ -123,8 +146,8 @@ function createWebpackPlugins () {
   const plugins = [
     new DefinePlugin({
         'process.env': {
-            NODE_ENV: JSON.stringify('development'),
-            BROWSER: JSON.stringify(true)
+            NODE_ENV: JSON.stringify( NODE_ENV ),
+            BROWSER: JSON.stringify( BROWSER )
         }
     }),
     new BundleTracker({ filename: './webpack-stats.json' })

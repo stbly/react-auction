@@ -81,34 +81,40 @@ class Player extends Component {
 		return posName.toLowerCase();
 	}
 
-	editStats (e) {
-		// console.log('editStats');
-		this.setState({isEditing:true})
+	startEditing (e) {
+		if (e) {
+			var editTarget = e.target.getAttribute('data-edittarget');
+			if (editTarget) {
+				this.valueToStartEditing = editTarget;
+			}
+		}
+		this.setState({ isEditing: true })
 	}
 
 	stopEditing (e) {
 		// console.log('stop editing');
 		if (this.state.isEditing) {
+			this.setState({hovered:false})
 			this.setState({isEditing:false})
 		}
 	}
 
 	handleMouseOver (e) {
 		if (!this.state.isEditing) {
-			this.setState({hover: true});
+			this.setState({hovered: true});
 		}
 	}
 
 	handleMouseOut (e) {
 		if (!this.state.isEditing) {
-			this.setState({hover: false});
+			this.setState({hovered: false});
 		}
 
 	}
 
 	setEditState (dispatcher) {
-		this.setState({isEditing: true});
-		this.setState({currentEditElement: dispatcher})
+		this.setState({currentEditElement: dispatcher});
+		this.startEditing();
 	}
 
 	updatePlayerStat (value, e) {
@@ -146,6 +152,11 @@ class Player extends Component {
 		}
 	}
 
+	startEditingValue (input) {
+		var editTarget = this[input];
+		editTarget.startEditing();
+	}
+
 	getMetaInfo () {
 		var els = [];
 		if (!this.props.hideMetaInfo) {
@@ -181,14 +192,27 @@ class Player extends Component {
 	getValueInfo () {
 		var els = [];
 
-		if (this.props.player.cost && (!this.props.hideCostInput && !this.props.hideValueInfo)) {
+		if (this.props.player.cost && (!this.state.isEditing && !this.props.hideCostInput && !this.props.hideValueInfo)) {
 			var cellWidth = 3;
 			if (this.props.hideCostInput) {
 				cellWidth = 2;
 			} else if (this.props.hideValueInfo) {
 				cellWidth = 1;
 			}
-			return <td key={'display-value-td'} colSpan={cellWidth}><span className='player-cost'>Drafted: <span className='dollar-amount'>{this.props.player.cost}</span></span></td>
+
+			var text = this.state.hovered ? 'Value' : 'Drafted'
+			var value = this.state.hovered ? this.props.player.adjustedValue.toFixed(0) : this.props.player.cost
+			return <td key={'display-value-td'}
+						className='display-value-td'
+						onMouseOver={this.handleMouseOver.bind(this)}
+						onMouseOut={this.handleMouseOut.bind(this)}
+						onClick={this.startEditing.bind(this)}
+						data-edittarget={'playerCostInput'}
+						colSpan={cellWidth}>
+							<span className='player-cost'>{text}:
+								<span className='dollar-amount'> {value}</span>
+							</span>
+						</td>
 		}
 
 		var costInputClasses = classNames('can-edit','position',this.getPosition());
@@ -196,6 +220,7 @@ class Player extends Component {
 			els.push(
 				<td key={'cost-input-td'} className={costInputClasses}>
 					<ValueInput
+						ref={(ref) => this.playerCostInput = ref}
 						classNames={['dollar-amount']}
 						value={this.props.player.cost}
 						currentEditElement={this.state.currentEditElement}
@@ -207,7 +232,7 @@ class Player extends Component {
 
 		if (!this.props.hideValueInfo) {
 			els.push(<td key={'inflated-display-value-td'} ><span className='dollar-amount'>{this.props.player.displayInflatedValue}</span></td>);
-			els.push(<td key={'display-value-td'} ><span className='dollar-amount'>{this.props.player.displayValue}</span></td>);
+			els.push(<td key={'display-value-td'}><span className='dollar-amount'>{this.props.player.displayValue}</span></td>);
 		}
 
 		return els;
@@ -241,14 +266,23 @@ class Player extends Component {
 				}
 			}
 		}
+
 		return stats;
+	}
+
+	componentDidUpdate (prevProps, prevState) {
+		if (this.valueToStartEditing) {
+			this.startEditingValue(this.valueToStartEditing);
+			this.valueToStartEditing = null;
+		}
+
 	}
 
 	render () {
 		var playerClasses = classNames('player', this.props.player.type, {'selected':this.props.player.isSelected}, {'is-editing':this.state.isEditing});
 
 		return (
-			<tr onMouseOver={this.handleMouseOver.bind(this)} onMouseOut={this.handleMouseOut.bind(this)} className={playerClasses}>
+			<tr className={playerClasses} onBlur={this.stopEditing.bind(this)}>
 				{this.getMetaInfo()}
 				{this.getPlayerInfo()}
 				{this.getValueInfo()}

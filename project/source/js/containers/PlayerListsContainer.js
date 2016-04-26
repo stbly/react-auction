@@ -28,6 +28,7 @@ class PlayerListsContainer extends Component {
 		super(props)
 		this.state = {
 			filter: {property: 'type', value: 'batter'},
+			hideDraftedPlayers: false,
 			searchQuery: null
 		}
 	}
@@ -36,12 +37,13 @@ class PlayerListsContainer extends Component {
 		this.props.actions.fetchPlayersIfNeeded()
 	}
 
+	toggleHideDraftedPlayers () {
+		this.setState({hideDraftedPlayers: !this.state.hideDraftedPlayers})
+	}
 
 	togglePlayerList (e) {
 		var property = e.target.getAttribute('data-param');
 		var value = e.target.getAttribute('data-value');
-
-		console.log('!!!!!!!',property,value)
 
 		var filter = {
 			property,
@@ -58,7 +60,7 @@ class PlayerListsContainer extends Component {
 	}
 
 	shouldComponentUpdate (nextProps, nextState) {
-		console.log('trying to update PlayerLists')
+
 		var stringifiedNextProps = JSON.stringify(nextProps)
 		var stringifiedProps = JSON.stringify(this.props)
 		var stringifiedNextState = JSON.stringify(nextState)
@@ -68,7 +70,7 @@ class PlayerListsContainer extends Component {
 	}
 
 	componentDidUpdate () {
-		console.log ('player lists updated');
+		// console.log ('player lists updated');
 	}
 
 	getType () {
@@ -118,13 +120,11 @@ class PlayerListsContainer extends Component {
 			return;
 		}
 
-		console.log('----',this.state.filter.property, this.state.filter.value)
 		var filteredPlayers = filterBy(players, this.state.filter.property, this.state.filter.value);
 
-		console.log(filteredPlayers);
+		// console.log(filteredPlayers);
 		filteredPlayers = filteredPlayers.length === 0 ? players : filteredPlayers;
 
-		console.log(filteredPlayers.length)
 		return filteredPlayers.filter( player => player.value );
 	}
 
@@ -168,15 +168,25 @@ class PlayerListsContainer extends Component {
 
 		return (
 			<div className='player-lists-container'>
-				<div className='player-lists-header'>
-					<ActivePlayer />
-					<PlayerInput
-						searchablePlayers={PlayerListUtils.getUnusedPlayers(this.props.players)}
-						searchableTeams={this.props.teams}
-						playerEntered={this.props.actions.assignPlayer} />
-				</div>
-				<div>
+				<section>
+					<div className='player-lists-header'>
+						<ActivePlayer />
+						<PlayerInput
+							searchablePlayers={PlayerListUtils.getUnusedPlayers(this.props.players)}
+							searchableTeams={this.props.teams}
+							playerEntered={this.props.actions.assignPlayer} />
+					</div>
+					<div className='hide-selected-container'>
+						<input className='hide-selected-toggle'
+							ref={(ref) => this.hideSelectedToggle = ref}
+							type="checkbox"
+							checked={this.state.hideDraftedPlayers}
+							onChange={this.toggleHideDraftedPlayers.bind(this)} />
 
+						<span className='hide-selected-text'>Hide Drafted Players</span>
+					</div>
+				</section>
+				<section>
 					<ListFilters
 						activeFilter={this.state.filter.value}
 						searchQuery={this.state.searchQuery}
@@ -192,13 +202,14 @@ class PlayerListsContainer extends Component {
 								categories={this.getCategories()}
 								sortPlayers={this.props.actions.sortPlayers}
 								playerSelected={this.props.actions.updateActivePlayer}
+								hideDraftedPlayers={this.state.hideDraftedPlayers}
 								hideValueInfo={false}
 								updateStat={this.props.actions.updatePlayerStat}
 								updateCost={this.props.actions.updatePlayerCost}
 								updateFavorited={this.props.actions.updatePlayerFavorited} />
 						</div>
 					</div>
-				</div>
+				</section>
 			</div>
 		)
 	}

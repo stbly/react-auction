@@ -26,9 +26,8 @@ class PlayerInput extends Component {
 			this.handleSubmit();
 		} else if (this.submitted) {
 			this.submitted = false;
-			this.playerInput.focusElement();
+			this.playerInput.startEditing();
 		}
-		console.log(this.state)
 	}
 
 	setCostEditState (dispatcher) {
@@ -101,14 +100,13 @@ class PlayerInput extends Component {
 			return;
 		}
 		if (name.length < 1) {
-		   this.playerInput.focusElement();
+		   this.playerInput.startEditing();
 		} else {
 			this.setState({playerName: name});
 		}
 	}
 
 	setTeam (name) {
-		console.log('------------- setTeam()',name)
 		if (this.state.playerTeam === name) {
 			return;
 		}
@@ -133,8 +131,8 @@ class PlayerInput extends Component {
 						<ValueInput
 							classNames={['dollar-amount','player-input-box','cost-input']}
 							placeholder={'$'}
-							min={'0'}
-							max={'99'}
+							min={0}
+							max={99}
 							didStartEditing={this.setCostEditState.bind(this)}
 							currentEditElement={this.state.currentEditElement}
 							value={this.state.playerCost}
