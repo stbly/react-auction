@@ -5,80 +5,80 @@
 	position: relative;
 
 	&.batter {
-		background: $batter-row;
+		background: $color-batter-default;
 
 		&:nth-child(odd) {
-			background: $batter-row-alt;
+			background: $color-batter-alt;
 		}
 
 		.dark {
-			background: $batter-row-muted;
+			background: $color-batter-muted;
 
 			&.can-edit{
 				&:hover {
-					background: $batterEditHover
+					background: $color-batter-input-hover
 				}
 			}
 		}
 
 		&.is-editing {
-			background: $batter-highlight;
-			/*border: 2px solid $batter-highlight;
+			background: $color-batter-highlight;
+			/*border: 2px solid $color-batter-highlight;
 			z-index: 5;
-			box-shadow: 0 0 5px $batter-dark;*/
+			box-shadow: 0 0 5px $color-batter-dark-grey;*/
 
 			.dark {
-				background: $batter-highlight;
+				background: $color-batter-highlight;
 			}
 
 			&.selected {
 				td {
-					background: $batter-highlight;
+					background: $color-batter-highlight;
 				}
 			}
 		}
 
 		&:hover {
-			background: $batter-highlight;
+			background: $color-batter-highlight;
 
 			.dark {
-				background: $batter-highlight;
+				background: $color-batter-highlight;
 			}
 		}
 	}
 
 	&.pitcher {
-		background: $pitcher;
+		background: $color-pitcher-default;
 
 		&:nth-child(odd) {
-			background: $pitcherAlt;
+			background: $color-pitcher-alt;
 		}
 
 		.dark {
-			background: $pitcherMuted;
+			background: $color-pitcher-muted;
 		}
 
 		&:hover {
-			background: $pitcherHighlight;
+			background: $color-pitcher-highlight;
 
 			.dark {
-				background: $pitcherHighlight;
+				background: $color-pitcher-highlight;
 			}
 		}
 	}
 
 	&.selected {
 		td {
-			background: $batter-dark;
+			background: $color-batter-dark-grey;
 		}
 
 		.dark {
-			background: $batter-dark;
+			background: $color-batter-dark-grey;
 		}
 
 		&:hover {
 			.dark {
-				background: $batter-dark;
+				background: $color-batter-dark-grey;
 			}
 		}
 	}
@@ -93,8 +93,8 @@
 	}
 
 	.is-complete {
-		background: $success;
-		color: $success;
+		background: $color-input-success;
+		color: $color-input-success;
 	}
 
 	.favorite-toggle {
@@ -116,7 +116,7 @@
 		}
 
 		.cost-selected & {
-			color: $batter-dark;
+			color: $color-batter-dark-grey;
 		}
 	}
 
@@ -133,14 +133,14 @@
 
 	.batters & {
 		::-webkit-input-placeholder {
-			color: $batter-dark;
+			color: $color-batter-dark-grey;
 		}
 
 
 	}
 	.pitchers & {
 		::-webkit-input-placeholder {
-			color: $pitcherDark;
+			color: $color-pitcher-dark-purple;
 		}
 
 
@@ -154,7 +154,7 @@
 	}
 
 	input[type="checkbox"] {
-		background-color: $batter-row;
+		background-color: $color-batter-default;
 	}
 
 	.display-value-td {
@@ -162,6 +162,29 @@
 
 		> * {
 			pointer-events: none;
+		}
+	}
+
+	@include width-under($bp-small) {
+		font-size: 8px;
+	}
+
+	.icon-button {
+	    margin: 0;
+	    width: 20px;
+	    height: 20px;
+	    padding: 0;
+	    border-width: 0;
+	    background: $color-batter-highlight;
+	}
+
+
+	&:hover {
+		.icon-button {
+			&:not(.active) {
+				background: white;
+			}
+
 		}
 	}
 }

@@ -1,0 +1,19 @@
+{
+	"folders":
+	[
+		{
+			"path": "project/source"
+		}
+	],
+	"codeintel_settings":
+    {
+        "codeintel_database_dir": "~/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project",
+        "codeintel_language_settings":
+        {
+            "JavaScript": {
+                "codeintel_scan_files_in_project": true,
+                "codeintel_scan_exclude_dir": ["/min/"]
+            }
+        }
+    }
+}

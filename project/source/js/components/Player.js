@@ -6,6 +6,7 @@ import classNames from 'classnames';
 
 import '../../stylesheets/components/player.scss'
 import ValueInput from './ValueInput'
+import IconButton from './IconButton'
 
 class Player extends Component {
 	constructor (props) {
@@ -33,11 +34,10 @@ class Player extends Component {
 	getCheckbox () {
 		var el;
 		if (!this.props.player.isSelected) {
-			el = <input
-				ref={(ref) => this.isFavorited = ref}
-				type="checkbox"
-				checked={this.state.isFavorited}
-				onChange={this.togglePlayerFavorited.bind(this)} />
+			el= <IconButton
+					toggleButton={this.togglePlayerFavorited.bind(this)}
+					active={this.props.player.isFavorited}
+					type={'watch'} />
 		}
 		return el;
 	}
@@ -215,10 +215,10 @@ class Player extends Component {
 						</td>
 		}
 
-		var costInputClasses = classNames('can-edit','position',this.getPosition());
+		// var costInputClasses = classNames('can-edit','position',this.getPosition());
 		if (!this.props.hideCostInput) {
 			els.push(
-				<td key={'cost-input-td'} className={costInputClasses}>
+				<td key={'cost-input-td'} className='can-edit'>
 					<ValueInput
 						ref={(ref) => this.playerCostInput = ref}
 						classNames={['dollar-amount']}

@@ -10,7 +10,7 @@
     overflow: auto;
     overflow-x: hidden;
 
-    border: 2px solid grey;
+    border: 1px solid grey;
     background: white;
 
     z-index: 2;
@@ -28,33 +28,33 @@
 	    text-align: center;
 	}
 
-	border-color: $batter-row-alt;
+	border-color: $color-batter-alt;
 
 	li {
-		background-color: $batter-row;
+		background-color: $color-batter-default;
 
 		&:nth-child(odd) {
-			background-color: $batter-row-alt;
+			background-color: $color-batter-alt;
 		}
 
 		&.selected {
-			background-color: $batter-highlight;
+			background-color: $color-batter-highlight;
 		}
 	}
 
 
     .pitchers & {
-    	border-color: $pitcherAlt;
+    	border-color: $color-pitcher-alt;
 
     	li {
-			background-color: $pitcher;
+			background-color: $color-pitcher-default;
 
 			&:nth-child(odd) {
-				background-color: $pitcherAlt;
+				background-color: $color-pitcher-alt;
 			}
 
 			&.selected {
-				background-color: $pitcherHighlight;
+				background-color: $color-pitcher-highlight;
 			}
 		}
 	}

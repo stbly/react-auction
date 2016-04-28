@@ -1,52 +1,46 @@
-$red        : #f00;
-$black      : #222;
-$white      : #fefefe;
-$gray		: grey;
+$bp-phone: 460px;
+$bp-small: 760px;
+$bp-medium: 1080px;
+$bp-large: 1300px;
 
-$link-color : $red;
+$color-input-success: #A9E2A9;
 
+$color-number-positive: green;
+$color-number-negative: red;
 
-$batterEditHover: #CBDEEA;
+$color-neutral: lightgrey;
 
-$pitcher : #E2D7E2;
-$pitcherDark : #5D545D;
-$pitcherAlt : #D2C7D2;
-$pitcherHighlight: #FFF6FF;
-$pitcherMuted: rgba(93, 81, 93, 0.6);
+$color-batter-default : #e5e9ef;
+$color-batter-alt : #d7dfeb;
+$color-batter-dark-blue: #98a1ad;
+$color-batter-dark-grey : #8e9194;
+$color-batter-highlight: #F3F6F9;
+$color-batter-muted: rgba(101, 113, 121, 0.6);
+$color-batter-input-hover: white;
 
-$success: #A9E2A9;
+$color-pitcher-default : #E2D7E2;
+$color-pitcher-alt : #D2C7D2;
+$color-pitcher-dark-purple : #5D545D;
+$color-pitcher-highlight: #FFF6FF;
+$color-pitcher-muted: rgba(93, 81, 93, 0.6);
 
-$positive: green;
-$negative: red;
+$color-catcher: rgba(133,149,176,0.65); //#8595B0;
+$color-first-base: rgba(100,139,201,.65); //#648BC9;
+$color-second-base: rgba(190,214,252,.65); //#BED6FC;
+$color-third-base: rgba(142,185,252,.65); //#8EB9FC;
+$color-short-stop: rgba(160,176,255,.65); //#A0B0FF;
+$color-outfield: rgba(171,197,230,.65); //#ABC5E6;
+$color-starting-pitcher: rgba(186,171,230,.65); //#BAABE6;
+$color-relief-pitcher: rgba(172,137,212,.65); //#AC89D4;
+$color-closer: rgba(153,111,201,.65); //#996FC9;
 
-$neutral: lightgrey;
+$color-grey-lightest: #e9e9e9;
+$color-grey-light: #cecece;
+$color-grey-medium: #b7b7b7;
+$color-grey-dark: #878787;
+$color-grey-darkest: #4d4d4d;
 
+$color-headings: $color-grey-darkest;
+$color-headings-border: #bdc2c9;
+$color-headings-sub: #878787;
 
-$catcher: rgba(133,149,176,0.65); //#8595B0;
-$first-base: rgba(100,139,201,.65); //#648BC9;
-$second-base: rgba(190,214,252,.65); //#BED6FC;
-$third-base: rgba(142,185,252,.65); //#8EB9FC;
-$short-stop: rgba(160,176,255,.65); //#A0B0FF;
-$outfield: rgba(171,197,230,.65); //#ABC5E6;
-$starting-pitcher: rgba(186,171,230,.65); //#BAABE6;
-$closer: rgba(153,111,201,.65); //#996FC9;
-$relief-pitcher: rgba(172,137,212,.65); //#AC89D4;
-
-$lightest-grey: #e9e9e9;
-$light-grey: #cecece;
-$medium-grey: #b7b7b7;
-$dark-grey: #878787;
-$darkest-grey: #4d4d4d;
-
-$headings: #d7dfeb;
-$headings-border: #bdc2c9;
-
-$batter-row : #e5e9ef;
-$batter-row-alt : #d7dfeb;
-$batter-dark : #8e9194;
-$batter-highlight: #F3F6F9;
-$batter-row-muted: rgba(101, 113, 121, 0.6);
-
-$sub-heading: #878787;
-$heading: $darkest-grey;
-$price: #98a1ad;

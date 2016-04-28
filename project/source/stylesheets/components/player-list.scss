@@ -19,15 +19,15 @@
 
 		cursor: pointer;
 
-	    color: $medium-grey;
+	    color: $color-grey-medium;
 	    text-align: center;
 		text-transform: uppercase;
 
-		border: 2px solid $medium-grey;
+		border: 1px solid $color-grey-medium;
 
 		&:hover,
 		&.active {
-			color: $darkest-grey;
+			color: $color-grey-darkest;
 		}
 
 		&.pos {
@@ -39,22 +39,32 @@
 				margin-right: 0;
 			}
 		}
+
+		@include width-under($bp-small) {
+			width: 100%;
+			float: none;
+		}
 	}
 	input[type=text] {
-		border-color: $lightest-grey;
-		color: $lightest-grey;
+		border-color: $color-grey-lightest;
+		color: $color-grey-lightest;
 		text-align: left;
 
 		&:focus,
 		&.hover {
-			border-color: $medium-grey;
-			color: $darkest-grey;
+			border-color: $color-grey-medium;
+			color: $color-grey-darkest;
 		}
 	}
 
 
 	::-webkit-input-placeholder {
-		color: $light-grey;
+		color: $color-grey-light;
+	}
+
+	@include width-under($bp-small) {
+		width: 100%;
+		float: none;
 	}
 }
 
@@ -63,6 +73,11 @@
 .player-lists-main {
 	width: calc(100% - 150px);
 	float: right;
+
+	@include width-under($bp-small) {
+		width: 100%;
+		float: none;
+	}
 }
 
 .player-list-container {
@@ -87,6 +102,11 @@
 	width: 75%;
     margin-left: 150px;
     display: inline-block;
+
+    @include width-under($bp-small) {
+	    width: 100%;
+	    margin-left: 0;
+    }
 }
 
 .hide-selected-container {
@@ -130,15 +150,15 @@
 		&:not(.selected) {
 			.position {
 				/*
-				&.catcher { background: $catcher; }
-				&.first-base { background: $first-base; }
-				&.second-base { background: $second-base; }
-				&.third-base { background: $third-base; }
-				&.short-stop { background: $short-stop; }
-				&.outfield { background: $outfield; }
-				&.starting-pitcher { background: $starting-pitcher; }
-				&.closer { background: $closer; }
-				&.relief-pitcher { background: $relief-pitcher; }
+				&.catcher { background: $color-catcher; }
+				&.first-base { background: $color-first-base; }
+				&.second-base { background: $color-second-base; }
+				&.third-base { background: $color-third-base; }
+				&.short-stop { background: $color-short-stop; }
+				&.outfield { background: $color-outfield; }
+				&.starting-pitcher { background: $color-starting-pitcher; }
+				&.closer { background: $color-closer; }
+				&.relief-pitcher { background: $color-relief-pitcher; }
 				*/
 			}
 
@@ -171,7 +191,7 @@
 
 		&.can-edit {
 			&:hover {
-				background: $batterEditHover
+				background: $color-batter-input-hover;
 			}
 		}
 	}
@@ -179,13 +199,13 @@
 	.headings {
 		td {
 			position: relative;
-			background: $headings;
+			background: $color-batter-alt;
 			cursor: pointer;
 
 			padding: 8px 0;
 
 			&:hover {
-				background: $medium-grey;
+				background: $color-grey-medium;
 			}
 
 			&:after {
@@ -197,7 +217,7 @@
 				bottom: 0;
 				left: 0;
 				border-style: solid;
-				border-width: 0 2px 5px 0;
+				border-width: 0 1px 5px 0;
 				border-color: #bdc2c9;
 				z-index: 1;
 			}

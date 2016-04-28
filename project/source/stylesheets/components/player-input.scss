@@ -7,7 +7,7 @@
 	width: 100%;
 
     border-radius: 5px;
-	background: $light-grey;
+	background: $color-grey-light;
 
 	margin: 10px 0;
 
@@ -18,7 +18,7 @@
 		padding:10px;
 		text-align: center
 		::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-		    color: $batter-dark;
+		    color: $color-batter-dark-grey;
 		}
 
 		& > * {
@@ -36,6 +36,9 @@
 
 	.player-input-box {
 		min-width: 225px;
+		@include width-under($bp-small) {
+			min-width: inherit;
+		}
 	}
 
 	.player-input-box,
@@ -47,7 +50,7 @@
 		padding: 10px 10px;
 
 		border-radius: 3px;
-		background: $lightest-grey;
+		background: $color-grey-lightest;
 
 		font-size: 16px;
 	    line-height: 18px;
@@ -63,15 +66,19 @@
 		}
 
 		&:focus {
-	    	background: $batter-highlight;
+	    	background: $color-batter-highlight;
 	    }
+
+		@include width-under($bp-small) {
+			font-size: 12px;
+		}
 	}
 
 	.cost-container {
 		padding: 10px;
 		width: 50px;
 		 &.is-editing {
-	    	background: $batter-highlight;
+	    	background: $color-batter-highlight;
 		}
 		.player-input-box.cost-input {
 			padding: 0;
@@ -88,8 +95,12 @@
 	    cursor: pointer;
 	    &:hover,
 	    &:focus {
-	    	background: $batter-highlight;
+	    	background: $color-batter-highlight;
 	    }
+
+	    @include width-under($bp-small) {
+			font-size: 8px;
+		}
 	}
 	.suggested-search-box {
 	    width: calc(40% - 10px);

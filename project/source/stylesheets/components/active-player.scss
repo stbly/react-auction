@@ -5,7 +5,7 @@
 
 	/*height: 200px;*/
 	margin: 10px 0 5px;
-	color: $darkest-grey;
+	color: $color-grey-darkest;
 
 	h1 {
 		font-size: 1.4em;
@@ -13,7 +13,7 @@
 	}
 
 	h2 {
-		color: $dark-grey;
+		color: $color-grey-dark;
 	}
 
 	.player-list {
@@ -50,22 +50,26 @@
 					    width: 100px;
 					    top: 0;
 					    right: 100%;
-						background: $batter-row;
+						background: $color-batter-default;
 					}
+			    }
+
+			    @include width-under($bp-small) {
+			    	font-size: 12px;
 			    }
 			}
 			&.batter {
 				&:hover {
-					background: $batter-row;
+					background: $color-batter-default;
 				}
 			}
 			&.pitcher {
 				&:hover {
-					background: $pitcher;
+					background: $color-pitcher-default;
 				}
 				td {
 					&:after {
-						background: $pitcher;
+						background: $color-pitcher-default;
 					}
 				}
 			}
@@ -97,7 +101,7 @@
 	.player-news-container {
 		display: inline-block;
 		vertical-align: bottom;
-		padding: 0 10px;
+		padding: 0 0 0 10px;
 		margin-bottom:10px;
 	}
 
@@ -106,9 +110,13 @@
 		margin-right: 10px;
 
 		.player-value {
+			@include width-over($bp-small) { font-size: 4em; }
+			@include width-under($bp-small) { font-size: 4em; }
+			@include width-over($bp-medium) { font-size: 5em; }
+			@include width-over($bp-large) { font-size: 6em; }
+
 		    margin-bottom: -.2em;
-			font-size: 6em;
-			color: $price;
+			color: $color-batter-dark-blue;
 			.dollar-amount {
 			    margin-left: 0.2em;
 				&:after {
@@ -125,8 +133,8 @@
 		.icon-button {
 		    display: inline-block;
 		    vertical-align: top;
-		    width: 35px;
-		    height: 35px;
+		    width: 30px;
+		    height: 30px;
 		    margin-top: 5px;
 		    margin-left: 5px;
 		    margin-right: 0;
@@ -164,7 +172,7 @@
 	    padding: 7px;
 	    margin: 3px 0;
 
-	    background: $medium-grey;
+	    background: $color-grey-medium;
 
 	    text-align: center;
 

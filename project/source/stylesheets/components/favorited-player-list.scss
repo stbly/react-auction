@@ -15,26 +15,26 @@
 	}
 
 	 &.batter {
-		background: $batter-row;
+		background: $color-batter-default;
 		.player-info,
 		.player-type {
-			background: $batter-dark;
+			background: $color-batter-dark-grey;
 		}
 		.player-info {
 			&:hover {
-				background: $batter-highlight;
+				background: $color-batter-highlight;
 			}
 		}
 	}
 	 &.pitcher {
-		background: $pitcher;
+		background: $color-pitcher-default;
 		.player-info,
 		.player-type {
-			background: $pitcherDark;
+			background: $color-pitcher-dark-purple;
 		}
 		.player-info {
 			&:hover {
-				background: $pitcherHighlight;
+				background: $color-pitcher-highlight;
 			}
 		}
 	}
@@ -48,6 +48,6 @@
     overflow-y: scroll;
 	display:inline-block;
 	float:left;
-	background: $batter-dark;
+	background: $color-batter-dark-grey;
 	z-index:5;
 }*/

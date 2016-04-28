@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import PlayerList from '../components/PlayerList'
 import PlayerNotes from '../components/PlayerNotes'
-import Icon from '../components/Icon'
+import IconButton from '../components/IconButton'
 import * as SettingsUtils from '../helpers/SettingsUtils'
 import * as playerActions from '../redux/modules/players'
 
@@ -52,7 +52,6 @@ class ActivePlayer extends Component {
 		var tableClasses = classNames('player-list',type)
 		var categories = SettingsUtils.getCategories( this.props.categories[type])
 
-		var watchClasses = classNames('icon-button', {active: this.props.activePlayer.isFavorited})
 		var avoidClasses = classNames('icon-button', {active: this.props.activePlayer.isAvoided});
 
 		var draftedEl = (
@@ -69,11 +68,13 @@ class ActivePlayer extends Component {
 					{this.props.bidPrice}
 				</span>
 				<div className='player-buttons'>
-					<button className={watchClasses}
-						onClick={this.togglePlayerFavorited.bind(this)}>
-							<Icon type={'watch'} />
-					</button>
-					<button className={avoidClasses}><Icon type={'avoid'} /></button>
+					<IconButton
+						toggleButton={this.togglePlayerFavorited.bind(this)}
+						active={this.props.activePlayer.isFavorited}
+						type={'watch'} />
+					<IconButton
+						active={this.props.activePlayer.isAvoided}
+						type={'avoid'} />
 				</div>
 			</div>
 		)
@@ -116,6 +117,7 @@ class ActivePlayer extends Component {
 							hidePlayerInfo={true}
 							hideCostInput={true}
 							players={[this.props.activePlayer]}
+							updateStat={this.props.actions.updatePlayerStat}
 							categories={categories}/>
 					</div>
 				</div>

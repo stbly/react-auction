@@ -1,42 +1,32 @@
 @import '../init';
 
 .icon-button {
-	width: 40px;
-	height: 40px;
+	width: 30px;
+	height: 30px;
 	padding: 3px;
 
 	cursor: pointer;
 
 	svg {
-		fill: $light-grey;
+		fill: $color-grey-light;
 	}
 
 	&.active,
 	&:hover {
 		background: inherit;
-		/*border-color: $batter-row-alt;*/
+		/*border-color: $color-batter-alt;*/
 		svg {
-			fill: $batter-dark;
+			fill: $color-batter-dark-grey;
 		}
 	}
 
 	&.active {
-		background: $batter-row-alt;
-		border-color: $batter-row-alt;
-
-		&:hover {
-			/*background: inherit;*/
-			/*border-color: $lightest-grey;*/
-			svg {
-				/*fill: $light-grey;*/
-			}
-		}
-
-		&:active {
-			background: #C6D0DE;
-		}
-
-	}
+		border-color: $color-batter-dark-blue;
+    	background: $color-batter-dark-blue;
+    	svg {
+    		fill: $color-batter-default;
+    	}
+    }
 }
 
 .icon {

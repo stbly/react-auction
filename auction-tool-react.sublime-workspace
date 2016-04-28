@@ -1,0 +1,3107 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"UPDATE",
+				"UPDATE_PLAYER_COST"
+			],
+			[
+				"toggle",
+				"toggleExpansionOnUpdate"
+			],
+			[
+				"compone",
+				"componentDidUpdate"
+			],
+			[
+				"start",
+				"startEditingValue"
+			],
+			[
+				"hideDra",
+				"hideDraftedPlayers"
+			],
+			[
+				"marg",
+				"margin-bottom"
+			],
+			[
+				"play",
+				"player-notes-input"
+			],
+			[
+				"update",
+				"updatePlayerNotes"
+			],
+			[
+				"col",
+				"collapsed-height"
+			],
+			[
+				"clip",
+				"clip"
+			],
+			[
+				"margi",
+				"margin-right"
+			],
+			[
+				"sat",
+				"static"
+			],
+			[
+				"componen",
+				"componentWillReceiveProps"
+			],
+			[
+				"rece",
+				"receivePlayers"
+			],
+			[
+				"lastDraft",
+				"lastDraftPlayerPos"
+			],
+			[
+				"lastd",
+				"lastDraftablePlayer"
+			],
+			[
+				"lastDra",
+				"lastDraftablePlayer"
+			],
+			[
+				"lastDraf",
+				"lastDraftPlayerPos"
+			],
+			[
+				"ligh",
+				"lightest-grey"
+			],
+			[
+				"prop",
+				"property"
+			],
+			[
+				"getFilte",
+				"getFilteredPlayers"
+			],
+			[
+				"cate",
+				"categoryType"
+			],
+			[
+				"filter",
+				"filteredPlayers"
+			],
+			[
+				"categ",
+				"categories"
+			],
+			[
+				"catr",
+				"categoryType"
+			],
+			[
+				"stri",
+				"stringifiedState"
+			],
+			[
+				"string",
+				"stringifiedNextState"
+			],
+			[
+				"fetchPlay",
+				"fetchPlayersIfNeeded"
+			],
+			[
+				"Favor",
+				"FavoritePlayerListsContainer"
+			],
+			[
+				"unused",
+				"unusedPitchers"
+			],
+			[
+				"unuse",
+				"unusedBatters"
+			],
+			[
+				"rank",
+				"rankedPitchers"
+			],
+			[
+				"unus",
+				"getUnusedBatters"
+			],
+			[
+				"uns",
+				"unusedPitchers"
+			],
+			[
+				"playerTo",
+				"playerToTryRemoving"
+			],
+			[
+				"draft",
+				"draftablePlayers"
+			],
+			[
+				"num",
+				"numPitchersToDraft"
+			],
+			[
+				"next",
+				"nextCategory"
+			],
+			[
+				"con",
+				"continentSelection"
+			],
+			[
+				"redire",
+				"redirectUser"
+			],
+			[
+				"category",
+				"categoryId"
+			],
+			[
+				"remove",
+				"removeExistingListsFor"
+			],
+			[
+				"params",
+				"PARAMS"
+			],
+			[
+				"conti",
+				"continents"
+			],
+			[
+				"param",
+				"paramString"
+			],
+			[
+				"catego",
+				"categories"
+			],
+			[
+				"get",
+				"getParamIndexFor"
+			],
+			[
+				"cont",
+				"continents"
+			],
+			[
+				"current",
+				"currentValue"
+			],
+			[
+				"dropdo",
+				"dropdownLists"
+			],
+			[
+				"form__",
+				"form__field-label"
+			],
+			[
+				"conten",
+				"continent"
+			],
+			[
+				"drop",
+				"dropdown-animation"
+			],
+			[
+				"cateo",
+				"categories"
+			],
+			[
+				"option",
+				"optionSelected"
+			],
+			[
+				"Contin",
+				"continents"
+			],
+			[
+				"attri",
+				"attributeBindings"
+			],
+			[
+				"cost",
+				"cost-container"
+			],
+			[
+				"text",
+				"text-transform"
+			],
+			[
+				"dis",
+				"dispatcher"
+			],
+			[
+				"inflation",
+				"inflationRate"
+			],
+			[
+				"remaining",
+				"remainingDollars"
+			],
+			[
+				"batter",
+				"batterHighlight"
+			],
+			[
+				"e",
+				"e"
+			],
+			[
+				"sort",
+				"currentSortOption"
+			],
+			[
+				"clasS",
+				"className"
+			],
+			[
+				"dark",
+				"batterDark"
+			],
+			[
+				"displ",
+				"displayInflatedValue"
+			],
+			[
+				"draf",
+				"draftableBatters"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"getPlayer",
+				"getPlayers"
+			],
+			[
+				"getD",
+				"getDollars"
+			],
+			[
+				"getPl",
+				"getPlayersToDraft"
+			],
+			[
+				"draftable",
+				"draftableBatters"
+			],
+			[
+				"getPla",
+				"getPlayers"
+			],
+			[
+				"getPlayers",
+				"getPlayersToDraft"
+			],
+			[
+				"sgpGr",
+				"sgpGroups"
+			],
+			[
+				"assign",
+				"assignPlayerValues"
+			],
+			[
+				"position",
+				"positionIndex"
+			],
+			[
+				"SG",
+				"sgpGroups"
+			],
+			[
+				"determine",
+				"determineSgpGroups"
+			],
+			[
+				"currentP",
+				"currentPlayersOfType"
+			],
+			[
+				"sc",
+				"scarcePositions"
+			],
+			[
+				"SS",
+				"SS"
+			],
+			[
+				"calcul",
+				"calculateSGP"
+			],
+			[
+				"sgp",
+				"sgpGroup"
+			],
+			[
+				"lastD",
+				"lastDraftableNormalPlayer"
+			],
+			[
+				"players",
+				"playersToDraft"
+			],
+			[
+				"add",
+				"addedSgp"
+			],
+			[
+				"categor",
+				"categoryStat"
+			],
+			[
+				"observe",
+				"observeScarcity"
+			],
+			[
+				"non",
+				"nonExclusivePosition"
+			],
+			[
+				"condi",
+				"conditionalPosition"
+			],
+			[
+				"sgpGroup",
+				"sgpGroupMinSGP"
+			],
+			[
+				"sgpG",
+				"sgpGroup"
+			],
+			[
+				"dra",
+				"draftablePlayers"
+			],
+			[
+				"playerT",
+				"playerToTryRemoving"
+			],
+			[
+				"pla",
+				"player"
+			],
+			[
+				"player",
+				"playersToRemove"
+			],
+			[
+				"leage",
+				"leagueAverageWHIP"
+			],
+			[
+				"pitcher",
+				"pitcherSpots"
+			],
+			[
+				"leagueAv",
+				"leagueAverageERA"
+			],
+			[
+				"batt",
+				"battingDollars"
+			],
+			[
+				"batters",
+				"battersSortedBySGP"
+			],
+			[
+				"cat",
+				"cat"
+			],
+			[
+				"rema",
+				"remainingDollars"
+			],
+			[
+				"remain",
+				"remainingValue"
+			],
+			[
+				"marginal",
+				"marginalDollars"
+			],
+			[
+				"margina",
+				"marginalSgp"
+			],
+			[
+				"battin",
+				"battingDollars"
+			],
+			[
+				"ba",
+				"battingDollars"
+			],
+			[
+				"sg",
+				"sgp"
+			],
+			[
+				"batet",
+				"battersSortedBySGP"
+			],
+			[
+				"average",
+				"averageAtBats"
+			],
+			[
+				"calc",
+				"calculateBatterSGP"
+			],
+			[
+				"Cateo",
+				"categories"
+			],
+			[
+				"basePla",
+				"basePlateAppearances"
+			],
+			[
+				"aver",
+				"averageAtBats"
+			],
+			[
+				"ca",
+				"categories"
+			],
+			[
+				"pitchin",
+				"pitchingCategories"
+			],
+			[
+				"batting",
+				"battingCategories"
+			],
+			[
+				"highli",
+				"highlightedPlayerIndex"
+			],
+			[
+				"closes",
+				"closestSlot"
+			],
+			[
+				"closest",
+				"closestSlotDifference"
+			],
+			[
+				"playerSlo",
+				"playerSlotsType"
+			],
+			[
+				"selection",
+				"selectionResult"
+			],
+			[
+				"selec",
+				"selectionResult"
+			],
+			[
+				"queryP",
+				"queryProperty"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "project/source/js/components/ValueInput.js",
+			"settings":
+			{
+				"buffer_size": 4879,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "project/source/js/components/PlayerNotes.js",
+			"settings":
+			{
+				"buffer_size": 1640,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "project/source/js/containers/ActivePlayer.js",
+			"settings":
+			{
+				"buffer_size": 4469,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "project/source/js/components/Player.js",
+			"settings":
+			{
+				"buffer_size": 7587,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "project/source/js/containers/PlayerListsContainer.js",
+			"settings":
+			{
+				"buffer_size": 6210,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "project/source/js/redux/modules/players.js",
+			"settings":
+			{
+				"buffer_size": 8602,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "project/source/js/containers/Planner.js",
+			"settings":
+			{
+				"buffer_size": 1558,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "project/source/js/redux/store.js",
+			"settings":
+			{
+				"buffer_size": 462,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "import { combineReducers } from 'redux'\nimport { routerReducer } from 'react-router-redux'\n\nimport players from './players'\nimport categories from './categories'\nimport positions from './positions'\nimport settings from './settings'\nimport teams from './teams'\n\nconst rootReducer = combineReducers({\n    players,\n    // activePlayer,\n    categories,\n    positions,\n    settings,\n    teams,\n    routing: routerReducer\n})\n\nexport default rootReducer\n\n",
+			"file": "project/source/js/redux/modules/index.js",
+			"file_size": 446,
+			"file_write_time": 1461862295000000,
+			"settings":
+			{
+				"buffer_size": 448,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "auction-tool-react.sublime-project",
+			"settings":
+			{
+				"buffer_size": 415,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "/*\n   SublimeCodeIntel default settings\n   All settings can be overridden in *.sublime-project file\n*/\n{\n    /*\n       Sets the mode in which SublimeCodeIntel runs:\n\n       true - Enabled (the default).\n       false - Disabled.\n    */\n    \"codeintel\": true,\n\n    /* path to codeintel database */\n    \"codeintel_database_dir\": \"~/.codeintel\",\n\n    /*\n       An array of language names which are enabled.\n    */\n    \"codeintel_enabled_languages\":\n    [\n       \"JavaScript\", \"SCSS\", \"Python\", \"HTML\", \"Go\",\n       \"Ruby\", \"Python3\", \"XML\", \"Sass\", \"HTML5\", \"Perl\", \"CSS\",\n       \"Twig\", \"Less\", \"Node.js\", \"TemplateToolkit\", \"PHP\"\n    ],\n\n    /*\n       Maps syntax names to languages. This allows variations on a syntax\n       (for example \"Python (Django)\") to be used. The key is\n       the base filename of the .tmLanguage syntax files, and the value\n       is the syntax it maps to.\n    */\n    \"codeintel_syntax_map\":\n    {\n       \"Python Django\": \"Python\"\n    },\n\n\n    /* ####################################################################### */\n    /* the following settings can be overridden for each language individually */\n    /* see \"codeintel_language_settings\" below!                                */\n    /* ####################################################################### */\n\n    /*\n       Sets the mode in which SublimeCodeIntel's live autocomplete runs:\n\n       true - Autocomplete popups as you type (the default).\n       false - Autocomplete popups only when you request it.\n    */\n    \"codeintel_live\": true,\n\n    /*\n       Tooltips method:\n\n       \"popup\" - Uses Autocomplete popup for tooltips.\n       \"panel\" - Uses the output panel for tooltips.\n       \"status\" - Uses the status bar for tooltips (was the default).\n    */\n    \"codeintel_tooltips\": \"popup\",\n\n\n    /*\n       \"buffer\" - add word completions from current view\n       \"all\" - add word completions from all views from active window\n       \"none\" - do not add word completions\n    */\n    \"codeintel_word_completions\": \"buffer\",\n\n    /*\n       Insert functions snippets.\n    */\n    \"codeintel_snippets\": true,\n\n    /*\n       Define global filters to exclude paths from scanning. Use the codeintel_config setting for language specific settings.\n       ex: [\"list/of\",\"/path/to/exclude\"]\n       (Currently only working for JavaScript and PHP)\n    */\n    \"codeintel_scan_exclude_dir\":[],\n\n    /* Code Scanning: Controls how the Code Intelligence system scans your source code files. */\n\n    /* Maximum directory depth: */\n    \"codeintel_max_recursive_dir_depth\": 10,\n\n    /* Include all files and directories from the project base directory: */\n    \"codeintel_scan_files_in_project\": true,\n\n    /* API Catalogs: SublimeCodeIntel uses API catalogs to provide autocomplete and calltips for 3rd-party libraries.\n      Add te libraries that you use in your code. Note: Adding all API catalogs for a particular language can lead to confusing results.\n\n      Avaliable catalogs:\n           PyWin32 (Python3) (for Python3: Python Extensions for Windows)\n           PyWin32 (for Python: Python Extensions for Windows)\n           Rails (for Ruby: Rails version 1.1.6)\n           jQuery (for JavaScript: jQuery JavaScript library - version 1.9.1)\n           Prototype (for JavaScript: JavaScript framework for web development)\n           dojo (for JavaScript: Dojo Toolkit API - version 1.5.0)\n           Ext_30 (for JavaScript: Ext JavaScript framework - version 3.0)\n           HTML5 (for JavaScript: HTML5 (Canvas, Web Messaging, Microdata))\n           MochiKit (for JavaScript: A lightweight JavaScript library - v1.4.2)\n           Mozilla Toolkit (for JavaScript: Mozilla Toolkit API - version 1.8)\n           XBL (for JavaScript: XBL JavaScript support - version 1.0)\n           YUI (for JavaScript: Yahoo! User Interface Library - v2.8.1)\n           Drupal (for PHP: A full-featured PHP content management/discussion engine -- v5.1)\n           PECL (for PHP: A collection of PHP Extensions)\n    */\n    \"codeintel_selected_catalogs\": [],\n\n    /*\n        When editing within a defined scope, no live completion will trigger. ex: [\"comment\"]\n     */\n    \"codeintel_exclude_scopes_from_complete_triggers\": [\"comment\"],\n\n    /*\n       Defines a configuration for each language.\n    */\n    \"codeintel_language_settings\": {\n        \"Python3\": {\n            \"python3\": \"/usr/local/bin/python3.3\",\n            \"codeintel_scan_extra_dir\": [\n                \"/Applications/Sublime Text.app/Contents/MacOS\",\n                \"~/Library/Application Support/Sublime Text 3/Packages/SublimeCodeIntel/arch\",\n                \"~/Library/Application Support/Sublime Text 3/Packages/SublimeCodeIntel/libs\"\n            ]\n        },\n        \"Go\": {\n            \"env\": {\n                \"GOPATH\": \"$GOPATH\"\n            },\n            \"go\": \"/usr/local/go/bin/go\",\n            \"gocode\": \"~/gocode/bin/gocode\",\n            \"godef\": \"~/gocode/bin/godef\"\n        },\n        \"JavaScript\": {\n            \"codeintel_scan_extra_dir\": [],\n            \"codeintel_scan_exclude_dir\":[\"/build/\", \"/min/\"],\n            \"codeintel_scan_files_in_project\": false,\n            \"codeintel_selected_catalogs\": [\"jQuery\"]\n        },\n        \"Ruby\": {\n            \"Ruby\": \"/usr/bin/ruby\",\n            \"codeintel_selected_catalogs\": [\"rails\"]\n        },\n        \"PHP\": {\n            \"php\": \"/Applications/MAMP/bin/php/php5.5.3/bin/php\",\n            \"codeintel_scan_extra_dir\": [],\n            \"codeintel_scan_files_in_project\": true,\n            \"codeintel_max_recursive_dir_depth\": 15,\n            \"codeintel_scan_exclude_dir\":[\"/Applications/MAMP/bin/php/php5.5.3/\"]\n        }\n    }\n}",
+			"file": "/Users/conor.britain/Library/Application Support/Sublime Text 2/Packages/CodeComplice/CodeComplice.sublime-settings",
+			"file_size": 5622,
+			"file_write_time": 1461860218000000,
+			"settings":
+			{
+				"buffer_size": 5622,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "project/source/stylesheets/helpers/vars.scss",
+			"settings":
+			{
+				"buffer_size": 1356,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"codec",
+				"CodeComplice: Dump Import Directories"
+			],
+			[
+				"complice",
+				"CodeComplice: Dump Import Directories"
+			],
+			[
+				"error",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				"jshin",
+				"JSHint"
+			],
+			[
+				"jshint",
+				"JSHint"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package in",
+				"Package Control: Install Package"
+			],
+			[
+				"trailing",
+				"Trailing Spaces: Delete Trailing Spaces"
+			],
+			[
+				"er",
+				"SublimeLinter: Show Error List"
+			]
+		],
+		"width": 476.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/conor.britain/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/auction-tool-react.sublime-project",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/redux/middleware/playerData.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/redux/modules/index.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/containers/FavoritePlayerListsContainer.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/redux/middleware/storage",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/redux/middleware/api",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/components/active-player.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/components/IconButton.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/components/round-value.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/components/suggested-search.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/components/search-results.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/helpers/vars.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/components/player.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/components/app.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/helpers/icons.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/components/player-list.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/components/player-notes.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/components/favorited-player-list.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/components/player-input.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/components/Icon.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/components/Player.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/components/PlayerInput.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/init.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/components/PlayerList.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/containers/PlayerListsContainer.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/containers/Planner.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/redux/modules/players.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/index.html",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/server.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/webpack.config.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/containers/App.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/components/SuggestedSearchBox.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/helpers/mixins.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/components/players.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/components/SuggestedSearchResults.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/package.json",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/containers/Players.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/components/PlayerNotes.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/webpack.config.prod.js",
+		"/Users/conor.britain/Documents/RED_Web_Projects/ferrari-all-access/project/source/icons/instagram-comment.svg",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/helpers/fonts.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/components/ListFilters.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/helpers/filterUtils.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/components/ValueInput.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/init.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/helpers/vert-align.scss",
+		"/Users/conor.britain/Desktop/flex-test.html",
+		"/Users/conor.britain/Desktop/flex-test",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/common/grid.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/components/value-input.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/data/players.json",
+		"/Users/conor.britain/Documents/RED_Web_Projects/ferrari-all-access/project/source/js/components/Icon.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/icons/watch.svg",
+		"/Users/conor.britain/Documents/RED_Web_Projects/ferrari-all-access/webpack.config.dev.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/icons/font-awesome.css",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/icons/font-awesome/_mixins.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/icons/font-awesome/_variables.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/stylesheets/icons/font-awesome/_icons.scss",
+		"/Users/conor.britain/Downloads/font-awesome-4.6.1/scss/font-awesome/_path.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/containers/ActivePlayer.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/components/ValueList.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/source/js/components/FavoritePlayerList.js",
+		"/Users/conor.britain/Documents/RED_Web_Projects/ferrari-all-access/project/source/js/components/App.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/containers/Players.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/containers/ActivePlayer.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/helpers/icons.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/containers/App.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/components/players.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/init.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/redux/modules/players.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/containers/Players.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/containers/PlayerListsContainer.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/components/app.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/server.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/webpack.config.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/components/PlayerList.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/deploy/index.html",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/components/Player.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/components/player.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/helpers/vars.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/components/player-list.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/components/active-player.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/helpers/fonts.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/components/PlayerInput.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/components/SuggestedSearchBox.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/components/ValueInput.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/components/value-input.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/components/player-input.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/deploy/bundle.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/deploy/api/players.json",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/components/favorited-player-list.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/components/round-value.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/components/search-results.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/components/suggested-search.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/data/players.json",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/stylesheets/init.scss",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/redux/modules/active-player.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/helpers/SettingsUtils.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/redux/modules/positions.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/components/FavoritePlayerList.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/components/ListFilters.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/helpers/PlayerListUtils.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/helpers/PlayerValueUtils.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool/static/js/apps/rosters/RostersIndexController.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/containers/Planner.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/helpers/filterUtils.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/redux/modules/categories.js",
+		"/Users/conor.britain/Documents/RED_Web_Projects/ferrari-all-access/project/source/js/init.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/server.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/node_modules/webpack-hot-middleware/middleware.js",
+		"/Users/conor.britain/Documents/RED_Web_Projects/ferrari-all-access/package.json",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/helpers/PlayerSGPUtils.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/containers/FavoritePlayerListsContainer.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/redux/modules/index.js",
+		"/Users/conor.britain/Documents/RED_Web_Projects/ferrari-all-access/project/serverWebpack.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/node_modules/webpack-dev-middleware/middleware.js",
+		"/Users/conor.britain/Downloads/react-tutorial-master/server.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/redux/store.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/components/ValueList.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/node_modules/webpack-dev-middleware/node_modules/memory-fs/lib/MemoryFileSystem.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/node_modules/webpack/node_modules/memory-fs/lib/MemoryFileSystem.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/helpers/sortUtils.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/redux/modules/settings.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/data/categories.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/components/FavoritedPlayerList.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/data/settings.js",
+		"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/project/js/data/teams.js"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"",
+			"/Users/conor.britain/Documents/RED_Web_Projects/ff0000.com/project/source",
+			"static,/Users/conor.britain/Documents/RED_Web_Projects/ff0000.com/project/source",
+			"static",
+			"",
+			"/Users/conor.britain/Documents/RED_Web_Projects/spark-networks/static/templates",
+			"",
+			"/Users/conor.britain/Documents/RED_Web_Projects/spark-networks/static",
+			"",
+			"static/scss",
+			"",
+			"/Users/conor.britain/Documents/RED_Web_Projects/hulu-theawesomes/",
+			"/Users/conor.britain/Documents/RED_Web_Projects/hulu-theawesomes/project/source",
+			"",
+			"/Users/conor.britain/Documents/RED_Web_Projects/hulu-theawesomes/project/source/scss/project",
+			"project",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"didInvalidate",
+			"receivePlayers",
+			"receivePlayersg",
+			"receivePlayers",
+			"fetchPlayers",
+			"thunkMiddleware",
+			"fetch",
+			"fetchPlayersIfNeeded",
+			"fetchPlayers",
+			"fetchPlayersIfNeeded",
+			"state",
+			"dispatch",
+			"fetchPlayersIfNeeded",
+			"receivePlayers",
+			"RECEIVE_PLAYERS",
+			"receivePlayers",
+			"PLAYER_STAT",
+			"INVALIDATE_PLAYERS",
+			"didInvalidate: true",
+			"playerList",
+			"RECEIVE_PLAYERS",
+			"receivePlayers",
+			"Promise.reovel",
+			"shouldFetchPlayers",
+			"Stat",
+			"$color-batter-input-hover",
+			"can-edit",
+			"$color-batter-input-hover",
+			"color-batter-input-hover",
+			"2px",
+			" 2px",
+			"2px",
+			"border-width:",
+			"border-width: 2px",
+			"padding: 0 10px",
+			"padding: 10px",
+			"player-info-container",
+			"icon-but",
+			"icon-buton",
+			"icon-button",
+			":active",
+			"active",
+			"Icon",
+			"WatchIcon",
+			"Watch",
+			"headings",
+			".headings",
+			"d7dfeb",
+			"$batterEditHover",
+			"$success",
+			"$negative",
+			"$color-positive-number",
+			"$positive",
+			"$neutral",
+			"$heading",
+			"$sub-heading",
+			"$headings",
+			"bdc2c9",
+			"$headings",
+			"$darkest-grey",
+			"$dark-grey",
+			"$medium-grey",
+			"$light-grey",
+			"$lightest-grey",
+			"$catcher",
+			"$first-base",
+			"$second-base",
+			"$third-base",
+			"$short-stop",
+			"$outfield",
+			"$starting-pitcher",
+			"$closer",
+			"$relief-pitcher",
+			"$pitcher",
+			"$pitcherDark",
+			"$pitcherAlt",
+			"$pitcherHighlight",
+			"$pitcherMuted",
+			"$color-batter-blue-dark",
+			"$color-batter-blue-default",
+			"$color-batter-blue-alt",
+			"$batter-row",
+			"$color-batter-dark-blue",
+			"$batter-row-alt",
+			"$batter-dark",
+			"$batter-highlight",
+			"$batter-row-muted",
+			"$price",
+			"hover",
+			"Favorite",
+			"input",
+			"player-input-box",
+			"player-lists-filter",
+			"font-size",
+			"td",
+			"player-lists-header",
+			"player-list-header",
+			"font-size",
+			"player-list-filter",
+			"player-list",
+			"player-list-filters",
+			"getPlaceholder",
+			"getPlaceHolder",
+			"console.log",
+			"ASSIGN_PLAYER",
+			"assignPlayer",
+			"UPDATE_PLAYER_COST",
+			"updatePlayerCost",
+			"stopEditing",
+			"onBlur",
+			"playerInput",
+			"focusElement",
+			"focus",
+			"setFocus",
+			"focusElement",
+			"setFocus",
+			"focus('in",
+			"closeAfterUpdate",
+			"onClick",
+			"focusTextField",
+			"closeAfterUpdate",
+			"componentWillUpdate",
+			"notesWereUpdated",
+			"updatePlayerNotes",
+			"notes updated",
+			"focusTextField",
+			"setFocus",
+			"handleEditStart"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"$color-batter-input-hover",
+			"$color-input-success",
+			"$color-number-negative",
+			"$color-number-positive",
+			"$color-positive-number",
+			"$color-neutral",
+			"$color-headings",
+			"$color-headings-sub",
+			"$color-headings",
+			"$color-grey-darkest",
+			"$color-grey-dark",
+			"$color-grey-medium",
+			"$color-grey-light",
+			"$color-grey-lightest",
+			"$color-catcher",
+			"$color-first-base",
+			"$color-second-base",
+			"$color-third-base",
+			"$color-short-stop",
+			"$color-outfield",
+			"$color-starting-pitcher",
+			"$color-closer",
+			"$color-relief-pitcher",
+			"$color-pitcher-default",
+			"$color-pitcher-dark-purple",
+			"$color-pitcher-alt",
+			"$color-pitcher-highlight",
+			"$color-pitcher-muted",
+			"$color-batter-dark-blue",
+			"$color-batter-default",
+			"$color-batter-alt",
+			"$color-batter-blue-default",
+			"$color-batter-blue-dark",
+			"$color-batter-blue-alt",
+			"$color-batter-dark-grey",
+			"$color-batter-highlight",
+			"$color-batter-muted",
+			"$color-batter-dark-blue",
+			"darkest-grey",
+			"$pitcher-row;",
+			"pitcher-row {",
+			"pitcher-dark",
+			"pitcher-row-alt",
+			"pitcher-highlight",
+			"pitcher-row-muted",
+			"ListFilters",
+			"adjustedValue",
+			"filter",
+			"batter-row-highlight",
+			"batterEditHover",
+			"batter-row-muted",
+			"batter-highlight",
+			"batter-row-alt",
+			"batter-dark",
+			"batterEditHover",
+			"$batter-row",
+			"PlayerListsContainer",
+			"isSelected",
+			"isFavorited",
+			"false",
+			"true",
+			"/helpers/",
+			"../../static/",
+			"strong-ease-out",
+			"\"/static/",
+			"static/",
+			"/static/",
+			"{\"link-value\": \"Agent finder\", \"src\": \"/agent-finder\"}",
+			"/static/",
+			"/static/img/",
+			"\"/static/img/",
+			"/static/img/",
+			"true",
+			"playerSpotRatio",
+			"pitcher",
+			"batter",
+			"parent.model.pitchingCategories",
+			"parent.model.battingCategories",
+			"suggested-search",
+			"$neutral",
+			"slot-round",
+			"playerSearchResults",
+			"outlet: 'modalOutlet',\n				model: this.controller.get('model')",
+			"this.render('media/video', {\n				into: 'application',\n				outlet: 'modalOutlet',\n				model: this.controller.get('model')",
+			"outlet: 'modalOutlet',\n				model: this.controller.get('model')",
+			"this.render('media/video',",
+			"ageGateDate",
+			"'",
+			"\"",
+			"Projectile",
+			"hit-sign",
+			"src: [",
+			"queryString",
+			"this.smallGameClock",
+			"positionChildren",
+			"Alt-Gothic",
+			"createTable",
+			"Game.Table",
+			"./",
+			"/",
+			"modifyTargetSpeed",
+			"woodenTarget",
+			"Game.TargetObject",
+			"projectileHitTarget",
+			"playTargetAnimation",
+			"removeTarget",
+			"handleTargetClick",
+			"randomTarget",
+			"newTarget",
+			"getTargetObject",
+			"nextTarget",
+			"disableTarget",
+			"enableTarget",
+			"WoodenTarget",
+			"Game.Target",
+			"Game.GameDependencies",
+			"Game.Transition",
+			"createPreloader",
+			"removePreloader",
+			"addPreloader",
+			"Game.Preloader",
+			"Game.PauseScreen",
+			"changeLevel",
+			"endCurrentLevel",
+			"priorLevel",
+			"newLevel",
+			"Game.Level",
+			"Game.EndScreen"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 10,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "project/source/js/components/ValueInput.js",
+					"settings":
+					{
+						"buffer_size": 4879,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1626,
+								1637
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "project/source/js/components/PlayerNotes.js",
+					"settings":
+					{
+						"buffer_size": 1640,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								727,
+								738
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "project/source/js/containers/ActivePlayer.js",
+					"settings":
+					{
+						"buffer_size": 4469,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3776,
+								3792
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1072.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "project/source/js/components/Player.js",
+					"settings":
+					{
+						"buffer_size": 7587,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2512,
+								2519
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 2.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "project/source/js/containers/PlayerListsContainer.js",
+					"settings":
+					{
+						"buffer_size": 6210,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1139,
+								1159
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "project/source/js/redux/modules/players.js",
+					"settings":
+					{
+						"buffer_size": 8602,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2352,
+								2352
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_complete": false,
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 868.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "project/source/js/containers/Planner.js",
+					"settings":
+					{
+						"buffer_size": 1558,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								717,
+								717
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "project/source/js/redux/store.js",
+					"settings":
+					{
+						"buffer_size": 462,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								254,
+								254
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "project/source/js/redux/modules/index.js",
+					"settings":
+					{
+						"buffer_size": 448,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								448,
+								448
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_complete": false,
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "auction-tool-react.sublime-project",
+					"settings":
+					{
+						"buffer_size": 415,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								415,
+								415
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_complete": true,
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "/Users/conor.britain/Library/Application Support/Sublime Text 2/Packages/CodeComplice/CodeComplice.sublime-settings",
+					"settings":
+					{
+						"buffer_size": 5622,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								606,
+								606
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "project/source/stylesheets/helpers/vars.scss",
+					"settings":
+					{
+						"buffer_size": 1356,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1355,
+								1355
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_complete": true,
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"vars",
+				"stylesheets/helpers/vars.scss"
+			],
+			[
+				"player",
+				"js/redux/modules/players.js"
+			],
+			[
+				"container",
+				"js/containers/PlayerListsContainer.js"
+			],
+			[
+				"player-",
+				"stylesheets/components/player-list.scss"
+			],
+			[
+				"icons",
+				"stylesheets/helpers/icons.scss"
+			],
+			[
+				"active-pl",
+				"stylesheets/components/active-player.scss"
+			],
+			[
+				"player.scs",
+				"stylesheets/components/player.scss"
+			],
+			[
+				"icon.scs",
+				"stylesheets/helpers/icons.scss"
+			],
+			[
+				"active",
+				"js/containers/ActivePlayer.js"
+			],
+			[
+				"iconbutt",
+				"js/components/IconButton.js"
+			],
+			[
+				"playeric",
+				"stylesheets/components/player-input.scss"
+			],
+			[
+				"icon",
+				"js/components/Icon.js"
+			],
+			[
+				"player.scss",
+				"stylesheets/components/player.scss"
+			],
+			[
+				"player-input",
+				"stylesheets/components/player-input.scss"
+			],
+			[
+				"suggest",
+				"stylesheets/components/suggested-search.scss"
+			],
+			[
+				"active-player",
+				"stylesheets/components/active-player.scss"
+			],
+			[
+				"app",
+				"stylesheets/components/app.scss"
+			],
+			[
+				"player-note",
+				"stylesheets/components/player-notes.scss"
+			],
+			[
+				"playerin",
+				"js/components/PlayerInput.js"
+			],
+			[
+				"playerinput",
+				"js/components/PlayerInput.js"
+			],
+			[
+				"valuei",
+				"js/components/ValueInput.js"
+			],
+			[
+				"players.scss",
+				"stylesheets/components/players.scss"
+			],
+			[
+				"valuein",
+				"js/components/ValueInput.js"
+			],
+			[
+				"players",
+				"js/containers/Players.js"
+			],
+			[
+				"scss",
+				"stylesheets/components/player-input.scss"
+			],
+			[
+				".scss",
+				"stylesheets/components/player-list.scss"
+			],
+			[
+				"players.sc",
+				"stylesheets/components/players.scss"
+			],
+			[
+				"init",
+				"js/init.js"
+			],
+			[
+				"playerlist",
+				"js/components/PlayerList.js"
+			],
+			[
+				"fonts",
+				"stylesheets/helpers/fonts.scss"
+			],
+			[
+				"player-c",
+				"stylesheets/components/player-list.scss"
+			],
+			[
+				"filter",
+				"js/components/ListFilters.js"
+			],
+			[
+				"file",
+				"js/helpers/filterUtils.js"
+			],
+			[
+				"playercon",
+				"js/containers/PlayerListsContainer.js"
+			],
+			[
+				"playernot",
+				"js/components/PlayerNotes.js"
+			],
+			[
+				"mixin",
+				"stylesheets/helpers/mixins.scss"
+			],
+			[
+				"init.scs",
+				"stylesheets/init.scss"
+			],
+			[
+				"playerl",
+				"js/components/PlayerList.js"
+			],
+			[
+				"playerlis",
+				"js/components/PlayerList.js"
+			],
+			[
+				"value",
+				"js/components/ValueInput.js"
+			],
+			[
+				"input",
+				"stylesheets/components/value-input.scss"
+			],
+			[
+				"font",
+				"stylesheets/helpers/fonts.scss"
+			],
+			[
+				"activep",
+				"js/containers/ActivePlayer.js"
+			],
+			[
+				"player-list",
+				"stylesheets/components/player-list.scss"
+			],
+			[
+				"app.scs",
+				"stylesheets/components/app.scss"
+			],
+			[
+				"favoritep",
+				"js/components/FavoritePlayerList.js"
+			],
+			[
+				"cont",
+				"js/containers/Players.js"
+			],
+			[
+				"playerc",
+				"js/containers/PlayerListsContainer.js"
+			],
+			[
+				"app.j",
+				"js/containers/App.js"
+			],
+			[
+				"app.s",
+				"stylesheets/components/app.scss"
+			],
+			[
+				"value-in",
+				"stylesheets/components/value-input.scss"
+			],
+			[
+				"style",
+				"stylesheets/init.scss"
+			],
+			[
+				"players.scs",
+				"stylesheets/components/players.scss"
+			],
+			[
+				"playerlistco",
+				"js/containers/PlayerListsContainer.js"
+			],
+			[
+				"suggeste",
+				"stylesheets/components/suggested-search.scss"
+			],
+			[
+				"sugges",
+				"js/components/SuggestedSearchBox.js"
+			],
+			[
+				"suggested",
+				"js/components/SuggestedSearchBox.js"
+			],
+			[
+				"settingsut",
+				"js/helpers/SettingsUtils.js"
+			],
+			[
+				"settings",
+				"js/helpers/SettingsUtils.js"
+			],
+			[
+				"positions",
+				"js/redux/modules/positions.js"
+			],
+			[
+				"filterut",
+				"js/helpers/filterUtils.js"
+			],
+			[
+				"play",
+				"js/components/Player.js"
+			],
+			[
+				"categ",
+				"js/redux/modules/categories.js"
+			],
+			[
+				"favoriteplayer",
+				"js/components/FavoritePlayerList.js"
+			],
+			[
+				"fontgs",
+				"/Users/conor.britain/Documents/Other Projects/Fantasy Baseball/auction-tool-react/package.json"
+			],
+			[
+				"favorited",
+				"stylesheets/components/favorited-player-list.scss"
+			],
+			[
+				"appsc",
+				"stylesheets/components/app.scss"
+			],
+			[
+				"playerlistsco",
+				"js/containers/PlayerListsContainer.js"
+			],
+			[
+				"player-in",
+				"stylesheets/components/player-input.scss"
+			],
+			[
+				"fonts.scs",
+				"stylesheets/helpers/fonts.scss"
+			],
+			[
+				"settingsutil",
+				"js/helpers/SettingsUtils.js"
+			],
+			[
+				"store",
+				"js/redux/store.js"
+			],
+			[
+				"settingsu",
+				"project/js/helpers/SettingsUtils.js"
+			],
+			[
+				"app.scss",
+				"project/stylesheets/components/app.scss"
+			],
+			[
+				"memoryfilesys",
+				"node_modules/webpack-dev-middleware/node_modules/memory-fs/lib/MemoryFileSystem.js"
+			],
+			[
+				"memoryfile",
+				"node_modules/webpack/node_modules/memory-fs/lib/MemoryFileSystem.js"
+			],
+			[
+				"middleware",
+				"node_modules/webpack-dev-middleware/middleware.js"
+			],
+			[
+				"position",
+				"js/redux/modules/positions.js"
+			],
+			[
+				"teams",
+				"js/data/teams.js"
+			],
+			[
+				"modules",
+				"js/redux/modules/index.js"
+			],
+			[
+				"actions",
+				"js/actions/PlayerActions.js"
+			],
+			[
+				"clien",
+				"templates/pages/clients.hbs"
+			],
+			[
+				"clients",
+				"templates/data/pages/clients/clients-page.json"
+			],
+			[
+				"article-fe",
+				"templates/modules/article-feed-module.hbs"
+			],
+			[
+				"respons",
+				"templates/pages/responsibility.hbs"
+			],
+			[
+				"expertise",
+				"templates/pages/expertise.hbs"
+			],
+			[
+				"exper",
+				"templates/data/pages/expertise/expertise-page.json"
+			],
+			[
+				"experi",
+				"templates/data/pages/expertise/expertise-hero.json"
+			],
+			[
+				"agent-fi",
+				"templates/data/pages/agent-finder/agent-finder-hero.json"
+			],
+			[
+				"notif",
+				"js/modules/notification.js"
+			],
+			[
+				"master",
+				"templates/layouts/master-layout.hbs"
+			],
+			[
+				"cookie",
+				"templates/pages/cookiepolicy.hbs"
+			],
+			[
+				"cooki",
+				"lib/modernizr/feature-detects/cookies.js"
+			],
+			[
+				"sports",
+				"templates/data/pages/story/sports/sports-page.json"
+			],
+			[
+				"footer",
+				"templates/modules/footer-module.hbs"
+			],
+			[
+				"cli",
+				"templates/pages/clients.hbs"
+			],
+			[
+				"media",
+				"templates/data/pages/expertise/media/media-page.json"
+			],
+			[
+				"original",
+				"templates/data/pages/expertise/original/original-page.json"
+			],
+			[
+				"league",
+				"templates/data/pages/expertise/league/league-page.json"
+			],
+			[
+				"offices",
+				"templates/data/pages/office/office-page.json"
+			],
+			[
+				"league-",
+				"templates/data/pages/expertise/league/league-page.json"
+			],
+			[
+				"sportstrain",
+				"templates/data/pages/expertise/sportstraining/sportstraining-page.json"
+			],
+			[
+				"sports-json",
+				"templates/data/pages/story/sports/sports-page.json"
+			],
+			[
+				"digital-her",
+				"templates/data/pages/expertise/digital/digital-hero.json"
+			],
+			[
+				"media-hero",
+				"templates/data/pages/expertise/media/media-hero.json"
+			],
+			[
+				"story-main-c",
+				"templates/modules/story-main-content-module.hbs"
+			],
+			[
+				"story",
+				"templates/pages/story.hbs"
+			],
+			[
+				"represen",
+				"templates/data/pages/expertise/representation/representation-page.json"
+			],
+			[
+				"represent",
+				"templates/data/pages/expertise/representation/representation-hero.json"
+			],
+			[
+				"expertise-her",
+				"templates/data/pages/expertise/expertise-hero.json"
+			],
+			[
+				"representation",
+				"templates/data/pages/expertise/representation/representation-hero.json"
+			],
+			[
+				"comedy-h",
+				"templates/data/pages/clients/comedy/comedy-hero.json"
+			],
+			[
+				"comedy",
+				"templates/data/pages/clients/comedy/comedy-page.json"
+			],
+			[
+				"fashion",
+				"templates/data/pages/story/fashion/fashion-page.json"
+			],
+			[
+				"story-main",
+				"templates/modules/story-main-content-module.hbs"
+			],
+			[
+				"story-hero",
+				"templates/data/pages/story/story-hero.json"
+			],
+			[
+				"story-",
+				"templates/data/pages/story/story-gallery.json"
+			],
+			[
+				"story-gall",
+				"templates/modules/story-gallery-module.hbs"
+			],
+			[
+				"story.js",
+				"templates/data/pages/story/story-page.json"
+			],
+			[
+				"our-story",
+				"scss/pages/_our-story.scss"
+			],
+			[
+				"notifi",
+				"js/modules/notification.js"
+			],
+			[
+				"submit",
+				"js/modules/submit.js"
+			],
+			[
+				"agent-finder.scss",
+				"scss/pages/_agent-finder.scss"
+			],
+			[
+				"agent-fin",
+				"js/modules/agent-finder.js"
+			],
+			[
+				"prelo",
+				"js/modules/preloader.js"
+			],
+			[
+				"agent",
+				"js/modules/agent.js"
+			],
+			[
+				"results",
+				"js/modules/agent-results.js"
+			],
+			[
+				"main.j",
+				"js/main.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 243.0,
+	"status_bar_visible": true
+}

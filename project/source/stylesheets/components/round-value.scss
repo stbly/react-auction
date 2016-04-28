@@ -15,10 +15,10 @@
 	cursor: pointer;
 
 	.batter & {
-		background: $batter-row;
+		background: $color-batter-default;
 	}
 	.pitcher & {
-		background: $pitcher;
+		background: $color-pitcher-default;
 	}
 }
 
@@ -37,7 +37,7 @@
 
 		&:hover {
 			color: black;
-			background: $neutral;
+			background: $color-neutral;
 		}
 	}
 }

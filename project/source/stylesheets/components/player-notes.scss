@@ -13,7 +13,7 @@ $collapsed-height: calc(1em + 8px);
 
     overflow: hidden;
 
-	background: $lightest-grey;
+	background: $color-grey-lightest;
 
     text-transform: uppercase;
 
@@ -30,7 +30,7 @@ $collapsed-height: calc(1em + 8px);
     }
 
 	h2 {
-		color: $dark-grey;
+		color: $color-grey-dark;
 		text-align: right;
 	}
 
@@ -50,7 +50,7 @@ $collapsed-height: calc(1em + 8px);
 			top: 6px;
 			width: 30px;
 			height: 30px;
-			background: $dark-grey;
+			background: $color-grey-dark;
 		    transform: rotate(45deg);
 		}
 	}
@@ -58,10 +58,10 @@ $collapsed-height: calc(1em + 8px);
 	.preview {
 		transition: opacity .3s;
 	    position: absolute;
-	    width: 60%;
+	    width: calc(100% - 12em);
 		height: 14px;
 	    left: 25px;
-	    color: $dark-grey;
+	    color: $color-grey-dark;
 
 	    @include cantarell;
 	    font-size: 12px;

@@ -9,10 +9,10 @@ let initialState = {
 	fetching: false,
 	didInvalidate: false,
 	data: null,
-	playerLists: {
+	/*playerLists: {
 		rankedBatters: [],
 		rankedPitchers: [],
-	},
+	},*/
 	activePlayerId: null
 }
 
@@ -53,6 +53,22 @@ export function fetchPlayers(state) {
 	console.log('fetching...');
 	return function (dispatch) {
 
+		if( typeof(Storage) !== "undefined") {
+			var storedPlayerData = JSON.parse(localStorage.getItem('AuctionToolPlayerList'));
+			if (storedPlayerData) {
+				console.log(storedPlayerData)
+				dispatch(receivePlayers(computePlayerValues(storedPlayerData, state)))
+				return Promise.resolve();
+			} else {
+				console.log('no data in local storage')
+			}
+
+		} else {
+			console.log('no local storage')
+		}
+
+		console.log('no cached data found, fetching from api');
+
 		var url = process.env.NODE_ENV === 'development' ? '/api/players' : './data/players.json'
 		dispatch(requestPlayers())
 
@@ -66,7 +82,9 @@ export function fetchPlayers(state) {
 }
 
 export function fetchPlayersIfNeeded() {
+	console.log('fetchPlayersIfNeeded()')
 	return (dispatch, getState) => {
+
 
 		var state = getState()
 
@@ -78,8 +96,7 @@ export function fetchPlayersIfNeeded() {
 
 	    	if (shouldRecalculatePlayers(state)) {
 		    	console.log('need to recalculate players')
-
-	    		computePlayerValues(state.players.data, state)
+		    	dispatch(receivePlayers(computePlayerValues(state.players.data, state)))
 	    	}
 	      // Let the calling code know there's nothing to wait for.
 	      return Promise.resolve()
@@ -105,13 +122,14 @@ export default function reducer (state = initialState, action) {
 
 		case 'RECEIVE_PLAYERS':
 			console.log('receiving players');
-			return Object.assign({}, state, {
+			var newState = Object.assign({}, state, {
 				fetching: false,
 				didInvalidate: false,
-				data: action.players,
-				playerLists: returnPlayerLists( action.players ),
-
+				data: action.players
+				// playerLists: returnPlayerLists( action.players )
 			});
+			localStorage.setItem('AuctionToolPlayerList',JSON.stringify(newState.data));
+			return newState;
 
 		case 'UPDATE_PLAYER_FAVORITED':
 			var updatedPlayers = state.data.map((player, index) => {
@@ -123,9 +141,11 @@ export default function reducer (state = initialState, action) {
 				return player
 			})
 
+			localStorage.setItem('AuctionToolPlayerList',JSON.stringify(updatedPlayers));
+
 			return Object.assign({}, state, {
 				data: updatedPlayers,
-				playerLists: returnPlayerLists( updatedPlayers ),
+				// playerLists: returnPlayerLists( updatedPlayers ),
 			});
 
 		case 'UPDATE_PLAYER_NOTES':
@@ -142,7 +162,7 @@ export default function reducer (state = initialState, action) {
 
 			return Object.assign({}, state, {
 				data: updatedPlayers,
-				playerLists: returnPlayerLists( updatedPlayers ),
+				// playerLists: returnPlayerLists( updatedPlayers ),
 			});
 
 		case 'UPDATE_ACTIVE_PLAYER':
@@ -169,7 +189,7 @@ export default function reducer (state = initialState, action) {
 
 			return Object.assign({}, state, {
 				data: updatedPlayers,
-				playerLists: returnPlayerLists( updatedPlayers ),
+				// playerLists: returnPlayerLists( updatedPlayers ),
 				didInvalidate: true
 			});
 
@@ -187,9 +207,10 @@ export default function reducer (state = initialState, action) {
 
 			return Object.assign({}, state, {
 				data: updatedPlayers,
-				playerLists: returnPlayerLists( updatedPlayers ),
+				// playerLists: returnPlayerLists( updatedPlayers ),
 				didInvalidate: true
 			});
+
 
 		case 'ASSIGN_PLAYER':
 			var {id, cost, team} = action.props;
@@ -208,8 +229,8 @@ export default function reducer (state = initialState, action) {
 
 			return Object.assign({}, state, {
 				data: updatedPlayers,
-				playerLists: returnPlayerLists( updatedPlayers ),
-				isInvalidated: true
+				// playerLists: returnPlayerLists( updatedPlayers ),
+				didInvalidate: true
 			});
 
 		default:

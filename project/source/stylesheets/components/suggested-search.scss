@@ -13,7 +13,7 @@
 			right: 0;
 			left: 0;
 			pointer-events: none;
-			border: 3px solid $batter-dark;
+			border: 3px solid $color-batter-dark-grey;
 		}
 	}
 
@@ -25,19 +25,19 @@
 
 .batter {
 	.is-editing {
-		background: $batter-row;
+		background: $color-batter-default;
 	}
 }
 .pitcher {
 	.is-editing {
-		background: $pitcher;
+		background: $color-pitcher-default;
 	}
 }
 
 .is-positive {
-	color: $positive;
+	color: $color-number-positive;
 }
 
 .is-negative {
-	color: $negative;
+	color: $color-number-negative;
 }
