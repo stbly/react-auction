@@ -72,7 +72,11 @@ export function fetchPlayers(state) {
 		var url = process.env.NODE_ENV === 'development' ? '/api/players' : './data/players.json'
 		dispatch(requestPlayers())
 
-		return fetch(url)
+		var config = {
+			credentials: 'same-origin'
+		}
+
+		return fetch(url, config)
 			.then(function(response) {
 				response.json().then(function(data) {
 					dispatch(receivePlayers(computePlayerValues(data, state)))
