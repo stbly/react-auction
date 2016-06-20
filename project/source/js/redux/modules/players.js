@@ -9,16 +9,18 @@ let initialState = {
 	fetching: false,
 	didInvalidate: false,
 	data: null,
-	/*playerLists: {
-		rankedBatters: [],
-		rankedPitchers: [],
-	},*/
 	activePlayerId: null
 }
+
+var useLocalStorage = false
 
 export function requestPlayers() {
 	console.log('requesting players');
 	return { type: 'REQUEST_PLAYERS' }
+}
+
+export function invalidatePlayers () {
+	return { type: 'INVALIDATE_PLAYERS' }
 }
 
 export function receivePlayers (players) {
@@ -53,10 +55,11 @@ export function fetchPlayers(state) {
 	console.log('fetching...');
 	return function (dispatch) {
 
-		if( typeof(Storage) !== "undefined") {
+		var storageExists = typeof(Storage) !== "undefined"
+		if( storageExists && useLocalStorage ) {
 			var storedPlayerData = JSON.parse(localStorage.getItem('AuctionToolPlayerList'));
 			if (storedPlayerData) {
-				console.log(storedPlayerData)
+				// console.log(storedPlayerData)
 				dispatch(receivePlayers(computePlayerValues(storedPlayerData, state)))
 				return Promise.resolve();
 			} else {
@@ -113,18 +116,20 @@ export default function reducer (state = initialState, action) {
 
 	switch (action.type) {
 		case 'INVALIDATE_PLAYERS':
+			console.log('----- player reducer: INVALIDATE_PLAYERS');
 			return Object.assign({}, state, {
 				didInvalidate: true
 			});
-			break;
 
 		case 'REQUEST_PLAYERS':
+			console.log('----- player reducer: REQUEST_PLAYERS');
 			return Object.assign({}, state, {
 				fetching: true,
-				didInvalidate: false
+				didInvalidate: true
 			});
 
 		case 'RECEIVE_PLAYERS':
+			console.log('----- player reducer: RECEIVE_PLAYERS');
 			console.log('receiving players');
 			var newState = Object.assign({}, state, {
 				fetching: false,
@@ -132,10 +137,15 @@ export default function reducer (state = initialState, action) {
 				data: action.players
 				// playerLists: returnPlayerLists( action.players )
 			});
-			localStorage.setItem('AuctionToolPlayerList',JSON.stringify(newState.data));
+
+			if (useLocalStorage) {
+				localStorage.setItem('AuctionToolPlayerList',JSON.stringify(newState.data));
+			}
+
 			return newState;
 
 		case 'UPDATE_PLAYER_FAVORITED':
+			console.log('----- player reducer: UPDATE_PLAYER_FAVORITED');
 			var updatedPlayers = state.data.map((player, index) => {
 				if (player.id === action.id) {
 					return Object.assign({}, player, {
@@ -145,7 +155,9 @@ export default function reducer (state = initialState, action) {
 				return player
 			})
 
-			localStorage.setItem('AuctionToolPlayerList',JSON.stringify(updatedPlayers));
+			if (useLocalStorage) {
+				localStorage.setItem('AuctionToolPlayerList',JSON.stringify(updatedPlayers));
+			}
 
 			return Object.assign({}, state, {
 				data: updatedPlayers,
@@ -153,6 +165,7 @@ export default function reducer (state = initialState, action) {
 			});
 
 		case 'UPDATE_PLAYER_NOTES':
+			console.log('----- player reducer: UPDATE_PLAYER_NOTES');
 			var {id, notes} = action.props;
 
 			var updatedPlayers = state.data.map((player, index) => {
@@ -170,19 +183,22 @@ export default function reducer (state = initialState, action) {
 			});
 
 		case 'UPDATE_ACTIVE_PLAYER':
+			console.log('----- player reducer: UPDATE_ACTIVE_PLAYER');
 			return Object.assign({}, state, {
 				activePlayerId: action.id
 			});
 
 		case 'UPDATE_PLAYER_COST':
+			console.log('----- player reducer: UPDATE_PLAYER_COST');
 			var {id, cost} = action.props;
 
 			var updatedPlayers = state.data.map((player, index) => {
 				if (player.id === id) {
 					var isSelected = (cost > 0);
 					var team = isSelected ? player.team : null;
+					console.log("isSelected:",isSelected,"cost",cost)
 					return Object.assign({}, player, {
-						cost: cost,
+						cost: isSelected ? cost : null,
 						isSelected: isSelected,
 						team: team
 					})
@@ -198,6 +214,7 @@ export default function reducer (state = initialState, action) {
 			});
 
 		case 'UPDATE_PLAYER_STAT':
+			console.log('----- player reducer: UPDATE_PLAYER_STAT');
 			var {id, stat, value} = action.props;
 
 			var updatedPlayers = state.data.map((player, index) => {
@@ -217,6 +234,7 @@ export default function reducer (state = initialState, action) {
 
 
 		case 'ASSIGN_PLAYER':
+			console.log('----- player reducer: ASSIGN_PLAYER');
 			var {id, cost, team} = action.props;
 
 			var updatedPlayers = state.data.map((player, index) => {
@@ -266,11 +284,12 @@ function returnPlayerLists (players) {
 }
 
 function computePlayerValues (players, state) {
-
 	var	{numTeams, teamSalary, startingSalary, battingPercentage, rosterSpots, numBatters} = state.settings.data,
 		categories = state.categories.data,
 		positions = state.positions.data,
 		teams = state.teams.data;
+
+
 
 	var batters = filterBy(players, 'type', 'batter'),
 		pitchers = filterBy(players, 'type', 'pitcher');

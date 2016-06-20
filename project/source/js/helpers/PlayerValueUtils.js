@@ -12,11 +12,10 @@ function determineSgpGroups (players, scarcePositions) {
 
 		while (lastDraftablePlayer.pos != positionType) {
 			positionIndex--;
-			// console.log(players[positionIndex],positionType);
 
 			lastDraftablePlayer = players[positionIndex];
 		}
-		console.log('lastDraftable:',lastDraftablePlayer)
+		// console.log('lastDraftable:',lastDraftablePlayer)
 
 		var minSgp = lastDraftablePlayer.sgp;
 		sgpGroups.push({
@@ -114,10 +113,10 @@ export default function assignPlayerValues (draftablePlayers, rosterSpots, allPl
 		var marginalSgp = 0;
 		var sgpGroups = [];
 
-		console.log(draftablePlayers.length);
+		// console.log(draftablePlayers.length);
 		if (scarcePositions.length > 0) {
 			sgpGroups = determineSgpGroups(draftablePlayers, scarcePositions);
-			console.log('sgpGroups',sgpGroups)
+			// console.log('sgpGroups',sgpGroups)
 			sgpGroups.forEach(function (sgpGroup) {
 
 				var playersToCalculateFrom;
@@ -167,6 +166,11 @@ export default function assignPlayerValues (draftablePlayers, rosterSpots, allPl
 		var pricePerSgp = marginalDollars / marginalSgp;
 
 		// get inital value, before inflation
+
+		allPlayers.forEach(function (player) {
+			player.value = null
+		})
+
 		var initialPlayerValues = assignValuesFor(draftablePlayers, sgpGroups, pricePerSgp);
 
 		var remainingDollars = dollarsToSpend;
@@ -180,7 +184,7 @@ export default function assignPlayerValues (draftablePlayers, rosterSpots, allPl
 			if (player.isSelected) {
 				playersDrafted++;
 			}
-		});
+		})
 
 		// console.log('total to spend:',dollarsToSpend)
 		// console.log('dollars spent:',totalSpent)

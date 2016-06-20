@@ -6,9 +6,15 @@ let initialState = {
 			type: 'batter',
 			positions: [
 				{ name: '1B' },
-				{ name: '2B' },
+				{
+					name: '2B',
+					minimum: 14
+				},
 				{ name: '3B' },
-				{ name: 'SS' },
+				{
+					name: 'SS',
+					minimum: 14
+				},
 				{ name: 'OF' },
 				{
 					name: 'C',

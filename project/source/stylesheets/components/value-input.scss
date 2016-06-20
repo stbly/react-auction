@@ -1,6 +1,27 @@
+
 .value-input {
+	padding: 3px 5px;
+
 	text-align: center;
-}
-.value-selected {
-	cursor: pointer;
+
+	textarea, input {
+		outline: none;
+	}
+
+	.value-select {
+		height: 1em;
+		line-height: 1em;
+		background: inherit;
+		text-align: center;
+	}
+
+	.value-display {
+		height: 1em;
+		line-height: 1em;
+		cursor: pointer;
+	}
+
+	&.showing-input {
+
+	}
 }

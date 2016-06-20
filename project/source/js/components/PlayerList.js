@@ -120,6 +120,7 @@ class PlayerList extends Component {
 		rankedPlayers = sortBy(rankedPlayers, this.state.currentSortOption, this.state.toggleSortDirection)
 
 		return rankedPlayers.map(function (player, index) {
+
 			return (
 				<Player
 					key={index}

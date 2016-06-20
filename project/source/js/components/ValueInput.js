@@ -35,7 +35,6 @@ class ValueInput extends Component {
 	}
 
 	updateInputValue (e) {
-		// console.log('updateinputvalue',e.target.value);
 		this.setState({inputValue: e.target.value});
 		// console.log(e.target.value);
 		if (this.props.valueDidUpdate) {
@@ -44,7 +43,7 @@ class ValueInput extends Component {
 	}
 
 	getValue () {
-		return this.props.value || this.state.inputValue;
+		return this.state.inputValue || this.props.value;
 	}
 
 	valueExists (value) {
@@ -66,11 +65,16 @@ class ValueInput extends Component {
 
 	handleEditStart () {
 		// console.log('handleEditStart 2');
+		this.valueChanged = false
+
 		if (this.state.isEditing) {
 			return;
 		}
 		// console.log('is editing false')
-		this.setState({isEditing:true})
+		this.setState({
+			isEditing:true,
+			startValue: this.getValue()
+		})
 		if (this.props.didStartEditing) {
 			this.props.didStartEditing(this);
 		}
@@ -88,20 +92,21 @@ class ValueInput extends Component {
 	}
 
 	changeValue (e) {
-		/*if (this.value === this.getValue()) {
-			return;
-		}*/
 		var blurIsAllowed = (e.type === 'blur' && !this.props.cancelBlur)
-		if (e.key === 'Enter' || blurIsAllowed) {
-
+		if (e.key === 'Enter' || blurIsAllowed && !this.valueChanged) {
 			// console.log('sending value',this.getValue())
-			this.value = this.getValue()
-			this.setState({showValue: this.valueExists(this.getValue())});
+			// this.value = this.getValue()
+			this.valueChanged = true
+			var value = this.state.inputValue
+			this.setState({showValue: true});
 			this.setState({isEditing: false})
 			// console.log(this.state)
 			e.target.blur();
-			if (this.props.valueDidChange) {
-				this.props.valueDidChange(this.state.inputValue, this);
+
+			if (value != this.state.startValue) {
+				if (this.props.valueDidChange) {
+					this.props.valueDidChange(this.state.inputValue, this);
+				}
 			}
 		}
 	}
@@ -128,7 +133,7 @@ class ValueInput extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (this.forceEdit) {
+		if (this.state.isEditing) {
 			// console.log('force edit!');
 			this.forceEdit = false;
 			this.setFocus('in');
@@ -139,14 +144,14 @@ class ValueInput extends Component {
 		var el;
 
 		if (this.state.showValue) {
-			el = <span className={this.getClassNames(['value-selected'])}
+			el = <span className={this.getClassNames(['value-display'])}
 					ref={(ref) => this.el = ref}
 					onClick={this.toggleShowValue.bind(this)}>
 					{this.getValue()}
 				</span>
 		} else {
 			if (this.props.type === 'textarea') {
-				el = <textarea className={this.getClassNames(['value-input'])}
+				el = <textarea className={this.getClassNames(['value-select'])}
 						ref={(ref) => this.el = ref}
 						min={this.props.min}
 						max={this.props.max}
@@ -159,7 +164,7 @@ class ValueInput extends Component {
 						value={this.state.inputValue}>
 					</textarea>
 			} else {
-				el = <input className={this.getClassNames(['value-input'])}
+				el = <input className={this.getClassNames(['value-select'])}
 						ref={(ref) => this.el = ref}
 						type={this.props.type || 'number'}
 						min={this.props.min}
@@ -179,14 +184,20 @@ class ValueInput extends Component {
 	}
 
 	render () {
+		var className = classNames('value-input',{'showing-input': this.state.isEditing})
 		return (
-			this.getInputView()
+			<span className={className}>
+				{this.getInputView()}
+			</span>
 		)
 	}
 }
 
 ValueInput.propTypes = {
-	value: React.PropTypes.string,
+	value: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number
+	]),
 	type: React.PropTypes.string,
 	min: React.PropTypes.number,
 	max: React.PropTypes.number,

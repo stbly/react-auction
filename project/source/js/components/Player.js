@@ -136,7 +136,6 @@ class Player extends Component {
 		this.setState({isEditing: false});
 		this.setState({hover: false});
 		this.setState({currentEditElement: null})
-
 		if (this.props.updateCost) {
 			// console.log(cost, this.props.player.id);
 			this.props.updateCost(cost, this.props.player.id);

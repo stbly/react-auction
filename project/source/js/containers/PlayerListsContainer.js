@@ -3,16 +3,10 @@ import { Router, RouteHandler, Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
-import * as playerActions from '../redux/modules/players'
-
 import classNames from 'classnames';
 
 import * as SettingsUtils from '../helpers/SettingsUtils'
 import * as PlayerListUtils from '../helpers/PlayerListUtils'
-
-// import { connect } from 'react-redux'
-// import { bindActionCreators } from 'redux'
-// import { browserHistory } from 'react-router'
 
 import PlayerList from '../components/PlayerList.js'
 import PlayerInput from '../components/PlayerInput'
@@ -31,10 +25,6 @@ class PlayerListsContainer extends Component {
 			hideDraftedPlayers: false,
 			searchQuery: null
 		}
-	}
-
-	componentWillReceiveProps(nextProps) {
-		this.props.actions.fetchPlayersIfNeeded()
 	}
 
 	toggleHideDraftedPlayers () {
@@ -60,13 +50,15 @@ class PlayerListsContainer extends Component {
 	}
 
 	shouldComponentUpdate (nextProps, nextState) {
-
 		var stringifiedNextProps = JSON.stringify(nextProps)
 		var stringifiedProps = JSON.stringify(this.props)
 		var stringifiedNextState = JSON.stringify(nextState)
 		var stringifiedState = JSON.stringify(this.state)
 
-		return (stringifiedNextProps != stringifiedProps || stringifiedNextState != stringifiedState)
+		// console.log(this.props.players)
+		var bool = (stringifiedNextProps != stringifiedProps || stringifiedNextState != stringifiedState)
+		// console.log(stringifiedNextProps === stringifiedProps)
+		return bool
 	}
 
 	componentDidUpdate () {
@@ -166,6 +158,8 @@ class PlayerListsContainer extends Component {
 	render () {
 		var loading = classNames({'is-loading': this.props.isLoading});
 
+		console.log('----------rendering-------------')
+
 		return (
 			<div className='player-lists-container'>
 				<section>
@@ -196,52 +190,36 @@ class PlayerListsContainer extends Component {
 
 					<div className='player-lists-main'>
 						<div className={loading}>
-							<PlayerList
-								type={this.getType()}
-								players={this.getPlayers()}
-								categories={this.getCategories()}
-								sortPlayers={this.props.actions.sortPlayers}
-								playerSelected={this.props.actions.updateActivePlayer}
-								hideDraftedPlayers={this.state.hideDraftedPlayers}
-								hideValueInfo={false}
-								updateStat={this.props.actions.updatePlayerStat}
-								updateCost={this.props.actions.updatePlayerCost}
-								updateFavorited={this.props.actions.updatePlayerFavorited} />
+							{this.renderPlayerList()}
 						</div>
 					</div>
 				</section>
 			</div>
 		)
 	}
-}
 
-
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(playerActions, dispatch)
-    }
-}
-
-function mapStateToProps (state,ownProps) {
-
-	if (!state.players.data || !state.categories.data || !state.teams.data) {
-		return {}
+	renderPlayerList () {
+		return <PlayerList
+			type={this.getType()}
+			players={this.getPlayers()}
+			categories={this.getCategories()}
+			sortPlayers={this.props.actions.sortPlayers}
+			playerSelected={this.props.actions.updateActivePlayer}
+			hideDraftedPlayers={this.state.hideDraftedPlayers}
+			hideValueInfo={false}
+			updateStat={this.props.actions.updatePlayerStat}
+			updateCost={this.props.actions.updatePlayerCost}
+			updateFavorited={this.props.actions.updatePlayerFavorited} />
 	}
-
-	var players = state.players.data,
-		categories = state.categories.data,
-		teams = SettingsUtils.getTeamNames( state.teams.data ),
-		positions = state.positions.data;
-
-	return {
-		players,
-		teams,
-		categories,
-		positions,
-		isLoading: state.players.isLoading
-	};
-
-	// return { ...state.players.lists };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerListsContainer);
+PlayerListsContainer.propTypes = {
+	players: PropTypes.array,
+	teams: PropTypes.array,
+	categories: PropTypes.object,
+	positions: PropTypes.array,
+	isLoading: PropTypes.bool,
+	actions: PropTypes.object
+}
+
+export default PlayerListsContainer
