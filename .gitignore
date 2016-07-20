@@ -8,6 +8,7 @@
 *~
 *.psd
 
-node_modules
+
+node_modules/
 
 project/deploy/*

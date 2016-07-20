@@ -46,9 +46,17 @@
   },
   "dependencies": {
     "axios": "^0.9.1",
+    "classnames": "^2.2.5",
+    "es6-promise": "^3.2.1",
     "fastclick": "^1.0.6",
+    "isomorphic-fetch": "^2.2.1",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.6.0",
+    "react-router-redux": "^4.0.5",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0",
     "svg-sprite-loader": "0.0.18"
   },
   "babel": {
