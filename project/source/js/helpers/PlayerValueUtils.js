@@ -1,17 +1,19 @@
 import {sortBy} from './sortUtils';
-import {rankPlayers} from './PlayerListUtils';
+import {primaryPositionFor, rankPlayers} from './PlayerListUtils';
 
 function determineSgpGroups (players, scarcePositions) {
 	// console.log(players);
 	var sgpGroups = [];
 	scarcePositions.forEach(function (position){
 		/* --- Determine the minimum SGPs for each rare position --- */
+		// console.log(players);
 		var positionIndex = players.length-1,
 			positionType = position.name,
 			lastDraftablePlayer = players[positionIndex];
 
-		while (lastDraftablePlayer.pos != positionType) {
+		while (primaryPositionFor(lastDraftablePlayer) != positionType) {
 			positionIndex--;
+			// console.log(positionIndex,primaryPositionFor(lastDraftablePlayer), positionType);
 
 			lastDraftablePlayer = players[positionIndex];
 		}
@@ -69,7 +71,7 @@ function assignValuesFor (players, sgpGroups, pricePerSgp, inflationRate) {
 			var sgpGroupMinSGP = defaultSgpGroup[0].minSgp;
 
 			sgpGroups.forEach(function (sgpGroup) {
-				if (player.pos === sgpGroup.position){
+				if (primaryPositionFor(player) === sgpGroup.position){
 					sgpGroupMinSGP = sgpGroup.minSgp;
 				}
 			});
@@ -128,7 +130,7 @@ export default function assignPlayerValues (draftablePlayers, rosterSpots, allPl
 						var notAConditionalPositionPlayer = true;
 
 						scarcePositionNames.forEach(function (condition) {
-							if (draftablePlayer.pos === condition) {
+							if (primaryPositionFor(draftablePlayer) === condition) {
 								notAConditionalPositionPlayer = false;
 							}
 						});
@@ -138,7 +140,7 @@ export default function assignPlayerValues (draftablePlayers, rosterSpots, allPl
 				} else {
 
 					playersToCalculateFrom = draftablePlayers.filter(function (draftablePlayer) {
-						return draftablePlayer.pos === sgpGroup.position;
+						return primaryPositionFor(draftablePlayer) === sgpGroup.position;
 					});
 
 				}
@@ -181,7 +183,7 @@ export default function assignPlayerValues (draftablePlayers, rosterSpots, allPl
 			var subtractValue = (Number(player.cost) || 0)
 			remainingDollars -= subtractValue;
 			totalSpent+=subtractValue;
-			if (player.isSelected) {
+			if (player.isDrafted) {
 				playersDrafted++;
 			}
 		})

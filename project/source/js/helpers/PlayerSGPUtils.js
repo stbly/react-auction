@@ -1,12 +1,11 @@
 export default function calculateSGPFor (players, categories, rosterSpots, type) {
 	// console.log('calculating SGP');
-	var sgpCalculation = type === 'batter' ? getBatterSGP : getPitcherSGP,
-		_this = this,
-		_players = players.map(function (player){
-			player.sgp = sgpCalculation(player, categories, rosterSpots);
-			return player;
-		});
-	return _players;
+	var sgpCalculation = type === 'batter' ? getBatterSGP : getPitcherSGP
+
+	return players.map(function (player){
+		player.sgp = sgpCalculation(player, categories, rosterSpots);
+		return player;
+	});
 }
 
 function getBatterSGP (player, categories, rosterSpots) {
@@ -30,9 +29,9 @@ function getBatterSGP (player, categories, rosterSpots) {
 
 			if (ratioStat) {
 
-				var playerAtBats = player.AB,
-					playerPlateApperances = player.PA,
-					playerStat = player[categoryStat];
+				var playerAtBats = player.stats.AB,
+					playerPlateApperances = player.stats.PA,
+					playerStat = player.stats[categoryStat];
 
 				var averageHits = leagueBattingAverage * averageAtBats;
 				var averageOnBaseRate = leagueOnBasePercentage * averagePlateAppearances;
@@ -49,8 +48,8 @@ function getBatterSGP (player, categories, rosterSpots) {
 				var leagueAverageStat = (categoryStat === 'OBP') ? leagueOnBasePercentage : (categoryStat === 'SLG') ? leagueSluggingPercentage : leagueBattingAverage;
 
 				if (categoryStat === 'OPS') {
-					var obpSgp = (((baseOnBaseRate + (playerPlateApperances * player.OBP)) / (basePlateAppearances + playerPlateApperances)) - leagueOnBasePercentage);
-					var slgSgp = (((baseTotalBases + (playerAtBats * player.SLG)) / (baseAtBats + playerAtBats)) - leagueSluggingPercentage);
+					var obpSgp = (((baseOnBaseRate + (playerPlateApperances * player.stats.OBP)) / (basePlateAppearances + playerPlateApperances)) - leagueOnBasePercentage);
+					var slgSgp = (((baseTotalBases + (playerAtBats * player.stats.SLG)) / (baseAtBats + playerAtBats)) - leagueSluggingPercentage);
 
 					sgp = (obpSgp + slgSgp) / sgpd;
 				} else {
@@ -58,7 +57,7 @@ function getBatterSGP (player, categories, rosterSpots) {
 				}
 
 			} else {
-				sgp = player[categoryStat] / sgpd;
+				sgp = player.stats[categoryStat] / sgpd;
 			}
 
 			totalSgp += sgp;
@@ -86,10 +85,10 @@ function getPitcherSGP (player, categories, rosterSpots) {
 
 			if (ratioStat) {
 
-				var playerInningsPitched = player.IP,
-					playerEarnedRuns = (playerInningsPitched * player.ERA) / 9,
-					playerWalksHits = (playerInningsPitched * player.WHIP),
-					playerStat = player[categoryStat];
+				var playerInningsPitched = player.stats.IP,
+					playerEarnedRuns = (playerInningsPitched * player.stats.ERA) / 9,
+					playerWalksHits = (playerInningsPitched * player.stats.WHIP),
+					playerStat = player.stats[categoryStat];
 
 				var averageRunsPerNine = (averageInningsPitched / 9) * leagueAverageERA;
 				var averageWalksHitsAllowed = averageInningsPitched * leagueAverageWHIP;
@@ -107,7 +106,7 @@ function getPitcherSGP (player, categories, rosterSpots) {
 				}
 
 			} else {
-				sgp = player[categoryStat] / sgpd;
+				sgp = player.stats[categoryStat] / sgpd;
 			}
 			totalSgp += sgp;
 		});

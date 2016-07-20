@@ -67,7 +67,7 @@ class SuggestedSearchBox extends Component {
 					var valueAlreadyChosen,	valueAlreadyChosenException;
 
 					if (!_this.props.inclusive) {
-						valueAlreadyChosen = selection.isSelected;
+						valueAlreadyChosen = selection.isDrafted;
 						var currentSelection = _this.props.value;
 						valueAlreadyChosenException = currentSelection ? (selectionValue === _this.props.value.toLowerCase()) : false;
 					}
@@ -114,7 +114,7 @@ class SuggestedSearchBox extends Component {
 	}
 
 	suggestedSearchItemSelected (value) {
-		// console.log('search item isSelected:', value);
+		// console.log('search item isDrafted:', value);
 		// console.log(this,'suggestedSearchItemSelected()')
 		this.setState({searchValue: value});
 		this.setSearchValue(value);

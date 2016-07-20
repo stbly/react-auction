@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Router, Route, Link, browserHistory } from 'react-router'
 import classNames from 'classnames';
+import {primaryPositionFor} from '../helpers/PlayerListUtils';
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
 
@@ -33,7 +34,7 @@ class Player extends Component {
 
 	getCheckbox () {
 		var el;
-		if (!this.props.player.isSelected) {
+		if (!this.props.player.isDrafted) {
 			el= <IconButton
 					toggleButton={this.togglePlayerFavorited.bind(this)}
 					active={this.props.player.isFavorited}
@@ -43,7 +44,7 @@ class Player extends Component {
 	}
 
 	getPosition () {
-		var pos = this.props.player.pos;
+		var pos = primaryPositionFor(this.props.player);
 		var posName = '';
 
 		switch (true) {
@@ -183,7 +184,7 @@ class Player extends Component {
 		var positionClasses = classNames('position', this.getPosition());
 
 		return ([
-			<td key={'player-pos'} className={positionClasses}>{this.props.player.pos}</td>,
+			<td key={'player-pos'} className={positionClasses}>{primaryPositionFor(this.props.player)}</td>,
 			<td key={'player-name'} onClick={this.selectPlayer.bind(this)} className={positionClasses}>{this.props.player.name}</td>
 		])
 	}
@@ -246,7 +247,7 @@ class Player extends Component {
 			for(var key in this.props.categories) {
 				if (this.props.categories.hasOwnProperty(key)) {
 					var category = this.props.categories[key].abbreviation;
-					var stat = this.props.player[category];
+					var stat = this.props.player.stats[category];
 					var ratioStat = (category === 'AVG' || category === 'OBP' || category === 'SLG' || category === 'OPS' || category === 'ERA' || category === 'WHIP');
 					var decimalPlaces = ratioStat ? 3 : 0;
 
@@ -278,7 +279,7 @@ class Player extends Component {
 	}
 
 	render () {
-		var playerClasses = classNames('player', this.props.player.type, {'selected':this.props.player.isSelected}, {'is-editing':this.state.isEditing});
+		var playerClasses = classNames('player', this.props.player.type, {'selected':this.props.player.isDrafted}, {'is-editing':this.state.isEditing});
 
 		return (
 			<tr className={playerClasses} onBlur={this.stopEditing.bind(this)}>

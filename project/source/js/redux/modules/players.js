@@ -82,7 +82,7 @@ export function fetchPlayers(state) {
 		return fetch(url, config)
 			.then(function(response) {
 				response.json().then(function(data) {
-					dispatch(receivePlayers(computePlayerValues(data, state)))
+					dispatch(receivePlayers(synthesizePlayerData(Object.toArray(data), state)))
 				});
 			})
 	}
@@ -194,12 +194,12 @@ export default function reducer (state = initialState, action) {
 
 			var updatedPlayers = state.data.map((player, index) => {
 				if (player.id === id) {
-					var isSelected = (cost > 0);
-					var team = isSelected ? player.team : null;
-					console.log("isSelected:",isSelected,"cost",cost)
+					var isDrafted = (cost > 0);
+					var team = isDrafted ? player.team : null;
+					console.log("isDrafted:",isDrafted,"cost",cost)
 					return Object.assign({}, player, {
-						cost: isSelected ? cost : null,
-						isSelected: isSelected,
+						cost: isDrafted ? cost : null,
+						isDrafted: isDrafted,
 						team: team
 					})
 
@@ -219,7 +219,7 @@ export default function reducer (state = initialState, action) {
 
 			var updatedPlayers = state.data.map((player, index) => {
 				if (player.id === id) {
-					return Object.assign({}, player, {
+					player.stats = Object.assign({}, player.stats, {
 						[stat]: value
 					})
 				}
@@ -239,11 +239,11 @@ export default function reducer (state = initialState, action) {
 
 			var updatedPlayers = state.data.map((player, index) => {
 				if (player.id === id) {
-					var isSelected = (cost > 0);
+					var isDrafted = (cost > 0);
 					return Object.assign({}, player, {
 						team: team,
 						cost: cost,
-						isSelected: isSelected
+						isDrafted: isDrafted
 					})
 				}
 				return player
@@ -283,13 +283,21 @@ function returnPlayerLists (players) {
 	return {rankedBatters, rankedPitchers, unusedBatters, unusedPitchers}
 }
 
+function synthesizePlayerData (players, state) {
+	// var userPlayers = state.user.players
+	var playerArray = Object.toArray(players);
+
+	return computePlayerValues(playerArray.map(player => {
+		player.stats = player.stats.default
+		return player
+	}), state);
+}
+
 function computePlayerValues (players, state) {
 	var	{numTeams, teamSalary, startingSalary, battingPercentage, rosterSpots, numBatters} = state.settings.data,
 		categories = state.categories.data,
 		positions = state.positions.data,
 		teams = state.teams.data;
-
-
 
 	var batters = filterBy(players, 'type', 'batter'),
 		pitchers = filterBy(players, 'type', 'pitcher');
@@ -318,6 +326,11 @@ function computePlayerValues (players, state) {
 
 	var rankedBatters = assignPlayerValues(draftableBatters, numBattersToDraft, batters, battingDollarsToSpend, batterConditions),
 		rankedPitchers = assignPlayerValues(draftablePitchers, numPitchersToDraft, pitchers, pitchingDollarsToSpend, pitcherConditions);
+
+		var totalBattingMoney = rankedBatters.reduce((total, player) => {
+			return total + player.adjustedValue
+		},0);
+		console.log(rankedBatters,battingDollarsToSpend,totalBattingMoney)
 
 	var allPlayers = [].concat(rankedBatters, rankedPitchers, unusedBatters, unusedPitchers);
 

@@ -16,7 +16,7 @@ export function getUnusedPlayers (players) {
 	if (!players) {
 		return;
 	}
-	return players.filter( player => !player.isSelected );
+	return players.filter( player => !player.isDrafted );
 }
 
 export function rankPlayers (players, category, descending=true) {
@@ -57,6 +57,11 @@ export function getMatchingPlayers (players, query) {
 	return matchingValues;
 }
 
+export function primaryPositionFor (player) {
+	// console.log(player)
+	return player.positions ? (player.positions.length > 0 ? player.positions[0] : '') : ''
+}
+
 export function getPlayerList (players, listSize, positionalConditions) {
 
 	var playersSortedBySGP = sortBy(players, 'sgp').reverse();
@@ -79,7 +84,7 @@ export function getPlayerList (players, listSize, positionalConditions) {
 				var okayToUse = true;
 				positionalConditions.forEach(function (conditionCheck) {
 
-					if (playerToTryRemoving.pos === conditionCheck.name) {
+					if (primaryPositionFor(playerToTryRemoving) === conditionCheck.name) {
 						okayToUse = false;
 					}
 				});
