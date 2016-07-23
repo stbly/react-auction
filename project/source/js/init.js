@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import { Router, Route, Link, browserHistory, hashHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { fetchPlayers } from './redux/modules/players'
+import { startListeningToAuth } from './redux/modules/user'
 
 import configureStore from './redux/store'
 
@@ -20,6 +21,7 @@ var historyType = process.env.NODE_ENV === 'development' ? browserHistory : hash
 
 const history = syncHistoryWithStore(historyType, store)
 
+store.dispatch( startListeningToAuth() );
 store.dispatch(fetchPlayers(store.getState()))
 	.then( (res) => {
 		render(

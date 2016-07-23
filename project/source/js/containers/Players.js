@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 
 import * as SettingsUtils from '../helpers/SettingsUtils'
 import * as playerActions from '../redux/modules/players'
+import * as userActions from '../redux/modules/user'
 
 import ValueList from '../components/ValueList'
 import ActivePlayer from './ActivePlayer'
@@ -22,25 +23,38 @@ class Players extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.props.actions.fetchPlayersIfNeeded()
+		this.props.playerActions.fetchPlayersIfNeeded()
 	}
 
-
 	render() {
+
+		var loginStuff
+		if (this.props.user && this.props.user.uid) {
+			loginStuff = <div>
+				<button onClick={this.props.userActions.logoutUser}>Log Out</button>
+				<span>{this.props.user.username}</span>
+			</div>
+		} else {
+			loginStuff = <div>
+				<button onClick={this.props.userActions.attemptLogin}>Log In</button>
+			</div>
+		}
 
 		return (
 
 			<div className='players-route page'>
 
-				<div className='combined-rankings'>
 
+				{loginStuff}
+
+				<div className='combined-rankings'>
 					<PlayerListsContainer
 						shouldRender={this.props.rerender}
 						players={this.props.players}
 						categories={this.props.categories}
 						teams={this.props.teams}
 						positions={this.props.positions}
-						actions={this.props.actions} />
+						actions={this.props.playerActions} />
 
 					<div className='clear-both'></div>
 				</div>
@@ -54,7 +68,8 @@ class Players extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(playerActions, dispatch)
+        playerActions: bindActionCreators(playerActions, dispatch),
+        userActions: bindActionCreators(userActions, dispatch)
     }
 }
 
@@ -68,12 +83,14 @@ function mapStateToProps (state,ownProps) {
 		categories = state.categories.data,
 		teams = SettingsUtils.getTeamNames( state.teams.data ),
 		positions = state.positions.data,
-		settings = state.settings.data
+		settings = state.settings.data,
+		user = state.user
 
 	var newPlayers = (this === undefined) ? null : !(this.oldPlayers === players)
 	this.oldPlayers = players
 
 	return {
+		user,
 		rerender: newPlayers,
 		players,
 		teams,

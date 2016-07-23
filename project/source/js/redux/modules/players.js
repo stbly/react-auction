@@ -31,20 +31,20 @@ export function updatePlayerFavorited (playerId) {
 	return { type: 'UPDATE_PLAYER_FAVORITED', id: playerId }
 }
 
-export function updatePlayerNotes (playerId, playerNotes) {
-	return { type: 'UPDATE_PLAYER_NOTES', props: {id: playerId, notes: playerNotes} }
+export function updatePlayerNotes (playerId, notes) {
+return { type: 'UPDATE_PLAYER_NOTES', props: {id: playerId, notes} }
 }
 
 export function updateActivePlayer (playerId) {
 	return { type: 'UPDATE_ACTIVE_PLAYER', id: playerId }
 }
 
-export function updatePlayerCost (playerCost, playerId) {
-	return { type: 'UPDATE_PLAYER_COST', props: {id: playerId, cost: playerCost} }
+export function updatePlayerCost (cost, playerId) {
+	return { type: 'UPDATE_PLAYER_COST', props: {id: playerId, cost} }
 }
 
 export function updatePlayerStat (stat, value, playerId) {
-	return {type: 'UPDATE_PLAYER_STAT', props: {id: playerId, stat: stat, value:value} }
+	return {type: 'UPDATE_PLAYER_STAT', props: {id: playerId, stat, value} }
 }
 
 export function assignPlayer (playerId, cost, team) {
@@ -111,25 +111,24 @@ export function fetchPlayersIfNeeded() {
 	}
 }
 
-
 export default function reducer (state = initialState, action) {
 
 	switch (action.type) {
+		case 'UPDATE_PLAYER_STAT': {
+			console.log('holy shit you got him')
+		}
 		case 'INVALIDATE_PLAYERS':
-			console.log('----- player reducer: INVALIDATE_PLAYERS');
 			return Object.assign({}, state, {
 				didInvalidate: true
 			});
 
 		case 'REQUEST_PLAYERS':
-			console.log('----- player reducer: REQUEST_PLAYERS');
 			return Object.assign({}, state, {
 				fetching: true,
 				didInvalidate: true
 			});
 
 		case 'RECEIVE_PLAYERS':
-			console.log('----- player reducer: RECEIVE_PLAYERS');
 			console.log('receiving players');
 			var newState = Object.assign({}, state, {
 				fetching: false,
@@ -145,7 +144,6 @@ export default function reducer (state = initialState, action) {
 			return newState;
 
 		case 'UPDATE_PLAYER_FAVORITED':
-			console.log('----- player reducer: UPDATE_PLAYER_FAVORITED');
 			var updatedPlayers = state.data.map((player, index) => {
 				if (player.id === action.id) {
 					return Object.assign({}, player, {
@@ -165,7 +163,6 @@ export default function reducer (state = initialState, action) {
 			});
 
 		case 'UPDATE_PLAYER_NOTES':
-			console.log('----- player reducer: UPDATE_PLAYER_NOTES');
 			var {id, notes} = action.props;
 
 			var updatedPlayers = state.data.map((player, index) => {
@@ -183,13 +180,11 @@ export default function reducer (state = initialState, action) {
 			});
 
 		case 'UPDATE_ACTIVE_PLAYER':
-			console.log('----- player reducer: UPDATE_ACTIVE_PLAYER');
 			return Object.assign({}, state, {
 				activePlayerId: action.id
 			});
 
 		case 'UPDATE_PLAYER_COST':
-			console.log('----- player reducer: UPDATE_PLAYER_COST');
 			var {id, cost} = action.props;
 
 			var updatedPlayers = state.data.map((player, index) => {
@@ -214,7 +209,6 @@ export default function reducer (state = initialState, action) {
 			});
 
 		case 'UPDATE_PLAYER_STAT':
-			console.log('----- player reducer: UPDATE_PLAYER_STAT');
 			var {id, stat, value} = action.props;
 
 			var updatedPlayers = state.data.map((player, index) => {
@@ -234,7 +228,6 @@ export default function reducer (state = initialState, action) {
 
 
 		case 'ASSIGN_PLAYER':
-			console.log('----- player reducer: ASSIGN_PLAYER');
 			var {id, cost, team} = action.props;
 
 			var updatedPlayers = state.data.map((player, index) => {
