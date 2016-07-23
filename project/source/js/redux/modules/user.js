@@ -91,6 +91,9 @@ export default function reducer (state = initialState, action) {
 				username: "guest",
 				uid: null
 			}
+		case 'UPDATE_PLAYER_STAT': {
+
+		}
 		case "ATTEMPTING_LOGOUT":
 			return Object.assign({}, state, {
 				currently: "AWAITING_AUTH_RESPONSE"

@@ -114,9 +114,6 @@ export function fetchPlayersIfNeeded() {
 export default function reducer (state = initialState, action) {
 
 	switch (action.type) {
-		case 'UPDATE_PLAYER_STAT': {
-			console.log('holy shit you got him')
-		}
 		case 'INVALIDATE_PLAYERS':
 			return Object.assign({}, state, {
 				didInvalidate: true
@@ -211,6 +208,7 @@ export default function reducer (state = initialState, action) {
 		case 'UPDATE_PLAYER_STAT':
 			var {id, stat, value} = action.props;
 
+			console.log('-------------------')
 			var updatedPlayers = state.data.map((player, index) => {
 				if (player.id === id) {
 					player.stats = Object.assign({}, player.stats, {

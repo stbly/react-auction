@@ -9,6 +9,7 @@ import PlayerList from '../components/PlayerList'
 import PlayerNotes from '../components/PlayerNotes'
 import IconButton from '../components/IconButton'
 import * as SettingsUtils from '../helpers/SettingsUtils'
+import {primaryPositionFor} from '../helpers/PlayerListUtils';
 import * as playerActions from '../redux/modules/players'
 
 import player from '../../images/player-image.png'
@@ -94,7 +95,7 @@ class ActivePlayer extends Component {
 				<div className='player-info-panel'>
 					<div className='upper-panel'>
 						<div className='player-info-container' ref={(ref) => this.playerInfo = ref}>
-							<h2 className='player-meta'> {this.props.activePlayer.pos} </h2>
+							<h2 className='player-meta'> {primaryPositionFor(this.props.activePlayer)} </h2>
 							<h1 className='player-name'> {this.props.activePlayer.name} </h1>
 							{costEl}
 							{ownerEl}

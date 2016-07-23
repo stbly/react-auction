@@ -38,7 +38,7 @@ function determineSgpGroups (players, scarcePositions) {
 		lastDraftablePlayer = players[index];
 		scarcePositions.forEach(function (conditionalPosition) {
 
-			if (conditionalPosition.name === lastDraftablePlayer.pos) {
+			if (conditionalPosition.name === primaryPositionFor(lastDraftablePlayer)) {
 				bool = true;
 			}
 		});
