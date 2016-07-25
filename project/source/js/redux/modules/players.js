@@ -7,16 +7,14 @@ import assignPlayerValues from '../../helpers/PlayerValueUtils'
 
 let initialState = {
 	fetching: false,
-	didInvalidate: false,
+	didInvalidate: true,
 	data: null,
 	activePlayerId: null
 }
 
-var useLocalStorage = false
-
-export function requestPlayers() {
-	console.log('requesting players');
-	return { type: 'REQUEST_PLAYERS' }
+export function loadingPlayerData() {
+	console.log('loadingPlayerData');
+	return { type: 'LOADING_PLAYER_DATA' }
 }
 
 export function invalidatePlayers () {
@@ -51,65 +49,43 @@ export function assignPlayer (playerId, cost, team) {
 	return {type: 'ASSIGN_PLAYER', props: {id: playerId, cost, team} }
 }
 
-export function fetchPlayers(state) {
-	console.log('fetching...');
-	return function (dispatch) {
-
-		var storageExists = typeof(Storage) !== "undefined"
-		if( storageExists && useLocalStorage ) {
-			var storedPlayerData = JSON.parse(localStorage.getItem('AuctionToolPlayerList'));
-			if (storedPlayerData) {
-				// console.log(storedPlayerData)
-				dispatch(receivePlayers(computePlayerValues(storedPlayerData, state)))
-				return Promise.resolve();
-			} else {
-				console.log('no data in local storage')
-			}
-
-		} else {
-			console.log('no local storage')
-		}
-
-		console.log('no cached data found, fetching from api');
-
-		var url = process.env.NODE_ENV === 'development' ? '/api/players' : './data/players.json'
-		dispatch(requestPlayers())
-
-		var config = {
-			credentials: 'same-origin'
-		}
-
-		return fetch(url, config)
-			.then(function(response) {
-				response.json().then(function(data) {
-					dispatch(receivePlayers(synthesizePlayerData(Object.toArray(data), state)))
-				});
-			})
-	}
-}
-
-export function fetchPlayersIfNeeded() {
-	console.log('fetchPlayersIfNeeded()')
-	return (dispatch, getState) => {
-
-
+export function getCustomValues(players) {
+	return function (dispatch, getState) {
 		var state = getState()
 
-	    if (shouldFetchPlayers(state)) {
-	    	console.log('need to fetch players again')
-			return dispatch(fetchPlayers(state))
-	    } else {
-	    	console.log('dont need to fetch players again')
+    	if (shouldRecalculatePlayers(state)) {
+    		dispatch( loadingPlayerData() )
+	    	console.log('need to recalculate players')
+	    	players = computePlayerValues(players, state)
+    	}
 
-	    	if (shouldRecalculatePlayers(state)) {
-		    	console.log('need to recalculate players')
-		    	dispatch(receivePlayers(computePlayerValues(state.players.data, state)))
-	    	}
-	      // Let the calling code know there's nothing to wait for.
-	      return Promise.resolve()
-	    }
+    	dispatch( receivePlayers(players) )
+		return Promise.resolve()
 	}
 }
+
+// export function statesIfNeeded() {
+// 	console.log('fetchPlayersIfNeeded()')
+// 	return (dispatch, getState) => {
+
+
+// 		var state = getState()
+
+// 	    if (shouldFetchPlayers(state)) {
+// 	    	console.log('need to fetch players again')
+// 			return dispatch(fetchPlayers(state))
+// 	    } else {
+// 	    	console.log('dont need to fetch players again')
+
+// 	    	if (shouldRecalculatePlayers(state)) {
+// 		    	console.log('need to recalculate players')
+// 		    	dispatch(receivePlayers(computePlayerValues(state.players.data, state)))
+// 	    	}
+// 	      // Let the calling code know there's nothing to wait for.
+// 	      return Promise.resolve()
+// 	    }
+// 	}
+// }
 
 export default function reducer (state = initialState, action) {
 
@@ -119,7 +95,7 @@ export default function reducer (state = initialState, action) {
 				didInvalidate: true
 			});
 
-		case 'REQUEST_PLAYERS':
+		case 'LOADING_PLAYER_DATA':
 			return Object.assign({}, state, {
 				fetching: true,
 				didInvalidate: true
@@ -134,10 +110,6 @@ export default function reducer (state = initialState, action) {
 				// playerLists: returnPlayerLists( action.players )
 			});
 
-			if (useLocalStorage) {
-				localStorage.setItem('AuctionToolPlayerList',JSON.stringify(newState.data));
-			}
-
 			return newState;
 
 		case 'UPDATE_PLAYER_FAVORITED':
@@ -149,10 +121,6 @@ export default function reducer (state = initialState, action) {
 				}
 				return player
 			})
-
-			if (useLocalStorage) {
-				localStorage.setItem('AuctionToolPlayerList',JSON.stringify(updatedPlayers));
-			}
 
 			return Object.assign({}, state, {
 				data: updatedPlayers,
@@ -273,16 +241,17 @@ function returnPlayerLists (players) {
 
 	return {rankedBatters, rankedPitchers, unusedBatters, unusedPitchers}
 }
-
+/*
 function synthesizePlayerData (players, state) {
 	// var userPlayers = state.user.players
+	console.log('=====synthesizePlayerData')
 	var playerArray = Object.toArray(players);
-
+	console.log('=====done synthesis')
 	return computePlayerValues(playerArray.map(player => {
 		player.stats = player.stats.default
 		return player
 	}), state);
-}
+}*/
 
 function computePlayerValues (players, state) {
 	var	{numTeams, teamSalary, startingSalary, battingPercentage, rosterSpots, numBatters} = state.settings.data,
@@ -290,16 +259,21 @@ function computePlayerValues (players, state) {
 		positions = state.positions.data,
 		teams = state.teams.data;
 
-	var batters = filterBy(players, 'type', 'batter'),
-		pitchers = filterBy(players, 'type', 'pitcher');
+	players = Object.toArray(players)
+
+	var batters = filterBy(players, 'type', 'batter');
+	var	pitchers = filterBy(players, 'type', 'pitcher');
 
 	var battingCategories = SettingsUtils.getCategories(categories.batter),
 		pitchingCategories = SettingsUtils.getCategories(categories.pitcher);
 
 	var numPitchers = rosterSpots - numBatters;
 
+		console.log('okay')
+
 	var battersWithSGP = calculateSGPFor(batters, battingCategories, numBatters, 'batter'),
 		pitchersWithSGP = calculateSGPFor(pitchers, pitchingCategories, numPitchers, 'pitcher');
+		console.log('yup')
 
 	var numBattersToDraft = numBatters * numTeams,
 		numPitchersToDraft = (rosterSpots - numBatters) * numTeams;
@@ -324,6 +298,5 @@ function computePlayerValues (players, state) {
 		console.log(rankedBatters,battingDollarsToSpend,totalBattingMoney)
 
 	var allPlayers = [].concat(rankedBatters, rankedPitchers, unusedBatters, unusedPitchers);
-
 	return allPlayers
 }

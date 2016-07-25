@@ -3,7 +3,8 @@ export default function calculateSGPFor (players, categories, rosterSpots, type)
 	var sgpCalculation = type === 'batter' ? getBatterSGP : getPitcherSGP
 
 	return players.map(function (player){
-		player.sgp = sgpCalculation(player, categories, rosterSpots);
+		var playerHasStats = player.stats
+		player.sgp = playerHasStats ? sgpCalculation(player, categories, rosterSpots) : 0
 		return player;
 	});
 }
@@ -57,6 +58,7 @@ function getBatterSGP (player, categories, rosterSpots) {
 				}
 
 			} else {
+				console.log(player)
 				sgp = player.stats[categoryStat] / sgpd;
 			}
 
@@ -81,14 +83,13 @@ function getPitcherSGP (player, categories, rosterSpots) {
 			var sgp = 0,
 				sgpd = category.sgpd,
 				categoryStat = category.abbreviation.toString(),
-				ratioStat = (categoryStat === 'ERA' || categoryStat === 'WHIP');
+				ratioStat = (categoryStat === 'ERA' || categoryStat === 'WHIP')
 
 			if (ratioStat) {
 
 				var playerInningsPitched = player.stats.IP,
 					playerEarnedRuns = (playerInningsPitched * player.stats.ERA) / 9,
-					playerWalksHits = (playerInningsPitched * player.stats.WHIP),
-					playerStat = player.stats[categoryStat];
+					playerWalksHits = (playerInningsPitched * player.stats.WHIP)
 
 				var averageRunsPerNine = (averageInningsPitched / 9) * leagueAverageERA;
 				var averageWalksHitsAllowed = averageInningsPitched * leagueAverageWHIP;
@@ -108,6 +109,7 @@ function getPitcherSGP (player, categories, rosterSpots) {
 			} else {
 				sgp = player.stats[categoryStat] / sgpd;
 			}
+
 			totalSgp += sgp;
 		});
 

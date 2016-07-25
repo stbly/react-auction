@@ -7,8 +7,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, Route, Link, browserHistory, hashHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
-import { fetchPlayers } from './redux/modules/players'
-import { startListeningToAuth } from './redux/modules/user'
+import { getCustomValues } from './redux/modules/players'
+import { startListeningToAuth, fetchPlayerData, synthesizePlayerData } from './redux/modules/user'
 
 import configureStore from './redux/store'
 
@@ -22,8 +22,28 @@ var historyType = process.env.NODE_ENV === 'development' ? browserHistory : hash
 const history = syncHistoryWithStore(historyType, store)
 
 store.dispatch( startListeningToAuth() );
-store.dispatch(fetchPlayers(store.getState()))
-	.then( (res) => {
+store.dispatch( fetchPlayerData() ).then( data => {
+	store.dispatch( synthesizePlayerData(data) ).then( playerData => {
+		store.dispatch( getCustomValues(playerData) ).then(
+			render(
+				<Provider store={store}>
+					<Router history={history}>
+						<Route name='app' path="/" component={App}>
+							<Route path='players' component={Players} />
+							<Route path='planner' component={Planner} />
+						</Route>
+					</Router>
+				</Provider>,
+				document.getElementById('root')
+			)
+		)
+	})
+})
+
+
+/*.then( store.dispatch(
+	fetchPlayers(store.getState()))
+).then(res) => {
 		render(
 			<Provider store={store}>
 				<Router history={history}>
@@ -36,3 +56,4 @@ store.dispatch(fetchPlayers(store.getState()))
 			document.getElementById('root')
 		)
 	})
+*/

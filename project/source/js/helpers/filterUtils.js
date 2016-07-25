@@ -10,6 +10,7 @@ Object.toArray = (obj, id='id') =>
 		.map(key => {
 			var item = obj[key]
 			item[id] = key
+			// console.log(key, item[id])
 			return item
 		})
 

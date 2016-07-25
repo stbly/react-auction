@@ -23,7 +23,7 @@ class Players extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.props.playerActions.fetchPlayersIfNeeded()
+		// this.props.playerActions.fetchPlayersIfNeeded()
 	}
 
 	render() {
@@ -87,7 +87,11 @@ function mapStateToProps (state,ownProps) {
 		user = state.user
 
 	var newPlayers = (this === undefined) ? null : !(this.oldPlayers === players)
-	this.oldPlayers = players
+	if (this) {
+		this.oldPlayers = players
+	}
+
+	console.log(players)
 
 	return {
 		user,

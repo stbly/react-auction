@@ -178,6 +178,7 @@ class PlayerList extends Component {
 
 	render () {
 		var listClass = classNames('player-list', this.props.type);
+
 		return (
 			<div className='player-list-container'>
 				<table className={listClass}>
