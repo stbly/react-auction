@@ -213,7 +213,7 @@ function assignPlayerValues (draftablePlayers, rosterSpots, allPlayers, dollarsT
 	return rankPlayers(afterInflationPlayerValues, 'value', false);
 }
 
-
+//TODO: don't pass state into function, only the things it needs
 export default function computePlayerValues (players, state) {
 	var	{numTeams, teamSalary, startingSalary, battingPercentage, rosterSpots, numBatters} = state.settings.data,
 		categories = state.categories.data,
@@ -256,5 +256,5 @@ export default function computePlayerValues (players, state) {
 		console.log(rankedBatters,battingDollarsToSpend,totalBattingMoney)*/
 
 	var allPlayers = [].concat(rankedBatters, rankedPitchers, unusedBatters, unusedPitchers);
-	return allPlayers
+	return Array.toObject(allPlayers)
 }

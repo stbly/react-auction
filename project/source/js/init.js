@@ -7,8 +7,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, Route, Link, browserHistory, hashHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
-import { getCustomValues } from './redux/modules/players'
-import { startListeningToAuth, fetchPlayerData, synthesizePlayerData } from './redux/modules/user'
+import { fetchPlayers } from './redux/modules/players'
+import { startListeningToAuth, synthesizePlayerData } from './redux/modules/user'
 
 import configureStore from './redux/store'
 
@@ -22,8 +22,8 @@ var historyType = process.env.NODE_ENV === 'development' ? browserHistory : hash
 const history = syncHistoryWithStore(historyType, store)
 
 store.dispatch( startListeningToAuth() );
-store.dispatch( fetchPlayerData() ).then( playerData => {
-	store.dispatch( getCustomValues(playerData) ).then(
+store.dispatch( fetchPlayers() )
+	.then( res => {
 		render(
 			<Provider store={store}>
 				<Router history={history}>
@@ -35,5 +35,5 @@ store.dispatch( fetchPlayerData() ).then( playerData => {
 			</Provider>,
 			document.getElementById('root')
 		)
-	)
-})
+	}
+)

@@ -1,15 +1,17 @@
-import { firebaseRef } from '../modules/user'
-import { UPDATE_PLAYER_STAT } from '../modules/players'
+import firebase from 'firebase'
 import {
-	ATTEMPTING_LOGIN,
-	ATTEMPTING_LOGOUT,
-	LOGIN_USER,
-	LOGOUT_USER,
-	DISPLAY_ERROR } from '../modules/user'
+	firebaseData } from './api'
+
+import {
+	receivePlayers,
+	UPDATE_PLAYER_STAT,
+	LOAD_PLAYERS_SUCCESS,
+	LOAD_USER_PLAYERS_SUCCESS } from '../modules/players'
 
 const updateFirebaseUserPlayerData = (state, action) => {
-	var {id, stat, value} = action.props,
-		usersRef = firebaseRef.child("users"),
+	console.log(action)
+	var {id, stat, value} = action.payload,
+		usersRef = firebaseData.ref().child("users"),
 		path = state.user.uid + '/players/' + id + '/stats/' + stat + '/'
 
 	usersRef.update({
@@ -21,19 +23,15 @@ const updateFirebaseUserPlayerData = (state, action) => {
 
 export default function firebaseMiddleware({ dispatch, getState }) {
 	return next => action => {
+		const state = getState()
+		switch (action.type) {
 
-		const { type } = action
-		switch (type) {
-			case UPDATE_PLAYER_STAT: {
+			case UPDATE_PLAYER_STAT:
 				// /users/50fZ5hfC3mWxrNcIlHhhXrR0Rxp2/players/1/stats/
-				var state = getState();
 				if (state.user.uid) {
 					updateFirebaseUserPlayerData(state, action)
 				}
-				break;
-			}
-			case LOGIN_USER: {
-			}
+				break
 		}
 
 		return next(action)

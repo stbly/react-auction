@@ -14,6 +14,21 @@ Object.toArray = (obj, id='id') =>
 			return item
 		})
 
+Array.toObject = (array, id='id') => {
+	var object = {};
+	for (var i = 0; i < array.length; i++) {
+		var item = array[i]
+		if (array[i] !== undefined) {
+			var key = item[id];
+			if (!key) {
+				object[i] = item;
+			} else {
+				object[key] = item;
+			}
+		}
+	}
+	return object;
+}
 
 const filterBy = (array, prop, value) => {
 	value = value === null ? true : value

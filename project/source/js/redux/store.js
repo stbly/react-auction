@@ -1,4 +1,5 @@
 import thunkMiddleware from 'redux-thunk'
+import apiMiddlware from './middleware/api'
 import firebaseMiddleware from './middleware/firebase'
 import { createStore, applyMiddleware } from 'redux'
 import { Router, Route, browserHistory } from 'react-router'
@@ -10,6 +11,7 @@ export default function configureStore(initialState) {
     	rootReducer,
     	applyMiddleware(
 			thunkMiddleware, // lets us dispatch() functions
+			apiMiddlware,
 			firebaseMiddleware
 		)
     )

@@ -24,13 +24,13 @@ class Players extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		console.log('componentWillReceiveProps')
-		// this.props.playerActions.fetchPlayersIfNeeded()
+		this.props.playerActions.fetchPlayersIfNeeded()
 	}
 
 	render() {
 
 		console.log('render')
-		console.log(this.props.user)
+		console.log(this.props.players)
 
 		var loginStuff
 		if (this.props.user && this.props.user.uid) {
@@ -54,7 +54,7 @@ class Players extends Component {
 				<div className='combined-rankings'>
 					<PlayerListsContainer
 						shouldRender={this.props.rerender}
-						players={this.props.players}
+						players={ Object.toArray(this.props.players) }
 						categories={this.props.categories}
 						teams={this.props.teams}
 						positions={this.props.positions}

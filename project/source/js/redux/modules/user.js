@@ -1,6 +1,11 @@
 // code derived from @github Krawaller from http://blog.krawaller.se/posts/a-react-redux-firebase-app-with-authentication/
 
-import { getCustomValues, invalidatePlayers } from './players'
+import firebase from 'firebase'
+import {firebaseRef} from '../middleware/firebase'
+
+import { getCustomValues, invalidatePlayers, receivePlayers } from './players'
+import computePlayerValues from '../../helpers/PlayerValueUtils'
+
 
 const ATTEMPTING_LOGIN = 'user/ATTEMPTING_LOGIN'
 const ATTEMPTING_LOGOUT = 'user/ATTEMPTING_LOGOUT'
@@ -8,65 +13,6 @@ const LOGIN_USER = 'user/LOGIN_USER'
 const LOGOUT_USER = 'user/LOGOUT_USER'
 const DISPLAY_ERROR = 'user/DISPLAY_ERROR'
 
-import firebase from 'firebase'
-const config = {
-	apiKey: "AIzaSyB-BtZ6B1pQe5hJrIEQFVmprg7kuvroSfo",
-	authDomain: "auction-values-472d6.firebaseapp.com",
-	databaseURL: "https://auction-values-472d6.firebaseio.com",
-	storageBucket: "auction-values-472d6.appspot.com",
-};
-
-firebase.initializeApp(config);
-export const firebaseRef = firebase.database().ref();
-
-export function fetchPlayerData () {
-	return function (dispatch, getState) {
-
-		return firebase.database().ref('/players').once('value').then( snapshot => {
-			var players = snapshot.val()
-			// firebase.database().ref('/players').once('value').then
-
-			for (var id in players) {
-				if (players.hasOwnProperty(id)) {
-					var statsExist = players[id].stats
-					if (statsExist) {
-						players[id].stats = players[id].stats.default
-					}
-				}
-			}
-
-			return synthesizePlayerData(players).then( synthesizedPlayers => {
-				return synthesizedPlayers
-			})
-		})
-	}
-}
-
-export function synthesizePlayerData (players) {
-	var currentUser = firebase.auth().currentUser
-
-	if (currentUser) {
-		return firebase.database().ref('/users/' + currentUser.uid).once('value').then( snapshot => {
-			var userPlayers = snapshot.val().players;
-			console.log('----', userPlayers)
-			for (var userPlayerId in userPlayers) {
-				if (userPlayers.hasOwnProperty(userPlayerId)) {
-					var userPlayerStats = userPlayers[userPlayerId].stats
-					if (userPlayerStats) {
-						var defaultStats = players[userPlayerId].stats
-						players[userPlayerId].stats = Object.assign({}, defaultStats, userPlayerStats)
-
-						console.log('????',players[userPlayerId])
-					}
-				}
-			}
-
-			return players
-		})
-	}
-
-	return Promise.resolve(players)
-}
 
 export function startListeningToAuth () {
 	return function (dispatch,getState) {
@@ -84,14 +30,12 @@ export function startListeningToAuth () {
 
 				dispatch( userLoggedIn(uid, username) )
 
-				var currentPlayerData = Object.toObject(getState().players.data)
+				var currentPlayerData = Array.toObject(getState().players.data)
 				console.log('currentPlayerData?',currentPlayerData)
 				if (currentPlayerData) {
-					console.log('!!!!');
 					dispatch( invalidatePlayers() )
 					synthesizePlayerData(currentPlayerData).then( synthesizedPlayers => {
-						console.log('we have synthesis',synthesizedPlayers)
-						getCustomValues(synthesizedPlayers)
+						dispatch( receivePlayers(computePlayerValues(synthesizedPlayers, getState())))
 					})
 				}
 
