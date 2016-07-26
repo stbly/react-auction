@@ -63,9 +63,14 @@
 				"$team_id": false,
 				"positions": {
 					"$position_id": true
-				}
+				},
 				"stats": {
 					"$category_id": true
+				},
+				"notes": {
+					"$note_id": {
+
+					}
 				}
 			}
 		}

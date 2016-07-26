@@ -159,8 +159,6 @@ class PlayerListsContainer extends Component {
 	render () {
 		var loading = classNames({'is-loading': this.props.isLoading});
 
-		console.log('----------rendering-------------')
-
 		return (
 			<div className='player-lists-container'>
 				<section>

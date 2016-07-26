@@ -23,10 +23,14 @@ class Players extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
+		console.log('componentWillReceiveProps')
 		// this.props.playerActions.fetchPlayersIfNeeded()
 	}
 
 	render() {
+
+		console.log('render')
+		console.log(this.props.user)
 
 		var loginStuff
 		if (this.props.user && this.props.user.uid) {
@@ -90,8 +94,6 @@ function mapStateToProps (state,ownProps) {
 	if (this) {
 		this.oldPlayers = players
 	}
-
-	console.log(players)
 
 	return {
 		user,

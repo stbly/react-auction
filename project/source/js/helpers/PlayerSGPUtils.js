@@ -1,14 +1,3 @@
-export default function calculateSGPFor (players, categories, rosterSpots, type) {
-	// console.log('calculating SGP');
-	var sgpCalculation = type === 'batter' ? getBatterSGP : getPitcherSGP
-
-	return players.map(function (player){
-		var playerHasStats = player.stats
-		player.sgp = playerHasStats ? sgpCalculation(player, categories, rosterSpots) : 0
-		return player;
-	});
-}
-
 function getBatterSGP (player, categories, rosterSpots) {
 		var totalSgp = 0,
 			leagueBattingAverage = .268,
@@ -58,7 +47,6 @@ function getBatterSGP (player, categories, rosterSpots) {
 				}
 
 			} else {
-				console.log(player)
 				sgp = player.stats[categoryStat] / sgpd;
 			}
 
@@ -69,49 +57,59 @@ function getBatterSGP (player, categories, rosterSpots) {
 	}
 
 function getPitcherSGP (player, categories, rosterSpots) {
-		var totalSgp = 0,
-			leagueAverageERA = 3.724,
-			leagueAverageWHIP = 1.234,
-			averageInningsPitched = 160 * rosterSpots,
-			playerSpotRatio = ((rosterSpots - 1) / rosterSpots);
+	var totalSgp = 0,
+		leagueAverageERA = 3.724,
+		leagueAverageWHIP = 1.234,
+		averageInningsPitched = 160 * rosterSpots,
+		playerSpotRatio = ((rosterSpots - 1) / rosterSpots);
 
-		var categorySGPs = categories.filter(function (category) {
-			return category.sgpd;
-		});
+	var categorySGPs = categories.filter(function (category) {
+		return category.sgpd;
+	});
 
-		categorySGPs.forEach(function (category) {
-			var sgp = 0,
-				sgpd = category.sgpd,
-				categoryStat = category.abbreviation.toString(),
-				ratioStat = (categoryStat === 'ERA' || categoryStat === 'WHIP')
+	categorySGPs.forEach(function (category) {
+		var sgp = 0,
+			sgpd = category.sgpd,
+			categoryStat = category.abbreviation.toString(),
+			ratioStat = (categoryStat === 'ERA' || categoryStat === 'WHIP')
 
-			if (ratioStat) {
+		if (ratioStat) {
 
-				var playerInningsPitched = player.stats.IP,
-					playerEarnedRuns = (playerInningsPitched * player.stats.ERA) / 9,
-					playerWalksHits = (playerInningsPitched * player.stats.WHIP)
+			var playerInningsPitched = player.stats.IP,
+				playerEarnedRuns = (playerInningsPitched * player.stats.ERA) / 9,
+				playerWalksHits = (playerInningsPitched * player.stats.WHIP)
 
-				var averageRunsPerNine = (averageInningsPitched / 9) * leagueAverageERA;
-				var averageWalksHitsAllowed = averageInningsPitched * leagueAverageWHIP;
+			var averageRunsPerNine = (averageInningsPitched / 9) * leagueAverageERA;
+			var averageWalksHitsAllowed = averageInningsPitched * leagueAverageWHIP;
 
-				var baseInningsPitched = playerSpotRatio * averageInningsPitched;
-				var baseRuns = playerSpotRatio * averageRunsPerNine;
-				var baseWalksHits = playerSpotRatio * averageWalksHitsAllowed;
+			var baseInningsPitched = playerSpotRatio * averageInningsPitched;
+			var baseRuns = playerSpotRatio * averageRunsPerNine;
+			var baseWalksHits = playerSpotRatio * averageWalksHitsAllowed;
 
-				var leagueAverageStat = (categoryStat === 'WHIP') ? leagueAverageWHIP : leagueAverageERA;
+			var leagueAverageStat = (categoryStat === 'WHIP') ? leagueAverageWHIP : leagueAverageERA;
 
-				if (categoryStat === 'ERA') {
-					sgp = ((leagueAverageStat - ((baseRuns + playerEarnedRuns) * (9 / (playerInningsPitched + baseInningsPitched)))) / sgpd);
-				} else {
-					sgp = ((leagueAverageStat - ((baseWalksHits + playerWalksHits) / (playerInningsPitched + baseInningsPitched))) / sgpd)
-				}
-
+			if (categoryStat === 'ERA') {
+				sgp = ((leagueAverageStat - ((baseRuns + playerEarnedRuns) * (9 / (playerInningsPitched + baseInningsPitched)))) / sgpd);
 			} else {
-				sgp = player.stats[categoryStat] / sgpd;
+				sgp = ((leagueAverageStat - ((baseWalksHits + playerWalksHits) / (playerInningsPitched + baseInningsPitched))) / sgpd)
 			}
 
-			totalSgp += sgp;
-		});
+		} else {
+			sgp = player.stats[categoryStat] / sgpd;
+		}
 
-		return totalSgp;
-	}
+		totalSgp += sgp;
+	});
+
+	return totalSgp;
+}
+
+export default function calculateSGPFor (players, categories, rosterSpots, type) {
+	var sgpCalculation = type === 'batter' ? getBatterSGP : getPitcherSGP
+
+	return players.map(function (player){
+		var playerHasStats = player.stats
+		player.sgp = playerHasStats ? sgpCalculation(player, categories, rosterSpots) : 0
+		return player;
+	});
+}

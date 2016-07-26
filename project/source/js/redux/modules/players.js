@@ -1,9 +1,7 @@
 import fetch from 'isomorphic-fetch'
-import {filterBy} from '../../helpers/filterUtils';
-import calculateSGPFor from '../../helpers/PlayerSgpUtils'
+import { firebaseRef } from '../modules/user'
 import * as PlayerListUtils from '../../helpers/PlayerListUtils'
-import * as SettingsUtils from '../../helpers/SettingsUtils'
-import assignPlayerValues from '../../helpers/PlayerValueUtils'
+import computePlayerValues from '../../helpers/PlayerValueUtils'
 
 let initialState = {
 	fetching: false,
@@ -12,46 +10,58 @@ let initialState = {
 	activePlayerId: null
 }
 
+const LOADING_PLAYER_DATA = 'players/LOADING_PLAYER_DATA'
+const INVALIDATE_PLAYERS = 'players/INVALIDATE_PLAYERS'
+const RECEIVE_PLAYERS = 'players/RECEIVE_PLAYERS'
+const UPDATE_PLAYER_FAVORITED = 'players/UPDATE_PLAYER_FAVORITED'
+const UPDATE_PLAYER_NOTES = 'players/UPDATE_PLAYER_NOTES'
+const UPDATE_ACTIVE_PLAYER = 'players/UPDATE_ACTIVE_PLAYER'
+const UPDATE_PLAYER_COST = 'players/UPDATE_PLAYER_COST'
+const UPDATE_PLAYER_STAT = 'players/UPDATE_PLAYER_STAT'
+const ASSIGN_PLAYER = 'players/ASSIGN_PLAYER'
+
 export function loadingPlayerData() {
 	console.log('loadingPlayerData');
-	return { type: 'LOADING_PLAYER_DATA' }
+	return { type: LOADING_PLAYER_DATA }
 }
 
 export function invalidatePlayers () {
-	return { type: 'INVALIDATE_PLAYERS' }
+	return { type: INVALIDATE_PLAYERS }
 }
 
 export function receivePlayers (players) {
-	return { type: 'RECEIVE_PLAYERS', players: players }
+	return { type: RECEIVE_PLAYERS, players: players }
 }
 
 export function updatePlayerFavorited (playerId) {
-	return { type: 'UPDATE_PLAYER_FAVORITED', id: playerId }
+	return { type: UPDATE_PLAYER_FAVORITED, id: playerId }
 }
 
 export function updatePlayerNotes (playerId, notes) {
-return { type: 'UPDATE_PLAYER_NOTES', props: {id: playerId, notes} }
+return { type: UPDATE_PLAYER_NOTES, props: {id: playerId, notes} }
 }
 
 export function updateActivePlayer (playerId) {
-	return { type: 'UPDATE_ACTIVE_PLAYER', id: playerId }
+	return { type: UPDATE_ACTIVE_PLAYER, id: playerId }
 }
 
 export function updatePlayerCost (cost, playerId) {
-	return { type: 'UPDATE_PLAYER_COST', props: {id: playerId, cost} }
+	return { type: UPDATE_PLAYER_COST, props: {id: playerId, cost} }
 }
 
 export function updatePlayerStat (stat, value, playerId) {
-	return {type: 'UPDATE_PLAYER_STAT', props: {id: playerId, stat, value} }
+	return {type: UPDATE_PLAYER_STAT, props: {id: playerId, stat, value} }
 }
 
 export function assignPlayer (playerId, cost, team) {
-	return {type: 'ASSIGN_PLAYER', props: {id: playerId, cost, team} }
+	return {type: ASSIGN_PLAYER, props: {id: playerId, cost, team} }
 }
 
 export function getCustomValues(players) {
 	return function (dispatch, getState) {
 		var state = getState()
+
+		console.log('getCustomValues',players)
 
     	if (shouldRecalculatePlayers(state)) {
     		dispatch( loadingPlayerData() )
@@ -63,6 +73,21 @@ export function getCustomValues(players) {
 		return Promise.resolve()
 	}
 }
+
+
+function shouldFetchPlayers(state) {
+	var players = state.players.data;
+	if (!players && !state.players.fetching) {
+		return true
+	} else {
+		return false
+	}
+}
+
+function shouldRecalculatePlayers(state) {
+	return state.players.didInvalidate
+}
+
 
 // export function statesIfNeeded() {
 // 	console.log('fetchPlayersIfNeeded()')
@@ -87,21 +112,21 @@ export function getCustomValues(players) {
 // 	}
 // }
 
-export default function reducer (state = initialState, action) {
+function reducer (state = initialState, action) {
 
 	switch (action.type) {
-		case 'INVALIDATE_PLAYERS':
+		case INVALIDATE_PLAYERS:
 			return Object.assign({}, state, {
 				didInvalidate: true
 			});
 
-		case 'LOADING_PLAYER_DATA':
+		case LOADING_PLAYER_DATA:
 			return Object.assign({}, state, {
 				fetching: true,
 				didInvalidate: true
 			});
 
-		case 'RECEIVE_PLAYERS':
+		case RECEIVE_PLAYERS:
 			console.log('receiving players');
 			var newState = Object.assign({}, state, {
 				fetching: false,
@@ -112,7 +137,7 @@ export default function reducer (state = initialState, action) {
 
 			return newState;
 
-		case 'UPDATE_PLAYER_FAVORITED':
+		case UPDATE_PLAYER_FAVORITED:
 			var updatedPlayers = state.data.map((player, index) => {
 				if (player.id === action.id) {
 					return Object.assign({}, player, {
@@ -127,7 +152,7 @@ export default function reducer (state = initialState, action) {
 				// playerLists: returnPlayerLists( updatedPlayers ),
 			});
 
-		case 'UPDATE_PLAYER_NOTES':
+		case UPDATE_PLAYER_NOTES:
 			var {id, notes} = action.props;
 
 			var updatedPlayers = state.data.map((player, index) => {
@@ -144,12 +169,12 @@ export default function reducer (state = initialState, action) {
 				// playerLists: returnPlayerLists( updatedPlayers ),
 			});
 
-		case 'UPDATE_ACTIVE_PLAYER':
+		case UPDATE_ACTIVE_PLAYER:
 			return Object.assign({}, state, {
 				activePlayerId: action.id
 			});
 
-		case 'UPDATE_PLAYER_COST':
+		case UPDATE_PLAYER_COST:
 			var {id, cost} = action.props;
 
 			var updatedPlayers = state.data.map((player, index) => {
@@ -173,7 +198,7 @@ export default function reducer (state = initialState, action) {
 				didInvalidate: true
 			});
 
-		case 'UPDATE_PLAYER_STAT':
+		case UPDATE_PLAYER_STAT:
 			var {id, stat, value} = action.props;
 
 			console.log('-------------------')
@@ -193,7 +218,7 @@ export default function reducer (state = initialState, action) {
 			});
 
 
-		case 'ASSIGN_PLAYER':
+		case ASSIGN_PLAYER:
 			var {id, cost, team} = action.props;
 
 			var updatedPlayers = state.data.map((player, index) => {
@@ -219,28 +244,14 @@ export default function reducer (state = initialState, action) {
 	}
 }
 
-
-function shouldFetchPlayers(state) {
-	var players = state.players.data;
-	if (!players && !state.players.fetching) {
-		return true
-	} else {
-		return false
-	}
-}
-
-function shouldRecalculatePlayers(state) {
-	return state.players.didInvalidate
-}
-
-function returnPlayerLists (players) {
+/*function returnPlayerLists (players) {
 	var rankedBatters = players.filter( player => (player.value && player.type === 'batter')),
 		rankedPitchers = players.filter( player => (player.value && player.type === 'pitcher')),
 		unusedBatters = players.filter( player => (!player.value && player.type === 'batter')),
 		unusedPitchers = players.filter( player => (!player.value && player.type === 'pitcher'));
 
 	return {rankedBatters, rankedPitchers, unusedBatters, unusedPitchers}
-}
+}*/
 /*
 function synthesizePlayerData (players, state) {
 	// var userPlayers = state.user.players
@@ -253,50 +264,15 @@ function synthesizePlayerData (players, state) {
 	}), state);
 }*/
 
-function computePlayerValues (players, state) {
-	var	{numTeams, teamSalary, startingSalary, battingPercentage, rosterSpots, numBatters} = state.settings.data,
-		categories = state.categories.data,
-		positions = state.positions.data,
-		teams = state.teams.data;
-
-	players = Object.toArray(players)
-
-	var batters = filterBy(players, 'type', 'batter');
-	var	pitchers = filterBy(players, 'type', 'pitcher');
-
-	var battingCategories = SettingsUtils.getCategories(categories.batter),
-		pitchingCategories = SettingsUtils.getCategories(categories.pitcher);
-
-	var numPitchers = rosterSpots - numBatters;
-
-		console.log('okay')
-
-	var battersWithSGP = calculateSGPFor(batters, battingCategories, numBatters, 'batter'),
-		pitchersWithSGP = calculateSGPFor(pitchers, pitchingCategories, numPitchers, 'pitcher');
-		console.log('yup')
-
-	var numBattersToDraft = numBatters * numTeams,
-		numPitchersToDraft = (rosterSpots - numBatters) * numTeams;
-
-	var batterConditions = SettingsUtils.getScarcePositions(positions[0].positions),
-		pitcherConditions = SettingsUtils.getScarcePositions(positions[1].positions);
-
-	var [draftableBatters, unusedBatters] = PlayerListUtils.getPlayerList(battersWithSGP, numBattersToDraft, batterConditions);
-	var	[draftablePitchers, unusedPitchers] = PlayerListUtils.getPlayerList(pitchersWithSGP, numPitchersToDraft, pitcherConditions);
-
-	var totalSalary = teamSalary * numTeams;
-
-	var battingDollarsToSpend = totalSalary * (battingPercentage / 100),
-		pitchingDollarsToSpend = totalSalary * ((100 - battingPercentage) / 100);
-
-	var rankedBatters = assignPlayerValues(draftableBatters, numBattersToDraft, batters, battingDollarsToSpend, batterConditions),
-		rankedPitchers = assignPlayerValues(draftablePitchers, numPitchersToDraft, pitchers, pitchingDollarsToSpend, pitcherConditions);
-
-		var totalBattingMoney = rankedBatters.reduce((total, player) => {
-			return total + player.adjustedValue
-		},0);
-		console.log(rankedBatters,battingDollarsToSpend,totalBattingMoney)
-
-	var allPlayers = [].concat(rankedBatters, rankedPitchers, unusedBatters, unusedPitchers);
-	return allPlayers
+export default reducer
+export {
+	LOADING_PLAYER_DATA,
+	INVALIDATE_PLAYERS,
+	RECEIVE_PLAYERS,
+	UPDATE_PLAYER_FAVORITED,
+	UPDATE_PLAYER_NOTES,
+	UPDATE_ACTIVE_PLAYER,
+	UPDATE_PLAYER_COST,
+	UPDATE_PLAYER_STAT,
+	ASSIGN_PLAYER
 }
