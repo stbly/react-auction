@@ -21,6 +21,7 @@ export default function apiMiddleware({ dispatch, getState }) {
 			dispatch( Object.assign({}, payload, {
 				type: requestAction
 			}))
+
 			return firebaseData.ref(endpoint).once('value')
 				.then(
 					res => {

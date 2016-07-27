@@ -24,7 +24,7 @@ class Players extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		console.log('componentWillReceiveProps')
-		this.props.playerActions.fetchPlayers()
+		// this.props.playerActions.fetchPlayers()
 	}
 
 	render() {
@@ -32,7 +32,7 @@ class Players extends Component {
 		var loginStuff
 		if (this.props.user && this.props.user.uid) {
 			loginStuff = <div>
-				<button onClick={this.props.userActions.logoutUser}>Log Out</button>
+				<button onClick={this.props.userActions.attemptLogout}>Log Out</button>
 				<span>{this.props.user.username}</span>
 			</div>
 		} else {

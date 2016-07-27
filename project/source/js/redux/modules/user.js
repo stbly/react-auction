@@ -1,12 +1,13 @@
 // code derived from @github Krawaller from http://blog.krawaller.se/posts/a-react-redux-firebase-app-with-authentication/
 
 import firebase from 'firebase'
-import {firebaseRef} from '../middleware/firebase'
-import { fetchPlayersIfNeeded } from './players'
+import { firebaseRef } from '../middleware/firebase'
+import {
+	fetchPlayers,
+	forceLoadPlayers,
+	unsynthesizePlayers } from './players'
 
-import { getCustomValues, invalidatePlayers, receivePlayers } from './players'
 import computePlayerValues from '../../helpers/PlayerValueUtils'
-
 
 const ATTEMPTING_LOGIN = 'user/ATTEMPTING_LOGIN'
 const ATTEMPTING_LOGOUT = 'user/ATTEMPTING_LOGOUT'
@@ -17,39 +18,21 @@ const DISPLAY_ERROR = 'user/DISPLAY_ERROR'
 
 export function startListeningToAuth () {
 	return function (dispatch,getState) {
-		firebase.auth().onAuthStateChanged(function(user) {
-
+		firebase.auth().onAuthStateChanged( user => {
+			const state = getState()
 			console.log('onAuthStateChanged')
 			if (user) {
-				// User is signed in.
-
-				console.log('loginuser',user)
-				var uid = user.uid,
-					username =  user.displayName || user.email
-
+				const {uid, displayName, email} = user
+				const username = displayName || email
 				/*firebaseRef.on('child_changed', function(childSnapshot, prevChildKey) {
 					dispatch( childUpdated(childSnapshot, prevChildKey) )
 				})*/
-
-				console.log('dispatchLogin')
-
-				dispatch( userLoggedIn(uid, username) )
-/*
-					var currentPlayerData = Array.toObject(getState().players.data)
-					console.log('currentPlayerData?',currentPlayerData)
-					if (currentPlayerData) {
-						dispatch( invalidatePlayers() )
-						synthesizePlayerData(currentPlayerData).then( synthesizedPlayers => {
-							dispatch( receivePlayers(computePlayerValues(synthesizedPlayers, getState())))
-						})
-					}*/
-
+				return dispatch( loginUser(uid, username) )
 			} else {
 				// No user is signed in.
-				if (getState().auth.currently !== "ANONYMOUS"){
-
-				console.log('logoutUser')
-					dispatch( logoutUser() )
+				if (state.auth) {
+					if (auth.currently !== "ANONYMOUS")
+						return dispatch( attemptLogout() )
 				}
 			}
 		});
@@ -69,7 +52,6 @@ export function attemptLogin (username, password) {
 
 		firebase.auth().signInWithEmailAndPassword('conorbritain@gmail.com', 'w@deb0ggsstyl3').catch(function(error) {
 		// firebase.auth().signInWithEmailAndPassword( username, password ).catch(function(error) {
-			// Handle Errors here.
 			console.log('ERROR')
 			var errorCode = error.code;
 			var errorMessage = error.message;
@@ -77,18 +59,37 @@ export function attemptLogin (username, password) {
 	}
 }
 
-export function logoutUser () {
+export function attemptLogout () {
 	return function(dispatch,getState){
 		dispatch( attemptingLogout() )
-		firebase.auth().signOut().then(function() {
+		firebase.auth().signOut()
+			.then(
+				() => {
+				/*firebaseRef.off('child_changed', function(childSnapshot, prevChildKey) {
+					dispatch( childUpdated(childSnapshot, prevChildKey) )
+				})*/
+					return dispatch( logoutUser() )
+				},
+				error => {}
+			);
+	}
+}
 
-			firebaseRef.off('child_changed', function(childSnapshot, prevChildKey) {
-				dispatch( childUpdated(childSnapshot, prevChildKey) )
-			})
 
-			dispatch( userLoggedOut() )
-		}, function(error) {
-		});
+export function loginUser (uid, username) {
+	return function(dispatch,getState){
+		dispatch( unsynthesizePlayers() )
+		dispatch( userLoggedIn(uid, username) )
+		return dispatch( fetchPlayers() )
+	}
+}
+
+export function logoutUser () {
+	return function(dispatch,getState){
+		console.log('logoutUser')
+		dispatch( forceLoadPlayers() )
+		dispatch( userLoggedOut() )
+		return dispatch( fetchPlayers() )
 	}
 }
 
@@ -130,7 +131,7 @@ function reducer (state = {}, action) {
 			})
 			return state
 		case LOGOUT_USER:
-			console.log('LOUGOUT_USER')
+			console.log('LOUOUT_USER')
 			state = Object.assign({}, state, {
 				currently: "ANONYMOUS",
 				username: "guest",
