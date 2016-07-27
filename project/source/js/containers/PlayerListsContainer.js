@@ -59,7 +59,7 @@ class PlayerListsContainer extends Component {
 		var bool = (stringifiedNextProps != stringifiedProps || stringifiedNextState != stringifiedState)
 		// console.log(stringifiedNextProps === stringifiedProps)
 		console.log('should i update?',bool)
-		return bool
+		return bool || this.props.shouldRender
 	}
 
 	componentDidUpdate () {
