@@ -2,6 +2,7 @@
 
 import firebase from 'firebase'
 import {firebaseRef} from '../middleware/firebase'
+import { fetchPlayersIfNeeded } from './players'
 
 import { getCustomValues, invalidatePlayers, receivePlayers } from './players'
 import computePlayerValues from '../../helpers/PlayerValueUtils'
@@ -21,31 +22,38 @@ export function startListeningToAuth () {
 			console.log('onAuthStateChanged')
 			if (user) {
 				// User is signed in.
+
+				console.log('loginuser',user)
 				var uid = user.uid,
 					username =  user.displayName || user.email
 
-				firebaseRef.on('child_changed', function(childSnapshot, prevChildKey) {
+				/*firebaseRef.on('child_changed', function(childSnapshot, prevChildKey) {
 					dispatch( childUpdated(childSnapshot, prevChildKey) )
-				})
+				})*/
+
+				console.log('dispatchLogin')
 
 				dispatch( userLoggedIn(uid, username) )
-
-				var currentPlayerData = Array.toObject(getState().players.data)
-				console.log('currentPlayerData?',currentPlayerData)
-				if (currentPlayerData) {
-					dispatch( invalidatePlayers() )
-					synthesizePlayerData(currentPlayerData).then( synthesizedPlayers => {
-						dispatch( receivePlayers(computePlayerValues(synthesizedPlayers, getState())))
-					})
-				}
+/*
+					var currentPlayerData = Array.toObject(getState().players.data)
+					console.log('currentPlayerData?',currentPlayerData)
+					if (currentPlayerData) {
+						dispatch( invalidatePlayers() )
+						synthesizePlayerData(currentPlayerData).then( synthesizedPlayers => {
+							dispatch( receivePlayers(computePlayerValues(synthesizedPlayers, getState())))
+						})
+					}*/
 
 			} else {
 				// No user is signed in.
 				if (getState().auth.currently !== "ANONYMOUS"){
+
+				console.log('logoutUser')
 					dispatch( logoutUser() )
 				}
 			}
 		});
+		return Promise.resolve()
 	}
 }
 
@@ -93,6 +101,7 @@ export function attemptingLogout (uid, username) {
 }
 
 export function userLoggedIn (uid, username) {
+	console.log('userLoggedIn')
 	return { type: LOGIN_USER, payload: {uid, username} }
 }
 
@@ -129,6 +138,7 @@ function reducer (state = {}, action) {
 			})
 			return state
 		case LOGIN_USER:
+			console.log('LOGIN_USER')
 			var {username, uid} = action.payload
 			state = Object.assign({}, state, {
 				currently: "LOGGED_IN",

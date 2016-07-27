@@ -21,8 +21,8 @@ var historyType = process.env.NODE_ENV === 'development' ? browserHistory : hash
 
 const history = syncHistoryWithStore(historyType, store)
 
-store.dispatch( startListeningToAuth() );
 store.dispatch( fetchPlayers() )
+	.then( res => store.dispatch( startListeningToAuth())
 	.then( res => {
 		render(
 			<Provider store={store}>
@@ -35,5 +35,5 @@ store.dispatch( fetchPlayers() )
 			</Provider>,
 			document.getElementById('root')
 		)
-	}
+	})
 )

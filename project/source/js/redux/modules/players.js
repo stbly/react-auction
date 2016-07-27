@@ -36,37 +36,82 @@ export function getPlayers (endpoint) {
 	}
 }
 
-export function fetchPlayers () {
+function fetchDefaultPlayers () {
 	return function (dispatch, getState) {
 		const state = getState()
+		const { data, fetching } = state.players
+		const shouldFetchPlayers = (!data && !fetching)
 
-		return dispatch( getPlayers('/players') ) // Load default player data
-			.then( players => {
-				const scrubbedPlayers = scrubPlayerData(players) // Format player data properly
+		if (shouldFetchPlayers) {
+			return dispatch( getPlayers('/players') ) // Load default player data
+				.then( players => scrubPlayerData(players) )
+		} else {
+			return Promise.resolve()
+		}
+	}
+}
 
-				if (state.user.uid && state.players.didUnsynthesize) {
-					return dispatch ( getPlayers('/users/' + uid + '/players') ) // Get Player Data
-						.then( userPlayers => {
-							const syncedPlayers = synthesizePlayerData (scrubbedPlayers, userPlayers) // Sync Default & User Player Data
-							return dispatch ( calculatePlayers(syncedPlayers) ) // Send out player data
-						})
-				} else {
-					return dispatch ( calculatePlayers(scrubbedPlayers) ) // Send out player data
-				}
-			})
+function fetchUserPlayers () {
+	return function (dispatch, getState) {
+		const state = getState()
+		const { uid, didInvalidate } = state.user
+		const { fetching } = state.players
+		const shouldFetchUserPlayers = (uid && didInvalidate)
 
+		if (shouldFetchUserPlayers) {
+			return dispatch ( getPlayers('/users/' + uid + '/players') ) // Get Player Data
+				.then( userPlayers => userPlayers )
+		} else {
+			return Promise.resolve()
+		}
 	}
 }
 
 function calculatePlayers (players) {
 	return function (dispatch, getState) {
 		const state = getState()
-		const { didInvalidate } = state.players
-		if (didInvalidate) {
-			players = computePlayerValues(players, state)
+		const { didInvalidate, data } = state.players
+		const shouldCalculatePlayers = (didInvalidate)
+
+		if (shouldCalculatePlayers) {
+			return dispatch(receivePlayers(computePlayerValues(players, state)))
+		} else {
+			return Promise.resolve()
 		}
-		dispatch (receivePlayers(players))
 	}
+}
+
+
+export function fetchPlayers () {
+	return function (dispatch, getState) {
+		var state = getState()
+		const { didInvalidate } = state.players
+
+		return dispatch( fetchDefaultPlayers() )
+			.then( players => dispatch( fetchUserPlayers() )
+				.then( userPlayers => {
+					const defaultPlayers = players || state.players.data
+					const synthesizedPlayers = synthesizePlayerData(defaultPlayers, userPlayers)
+					return dispatch(calculatePlayers(synthesizedPlayers))
+				}
+			)
+	    )
+	}
+}
+
+function synthesizePlayerData (playerData, userPlayerData=null) {
+	if (userPlayerData) {
+		for (const userPlayerId in userPlayerData) {
+			if (userPlayerData.hasOwnProperty(userPlayerId)) {
+				const playerStats = playerData[userPlayerId].stats
+				const userStats = userPlayerData[userPlayerId].stats
+				const mergedStats = Object.assign({}, playerStats, userStats)
+
+				playerData[userPlayerId].stats = mergedStats
+			}
+		}
+	}
+	return playerData
 }
 
 function scrubPlayerData (players) {
@@ -83,52 +128,10 @@ function scrubPlayerData (players) {
 	return players
 }
 
-function synthesizePlayerData (playerData, userPlayerData) {
-	for (const userPlayerId in userPlayerData) {
-		if (userPlayerData.hasOwnProperty(userPlayerId)) {
-			const playerStats = playerData[userPlayerId].stats
-			const userStats = userPlayerData[userPlayerId].stats
-			const mergedStats = Object.assign({}, playerStats, userStats)
-			console.log(mergedStats)
-			playerData[userPlayerId].stats = mergedStats
-		}
-	}
-	return playerData
-}
-
 export function receivePlayers (payload) {
 	return {type: RECEIVE_PLAYERS, payload}
 }
 
-
-export function fetchPlayersIfNeeded () {
-	return function (dispatch, getState) {
-		var state = getState()
-
-	    if (shouldFetchPlayers(state)) {
-	    	console.log('need to fetch players again')
-			return dispatch(fetchPlayers(state))
-	    } else {
-	    	console.log('dont need to fetch players again')
-
-			if (state.players.didInvalidate) {
-				console.log('need to recalculate players')
-				dispatch(receivePlayers(state.players.data))
-	    	}
-			// Let the calling code know there's nothing to wait for.
-			return Promise.resolve()
-	    }
-	}
-}
-
-function shouldFetchPlayers(state) {
-	var players = state.players.data;
-	if (!players && !state.players.fetching) {
-		return true
-	} else {
-		return false
-	}
-}
 
 /*
 export function fetchPlayerData () {
@@ -246,8 +249,6 @@ function reducer (state = initialState, action) {
 			});
 
 		case RECEIVE_PLAYERS:
-			console.log('receiving players');
-			console.log(action.payload)
 			var newState = Object.assign({}, state, {
 				fetching: false,
 				didInvalidate: false,
@@ -325,7 +326,7 @@ function reducer (state = initialState, action) {
 				data: Object.assign({}, state.data, {
 					[id]: Object.assign({}, state.data[id], {
 						stats: Object.assign({}, state.data[id].stats, {
-							[stat]: value
+							[stat]: Number(value)
 						})
 					})
 				})
