@@ -1,12 +1,7 @@
 import firebase from 'firebase'
-import {
-	firebaseData } from './api'
+import { firebaseData } from './api'
 
-import {
-	receivePlayers,
-	UPDATE_PLAYER_STAT,
-	LOAD_PLAYERS_SUCCESS,
-	LOAD_USER_PLAYERS_SUCCESS } from '../modules/players'
+import { UPDATE_PLAYER_STAT } from '../modules/players'
 
 const updateFirebaseUserPlayerData = (state, action) => {
 	console.log(action)

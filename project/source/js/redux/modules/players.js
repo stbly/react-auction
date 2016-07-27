@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { firebaseRef } from '../modules/user'
-import { synthesizePlayerData } from '../../helpers/PlayerListUtils'
+import { scrubPlayerData, synthesizePlayerData } from '../../helpers/PlayerListUtils'
 import computePlayerValues from '../../helpers/PlayerValueUtils'
 
 let initialState = {
@@ -44,10 +44,9 @@ export function fetchPlayers () {
 		return dispatch( fetchDefaultPlayers() )
 			.then( players => dispatch( fetchUserPlayers() )
 				.then( userPlayers => {
-					console.log('do we have user players?', userPlayers)
 					const defaultPlayers = players || state.players.data
 					const synthesizedPlayers = synthesizePlayerData(defaultPlayers, userPlayers)
-					return dispatch(calculatePlayers(synthesizedPlayers))
+					return dispatch(receivePlayers(synthesizedPlayers))
 				}
 			)
 	    )
@@ -83,34 +82,6 @@ function fetchUserPlayers () {
 			return Promise.resolve()
 		}
 	}
-}
-
-function calculatePlayers (players) {
-	return function (dispatch, getState) {
-		const state = getState()
-		const { didInvalidate, data } = state.players
-		const shouldCalculatePlayers = (didInvalidate)
-
-		if (shouldCalculatePlayers) {
-			return dispatch(receivePlayers(computePlayerValues(players, state)))
-		} else {
-			return Promise.resolve()
-		}
-	}
-}
-
-function scrubPlayerData (players) {
-	for (const id in players) {
-		if (players.hasOwnProperty(id)) {
-			var statsExist = players[id].stats
-			if (statsExist) {
-				if (players[id].stats.default) {
-					players[id].stats = players[id].stats.default
-				}
-			}
-		}
-	}
-	return players
 }
 
 export function receivePlayers (payload) {

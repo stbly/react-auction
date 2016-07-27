@@ -132,3 +132,19 @@ export function synthesizePlayerData (playerData, userPlayerData=null) {
 	}
 	return playerData
 }
+
+
+export function scrubPlayerData (players) {
+	for (const id in players) {
+		if (players.hasOwnProperty(id)) {
+			var statsExist = players[id].stats
+			if (statsExist) {
+				if (players[id].stats.default) {
+					players[id].stats = players[id].stats.default
+				}
+			}
+		}
+	}
+	return players
+}
+
