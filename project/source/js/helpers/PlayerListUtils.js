@@ -122,6 +122,7 @@ export function synthesizePlayerData (playerData, userPlayerData=null) {
 	if (userPlayerData) {
 		for (const userPlayerId in userPlayerData) {
 			if (userPlayerData.hasOwnProperty(userPlayerId)) {
+				console.log(playerData, userPlayerId)
 				const playerStats = playerData[userPlayerId].stats
 				const userStats = userPlayerData[userPlayerId].stats
 				const mergedStats = Object.assign({}, playerStats, userStats)

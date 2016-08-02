@@ -206,7 +206,7 @@ class PlayerListsContainer extends Component {
 			playerSelected={this.props.actions.updateActivePlayer}
 			hideDraftedPlayers={this.state.hideDraftedPlayers}
 			hideValueInfo={false}
-			updateStat={this.props.actions.updatePlayerStat}
+			updateStat={this.props.actions.changePlayerStat}
 			updateCost={this.props.actions.updatePlayerCost}
 			updateFavorited={this.props.actions.updatePlayerFavorited} />
 	}

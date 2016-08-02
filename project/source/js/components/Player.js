@@ -126,7 +126,7 @@ class Player extends Component {
 		this.setState({currentEditElement: null})
 
 		if (this.props.updateStat) {
-			this.props.updateStat(e.props.stat, value, this.props.player.id);
+			this.props.updateStat(this.props.player.id, e.props.stat, value);
 		}
 	}
 

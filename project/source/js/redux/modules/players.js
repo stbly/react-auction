@@ -84,6 +84,14 @@ function fetchUserPlayers () {
 	}
 }
 
+export function changePlayerStat (id, stat, value) {
+	return function (dispatch, getState) {
+		dispatch( updatePlayerStat(id, stat, value) )
+		return dispatch( receivePlayers() )
+	}
+}
+
+
 export function receivePlayers (payload) {
 	return {type: RECEIVE_PLAYERS, payload}
 }
@@ -109,6 +117,11 @@ export function updatePlayerFavorited (playerId) {
 	return { type: UPDATE_PLAYER_FAVORITED, id: playerId }
 }
 
+export function updatePlayerStat(id, stat, value) {
+	return {type: UPDATE_PLAYER_STAT, payload: {id, stat, value}}
+
+}
+
 export function updatePlayerNotes (playerId, notes) {
 	return { type: UPDATE_PLAYER_NOTES, payload: {id: playerId, notes} }
 }
@@ -120,11 +133,6 @@ export function updateActivePlayer (playerId) {
 export function updatePlayerCost (cost, playerId) {
 	return { type: UPDATE_PLAYER_COST, payload: {id: playerId, cost} }
 }
-
-export function updatePlayerStat (stat, value, playerId) {
-	return {type: UPDATE_PLAYER_STAT, payload: {id: playerId, stat, value} }
-}
-
 export function assignPlayer (playerId, cost, team) {
 	return {type: ASSIGN_PLAYER, payload: {id: playerId, cost, team} }
 }
@@ -236,6 +244,7 @@ function reducer (state = initialState, action) {
 
 		case UPDATE_PLAYER_STAT:
 			var {id, stat, value} = action.payload;
+			console.log(id, stat, value)
 			return Object.assign({}, state, {
 				didInvalidate: true,
 				data: Object.assign({}, state.data, {
