@@ -1,9 +1,11 @@
 import firebase from 'firebase'
 import { firebaseData } from './api'
 
-import { UPDATE_PLAYER_STAT } from '../modules/players'
+import {
+	UPDATE_PLAYER_STAT,
+	UPDATE_PLAYER_COST } from '../modules/players'
 
-const updateFirebaseUserPlayerData = (state, action) => {
+const updateFirebaseUserPlayerStat = (state, action) => {
 	console.log(action)
 	var {id, stat, value} = action.payload,
 		usersRef = firebaseData.ref().child("users"),
@@ -11,6 +13,18 @@ const updateFirebaseUserPlayerData = (state, action) => {
 
 	usersRef.update({
 		[path]: Number(value)
+	})
+
+	// TODO: dispatch event on firebase update callback; don't update app if data is the same
+}
+
+const updateFirebaseUserPlayerDraftPrice = (state, action) => {
+	var {id, cost} = action.payload,
+		usersRef = firebaseData.ref().child("users"),
+		path = state.user.uid + '/players/' + id + '/cost/'
+
+	usersRef.update({
+		[path]: Number(cost)
 	})
 
 	// TODO: dispatch event on firebase update callback; don't update app if data is the same
@@ -24,7 +38,14 @@ export default function firebaseMiddleware({ dispatch, getState }) {
 			case UPDATE_PLAYER_STAT:
 				// /users/50fZ5hfC3mWxrNcIlHhhXrR0Rxp2/players/1/stats/
 				if (state.user.uid) {
-					updateFirebaseUserPlayerData(state, action)
+					updateFirebaseUserPlayerStat(state, action)
+				}
+				break
+
+			case UPDATE_PLAYER_COST:
+				// /users/50fZ5hfC3mWxrNcIlHhhXrR0Rxp2/players/1/stats/
+				if (state.user.uid) {
+					updateFirebaseUserPlayerDraftPrice(state, action)
 				}
 				break
 		}

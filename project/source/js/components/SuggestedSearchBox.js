@@ -6,6 +6,7 @@ import classNames from 'classnames';
 // import { bindActionCreators } from 'redux'
 // import { browserHistory } from 'react-router'
 
+import { playerIsDrafted } from '../helpers/PlayerListUtils'
 import ValueInput from './ValueInput'
 import SuggestedSearchResults from './SuggestedSearchResults'
 import '../../stylesheets/components/suggested-search.scss'
@@ -67,7 +68,7 @@ class SuggestedSearchBox extends Component {
 					var valueAlreadyChosen,	valueAlreadyChosenException;
 
 					if (!_this.props.inclusive) {
-						valueAlreadyChosen = selection.isDrafted;
+						valueAlreadyChosen = playerIsDrafted(selection)
 						var currentSelection = _this.props.value;
 						valueAlreadyChosenException = currentSelection ? (selectionValue === _this.props.value.toLowerCase()) : false;
 					}

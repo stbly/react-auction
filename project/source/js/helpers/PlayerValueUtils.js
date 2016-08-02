@@ -1,6 +1,6 @@
 import {sortBy} from './sortUtils';
 import {filterBy} from './filterUtils';
-import {getPlayerList, primaryPositionFor, rankPlayers} from './PlayerListUtils';
+import {getPlayerList, primaryPositionFor, rankPlayers, playerIsDrafted} from './PlayerListUtils';
 import calculateSGPFor from './PlayerSgpUtils'
 import {getScarcePositions, getCategories} from './SettingsUtils'
 
@@ -186,7 +186,7 @@ function assignPlayerValues (draftablePlayers, rosterSpots, allPlayers, dollarsT
 		var subtractValue = (Number(player.cost) || 0)
 		remainingDollars -= subtractValue;
 		totalSpent+=subtractValue;
-		if (player.isDrafted) {
+		if (playerIsDrafted(player)) {
 			playersDrafted++;
 		}
 	})

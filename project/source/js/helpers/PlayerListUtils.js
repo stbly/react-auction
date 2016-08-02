@@ -16,7 +16,15 @@ export function getUnusedPlayers (players) {
 	if (!players) {
 		return;
 	}
-	return players.filter( player => !player.isDrafted );
+	return players.filter( player => playerIsUndrafted(player) );
+}
+
+export function playerIsDrafted (player) {
+	return player.cost && player.cost !== 0
+}
+
+export function playerIsUndrafted (player) {
+	return !playerIsDrafted(player)
 }
 
 export function rankPlayers (players, category, descending=true) {
@@ -58,7 +66,6 @@ export function getMatchingPlayers (players, query) {
 }
 
 export function primaryPositionFor (player) {
-	// console.log(player)
 	return player.positions ? (player.positions.length > 0 ? player.positions[0] : '') : ''
 }
 
@@ -122,12 +129,22 @@ export function synthesizePlayerData (playerData, userPlayerData=null) {
 	if (userPlayerData) {
 		for (const userPlayerId in userPlayerData) {
 			if (userPlayerData.hasOwnProperty(userPlayerId)) {
-				console.log(playerData, userPlayerId)
-				const playerStats = playerData[userPlayerId].stats
-				const userStats = userPlayerData[userPlayerId].stats
-				const mergedStats = Object.assign({}, playerStats, userStats)
 
-				playerData[userPlayerId].stats = mergedStats
+				const player = playerData[userPlayerId]
+				const userPlayer = userPlayerData[userPlayerId]
+
+				for (const key in userPlayer) {
+					if (userPlayer.hasOwnProperty(key)) {
+
+						if (!player[key]) {
+							player[key] = userPlayer[key]
+						} else {
+							Object.assign(player[key], userPlayer[key])
+						}
+
+					}
+				}
+
 			}
 		}
 	}

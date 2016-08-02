@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Router, Route, Link, browserHistory } from 'react-router'
 import classNames from 'classnames';
-import {primaryPositionFor} from '../helpers/PlayerListUtils';
+import {primaryPositionFor, playerIsDrafted, playerIsUndrafted} from '../helpers/PlayerListUtils';
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
 
@@ -34,7 +34,7 @@ class Player extends Component {
 
 	getCheckbox () {
 		var el;
-		if (!this.props.player.isDrafted) {
+		if (playerIsUndrafted(this.props.player)) {
 			el= <IconButton
 					toggleButton={this.togglePlayerFavorited.bind(this)}
 					active={this.props.player.isFavorited}
@@ -139,7 +139,7 @@ class Player extends Component {
 		this.setState({currentEditElement: null})
 		if (this.props.updateCost) {
 			// console.log(cost, this.props.player.id);
-			this.props.updateCost(cost, this.props.player.id);
+			this.props.updateCost(this.props.player.id, cost);
 		}
 	}
 
@@ -279,7 +279,7 @@ class Player extends Component {
 	}
 
 	render () {
-		var playerClasses = classNames('player', this.props.player.type, {'selected':this.props.player.isDrafted}, {'is-editing':this.state.isEditing});
+		var playerClasses = classNames('player', this.props.player.type, {'selected':playerIsDrafted(this.props.player)}, {'is-editing':this.state.isEditing});
 
 		return (
 			<tr className={playerClasses} onBlur={this.stopEditing.bind(this)}>

@@ -91,6 +91,13 @@ export function changePlayerStat (id, stat, value) {
 	}
 }
 
+export function changePlayerCost (id, cost) {
+	return function (dispatch, getState) {
+		dispatch( updatePlayerCost(id, cost) )
+		return dispatch( receivePlayers() )
+	}
+}
+
 
 export function receivePlayers (payload) {
 	return {type: RECEIVE_PLAYERS, payload}
@@ -130,8 +137,8 @@ export function updateActivePlayer (playerId) {
 	return { type: UPDATE_ACTIVE_PLAYER, id: playerId }
 }
 
-export function updatePlayerCost (cost, playerId) {
-	return { type: UPDATE_PLAYER_COST, payload: {id: playerId, cost} }
+export function updatePlayerCost (id, cost) {
+	return { type: UPDATE_PLAYER_COST, payload: {id, cost} }
 }
 export function assignPlayer (playerId, cost, team) {
 	return {type: ASSIGN_PLAYER, payload: {id: playerId, cost, team} }
@@ -169,17 +176,15 @@ function reducer (state = initialState, action) {
 			});
 
 		case RECEIVE_PLAYERS:
-			console.log('RECEIVE_PLAYERS')
 
-			var newState = Object.assign({}, state, {
+			console.log('RECEIVE_PLAYERS', action.payload)
+			return Object.assign({}, state, {
 				fetching: false,
 				didInvalidate: false,
 				didUnsynthesize: false,
 				data: action.payload
 				// playerLists: returnPlayerLists( action.players )
 			});
-
-			return newState;
 
 		case UPDATE_PLAYER_FAVORITED:
 			var updatedPlayers = state.data.map((player, index) => {
@@ -219,32 +224,21 @@ function reducer (state = initialState, action) {
 			});
 
 		case UPDATE_PLAYER_COST:
-			var {id, cost} = action.payload;
-
-			var updatedPlayers = state.data.map((player, index) => {
-				if (player.id === id) {
-					var isDrafted = (cost > 0);
-					var team = isDrafted ? player.team : null;
-					console.log("isDrafted:",isDrafted,"cost",cost)
-					return Object.assign({}, player, {
-						cost: isDrafted ? cost : null,
-						isDrafted: isDrafted,
-						team: team
-					})
-
-				}
-				return player
-			})
+			const {id, cost} = action.payload
+			//TO DO: don't like how team is being determined here; change to include it in payload
 
 			return Object.assign({}, state, {
-				data: updatedPlayers,
-				// playerLists: returnPlayerLists( updatedPlayers ),
-				didInvalidate: true
-			});
+				didInvalidate: true,
+				data: Object.assign({}, state.data, {
+					[id]: Object.assign({}, state.data[id], {
+						cost: cost > 0 ? cost : null
+					})
+				})
+			})
+			break
 
 		case UPDATE_PLAYER_STAT:
 			var {id, stat, value} = action.payload;
-			console.log(id, stat, value)
 			return Object.assign({}, state, {
 				didInvalidate: true,
 				data: Object.assign({}, state.data, {
