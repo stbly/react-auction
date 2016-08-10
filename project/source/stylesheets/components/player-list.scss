@@ -1,6 +1,11 @@
 @import '../init';
 
 
+.drafting-tools {
+	display: flex;
+	align-items: flex-end;
+}
+
 .player-lists-container{
 
 }
@@ -99,7 +104,8 @@
 }
 
 .player-lists-header{
-	width: 75%;
+	width: auto;
+	max-width: 75%;
     margin-left: 150px;
     display: inline-block;
 
@@ -111,6 +117,7 @@
 
 .hide-selected-container {
 	@include cantarell
+	flex-grow: 1;
     width: calc(25% - 150px);
 	display: inline-block;
     vertical-align: bottom;

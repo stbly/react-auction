@@ -2,11 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Router, RouteHandler, Link, browserHistory } from 'react-router'
 import classNames from 'classnames';
 
-// import { connect } from 'react-redux'
-// import { bindActionCreators } from 'redux'
-// import { browserHistory } from 'react-router'
-
-import ValueInput from './ValueInput'
+import InputToggle from './InputToggle'
 import SuggestedSearchBox from './SuggestedSearchBox'
 import '../../stylesheets/components/player-input.scss'
 
@@ -22,7 +18,7 @@ class PlayerInput extends Component {
 
 	componentDidUpdate () {
 		// console.log(this.state);
-		if (this.state.playerName && this.state.playerCost && this.state.playerTeam) {
+		if (this.state.playerName && this.state.playerCost /*&& this.state.playerTeam*/) {
 			this.handleSubmit();
 		} else if (this.submitted) {
 			this.submitted = false;
@@ -30,9 +26,12 @@ class PlayerInput extends Component {
 		}
 	}
 
-	setCostEditState (dispatcher) {
-		this.setState({isEditingCost: true});
-		this.setState({currentEditElement: dispatcher})
+	toggleCostEditState (dispatcher) {
+		const isEditingCost = this.state.isEditingCost
+		this.setState({isEditingCost: !isEditingCost});
+		if (!isEditingCost) {
+			this.setState({currentEditElement: dispatcher})
+		}
 	}
 
 	handleSubmit (e) {
@@ -40,14 +39,12 @@ class PlayerInput extends Component {
 			e.preventDefault();
 		}
 
-		var player = this.state.playerName,
-			cost = this.state.playerCost,
-			team = this.state.playerTeam,
-			searchablePlayers = this.props.searchablePlayers;
+		var {playerName, playerCost, playerTeam} = this.state
+		var searchablePlayers = this.props.searchablePlayers;
 
 		this.submitted = true;
 
-		if (!player || !cost || !team) {
+		if (!playerName || !playerCost /*|| !playerTeam*/) {
 
 			console.log('not enough inputs');
 
@@ -58,7 +55,7 @@ class PlayerInput extends Component {
 			    // skip loop if the property is from prototype
 			    if (searchablePlayers.hasOwnProperty(key)) {
 			    	var currentPlayer = searchablePlayers[key].name.toLowerCase();
-			    	if (currentPlayer === player.toLowerCase()) {
+			    	if (currentPlayer === playerName.toLowerCase()) {
 			    		playerId = searchablePlayers[key].id
 			    		break;
 			    	}
@@ -66,22 +63,20 @@ class PlayerInput extends Component {
 			}
 
 			if (! playerId) {
-
 				console.log('player not found');
-
 			} else {
 				if (this.props.playerEntered) {
-					this.props.playerEntered(playerId, cost, team);
+					this.props.playerEntered(playerId, playerCost, playerTeam);
 				}
 			}
 		}
 
 		this.playerInput.reset();
-		this.teamInput.reset();
+		// this.teamInput.reset();
 
 		this.setState({
 			playerName: null,
-			playerCost: null,
+			playerCost: '',
 			playerTeam: null
 		})
 	}
@@ -122,36 +117,39 @@ class PlayerInput extends Component {
 						ref={(ref) => this.playerInput = ref}
 						list={this.props.searchablePlayers}
 						queryProperty='name'
-						classNames={['player-input-box']}
+						classNames={'player-input-box'}
 						placeholder='Input Player Name'
 						value = {this.state.playerName}
 						valueDidChange = {this.setPlayer.bind(this)} />
 
 					<div className={costContainerClasses}>
-						<ValueInput
-							classNames={['dollar-amount','player-input-box','cost-input']}
+						<InputToggle
+							classNames={'dollar-amount player-input-box cost-input'}
 							placeholder={'$'}
 							min={0}
 							max={99}
-							didStartEditing={this.setCostEditState.bind(this)}
+							didStartEditing={this.toggleCostEditState.bind(this)}
+							didStopEditing={this.toggleCostEditState.bind(this)}
 							currentEditElement={this.state.currentEditElement}
 							value={this.state.playerCost}
 							valueDidChange = {this.setCost.bind(this)} />
 					</div>
 
-					<SuggestedSearchBox
-						ref={(ref) => this.teamInput = ref}
-						list={this.props.searchableTeams}
-						classNames={['player-input-box']}
-						placeholder='Input Team Name'
-						value = {this.state.playerTeam}
-						valueDidChange = {this.setTeam.bind(this)} />
-
-					<input type='submit' className='player-input-box submit' value='Select' />
+					<input type='submit' className='player-input-box submit' value='Draft' />
 				</form>
 			</div>
 		)
 	}
 }
+
+
+//Add back in when teams feature is implemented
+/*<SuggestedSearchBox
+	ref={(ref) => this.teamInput = ref}
+	list={this.props.searchableTeams}
+	classNames={'player-input-box'}
+	placeholder='Input Team Name'
+	value = {this.state.playerTeam}
+	valueDidChange = {this.setTeam.bind(this)} />*/
 
 export default PlayerInput;

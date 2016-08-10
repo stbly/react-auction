@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import * as playerActions from '../redux/modules/players'
 import * as settingsActions from '../redux/modules/settings'
-import ValueInput from '../components/ValueInput'
+import InputToggle from '../components/InputToggle'
 
 import '../../stylesheets/components/settings-input.scss'
 
@@ -17,8 +17,64 @@ class SettingsInput extends Component {
 	}
 
 	updateSetting (value, e) {
-		this.props.settingsActions.updateSetting(e.props.id, value)
-		this.props.playerActions.invalidatePlayers()
+		this.props.settingsActions.changeSetting(e.props.id, Number(value))
+	}
+
+	getMinimumTotalPitchers () {
+		const {settings, positions} = this.props
+		return positions[1].positions.map( position => {
+			return position.minimum ? position.minimum * settings.numTeams : settings.numTeams
+		}).reduce( (prev, curr) =>  prev + curr )
+	}
+
+	getMinimumTotalBatters () {
+		const {settings, positions} = this.props
+		return positions[0].positions.map( position => {
+			return position.minimum ? position.minimum * settings.numTeams : settings.numTeams
+		}).reduce( (prev, curr) =>  prev + curr )
+	}
+
+	getRosterMinimum () {
+		const {numTeams, numBatters} = this.props.settings
+		const minBatters = numBatters * numTeams
+		const minPitchers = this.getMinimumTotalPitchers()
+
+		return Math.ceil((minPitchers + minBatters) / numTeams)
+	}
+
+	getBatterMinimum () {
+		const {numTeams} = this.props.settings
+		const minBatters = this.getMinimumTotalBatters()
+
+		return Math.ceil(minBatters / numTeams)
+	}
+
+	getBatterMaximum () {
+		const {numTeams, numBatters, rosterSpots} = this.props.settings
+		const minPitchers = this.getMinimumTotalPitchers()
+		const totalPlayers = rosterSpots * numTeams
+
+		return Math.ceil((totalPlayers - minPitchers) / numTeams)
+	}
+
+	getSettingMin(setting) {
+		switch (setting) {
+			case 'rosterSpots':
+				return this.getRosterMinimum()
+			case 'numBatters':
+				return this.getBatterMinimum()
+			default:
+				return 0
+		}
+	}
+
+	getSettingMax(setting) {
+		switch (setting) {
+			case 'numBatters':
+				return this.getBatterMaximum()
+			default:
+				return 999
+		}
 	}
 
 	render () {
@@ -34,12 +90,12 @@ class SettingsInput extends Component {
 	renderInputs () {
 		return Object.keys(this.props.settings).map( (setting, index) => {
 			return <span className='setting-property' key={index}>
-				{setting}: <ValueInput
+				{setting}: <InputToggle
 					id={setting}
 					value={this.props.settings[setting]}
 					valueDidChange={this.updateSetting.bind(this)}
-					max={999}
-					min={0} />
+					max={ this.getSettingMax(setting) }
+					min={ this.getSettingMin(setting) } />
 			</span>
 		})
 	}
@@ -61,7 +117,8 @@ function mapStateToProps (state,ownProps) {
 	}
 
 	return {
-		settings: state.settings.data
+		settings: state.settings.data,
+		positions: state.positions.data
 	};
 
 	// return { ...state.players.lists };

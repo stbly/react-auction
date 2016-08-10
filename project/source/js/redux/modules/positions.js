@@ -8,17 +8,17 @@ let initialState = {
 				{ name: '1B' },
 				{
 					name: '2B',
-					minimum: 14
+					minimum: 1
 				},
 				{ name: '3B' },
 				{
 					name: 'SS',
-					minimum: 14
+					minimum: 1
 				},
 				{ name: 'OF' },
 				{
 					name: 'C',
-					minimum: 14
+					minimum: 1
 				}
 			]
 		},
@@ -28,11 +28,11 @@ let initialState = {
 				{ name: 'SP' },
 				{
 					name: 'RP',
-					minimum: 30
+					minimum: 2
 				},
 				{
 					name: 'CP',
-					minimum: 30
+					minimum: 2
 				}
 			]
 		}

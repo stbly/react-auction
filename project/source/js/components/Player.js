@@ -6,7 +6,7 @@ import {primaryPositionFor, playerIsDrafted, playerIsUndrafted} from '../helpers
 // import { bindActionCreators } from 'redux'
 
 import '../../stylesheets/components/player.scss'
-import ValueInput from './ValueInput'
+import InputToggle from './InputToggle'
 import IconButton from './IconButton'
 
 class Player extends Component {
@@ -93,7 +93,6 @@ class Player extends Component {
 	}
 
 	stopEditing (e) {
-		// console.log('stop editing');
 		if (this.state.isEditing) {
 			this.setState({hovered:false})
 			this.setState({isEditing:false})
@@ -114,7 +113,6 @@ class Player extends Component {
 	}
 
 	setEditState (dispatcher) {
-		this.setState({currentEditElement: dispatcher});
 		this.startEditing();
 	}
 
@@ -123,7 +121,6 @@ class Player extends Component {
 		// var stat = e.target.getAttribute('data-name');
 		this.setState({isEditing: false});
 		this.setState({hover: false});
-		this.setState({currentEditElement: null})
 
 		if (this.props.updateStat) {
 			this.props.updateStat(this.props.player.id, e.props.stat, value);
@@ -136,7 +133,6 @@ class Player extends Component {
 		// e.target.blur();
 		this.setState({isEditing: false});
 		this.setState({hover: false});
-		this.setState({currentEditElement: null})
 		if (this.props.updateCost) {
 			// console.log(cost, this.props.player.id);
 			this.props.updateCost(this.props.player.id, cost);
@@ -219,11 +215,10 @@ class Player extends Component {
 		if (!this.props.hideCostInput) {
 			els.push(
 				<td key={'cost-input-td'} className='can-edit'>
-					<ValueInput
+					<InputToggle
 						ref={(ref) => this.playerCostInput = ref}
-						classNames={['dollar-amount']}
+						classNames={'dollar-amount'}
 						value={this.props.player.cost}
-						currentEditElement={this.state.currentEditElement}
 						didStartEditing={this.setEditState.bind(this)}
 						valueDidChange={this.updatePlayerCost.bind(this)} />
 				</td>
@@ -231,8 +226,8 @@ class Player extends Component {
 		}
 
 		if (!this.props.hideValueInfo) {
-			els.push(<td key={'inflated-display-value-td'} ><span className='dollar-amount'>{this.props.player.displayInflatedValue}</span></td>);
-			els.push(<td key={'display-value-td'}><span className='dollar-amount'>{this.props.player.displayValue}</span></td>);
+			els.push(<td key={'inflated-display-value-td'} ><span className='dollar-amount'>{this.props.player.adjustedValue.toFixed(1)}</span></td>);
+			els.push(<td key={'display-value-td'}><span className='dollar-amount'>{this.props.player.value.toFixed(1)}</span></td>);
 		}
 
 		return els;
@@ -250,14 +245,18 @@ class Player extends Component {
 					var stat = this.props.player.stats[category];
 					var ratioStat = (category === 'AVG' || category === 'OBP' || category === 'SLG' || category === 'OPS' || category === 'ERA' || category === 'WHIP');
 					var decimalPlaces = ratioStat ? 3 : 0;
+					var increment = ratioStat ? 0.001 : 1;
+					var max = ratioStat ? 1 : 999;
 
 					stat = Number(stat).toFixed(decimalPlaces);
 
 					var statEl = <td key={key} className='can-edit'>
-						<ValueInput
+						<InputToggle
 							value={stat}
 							stat={category}
-							currentEditElement={this.state.currentEditElement}
+							step={increment}
+							max={max}
+							min={0}
 							didStartEditing={this.setEditState.bind(this)}
 							valueDidChange={this.updatePlayerStat.bind(this)} />
 						</td>

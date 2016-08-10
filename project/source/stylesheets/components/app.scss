@@ -19,6 +19,7 @@ body {
 
 .page {
 	padding: 2.5% 100px;
+	clear: both;
 
 	@include width-under($bp-medium) {
 		padding-left: 30px;
@@ -27,20 +28,11 @@ body {
 }
 
 button {
-	font-family: "TrasandinaMedium", "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
-    padding: 10px;
-    margin: 10px 10px 10px 0;
-    border-radius: 5px;
-    border: 1px solid $color-grey-lightest;
-    cursor: pointer;
-    text-transform: uppercase;
-    &:hover,
-    &.active {
-    	background: $color-grey-lightest;
-    }
+	@include button;
+	position: relative;
 }
 
-input[type=text] {
+input {
 	&:focus {
 		outline: none;
 	}

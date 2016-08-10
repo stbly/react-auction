@@ -161,7 +161,7 @@ class PlayerListsContainer extends Component {
 
 		return (
 			<div className='player-lists-container'>
-				<section>
+				<section className='drafting-tools'>
 					<div className='player-lists-header'>
 						<ActivePlayer />
 						<PlayerInput

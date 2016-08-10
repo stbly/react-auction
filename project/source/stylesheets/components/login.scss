@@ -1,0 +1,53 @@
+@import '../helpers/mixins';
+@import '../helpers/fonts';
+@import '../helpers/vars';
+
+.login {
+    @include transandina-medium;
+
+	float: right;
+    margin-bottom: 40px;
+    padding: 10px;
+
+	input[type=submit] {
+		@include button;
+		background: white;
+	}
+
+	.loading-button {
+		color: white;
+		.icon {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			height: 90%;
+			width: 90%;
+		}
+	}
+
+	.input {
+		&:not(:last-child) {
+			margin-right: 10px;
+		}
+		.value-select {
+		    text-transform: none;
+		}
+	}
+
+	.username {
+		display: inline-block;
+		margin-right: 10px;
+	    color: $color-grey-dark;
+
+	}
+
+	&.logging-in {
+		.input {
+			.value-select {
+				background: $color-grey-lightest;
+				color: $color-grey-medium;
+			}
+		}
+	}
+}

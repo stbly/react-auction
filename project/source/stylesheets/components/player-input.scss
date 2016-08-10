@@ -103,7 +103,7 @@
 			font-size: 8px;
 		}
 	}
-	.suggested-search-box {
+	/*.suggested-search-box {
 	    width: calc(40% - 10px);
 	}
 	.cost-container {
@@ -111,6 +111,11 @@
 	}
 	.submit {
 		width: 10%;
+	}*/
+	.suggested-search-box,
+	.cost-container,
+	.submit {
+		width: auto;
 	}
 }
 

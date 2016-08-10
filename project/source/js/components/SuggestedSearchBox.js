@@ -7,7 +7,7 @@ import classNames from 'classnames';
 // import { browserHistory } from 'react-router'
 
 import { playerIsDrafted } from '../helpers/PlayerListUtils'
-import ValueInput from './ValueInput'
+import InputToggle from './InputToggle'
 import SuggestedSearchResults from './SuggestedSearchResults'
 import '../../stylesheets/components/suggested-search.scss'
 
@@ -122,9 +122,6 @@ class SuggestedSearchBox extends Component {
 	}
 
 	setSearchValue (value) {
-		console.log('!!!!!!!!!!!!!!!!!!! setSearchValue',value)
-
-		console.log('set search value:',value)
 		// console.log('setSearchValue()')
 		this.setState({isSearching:false})
 		this.setState({currentEditElement:null})
@@ -180,9 +177,9 @@ class SuggestedSearchBox extends Component {
 
 	render () {
 		return (
-			<span className='suggested-search-box'>
+			<div className='suggested-search-box'>
 
-				<ValueInput
+				<InputToggle
 					ref={(ref) => this.valueInput = ref}
 					type='text'
 					min={this.props.min}
@@ -197,7 +194,7 @@ class SuggestedSearchBox extends Component {
 					valueDidChange = {this.handleSearchValueChange.bind(this)} />
 
 				{this.getSearchResults()}
-			</span>
+			</div>
 		)
 	}
 }

@@ -11,7 +11,6 @@ import ValueList from '../components/ValueList'
 import ActivePlayer from './ActivePlayer'
 import PlayerListsContainer from './PlayerListsContainer'
 import FavoritePlayerListsContainer from './FavoritePlayerListsContainer'
-
 import classNames from 'classnames';
 
 import '../../stylesheets/components/app.scss'
@@ -22,31 +21,11 @@ class Players extends Component {
 		super(props);
 	}
 
-	componentWillReceiveProps(nextProps) {
-		console.log('componentWillReceiveProps')
-		// this.props.playerActions.fetchPlayers()
-	}
-
 	render() {
-
-		var loginStuff
-		if (this.props.user && this.props.user.uid) {
-			loginStuff = <div>
-				<button onClick={this.props.userActions.attemptLogout}>Log Out</button>
-				<span>{this.props.user.username}</span>
-			</div>
-		} else {
-			loginStuff = <div>
-				<button onClick={this.props.userActions.attemptLogin}>Log In</button>
-			</div>
-		}
 
 		return (
 
 			<div className='players-route page'>
-
-
-				{loginStuff}
 
 				<div className='combined-rankings'>
 					<PlayerListsContainer
@@ -68,10 +47,10 @@ class Players extends Component {
 
 
 function mapDispatchToProps(dispatch) {
-    return {
-        playerActions: bindActionCreators(playerActions, dispatch),
-        userActions: bindActionCreators(userActions, dispatch)
-    }
+	return {
+		playerActions: bindActionCreators(playerActions, dispatch),
+		userActions: bindActionCreators(userActions, dispatch)
+	}
 }
 
 function mapStateToProps (state,ownProps) {

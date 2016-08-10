@@ -15,9 +15,7 @@ let initialState = {
 const LOAD_PLAYERS_REQUEST = 'players/LOAD_PLAYERS_REQUEST'
 const LOAD_PLAYERS_SUCCESS = 'players/LOAD_PLAYERS_SUCCESS'
 const LOAD_PLAYERS_ERROR = 'players/LOAD_PLAYERS_ERROR'
-
 const FORCE_LOAD_PLAYERS = 'players/FORCE_LOAD_PLAYERS'
-
 const RECEIVE_PLAYERS = 'players/RECEIVE_PLAYERS'
 const INVALIDATE_PLAYERS = 'players/INVALIDATE_PLAYERS'
 const UNSYNTHESIZE_PLAYERS = 'players/UNSYNTHESIZE_PLAYERS'
@@ -26,7 +24,6 @@ const UPDATE_PLAYER_NOTES = 'players/UPDATE_PLAYER_NOTES'
 const UPDATE_ACTIVE_PLAYER = 'players/UPDATE_ACTIVE_PLAYER'
 const UPDATE_PLAYER_COST = 'players/UPDATE_PLAYER_COST'
 const UPDATE_PLAYER_STAT = 'players/UPDATE_PLAYER_STAT'
-const ASSIGN_PLAYER = 'players/ASSIGN_PLAYER'
 
 export function getPlayers (endpoint) {
 	return {
@@ -38,9 +35,9 @@ export function getPlayers (endpoint) {
 
 export function fetchPlayers () {
 	return function (dispatch, getState) {
-		var state = getState()
+		const state = getState()
 		const { didInvalidate } = state.players
-		console.log('fetchPlayers')
+		// console.log('fetchPlayers')
 		return dispatch( fetchDefaultPlayers() )
 			.then( players => dispatch( fetchUserPlayers() )
 				.then( userPlayers => {
@@ -74,7 +71,7 @@ function fetchUserPlayers () {
 		const { uid, didInvalidate } = state.user
 		const { fetching, didUnsynthesize } = state.players
 		const shouldFetchUserPlayers = (uid && didUnsynthesize && !fetching)
-		console.log('FETCH USER PLAYERS?',uid, didUnsynthesize, fetching)
+		// console.log('FETCH USER PLAYERS?',uid, didUnsynthesize, fetching)
 		if (shouldFetchUserPlayers) {
 			return dispatch ( getPlayers('/users/' + uid + '/players') ) // Get Player Data
 				.then( userPlayers => userPlayers )
@@ -87,20 +84,30 @@ function fetchUserPlayers () {
 export function changePlayerStat (id, stat, value) {
 	return function (dispatch, getState) {
 		dispatch( updatePlayerStat(id, stat, value) )
-		return dispatch( receivePlayers() )
+		const players = getState().players.data
+		return dispatch( receivePlayers(players) )
 	}
 }
 
 export function changePlayerCost (id, cost) {
 	return function (dispatch, getState) {
 		dispatch( updatePlayerCost(id, cost) )
-		return dispatch( receivePlayers() )
+		const players = getState().players.data
+		return dispatch( receivePlayers(players) )
 	}
 }
 
+export function assignPlayer (id, cost, team) {
+	return function (dispatch, getState) {
+		dispatch( updatePlayerCost(id, cost) )
+		// dispatch( updatePlayerTeam(id, team) )
+		const players = getState().players.data
+		return dispatch( receivePlayers(players) )
+	}
+}
 
-export function receivePlayers (payload) {
-	return {type: RECEIVE_PLAYERS, payload}
+export function receivePlayers (players) {
+	return {type: RECEIVE_PLAYERS, payload: {players}}
 }
 
 export function invalidatePlayers () {
@@ -120,31 +127,30 @@ export function forceLoadPlayers () {
 	return { type: FORCE_LOAD_PLAYERS }
 }
 
-export function updatePlayerFavorited (playerId) {
-	return { type: UPDATE_PLAYER_FAVORITED, id: playerId }
+export function updatePlayerFavorited (id) {
+	return { type: UPDATE_PLAYER_FAVORITED, payload: {id} }
 }
 
 export function updatePlayerStat(id, stat, value) {
 	return {type: UPDATE_PLAYER_STAT, payload: {id, stat, value}}
-
 }
 
-export function updatePlayerNotes (playerId, notes) {
-	return { type: UPDATE_PLAYER_NOTES, payload: {id: playerId, notes} }
+export function updatePlayerNotes (id, notes) {
+	return { type: UPDATE_PLAYER_NOTES, payload: {id, notes} }
 }
 
-export function updateActivePlayer (playerId) {
-	return { type: UPDATE_ACTIVE_PLAYER, id: playerId }
+export function updateActivePlayer (id) {
+	return { type: UPDATE_ACTIVE_PLAYER, payload: {id} }
 }
 
 export function updatePlayerCost (id, cost) {
 	return { type: UPDATE_PLAYER_COST, payload: {id, cost} }
 }
-export function assignPlayer (playerId, cost, team) {
-	return {type: ASSIGN_PLAYER, payload: {id: playerId, cost, team} }
-}
 
 function reducer (state = initialState, action) {
+
+	const { payload } = action
+	const { players, id, cost, value, team, notes, stat } = (payload || {})
 
 	switch (action.type) {
 		case INVALIDATE_PLAYERS:
@@ -158,7 +164,6 @@ function reducer (state = initialState, action) {
 			})
 
 		case UNSYNTHESIZE_PLAYERS:
-			console.log('UNSYNTHESIZE_PLAYERS')
 			return Object.assign({}, state, {
 				didUnsynthesize: true
 			});
@@ -176,57 +181,38 @@ function reducer (state = initialState, action) {
 			});
 
 		case RECEIVE_PLAYERS:
-
-			console.log('RECEIVE_PLAYERS', action.payload)
 			return Object.assign({}, state, {
 				fetching: false,
 				didInvalidate: false,
 				didUnsynthesize: false,
-				data: action.payload
+				data: players
 				// playerLists: returnPlayerLists( action.players )
 			});
 
 		case UPDATE_PLAYER_FAVORITED:
-			var updatedPlayers = state.data.map((player, index) => {
-				if (player.id === action.id) {
-					return Object.assign({}, player, {
-						isFavorited: !player.isFavorited
-					})
-				}
-				return player
-			})
-
 			return Object.assign({}, state, {
-				data: updatedPlayers,
-				// playerLists: returnPlayerLists( updatedPlayers ),
-			});
+				data: Object.assign({}, state.data, {
+					[id]: Object.assign({}, state.data[id], {
+						isFavorited: !state.data[id].isFavorited
+					})
+				})
+			})
 
 		case UPDATE_PLAYER_NOTES:
-			var {id, notes} = action.payload;
-
-			var updatedPlayers = state.data.map((player, index) => {
-				if (player.id === id) {
-					return Object.assign({}, player, {
-						notes: notes
-					})
-				}
-				return player
-			})
-
 			return Object.assign({}, state, {
-				data: updatedPlayers,
-				// playerLists: returnPlayerLists( updatedPlayers ),
-			});
+				data: Object.assign({}, state.data, {
+					[id]: Object.assign({}, state.data[id], {
+						notes
+					})
+				})
+			})
 
 		case UPDATE_ACTIVE_PLAYER:
 			return Object.assign({}, state, {
-				activePlayerId: action.id
+				activePlayerId: id
 			});
 
 		case UPDATE_PLAYER_COST:
-			const {id, cost} = action.payload
-			//TO DO: don't like how team is being determined here; change to include it in payload
-
 			return Object.assign({}, state, {
 				didInvalidate: true,
 				data: Object.assign({}, state.data, {
@@ -235,10 +221,8 @@ function reducer (state = initialState, action) {
 					})
 				})
 			})
-			break
 
 		case UPDATE_PLAYER_STAT:
-			var {id, stat, value} = action.payload;
 			return Object.assign({}, state, {
 				didInvalidate: true,
 				data: Object.assign({}, state.data, {
@@ -249,28 +233,6 @@ function reducer (state = initialState, action) {
 					})
 				})
 			})
-
-
-		case ASSIGN_PLAYER:
-			var {id, cost, team} = action.payload;
-
-			var updatedPlayers = state.data.map((player, index) => {
-				if (player.id === id) {
-					var isDrafted = (cost > 0);
-					return Object.assign({}, player, {
-						team: team,
-						cost: cost,
-						isDrafted: isDrafted
-					})
-				}
-				return player
-			})
-
-			return Object.assign({}, state, {
-				data: updatedPlayers,
-				// playerLists: returnPlayerLists( updatedPlayers ),
-				didInvalidate: true
-			});
 
 		default:
 			return state;
@@ -286,6 +248,5 @@ export {
 	UPDATE_PLAYER_NOTES,
 	UPDATE_ACTIVE_PLAYER,
 	UPDATE_PLAYER_COST,
-	UPDATE_PLAYER_STAT,
-	ASSIGN_PLAYER
+	UPDATE_PLAYER_STAT
 }

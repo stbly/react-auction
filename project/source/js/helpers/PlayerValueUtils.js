@@ -88,13 +88,10 @@ function assignValuesFor (players, sgpGroups, pricePerSgp, inflationRate) {
 		}
 
 		player.value = value;
-		player.displayValue = value.toFixed(1);
 
 		if (inflationRate) {
 			var adjustedValue = value * inflationRate;
 			player.adjustedValue = adjustedValue;
-			player.displayInflatedValue = adjustedValue.toFixed(1);
-			player.bidPrice = adjustedValue.toFixed(0);
 		}
 
 		return player;
@@ -239,8 +236,8 @@ export default function computePlayerValues (players, state) {
 	var batterConditions = getScarcePositions(positions[0].positions),
 		pitcherConditions = getScarcePositions(positions[1].positions);
 
-	var [draftableBatters, unusedBatters] = getPlayerList(battersWithSGP, numBattersToDraft, batterConditions);
-	var	[draftablePitchers, unusedPitchers] = getPlayerList(pitchersWithSGP, numPitchersToDraft, pitcherConditions);
+	var [draftableBatters, unusedBatters] = getPlayerList(battersWithSGP, numBattersToDraft, batterConditions, numTeams);
+	var	[draftablePitchers, unusedPitchers] = getPlayerList(pitchersWithSGP, numPitchersToDraft, pitcherConditions, numTeams);
 
 	var totalSalary = teamSalary * numTeams;
 

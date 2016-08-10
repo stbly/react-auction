@@ -45,7 +45,7 @@ module.exports = {
   output: {
     path: CONFIG.static,
     filename: 'js/bundle.js',
-    publicPath: '/static/'
+    publicPath: 'static/'
   },
 
   module: {

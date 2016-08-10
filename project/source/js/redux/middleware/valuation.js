@@ -3,6 +3,9 @@ import {
 	UPDATE_PLAYER_STAT,
 	RECEIVE_PLAYERS } from '../modules/players'
 
+import {
+	RECEIVE_SETTINGS } from '../modules/settings'
+
 import computePlayerValues from '../../helpers/PlayerValueUtils'
 
 
@@ -11,10 +14,16 @@ export default function valuationMiddlware({ dispatch, getState }) {
 		const state = getState()
 		switch (action.type) {
 			case RECEIVE_PLAYERS:
-				// /users/50fZ5hfC3mWxrNcIlHhhXrR0Rxp2/players/1/stats/
-				const players = action.payload || state.players.data
+				const players = action.payload.players
 				if (players && state.players.didInvalidate) {
-					action.payload = computePlayerValues(players, state)
+					action.payload.players = computePlayerValues(players, state)
+				}
+				break
+			case RECEIVE_SETTINGS:
+				const statePlayers = state.players.data
+				if (statePlayers && state.settings.didInvalidate) {
+					console.log('settings changed, recomputing player values')
+					dispatch( receivePlayers( computePlayerValues(statePlayers, state)) )
 				}
 				break
 		}

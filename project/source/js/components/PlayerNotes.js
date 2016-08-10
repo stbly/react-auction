@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 import classNames from 'classnames';
 
-import ValueInput from './ValueInput'
+import InputToggle from './InputToggle'
 
 import '../../stylesheets/components/player-notes.scss'
 
@@ -59,10 +59,10 @@ class PlayerNotes extends Component {
 				<span className='preview'>{this.props.notes}</span>
 				<h2>Player Notes</h2>
 
-				<ValueInput type='textarea'
+				<InputToggle type='textarea'
 					ref={(ref) => this.textInput = ref}
-					classNames={['player-notes-input']}
-					value={this.props.notes}
+					classNames={'player-notes-input'}
+					value={this.props.notes || ''}
 					valueDidChange={this.notesWereUpdated.bind(this)} />
 				<div className='expand-button' onClick={this.toggleExpansion.bind(this)}></div>
 			</div>

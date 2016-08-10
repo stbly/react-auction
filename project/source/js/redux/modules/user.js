@@ -9,12 +9,15 @@ import {
 
 import computePlayerValues from '../../helpers/PlayerValueUtils'
 
-const ATTEMPTING_LOGIN = 'user/ATTEMPTING_LOGIN'
-const ATTEMPTING_LOGOUT = 'user/ATTEMPTING_LOGOUT'
-const LOGIN_USER = 'user/LOGIN_USER'
-const LOGOUT_USER = 'user/LOGOUT_USER'
-const DISPLAY_ERROR = 'user/DISPLAY_ERROR'
+export const AWAITING_AUTH_RESPONSE = 'user/status/AWAITING_AUTH_RESPONSE'
+export const ANONYMOUS = 'user/status/ANONYMOUS'
+export const LOGGED_IN = 'user/status/LOGGED_IN'
 
+const ATTEMPTING_LOGIN = 'user/actions/ATTEMPTING_LOGIN'
+const ATTEMPTING_LOGOUT = 'user/actions/ATTEMPTING_LOGOUT'
+const LOGIN_USER = 'user/actions/LOGIN_USER'
+const LOGOUT_USER = 'user/actions/LOGOUT_USER'
+const DISPLAY_ERROR = 'user/actions/DISPLAY_ERROR'
 
 export function startListeningToAuth () {
 	return function (dispatch,getState) {
@@ -50,11 +53,12 @@ export function attemptLogin (username, password) {
 	return function(dispatch,getState){
 		dispatch( attemptingLogin() )
 
-		firebase.auth().signInWithEmailAndPassword('conorbritain@gmail.com', 'w@deb0ggsstyl3').catch(function(error) {
+		firebase.auth().signInWithEmailAndPassword(username, password).catch(function(error) {
 		// firebase.auth().signInWithEmailAndPassword( username, password ).catch(function(error) {
-			console.log('ERROR')
-			var errorCode = error.code;
-			var errorMessage = error.message;
+			console.log('ERROR',error)
+			const errorCode = error.code;
+			const errorMessage = error.message;
+			dispatch( displayError(error.message) )
 		});
 	}
 }
@@ -102,7 +106,6 @@ export function attemptingLogout (uid, username) {
 }
 
 export function userLoggedIn (uid, username) {
-	console.log('userLoggedIn')
 	return { type: LOGIN_USER, payload: {uid, username} }
 }
 
@@ -114,37 +117,47 @@ export function displayError (error) {
 	return { type: DISPLAY_ERROR, payload: {error} }
 }
 
+
 function reducer (state = {}, action) {
 
 	switch (action.type) {
 		case ATTEMPTING_LOGIN:
 			state = Object.assign({}, state, {
-				currently: "AWAITING_AUTH_RESPONSE",
+				status: AWAITING_AUTH_RESPONSE,
 				username: "guest",
-				uid: null
+				uid: null,
+				error: null
 			})
 			return state
 		case ATTEMPTING_LOGOUT:
-			console.log('ATTEMPTING_LOGOUT')
 			state = Object.assign({}, state, {
-				currently: "AWAITING_AUTH_RESPONSE"
+				status: AWAITING_AUTH_RESPONSE,
+				error: null
 			})
 			return state
 		case LOGOUT_USER:
-			console.log('LOUOUT_USER')
+			console.log('LOGOUT USER!!!!')
 			state = Object.assign({}, state, {
-				currently: "ANONYMOUS",
+				status: ANONYMOUS,
 				username: "guest",
+				error: null,
 				uid: null
 			})
 			return state
 		case LOGIN_USER:
-			console.log('LOGIN_USER')
-			var {username, uid} = action.payload
+			const {username, uid} = action.payload
 			state = Object.assign({}, state, {
-				currently: "LOGGED_IN",
+				status: LOGGED_IN,
+				error: null,
 				username,
-				uid
+				uid,
+			})
+			return state
+		case DISPLAY_ERROR:
+			const {error} = action.payload
+			state = Object.assign({}, state, {
+				status: ANONYMOUS,
+				error
 			})
 			return state
 		default: return state

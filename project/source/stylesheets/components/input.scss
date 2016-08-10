@@ -1,0 +1,13 @@
+@import '../helpers/vars';
+@import '../helpers/mixins';
+
+.input {
+	.value-select {
+		@include button
+	}
+
+	textarea, input {
+		outline: none;
+		background: none;
+	}
+}

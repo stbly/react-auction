@@ -15,7 +15,7 @@ export default function apiMiddleware({ dispatch, getState }) {
 		const state = getState()
 		const { types, endpoint, payload } = action
 		if (types) {
-			console.log('apiMiddleware')
+
 		    const [ requestAction, successAction, failureAction ] = types
 
 			dispatch( Object.assign({}, payload, {

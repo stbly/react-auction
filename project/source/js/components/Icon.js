@@ -7,6 +7,7 @@ import '../../stylesheets/helpers/icons.scss'
 const ICONS = {
     'watch': require('../../icons/watch.svg'),
     'avoid': require('../../icons/avoid.svg'),
+    'preloader': require('../../icons/preloader.svg')
 }
 
 class Icon extends Component {

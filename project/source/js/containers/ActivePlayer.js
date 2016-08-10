@@ -118,7 +118,7 @@ class ActivePlayer extends Component {
 							hidePlayerInfo={true}
 							hideCostInput={true}
 							players={[this.props.activePlayer]}
-							updateStat={this.props.actions.updatePlayerStat}
+							updateStat={this.props.actions.changePlayerStat}
 							categories={categories}/>
 					</div>
 				</div>
@@ -144,7 +144,7 @@ function mapStateToProps (state,ownProps) {
 	var activePlayer, bidPrice;
 
 	if (state.players.activePlayerId) {
-		activePlayer = state.players.data.filter( player => (player.id === state.players.activePlayerId))[0]
+		activePlayer = state.players.data[state.players.activePlayerId]
 		bidPrice = activePlayer.adjustedValue.toFixed(0)
 	}
 

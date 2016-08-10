@@ -69,7 +69,7 @@ export function primaryPositionFor (player) {
 	return player.positions ? (player.positions.length > 0 ? player.positions[0] : '') : ''
 }
 
-export function getPlayerList (players, listSize, positionalConditions) {
+export function getPlayerList (players, listSize, positionalConditions, numTeams) {
 
 	var playersSortedBySGP = sortBy(players, 'sgp').reverse();
 
@@ -78,21 +78,28 @@ export function getPlayerList (players, listSize, positionalConditions) {
 
 	positionalConditions.forEach(function (condition) {
 		var currentPlayersOfType = filterByPosition(draftablePlayers, condition.name);
-		if (currentPlayersOfType.length < condition.minimum) {
+		var minimum = condition.minimum * numTeams
+
+		// TO DO: handle cases where there are fewer draftable players than conditional players
+		if (currentPlayersOfType.length < minimum) {
 			condition.invoked = true;
 
-			var difference = condition.minimum - currentPlayersOfType.length;
+			var difference = minimum - currentPlayersOfType.length;
 			var selectableUnusedPlayers = filterByPosition(unusedPlayers, condition.name);
 			var playersToAdd = selectableUnusedPlayers.slice(0,difference);
 			var playersToRemove = [];
 			var removeIndex = draftablePlayers.length-1;
 			while (difference > 0) {
+
 				var playerToTryRemoving = draftablePlayers[removeIndex];
 				var okayToUse = true;
 				positionalConditions.forEach(function (conditionCheck) {
-
-					if (primaryPositionFor(playerToTryRemoving) === conditionCheck.name) {
-						okayToUse = false;
+					try {
+						if (primaryPositionFor(playerToTryRemoving) === conditionCheck.name) {
+							okayToUse = false;
+						}
+					} catch(err) {
+						console.log(removeIndex)
 					}
 				});
 				if (okayToUse) {

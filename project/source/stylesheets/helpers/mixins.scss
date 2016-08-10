@@ -1,3 +1,5 @@
+@import './fonts';
+
 @mixin microfix {
 
     &:before, &:after {
@@ -316,5 +318,23 @@ $ease-in-out-circ:  cubic-bezier(0.785, 0.135, 0.150, 0.860);
 @mixin vert-align-child($align: middle) {
     display: inline-block;
     vertical-align: $align;
+}
+
+@mixin button () {
+    @include transandina-medium;
+    padding: 0.625em 0.625em 0.375em;
+    margin: 0.625 0.625 0.625 0;
+    border-radius: 5px;
+    border: 1px solid $color-grey-lightest;
+    cursor: pointer;
+    text-transform: uppercase;
+    &:hover,
+    &:focus,
+    &.active {
+        background: $color-grey-lightest;
+    }
+    &.has-value {
+        background: $color-batter-highlight;
+    }
 }
 

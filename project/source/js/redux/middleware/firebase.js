@@ -3,32 +3,59 @@ import { firebaseData } from './api'
 
 import {
 	UPDATE_PLAYER_STAT,
-	UPDATE_PLAYER_COST } from '../modules/players'
+	UPDATE_PLAYER_COST,
+	UPDATE_PLAYER_FAVORITED,
+	UPDATE_PLAYER_NOTES } from '../modules/players'
+
+// TODO: Refactor this so that it takes advantage of the api middleware; not sure if firebase middleware is needed
 
 const updateFirebaseUserPlayerStat = (state, action) => {
-	console.log(action)
-	var {id, stat, value} = action.payload,
-		usersRef = firebaseData.ref().child("users"),
-		path = state.user.uid + '/players/' + id + '/stats/' + stat + '/'
+	const {id, stat, value} = action.payload
+	const usersRef = firebaseData.ref().child("users")
+	const path = state.user.uid + '/players/' + id + '/stats/' + stat + '/'
 
 	usersRef.update({
 		[path]: Number(value)
 	})
-
-	// TODO: dispatch event on firebase update callback; don't update app if data is the same
 }
 
 const updateFirebaseUserPlayerDraftPrice = (state, action) => {
-	var {id, cost} = action.payload,
-		usersRef = firebaseData.ref().child("users"),
-		path = state.user.uid + '/players/' + id + '/cost/'
+	const {id, cost} = action.payload
+	const usersRef = firebaseData.ref().child("users")
+	const path = state.user.uid + '/players/' + id + '/cost/'
+
+	let costToSend = Number(cost)
+	costToSend = costToSend > 0 ? costToSend : null
 
 	usersRef.update({
-		[path]: Number(cost)
+		[path]: costToSend
 	})
-
-	// TODO: dispatch event on firebase update callback; don't update app if data is the same
 }
+
+const updateFirebaseUserPlayerFavorited = (state, action) => {
+	const {id} = action.payload
+	const usersRef = firebaseData.ref().child("users")
+	const path = state.user.uid + '/players/' + id + '/isFavorited/'
+
+	const isFavorited = state.players.data[id].isFavorited ? null : true
+
+	usersRef.update({
+		[path]: isFavorited
+	})
+}
+
+const updateFirebaseUserPlayerNotes = (state, action) => {
+	const {id, notes} = action.payload
+	const usersRef = firebaseData.ref().child("users")
+	const path = state.user.uid + '/players/' + id + '/notes/'
+
+	const notesToServer = notes.length > 0 ? notes : null
+
+	usersRef.update({
+		[path]: notesToServer
+	})
+}
+
 
 export default function firebaseMiddleware({ dispatch, getState }) {
 	return next => action => {
@@ -36,16 +63,26 @@ export default function firebaseMiddleware({ dispatch, getState }) {
 		switch (action.type) {
 
 			case UPDATE_PLAYER_STAT:
-				// /users/50fZ5hfC3mWxrNcIlHhhXrR0Rxp2/players/1/stats/
 				if (state.user.uid) {
 					updateFirebaseUserPlayerStat(state, action)
 				}
 				break
 
 			case UPDATE_PLAYER_COST:
-				// /users/50fZ5hfC3mWxrNcIlHhhXrR0Rxp2/players/1/stats/
 				if (state.user.uid) {
 					updateFirebaseUserPlayerDraftPrice(state, action)
+				}
+				break
+
+			case UPDATE_PLAYER_FAVORITED:
+				if (state.user.uid) {
+					updateFirebaseUserPlayerFavorited(state, action)
+				}
+				break
+
+			case UPDATE_PLAYER_NOTES:
+				if (state.user.uid) {
+					updateFirebaseUserPlayerNotes(state, action)
 				}
 				break
 		}
