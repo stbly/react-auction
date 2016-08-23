@@ -1,115 +1,145 @@
-function getBatterSGP (player, categories, rosterSpots) {
-		var totalSgp = 0,
-			leagueBattingAverage = .268,
-			leagueOnBasePercentage = .334,
-			leagueSluggingPercentage = .436,
-			averageAtBats = 475 * rosterSpots,
-			averagePlateAppearances = 540 * rosterSpots,
-			playerSpotRatio = ((rosterSpots - 1) / rosterSpots);
+//TODO: refactor sgpFunctions objects
 
-		var categorySGPs = categories.filter(function (category) {
-			return category.sgpd;
-		});
+import {combineValues} from './arrayUtils'
 
-		categorySGPs.forEach(function (category) {
-			var sgp = 0,
-				sgpd = category.sgpd,
-				categoryStat = category.abbreviation,
-				ratioStat = (categoryStat === 'AVG' || categoryStat === 'SLG' || categoryStat === 'OBP' || categoryStat === 'OPS');
-
-			if (ratioStat) {
-
-				var playerAtBats = player.stats.AB,
-					playerPlateApperances = player.stats.PA,
-					playerStat = player.stats[categoryStat];
-
-				var averageHits = leagueBattingAverage * averageAtBats;
-				var averageOnBaseRate = leagueOnBasePercentage * averagePlateAppearances;
-				var averageTotalBases = leagueSluggingPercentage * averageAtBats;
-				var baseAtBats = playerSpotRatio * averageAtBats;
-				var basePlateAppearances = playerSpotRatio * averagePlateAppearances;
-				var baseHits = playerSpotRatio * averageHits;
-				var baseOnBaseRate = playerSpotRatio * averageOnBaseRate;
-				var baseTotalBases = playerSpotRatio * averageTotalBases;
-
-				var plateStat = (categoryStat === 'OBP') ? playerPlateApperances : playerAtBats;
-				var basePlateStat = (categoryStat === 'OBP') ? basePlateAppearances : baseAtBats;
-				var baseStat = (categoryStat === 'OBP') ? baseOnBaseRate : (categoryStat === 'SLG') ? baseTotalBases : baseHits;
-				var leagueAverageStat = (categoryStat === 'OBP') ? leagueOnBasePercentage : (categoryStat === 'SLG') ? leagueSluggingPercentage : leagueBattingAverage;
-
-				if (categoryStat === 'OPS') {
-					var obpSgp = (((baseOnBaseRate + (playerPlateApperances * player.stats.OBP)) / (basePlateAppearances + playerPlateApperances)) - leagueOnBasePercentage);
-					var slgSgp = (((baseTotalBases + (playerAtBats * player.stats.SLG)) / (baseAtBats + playerAtBats)) - leagueSluggingPercentage);
-
-					sgp = (obpSgp + slgSgp) / sgpd;
-				} else {
-					sgp = ((((baseStat + (plateStat * playerStat)) / (basePlateStat + plateStat)) - leagueAverageStat) / sgpd);
-				}
-
-			} else {
-				sgp = player.stats[categoryStat] / sgpd;
-			}
-
-			totalSgp += sgp;
-
-		});
-		return totalSgp;
+const createRatioStatSGPCalculator = (averageStat, baseStat, baseDenominator, lowIsHigh = false, perInning = 1) => {
+	const posNeg = lowIsHigh ? 1 : -1
+	return (playerStat, playerDenominator) => {
+		const averageTeamStats = averageStat * posNeg
+		const statsPlayerAdds = (playerStat + baseStat) * posNeg
+		const denominatorPlayerAdds = perInning / (playerDenominator + baseDenominator)
+		return averageTeamStats - (statsPlayerAdds * denominatorPlayerAdds)
 	}
-
-function getPitcherSGP (player, categories, rosterSpots) {
-	var totalSgp = 0,
-		leagueAverageERA = 3.724,
-		leagueAverageWHIP = 1.234,
-		averageInningsPitched = 160 * rosterSpots,
-		playerSpotRatio = ((rosterSpots - 1) / rosterSpots);
-
-	var categorySGPs = categories.filter(function (category) {
-		return category.sgpd;
-	});
-
-	categorySGPs.forEach(function (category) {
-		var sgp = 0,
-			sgpd = category.sgpd,
-			categoryStat = category.abbreviation.toString(),
-			ratioStat = (categoryStat === 'ERA' || categoryStat === 'WHIP')
-
-		if (ratioStat) {
-
-			var playerInningsPitched = player.stats.IP,
-				playerEarnedRuns = (playerInningsPitched * player.stats.ERA) / 9,
-				playerWalksHits = (playerInningsPitched * player.stats.WHIP)
-
-			var averageRunsPerNine = (averageInningsPitched / 9) * leagueAverageERA;
-			var averageWalksHitsAllowed = averageInningsPitched * leagueAverageWHIP;
-
-			var baseInningsPitched = playerSpotRatio * averageInningsPitched;
-			var baseRuns = playerSpotRatio * averageRunsPerNine;
-			var baseWalksHits = playerSpotRatio * averageWalksHitsAllowed;
-
-			var leagueAverageStat = (categoryStat === 'WHIP') ? leagueAverageWHIP : leagueAverageERA;
-
-			if (categoryStat === 'ERA') {
-				sgp = ((leagueAverageStat - ((baseRuns + playerEarnedRuns) * (9 / (playerInningsPitched + baseInningsPitched)))) / sgpd);
-			} else {
-				sgp = ((leagueAverageStat - ((baseWalksHits + playerWalksHits) / (playerInningsPitched + baseInningsPitched))) / sgpd)
-			}
-
-		} else {
-			sgp = player.stats[categoryStat] / sgpd;
-		}
-
-		totalSgp += sgp;
-	});
-
-	return totalSgp;
 }
 
-export default function calculateSGPFor (players, categories, rosterSpots, type) {
-	var sgpCalculation = type === 'batter' ? getBatterSGP : getPitcherSGP
+const createAvgSGPCalculator = (playerSpotRatio, averageAtBats) => {
+	const leagueBattingAverage = 0.268 //TODO: create setting for this
+	const averageHits = leagueBattingAverage * averageAtBats
+	const baseHits = playerSpotRatio * averageHits
+	const baseAtBats = playerSpotRatio * averageAtBats
+	return createRatioStatSGPCalculator(leagueBattingAverage, baseHits, baseAtBats)
+}
 
-	return players.map(function (player){
-		var playerHasStats = player.stats
-		player.sgp = playerHasStats ? sgpCalculation(player, categories, rosterSpots) : 0
-		return player;
-	});
+const createObpSGPCalculator = (playerSpotRatio, averagePlateAppearances) => {
+	const leagueOnBasePercentage = 0.334 //TODO: create setting for this
+	const averageOnBaseRate = leagueOnBasePercentage * averagePlateAppearances
+	const baseOnBaseRate = playerSpotRatio * averageOnBaseRate
+	const basePlateAppearances = playerSpotRatio * averagePlateAppearances
+	return createRatioStatSGPCalculator(leagueOnBasePercentage, baseOnBaseRate, basePlateAppearances)
+}
+
+const createSlgSGPCalculator = (playerSpotRatio, averageAtBats) => {
+	const leagueSluggingPercentage = 0.436 //TODO: create setting for this
+	const averageTotalBases = leagueSluggingPercentage * averageAtBats
+	const baseTotalBases = playerSpotRatio * averageTotalBases
+	const baseAtBats = playerSpotRatio * averageAtBats
+	return createRatioStatSGPCalculator(leagueSluggingPercentage, baseTotalBases, baseAtBats)
+}
+
+const createEraSGPCalculator = (playerSpotRatio, averageInningsPitched) => {
+	const leagueAverageERA = 3.724 //TODO: create setting for this
+	const baseInningsPitched = playerSpotRatio * averageInningsPitched
+	const averageRunsPerNine = (averageInningsPitched / 9) * leagueAverageERA
+	const baseRuns = playerSpotRatio * averageRunsPerNine
+	return createRatioStatSGPCalculator(leagueAverageERA, baseRuns, baseInningsPitched, true, 9)
+}
+
+const createWhipSGPCalculator = (playerSpotRatio, averageInningsPitched) => {
+	const leagueAverageWHIP = 1.234 //TODO: create setting for this
+	const baseInningsPitched = playerSpotRatio * averageInningsPitched
+	const averageWalksHitsAllowed = averageInningsPitched * leagueAverageWHIP
+	const baseWalksHits = playerSpotRatio * averageWalksHitsAllowed
+	return createRatioStatSGPCalculator(leagueAverageWHIP, baseWalksHits, baseInningsPitched, true)
+}
+
+const returnStatFromCalculationFunction = (calculationFunction, stats) => {
+	const {params, prepareParams, calculate} = calculationFunction
+	let paramsToEvaluate = []
+	if (params) {
+		const statParams = params.map( param => stats[param] )
+		paramsToEvaluate = prepareParams ? prepareParams(...statParams) : statParams
+	}
+	return calculate(...paramsToEvaluate)
+}
+
+export const createSgpCalculationFunctionsFor = (type, rosterSpots) => {
+	const playerSpotRatio = ((rosterSpots - 1) / rosterSpots)
+
+	switch (type) {
+		case 'pitcher':
+			const averageInningsPitched = 160 * rosterSpots //TODO: make 160 value a setting
+			return {
+				ERA: {
+					params: ['IP', 'ERA'],
+					prepareParams: (IP, ERA) => {
+						return [((IP * ERA) / 9), IP]
+					},
+					calculate: createEraSGPCalculator(playerSpotRatio, averageInningsPitched)
+				},
+				WHIP: {
+					params: ['IP', 'WHIP'],
+					prepareParams: (IP, WHIP) => {
+						return [(IP * WHIP), IP]
+					},
+					calculate: createWhipSGPCalculator(playerSpotRatio, averageInningsPitched)
+				}
+			}
+		case 'batter':
+			const averageAtBats = 475 * rosterSpots //TODO: make 475 value a setting
+			const averagePlateAppearances = 540 * rosterSpots //TODO: make 475 value a setting
+			const calcObp = createObpSGPCalculator(playerSpotRatio, averagePlateAppearances)
+			const calcSlg = createSlgSGPCalculator(playerSpotRatio, averageAtBats)
+			return {
+				AVG: {
+					params: ['AVG', 'AB'],
+					prepareParams: (AVG, AB) => {
+						return [(AVG * AB), AB]
+					},
+					calculate: createAvgSGPCalculator(playerSpotRatio, averageAtBats)
+				},
+				OBP: {
+					params: ['OBP', 'PA'],
+					prepareParams: (OBP, PA) => {
+						return [(OBP * PA), PA]
+					},
+					calculate: calcObp
+				},
+				SLG: {
+					params: ['SLG', 'AB'],
+					prepareParams: (SLG, AB) => {
+						return [(SLG * AB), AB]
+					},
+					calculate: calcSlg
+				},
+				OPS: {
+					params: ['SLG', 'OBP', 'AB', 'PA'],
+					prepareParams: (SLG, AB) => {
+						return [(SLG * AB), AB, (OBP * PA), PA]
+					},
+					calculate: (SLG, OBP, AB, PA) => {
+						return calcSlg(SLG, AB) + calcObp(OBP, PA)
+					}
+				}
+			}
+	}
+}
+
+export const calculateSGPFor = (players, categories, sgpCalculationFunctions=[]) => {
+	const playersWithStats = players.filter( player => player.stats)
+	return playersWithStats.map( player => {
+		return Object.assign({}, player, {
+			sgp: categories.map( category => {
+				const {id, sgpd} = category
+				const {stats} = player
+				const calculationFunction = sgpCalculationFunctions[id]
+
+				let stat = stats[id]
+				if (calculationFunction) {
+					stat = returnStatFromCalculationFunction(calculationFunction, stats)
+				}
+
+				return stat / sgpd
+			}).reduce( combineValues )
+		})
+	})
 }

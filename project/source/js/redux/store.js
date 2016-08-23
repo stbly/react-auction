@@ -7,7 +7,7 @@ import { Router, Route, browserHistory } from 'react-router'
 import { routeReducer, syncHistory } from 'react-router-redux'
 import rootReducer from './modules'
 
-export default function configureStore(initialState) {
+const configureStore = (initialState) => {
     const store = createStore(
     	rootReducer,
     	applyMiddleware(
@@ -19,3 +19,5 @@ export default function configureStore(initialState) {
     )
     return store
 }
+
+export default configureStore

@@ -39,8 +39,8 @@ class PlayerInput extends Component {
 			e.preventDefault();
 		}
 
-		var {playerName, playerCost, playerTeam} = this.state
-		var searchablePlayers = this.props.searchablePlayers;
+		const {playerName, playerCost, playerTeam} = this.state
+		const searchablePlayers = this.props.searchablePlayers;
 
 		this.submitted = true;
 
@@ -50,11 +50,11 @@ class PlayerInput extends Component {
 
 		} else {
 
-			var playerId;
-			for (var key in searchablePlayers) {
+			let playerId;
+			for (let key in searchablePlayers) {
 			    // skip loop if the property is from prototype
 			    if (searchablePlayers.hasOwnProperty(key)) {
-			    	var currentPlayer = searchablePlayers[key].name.toLowerCase();
+			    	const currentPlayer = searchablePlayers[key].name.toLowerCase();
 			    	if (currentPlayer === playerName.toLowerCase()) {
 			    		playerId = searchablePlayers[key].id
 			    		break;
@@ -109,7 +109,7 @@ class PlayerInput extends Component {
 	}
 
 	render () {
-		var costContainerClasses = classNames('cost-container',{'is-editing':this.state.isEditingCost});
+		const costContainerClasses = classNames('cost-container',{'is-editing':this.state.isEditingCost});
 		return (
 			<div className='player-input'>
 				<form onSubmit={this.handleSubmit.bind(this)}>

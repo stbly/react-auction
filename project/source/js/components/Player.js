@@ -33,7 +33,7 @@ class Player extends Component {
 	}
 
 	getCheckbox () {
-		var el;
+		let el;
 		if (playerIsUndrafted(this.props.player)) {
 			el= <IconButton
 					toggleButton={this.togglePlayerFavorited.bind(this)}
@@ -44,8 +44,8 @@ class Player extends Component {
 	}
 
 	getPosition () {
-		var pos = primaryPositionFor(this.props.player);
-		var posName = '';
+		const pos = primaryPositionFor(this.props.player);
+		let posName = '';
 
 		switch (true) {
 			case pos === '1B':
@@ -84,7 +84,7 @@ class Player extends Component {
 
 	startEditing (e) {
 		if (e) {
-			var editTarget = e.target.getAttribute('data-edittarget');
+			const editTarget = e.target.getAttribute('data-edittarget');
 			if (editTarget) {
 				this.valueToStartEditing = editTarget;
 			}
@@ -141,7 +141,7 @@ class Player extends Component {
 
 	togglePlayerFavorited (e) {
 		// console.log('update');
-		var newSetting = !this.state.isFavorited;
+		const newSetting = !this.state.isFavorited;
 		this.setState({isFavorited: newSetting})
 		if (this.props.updateFavorited) {
 			this.props.updateFavorited(this.props.player.id);
@@ -149,12 +149,12 @@ class Player extends Component {
 	}
 
 	startEditingValue (input) {
-		var editTarget = this[input];
+		const editTarget = this[input];
 		editTarget.startEditing();
 	}
 
 	getMetaInfo () {
-		var els = [];
+		let els = [];
 		if (!this.props.hideMetaInfo) {
 			els.push(<td key={this.props.player.rank}>{this.props.rank}</td>);
 			els.push(
@@ -177,7 +177,7 @@ class Player extends Component {
 			return;
 		}
 
-		var positionClasses = classNames('position', this.getPosition());
+		const positionClasses = classNames('position', this.getPosition());
 
 		return ([
 			<td key={'player-pos'} className={positionClasses}>{primaryPositionFor(this.props.player)}</td>,
@@ -186,18 +186,19 @@ class Player extends Component {
 	}
 
 	getValueInfo () {
-		var els = [];
+		let els = [];
 
 		if (this.props.player.cost && (!this.state.isEditing && !this.props.hideCostInput && !this.props.hideValueInfo)) {
-			var cellWidth = 3;
+			let cellWidth = 3;
 			if (this.props.hideCostInput) {
 				cellWidth = 2;
 			} else if (this.props.hideValueInfo) {
 				cellWidth = 1;
 			}
 
-			var text = this.state.hovered ? 'Value' : 'Drafted'
-			var value = this.state.hovered ? this.props.player.adjustedValue.toFixed(0) : this.props.player.cost
+			const text = this.state.hovered ? 'Value' : 'Drafted'
+			const value = this.state.hovered ? this.props.player.adjustedValue.toFixed(0) : this.props.player.cost
+
 			return <td key={'display-value-td'}
 						className='display-value-td'
 						onMouseOver={this.handleMouseOver.bind(this)}
@@ -234,23 +235,22 @@ class Player extends Component {
 	}
 
 	getStats () {
-		var stats = [];
-
-		var _this = this;
+		const _this = this;
+		let stats = [];
 
 		if (!this.props.hideStats) {
-			for(var key in this.props.categories) {
+			for(let key in this.props.categories) {
 				if (this.props.categories.hasOwnProperty(key)) {
-					var category = this.props.categories[key].abbreviation;
-					var stat = this.props.player.stats[category];
-					var ratioStat = (category === 'AVG' || category === 'OBP' || category === 'SLG' || category === 'OPS' || category === 'ERA' || category === 'WHIP');
-					var decimalPlaces = ratioStat ? 3 : 0;
-					var increment = ratioStat ? 0.001 : 1;
-					var max = ratioStat ? 1 : 999;
+					const category = this.props.categories[key].abbreviation;
+					const ratioStat = (category === 'AVG' || category === 'OBP' || category === 'SLG' || category === 'OPS' || category === 'ERA' || category === 'WHIP');
+					const decimalPlaces = ratioStat ? 3 : 0;
+					const increment = ratioStat ? 0.001 : 1;
+					const max = ratioStat ? 1 : 999;
+					let stat = this.props.player.stats[category];
 
 					stat = Number(stat).toFixed(decimalPlaces);
 
-					var statEl = <td key={key} className='can-edit'>
+					const statEl = <td key={key} className='can-edit'>
 						<InputToggle
 							value={stat}
 							stat={category}
@@ -278,7 +278,7 @@ class Player extends Component {
 	}
 
 	render () {
-		var playerClasses = classNames('player', this.props.player.type, {'selected':playerIsDrafted(this.props.player)}, {'is-editing':this.state.isEditing});
+		const playerClasses = classNames('player', this.props.player.type, {'selected':playerIsDrafted(this.props.player)}, {'is-editing':this.state.isEditing});
 
 		return (
 			<tr className={playerClasses} onBlur={this.stopEditing.bind(this)}>

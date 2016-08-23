@@ -10,7 +10,7 @@ firebase.initializeApp(config);
 export const firebaseData = firebase.database()
 export const firebaseRef = firebaseData.ref();
 
-export default function apiMiddleware({ dispatch, getState }) {
+const apiMiddleware = ({ dispatch, getState }) => {
 	return next => action => {
 		const state = getState()
 		const { types, endpoint, payload } = action
@@ -43,3 +43,5 @@ export default function apiMiddleware({ dispatch, getState }) {
 		return next(action)
 	}
 }
+
+export default apiMiddleware

@@ -7,8 +7,6 @@ import {
 	forceLoadPlayers,
 	unsynthesizePlayers } from './players'
 
-import computePlayerValues from '../../helpers/PlayerValueUtils'
-
 export const AWAITING_AUTH_RESPONSE = 'user/status/AWAITING_AUTH_RESPONSE'
 export const ANONYMOUS = 'user/status/ANONYMOUS'
 export const LOGGED_IN = 'user/status/LOGGED_IN'
@@ -19,15 +17,15 @@ const LOGIN_USER = 'user/actions/LOGIN_USER'
 const LOGOUT_USER = 'user/actions/LOGOUT_USER'
 const DISPLAY_ERROR = 'user/actions/DISPLAY_ERROR'
 
-export function startListeningToAuth () {
-	return function (dispatch,getState) {
+export const startListeningToAuth = () => {
+	return (dispatch,getState) => {
 		firebase.auth().onAuthStateChanged( user => {
 			const state = getState()
 			console.log('onAuthStateChanged')
 			if (user) {
 				const {uid, displayName, email} = user
 				const username = displayName || email
-				/*firebaseRef.on('child_changed', function(childSnapshot, prevChildKey) {
+				/*firebaseRef.on('child_changed', (childSnapshot, prevChildKey) {
 					dispatch( childUpdated(childSnapshot, prevChildKey) )
 				})*/
 				return dispatch( loginUser(uid, username) )
@@ -43,19 +41,18 @@ export function startListeningToAuth () {
 	}
 }
 
-export function childUpdated (childSnapshot, prevChildKey) {
-	return function(dispatch,getState){
+export const childUpdated = (childSnapshot, prevChildKey) => {
+	return (dispatch,getState) => {
 		console.log('child updated!')
 	}
 }
 
-export function attemptLogin (username, password) {
-	return function(dispatch,getState){
+export const attemptLogin = (username, password) => {
+	return (dispatch,getState) => {
 		dispatch( attemptingLogin() )
 
-		firebase.auth().signInWithEmailAndPassword(username, password).catch(function(error) {
-		// firebase.auth().signInWithEmailAndPassword( username, password ).catch(function(error) {
-			console.log('ERROR',error)
+		firebase.auth().signInWithEmailAndPassword(username, password).catch((error) => {
+			console.log('SIGN IN ERROR',error)
 			const errorCode = error.code;
 			const errorMessage = error.message;
 			dispatch( displayError(error.message) )
@@ -63,15 +60,12 @@ export function attemptLogin (username, password) {
 	}
 }
 
-export function attemptLogout () {
-	return function(dispatch,getState){
+export const attemptLogout = () => {
+	return (dispatch,getState) => {
 		dispatch( attemptingLogout() )
 		firebase.auth().signOut()
 			.then(
 				() => {
-				/*firebaseRef.off('child_changed', function(childSnapshot, prevChildKey) {
-					dispatch( childUpdated(childSnapshot, prevChildKey) )
-				})*/
 					return dispatch( logoutUser() )
 				},
 				error => {}
@@ -80,16 +74,16 @@ export function attemptLogout () {
 }
 
 
-export function loginUser (uid, username) {
-	return function(dispatch,getState){
+export const loginUser = (uid, username) => {
+	return (dispatch,getState) => {
 		dispatch( unsynthesizePlayers() )
 		dispatch( userLoggedIn(uid, username) )
 		return dispatch( fetchPlayers() )
 	}
 }
 
-export function logoutUser () {
-	return function(dispatch,getState){
+export const logoutUser = () => {
+	return (dispatch,getState) => {
 		console.log('logoutUser')
 		dispatch( forceLoadPlayers() )
 		dispatch( userLoggedOut() )
@@ -97,28 +91,28 @@ export function logoutUser () {
 	}
 }
 
-export function attemptingLogin (uid, username) {
+export const attemptingLogin = (uid, username) => {
 	return { type: ATTEMPTING_LOGIN }
 }
 
-export function attemptingLogout (uid, username) {
+export const attemptingLogout = (uid, username) => {
 	return { type: ATTEMPTING_LOGOUT }
 }
 
-export function userLoggedIn (uid, username) {
+export const userLoggedIn = (uid, username) => {
 	return { type: LOGIN_USER, payload: {uid, username} }
 }
 
-export function userLoggedOut () {
+export const userLoggedOut = () => {
 	return { type: LOGOUT_USER }
 }
 
-export function displayError (error) {
+export const displayError = (error) => {
 	return { type: DISPLAY_ERROR, payload: {error} }
 }
 
 
-function reducer (state = {}, action) {
+const reducer = (state = {}, action) => {
 
 	switch (action.type) {
 		case ATTEMPTING_LOGIN:
@@ -136,7 +130,6 @@ function reducer (state = {}, action) {
 			})
 			return state
 		case LOGOUT_USER:
-			console.log('LOGOUT USER!!!!')
 			state = Object.assign({}, state, {
 				status: ANONYMOUS,
 				username: "guest",

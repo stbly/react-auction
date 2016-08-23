@@ -13,7 +13,6 @@ import PlayerListsContainer from './PlayerListsContainer'
 import FavoritePlayerListsContainer from './FavoritePlayerListsContainer'
 import classNames from 'classnames';
 
-import '../../stylesheets/components/app.scss'
 import '../../stylesheets/components/players.scss'
 
 class Players extends Component {
@@ -31,9 +30,8 @@ class Players extends Component {
 					<PlayerListsContainer
 						shouldRender={this.props.rerender}
 						players={ Object.toArray(this.props.players) }
-						categories={this.props.categories}
+						positionData={this.props.positionData}
 						teams={this.props.teams}
-						positions={this.props.positions}
 						actions={this.props.playerActions} />
 
 					<div className='clear-both'></div>
@@ -55,15 +53,13 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps (state,ownProps) {
 
-	if (!state.players.data || !state.categories.data || !state.teams.data) {
+	if (!state.players.data || !state.teams.data) {
 		return {}
 	}
 
 	var players = state.players.data,
-		categories = state.categories.data,
 		teams = SettingsUtils.getTeamNames( state.teams.data ),
-		positions = state.positions.data,
-		settings = state.settings.data,
+		positionData = state.settings.data.positionData,
 		user = state.user
 
 	var newPlayers = (this === undefined) ? null : !(this.oldPlayers === players)
@@ -75,9 +71,8 @@ function mapStateToProps (state,ownProps) {
 		user,
 		rerender: newPlayers,
 		players,
+		positionData,
 		teams,
-		categories,
-		positions,
 		isLoading: state.players.isLoading
 	};
 

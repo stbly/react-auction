@@ -51,7 +51,7 @@ class ActivePlayer extends Component {
 		var type = this.props.activePlayer.type
 		var activePlayerClasses = classNames('active-player',type)
 		var tableClasses = classNames('player-list',type)
-		var categories = SettingsUtils.getCategories( this.props.categories[type])
+		var categories = Object.toArray(this.props.positionData[type].categories)
 
 		var avoidClasses = classNames('icon-button', {active: this.props.activePlayer.isAvoided});
 
@@ -90,7 +90,7 @@ class ActivePlayer extends Component {
 		return (
 			<div className={activePlayerClasses}>
 				<div className='player-avatar'>
-					<image src={player}  />
+					<image src={player} />
 				</div>
 				<div className='player-info-panel'>
 					<div className='upper-panel'>
@@ -141,17 +141,13 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps (state,ownProps) {
-	var activePlayer, bidPrice;
-
-	if (state.players.activePlayerId) {
-		activePlayer = state.players.data[state.players.activePlayerId]
-		bidPrice = activePlayer.adjustedValue.toFixed(0)
-	}
-
+	const activePlayer = state.players.data[state.players.activePlayerId]
+	const bidPrice = activePlayer ? activePlayer.adjustedValue.toFixed(0) : null
+	const positionData = state.settings.positionData
 	return {
 		activePlayer,
 		bidPrice,
-		categories: state.categories.data
+		positionData
 	};
 }
 

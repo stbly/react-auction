@@ -1,0 +1,36 @@
+@import '../init';
+
+.nav-main {
+	display: flex;
+	padding: 10px 20px;
+	background: $color-grey-light;
+	align-items: center;
+
+	> span,
+	> a, {
+		@include cantarell;
+		padding: 10px;
+		&:not(:last-child) {
+			margin-right: 10px;
+		}
+		&:first-child {
+			padding-left: 0;
+		}
+	}
+
+	> a {
+
+		&.active {
+			background: white;
+			border-radius: 10px;
+		}
+
+		&:hover {
+			color: $color-grey-dark;
+		}
+	}
+
+	.login {
+		margin-left: auto;
+	}
+}

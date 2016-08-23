@@ -60,7 +60,7 @@ class ListFilters extends Component {
 
 	render () {
 		return (
-			<div className={'player-lists-filters'}>
+			<div className='player-lists-filters'>
 
 				<input
 					className='player-list-filter'

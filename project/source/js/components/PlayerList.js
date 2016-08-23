@@ -8,7 +8,7 @@ import classNames from 'classnames'
 // import { browserHistory } from 'react-router'
 
 import Player from './Player.js'
-import {sortBy} from '../helpers/sortUtils';
+import {sortBy} from '../helpers/arrayUtils';
 
 import '../../stylesheets/components/player-list.scss'
 

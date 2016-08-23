@@ -1,16 +1,4 @@
 import fetch from 'isomorphic-fetch'
-import { firebaseRef } from '../modules/user'
-import { scrubPlayerData, synthesizePlayerData } from '../../helpers/PlayerListUtils'
-import computePlayerValues from '../../helpers/PlayerValueUtils'
-
-let initialState = {
-	fetching: false,
-	didInvalidate: true,
-	didUnsynthesize: false,
-	forceReload: false,
-	data: null,
-	activePlayerId: null
-}
 
 const LOAD_PLAYERS_REQUEST = 'players/LOAD_PLAYERS_REQUEST'
 const LOAD_PLAYERS_SUCCESS = 'players/LOAD_PLAYERS_SUCCESS'
@@ -25,7 +13,54 @@ const UPDATE_ACTIVE_PLAYER = 'players/UPDATE_ACTIVE_PLAYER'
 const UPDATE_PLAYER_COST = 'players/UPDATE_PLAYER_COST'
 const UPDATE_PLAYER_STAT = 'players/UPDATE_PLAYER_STAT'
 
-export function getPlayers (endpoint) {
+let initialState = {
+	fetching: false,
+	didInvalidate: true,
+	didUnsynthesize: false,
+	forceReload: false,
+	data: null,
+	activePlayerId: null
+}
+
+const scrubPlayerData = (players) => {
+	for (const id in players) {
+		if (players.hasOwnProperty(id)) {
+			if (players[id].stats) {
+				if (players[id].stats.default) {
+					players[id].stats = players[id].stats.default
+				}
+			}
+		}
+	}
+	return players
+}
+
+const synthesizePlayerData = (playerData, userPlayerData=null) => {
+	if (userPlayerData) {
+		for (const userPlayerId in userPlayerData) {
+			if (userPlayerData.hasOwnProperty(userPlayerId)) {
+
+				const player = playerData[userPlayerId]
+				const userPlayer = userPlayerData[userPlayerId]
+
+				for (const key in userPlayer) {
+					if (userPlayer.hasOwnProperty(key)) {
+
+						if (!player[key]) {
+							player[key] = userPlayer[key]
+						} else {
+							Object.assign(player[key], userPlayer[key])
+						}
+
+					}
+				}
+			}
+		}
+	}
+	return playerData
+}
+
+export const getPlayers = (endpoint) => {
 	return {
 		types: [LOAD_PLAYERS_REQUEST, LOAD_PLAYERS_SUCCESS, LOAD_PLAYERS_ERROR ],
 		endpoint
@@ -33,8 +68,8 @@ export function getPlayers (endpoint) {
 	}
 }
 
-export function fetchPlayers () {
-	return function (dispatch, getState) {
+export const fetchPlayers = () => {
+	return (dispatch, getState) => {
 		const state = getState()
 		const { didInvalidate } = state.players
 		// console.log('fetchPlayers')
@@ -50,8 +85,8 @@ export function fetchPlayers () {
 	}
 }
 
-function fetchDefaultPlayers () {
-	return function (dispatch, getState) {
+const fetchDefaultPlayers = () => {
+	return (dispatch, getState) => {
 		const state = getState()
 		const { data, fetching, forceReload } = state.players
 		const shouldFetchPlayers = ((!data || forceReload) && !fetching)
@@ -65,8 +100,8 @@ function fetchDefaultPlayers () {
 	}
 }
 
-function fetchUserPlayers () {
-	return function (dispatch, getState) {
+const fetchUserPlayers = () => {
+	return (dispatch, getState) => {
 		const state = getState()
 		const { uid, didInvalidate } = state.user
 		const { fetching, didUnsynthesize } = state.players
@@ -81,24 +116,24 @@ function fetchUserPlayers () {
 	}
 }
 
-export function changePlayerStat (id, stat, value) {
-	return function (dispatch, getState) {
+export const changePlayerStat = (id, stat, value) => {
+	return (dispatch, getState) => {
 		dispatch( updatePlayerStat(id, stat, value) )
 		const players = getState().players.data
 		return dispatch( receivePlayers(players) )
 	}
 }
 
-export function changePlayerCost (id, cost) {
-	return function (dispatch, getState) {
+export const changePlayerCost = (id, cost) => {
+	return (dispatch, getState) => {
 		dispatch( updatePlayerCost(id, cost) )
 		const players = getState().players.data
 		return dispatch( receivePlayers(players) )
 	}
 }
 
-export function assignPlayer (id, cost, team) {
-	return function (dispatch, getState) {
+export const assignPlayer = (id, cost, team) => {
+	return (dispatch, getState) => {
 		dispatch( updatePlayerCost(id, cost) )
 		// dispatch( updatePlayerTeam(id, team) )
 		const players = getState().players.data
@@ -106,48 +141,48 @@ export function assignPlayer (id, cost, team) {
 	}
 }
 
-export function receivePlayers (players) {
+export const receivePlayers = (players) => {
 	return {type: RECEIVE_PLAYERS, payload: {players}}
 }
 
-export function invalidatePlayers () {
+export const invalidatePlayers = () => {
 	return { type: INVALIDATE_PLAYERS }
 }
 
-export function unsynthesizePlayers () {
+export const unsynthesizePlayers = () => {
 	console.log('unsynthesizePlayers()')
 	return { type: UNSYNTHESIZE_PLAYERS }
 }
 
-export function loadPlayersRequest () {
+export const loadPlayersRequest = () => {
 	return { type: loadPlayersRequest }
 }
 
-export function forceLoadPlayers () {
+export const forceLoadPlayers = () => {
 	return { type: FORCE_LOAD_PLAYERS }
 }
 
-export function updatePlayerFavorited (id) {
+export const updatePlayerFavorited = (id) => {
 	return { type: UPDATE_PLAYER_FAVORITED, payload: {id} }
 }
 
-export function updatePlayerStat(id, stat, value) {
+export const updatePlayerStat= (id, stat, value) => {
 	return {type: UPDATE_PLAYER_STAT, payload: {id, stat, value}}
 }
 
-export function updatePlayerNotes (id, notes) {
+export const updatePlayerNotes = (id, notes) => {
 	return { type: UPDATE_PLAYER_NOTES, payload: {id, notes} }
 }
 
-export function updateActivePlayer (id) {
+export const updateActivePlayer = (id) => {
 	return { type: UPDATE_ACTIVE_PLAYER, payload: {id} }
 }
 
-export function updatePlayerCost (id, cost) {
+export const updatePlayerCost = (id, cost) => {
 	return { type: UPDATE_PLAYER_COST, payload: {id, cost} }
 }
 
-function reducer (state = initialState, action) {
+const reducer = (state = initialState, action) => {
 
 	const { payload } = action
 	const { players, id, cost, value, team, notes, stat } = (payload || {})

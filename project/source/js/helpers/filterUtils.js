@@ -5,15 +5,16 @@ Object.filter = (obj, predicate) =>
           .filter(key => predicate(obj[key]))
           .reduce((res, key) => (res[key] = obj[key], res), {});
 
+//TO DO: consider setting this on Object prototype
 Object.toArray = (obj, id='id') =>
 	Object.keys(obj)
 		.map(key => {
-			var item = obj[key]
-			item[id] = key
-			// console.log(key, item[id])
-			return item
+			const item = obj[key]
+			return Object.assign({}, item, {
+				[id]: key
+			})
 		})
-
+//TO DO: consider setting this on Array prototype
 Array.toObject = (array, id='id') => {
 	var object = {};
 	for (var i = 0; i < array.length; i++) {

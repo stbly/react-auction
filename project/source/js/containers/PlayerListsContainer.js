@@ -89,10 +89,9 @@ class PlayerListsContainer extends Component {
 	}
 
 	getCategories () {
-		if (!this.props.categories) {
-			return;
-		}
-		return SettingsUtils.getCategories( this.props.categories[this.getType()] )
+		const currentPositionType = this.getType();
+		const categories = this.props.positionData[currentPositionType].categories
+		return Object.toArray(categories, 'abbreviation')
 	}
 
 	getPlayers () {
@@ -122,11 +121,15 @@ class PlayerListsContainer extends Component {
 	}
 
 	getSearchResults (players) {
-		return PlayerListUtils.getMatchingPlayers(players, this.state.searchQuery)
+		if (this.state.searchQuery.length > 2) {
+			return PlayerListUtils.getMatchingPlayers(players, this.state.searchQuery)
+		} else {
+			return players
+		}
 	}
 
 	setSearchQuery (value) {
-		if (value.length > 1) {
+		if (value.length > 0) {
 			this.setState({searchQuery: value})
 		} else {
 			this.setState({searchQuery: null})
@@ -135,17 +138,23 @@ class PlayerListsContainer extends Component {
 	}
 
 	getFilters () {
-		if (!this.props.positions) {
+		if (!this.props.positionData) {
 			return;
 		}
 
-		var filters = [ { property: 'type', value: 'all', text:'all players' } ];
+		var filters = [{
+			property: 'type',
+			value: 'all',
+			text:'all players'
+		}];
 
-		this.props.positions.map(function (positionType) {
+		const positionDataArray = Object.toArray(this.props.positionData, 'type')
+		positionDataArray.map(function (positionType) {
 
 			filters.push( {property: 'type', value: positionType.type, text: positionType.type + 's'} );
 
-			positionType.positions.map( (position, index) => {
+			const positionsArray = Object.toArray(positionType.positions, 'name')
+			positionsArray.map( (position, index) => {
 				var className = ((index + 1) % 3 === 0) ? 'last' : null
 				filters.push( {property: 'pos', value: position.name, className} );
 			})
@@ -179,15 +188,17 @@ class PlayerListsContainer extends Component {
 						<span className='hide-selected-text'>Hide Drafted Players</span>
 					</div>
 				</section>
-				<section>
-					<ListFilters
-						activeFilter={this.state.filter.value}
-						searchQuery={this.state.searchQuery}
-						setSearchQuery={this.setSearchQuery.bind(this)}
-						filterSelected={this.togglePlayerList.bind(this)}
-						filters={this.getFilters()} />
+				<section className='section-with-sidebar'>
+					<div className='sidebar'>
+						<ListFilters
+							activeFilter={this.state.filter.value}
+							searchQuery={this.state.searchQuery}
+							setSearchQuery={this.setSearchQuery.bind(this)}
+							filterSelected={this.togglePlayerList.bind(this)}
+							filters={this.getFilters()} />
+					</div>
 
-					<div className='player-lists-main'>
+					<div className='main'>
 						<div className={loading}>
 							{this.renderPlayerList()}
 						</div>
@@ -214,9 +225,8 @@ class PlayerListsContainer extends Component {
 
 PlayerListsContainer.propTypes = {
 	players: PropTypes.array,
+	positionData: PropTypes.object,
 	teams: PropTypes.array,
-	categories: PropTypes.object,
-	positions: PropTypes.array,
 	isLoading: PropTypes.bool,
 	actions: PropTypes.object
 }

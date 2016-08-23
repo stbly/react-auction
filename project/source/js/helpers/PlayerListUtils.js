@@ -1,175 +1,126 @@
-import {sortBy} from '../helpers/sortUtils';
-import {filterByPosition} from '../helpers/filterUtils';
+import {sortBy} from '../helpers/arrayUtils'
+import {filterByPosition} from '../helpers/filterUtils'
 
-export function getFavoritedPlayers(players, type=null) {
-	if (!players) {
-		return;
-	}
-
-	var typeBool = function (typeToCheck) {
-		return type ? typeToCheck = type : true;
-	}
-	return players.filter( p => (typeBool(p.type) && p.isFavorited && !(p.cost > 0)))
+export const getFavoritedPlayers = (players, type=null) => {
+	const typeBool = typeToCheck => type ? typeToCheck = type : true
+	return players.filter( player => typeBool(player.type) && player.isFavorited && !(player.cost > 0) )
 }
 
-export function getUnusedPlayers (players) {
-	if (!players) {
-		return;
-	}
-	return players.filter( player => playerIsUndrafted(player) );
+export const getUnusedPlayers = (players) => {
+	return players.filter( player => playerIsUndrafted(player) )
 }
 
-export function playerIsDrafted (player) {
+export const playerIsDrafted = (player) => {
 	return player.cost && player.cost !== 0
 }
 
-export function playerIsUndrafted (player) {
+export const playerIsUndrafted = (player) => {
 	return !playerIsDrafted(player)
 }
 
-export function rankPlayers (players, category, descending=true) {
-
-	players = sortBy(players, category, !descending);
+export const rankPlayers = (players, category, descending=true) => {
+	const sortedPlayers = sortBy(players, category, !descending)
 
 	if (descending) {
-		players.reverse();
+		sortedPlayers.reverse()
 	}
 
-	return players.map(function (player, index) {
-		player.rank = index + 1;
-		return player;
-	});
+	return sortedPlayers.map( (player, index) => {
+		player.rank = index + 1
+		return player
+	})
 }
 
-export function getMatchingPlayers (players, query) {
+export const getMatchingPlayers = (players, query) => {
+	const searchValueString = query.toLowerCase()
+	const matchingValues = players.filter( player => {
+		const playerName = player.name.toLowerCase()
+		const eachWordArray = playerName.split(' ')
 
-	var searchValueString = query.toLowerCase(),
-		matchingValues = players;
-
-	if (searchValueString.length >= 2) {
-		matchingValues = players.filter(function (selection) {
-			var selectionValue = selection.name.toLowerCase();
-			var eachWord = selectionValue.split(' '),
-				valueMatch;
-
-			for(var i=0; i<eachWord.length; i++) {
-				if (eachWord[i].indexOf(searchValueString) === 0 || selectionValue.indexOf(searchValueString) === 0) {
-					valueMatch = true;
-				}
+		for(let i=0; i<eachWordArray.length; i++) {
+			const searchValueMatch = eachWordArray[i].indexOf(searchValueString) === 0
+			const selectionValueMatch = playerName.indexOf(searchValueString) === 0
+			if ( searchValueMatch || selectionValueMatch ) {
+				return true
 			}
+		}
+	})
 
-			return valueMatch;
-		});
-	}
-
-	return matchingValues;
+	return matchingValues || players
 }
 
-export function primaryPositionFor (player) {
+export const primaryPositionFor = (player) => {
 	return player.positions ? (player.positions.length > 0 ? player.positions[0] : '') : ''
 }
 
-export function getPlayerList (players, listSize, positionalConditions, numTeams) {
+const getScarcePositions = (players, positions) => {
+	const scarcePositions = positions.filter( position => {
+		const {id, minimum} = position
+		const currentPlayersOfType = filterByPosition(players, id)
+		return currentPlayersOfType.length < minimum
+	})
 
-	var playersSortedBySGP = sortBy(players, 'sgp').reverse();
+	const scarcePositionIds = scarcePositions.map( position => position.id )
+	const normalPositions = positions.filter( position => {
+		return scarcePositionIds.indexOf( position.id ) < 0
+	})
 
-	var draftablePlayers = playersSortedBySGP.slice(0, listSize);
-	var unusedPlayers = playersSortedBySGP.slice(listSize, 1000);
+	return [scarcePositions, normalPositions]
+}
 
-	positionalConditions.forEach(function (condition) {
-		var currentPlayersOfType = filterByPosition(draftablePlayers, condition.name);
-		var minimum = condition.minimum * numTeams
+export const getPlayerList = (players, listSize, positions) => {
 
-		// TO DO: handle cases where there are fewer draftable players than conditional players
-		if (currentPlayersOfType.length < minimum) {
-			condition.invoked = true;
+	const playersSortedBySGP = sortBy(players, 'sgp').reverse()
 
-			var difference = minimum - currentPlayersOfType.length;
-			var selectableUnusedPlayers = filterByPosition(unusedPlayers, condition.name);
-			var playersToAdd = selectableUnusedPlayers.slice(0,difference);
-			var playersToRemove = [];
-			var removeIndex = draftablePlayers.length-1;
-			while (difference > 0) {
+	let playersAboveReplacement = playersSortedBySGP.slice(0, listSize)
+	let playersBelowReplacement = playersSortedBySGP.slice(listSize, 1000)
 
-				var playerToTryRemoving = draftablePlayers[removeIndex];
-				var okayToUse = true;
-				positionalConditions.forEach(function (conditionCheck) {
-					try {
-						if (primaryPositionFor(playerToTryRemoving) === conditionCheck.name) {
-							okayToUse = false;
-						}
-					} catch(err) {
-						console.log(removeIndex)
-					}
-				});
-				if (okayToUse) {
-					playersToRemove.push(playerToTryRemoving);
-					difference--;
+	const [scarcePositions, normalPositions] = getScarcePositions(playersAboveReplacement, positions)
+	const scarcePositionIds = scarcePositions.map( condition => condition.id )
+	const normalPositionIds = normalPositions.map( condition => condition.id )
+
+	scarcePositions.forEach( condition => {
+		const {id, minimum} = condition
+		const currentPlayersOfType = filterByPosition(playersAboveReplacement, id)
+		const selectableUnusedPlayers = filterByPosition(playersBelowReplacement, id)
+		const difference = minimum - currentPlayersOfType.length
+		const playersToAdd = selectableUnusedPlayers.slice(0, difference)
+		let playersToRemove = []
+		let removeIndex = playersAboveReplacement.length-1
+
+		for (removeIndex; removeIndex >= 0; removeIndex --) {
+			const remainingDifference = difference - (listSize - playersAboveReplacement.length)
+			if (remainingDifference === 0) break;
+
+			const playerToRemove = playersAboveReplacement[removeIndex];
+			const playersPrimaryPosition = primaryPositionFor(playerToRemove)
+			const okayToRemove = scarcePositionIds.indexOf(playersPrimaryPosition) < 0;
+
+			if (okayToRemove) {
+				const numberOfPlayersOfSamePosition = filterByPosition(playersAboveReplacement, playersPrimaryPosition).length
+				const normalPositionIndex = normalPositionIds.indexOf(playersPrimaryPosition)
+				const normalPosition = normalPositions[normalPositionIndex]
+				if (numberOfPlayersOfSamePosition <= normalPosition.minimum) {
+					continue
+				} else {
+					const index = playersAboveReplacement.indexOf(playerToRemove);
+					playersAboveReplacement.splice( index, 1 );
+					playersBelowReplacement.push(playerToRemove);
+
 				}
-				removeIndex--;
 			}
-
-			playersToRemove.forEach(function (playerToRemove) {
-				var index = draftablePlayers.indexOf(playerToRemove);
-				draftablePlayers.splice( index, 1 );
-				unusedPlayers.push(playerToRemove);
-			});
-
-			playersToAdd.forEach(function (playerToAdd){
-				unusedPlayers.splice( unusedPlayers.indexOf(playerToAdd), 1 );
-			});
-			draftablePlayers = draftablePlayers.concat(playersToAdd);
 		}
-	});
 
-	draftablePlayers = rankPlayers(draftablePlayers, 'sgp');
-	unusedPlayers = rankPlayers(unusedPlayers, 'sgp');
+		playersToAdd.forEach( playerToAdd => playersBelowReplacement.splice( playersBelowReplacement.indexOf(playerToAdd), 1 ))
+		playersAboveReplacement = playersAboveReplacement.concat(playersToAdd);
+	})
 
-	// }
+	const positionGroups = [...scarcePositionIds, normalPositionIds]
+
 	return [
-		draftablePlayers,
-		unusedPlayers
+		rankPlayers(playersAboveReplacement, 'sgp'),
+		rankPlayers(playersBelowReplacement, 'sgp'),
+		positionGroups
 	]
-}
-
-export function synthesizePlayerData (playerData, userPlayerData=null) {
-	if (userPlayerData) {
-		for (const userPlayerId in userPlayerData) {
-			if (userPlayerData.hasOwnProperty(userPlayerId)) {
-
-				const player = playerData[userPlayerId]
-				const userPlayer = userPlayerData[userPlayerId]
-
-				for (const key in userPlayer) {
-					if (userPlayer.hasOwnProperty(key)) {
-
-						if (!player[key]) {
-							player[key] = userPlayer[key]
-						} else {
-							Object.assign(player[key], userPlayer[key])
-						}
-
-					}
-				}
-
-			}
-		}
-	}
-	return playerData
-}
-
-
-export function scrubPlayerData (players) {
-	for (const id in players) {
-		if (players.hasOwnProperty(id)) {
-			var statsExist = players[id].stats
-			if (statsExist) {
-				if (players[id].stats.default) {
-					players[id].stats = players[id].stats.default
-				}
-			}
-		}
-	}
-	return players
 }
 

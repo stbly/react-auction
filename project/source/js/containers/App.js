@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Router, RouteHandler, Link, browserHistory } from 'react-router'
 
 import SettingsInput from './SettingsInput'
-import Login from '../components/Login'
+import NavMain from '../components/NavMain'
 
 import '../../stylesheets/components/app.scss'
 
@@ -11,13 +11,13 @@ class App extends Component {
 		super(props)
 	}
 
+				// <SettingsInput />
+
 	render() {
 		return (
 			<div className='app'>
 
-				<SettingsInput />
-
-				<Login />
+				<NavMain />
 
 				{this.props.children || "No Child Route yet"}
 			</div>

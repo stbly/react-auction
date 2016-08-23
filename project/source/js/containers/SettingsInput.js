@@ -78,7 +78,7 @@ class SettingsInput extends Component {
 	}
 
 	render () {
-		var loading = classNames({'is-loading': this.props.isLoading});
+		const loading = classNames({'is-loading': this.props.isLoading});
 
 		return (
 			<div className='settings-input'>

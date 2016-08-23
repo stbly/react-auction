@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import Player from './Player.js'
 import PlayerList from './PlayerList.js'
-import {sortBy} from '../helpers/sortUtils';
+import {sortBy} from '../helpers/arrayUtils';
 
 import '../../stylesheets/components/favorited-player-list.scss'
 

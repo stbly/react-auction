@@ -36,6 +36,8 @@ const WEBPACK_ENV = {
   BROWSER: JSON.stringify(BROWSER)
 }
 
+const PUBLIC_PATH = ENV_IS_PRODUCTION ? 'static' : '/static/';
+
 module.exports = {
   debug: !ENV_IS_PRODUCTION,
   devtool: defineWebpackDevtool(),
@@ -45,7 +47,7 @@ module.exports = {
   output: {
     path: CONFIG.static,
     filename: 'js/bundle.js',
-    publicPath: 'static/'
+    publicPath: PUBLIC_PATH
   },
 
   module: {

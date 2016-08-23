@@ -20,24 +20,25 @@
 				"settings": {
 					"$numTeams": true,
 					"$teamSalary": true,
-					"position_types": {
-						"$position_type_id": {
+					"$roster_spots": true,
+					"playerTypes": {
+						"$player_type_id": {
 							"$salary_percentage": true,
-							"$roster_spots": true,
+							"$roster_spots_of_type": true,
+							"categories": {
+								"$category_id": {
+									"$name": true,
+									"$abbreviation": true,
+									"$sgpd": true,
+									"$goal": true
+								}
+							}
 							"positions" {
 								"$position_id": {
 									"$name": true,
 									"$minimum": false
 								}
 							}
-						}
-					},
-					"categories": {
-						"$category_id": {
-							"$name": true,
-							"$abbreviation": true,
-							"$sgpd": true,
-							"$goal": true
 						}
 					}
 				},

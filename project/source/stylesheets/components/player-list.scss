@@ -11,8 +11,6 @@
 }
 
 .player-lists-filters {
-	width: 140px;
-	float: left;
 	.player-list-filter {
 		@include transandina-medium;
 	    width: 100%;
@@ -45,10 +43,6 @@
 			}
 		}
 
-		@include width-under($bp-small) {
-			width: 100%;
-			float: none;
-		}
 	}
 	input[type=text] {
 		border-color: $color-grey-lightest;
@@ -66,18 +60,6 @@
 	::-webkit-input-placeholder {
 		color: $color-grey-light;
 	}
-
-	@include width-under($bp-small) {
-		width: 100%;
-		float: none;
-	}
-}
-
-
-
-.player-lists-main {
-	width: calc(100% - 150px);
-	float: right;
 
 	@include width-under($bp-small) {
 		width: 100%;
