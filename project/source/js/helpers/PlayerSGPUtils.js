@@ -1,144 +1,87 @@
-//TODO: refactor sgpFunctions objects
+//TODO: refactor further
 
 import {combineValues} from './arrayUtils'
 
-const createRatioStatSGPCalculator = (averageStat, baseStat, baseDenominator, lowIsHigh = false, perInning = 1) => {
+const createRatioStatSGPCalculator = (averageStat, baseStat, baseDenominator, lowIsHigh = false, perPeriod = 1) => {
 	const posNeg = lowIsHigh ? 1 : -1
 	return (playerStat, playerDenominator) => {
 		const averageTeamStats = averageStat * posNeg
 		const statsPlayerAdds = (playerStat + baseStat) * posNeg
-		const denominatorPlayerAdds = perInning / (playerDenominator + baseDenominator)
+		const denominatorPlayerAdds = perPeriod / (playerDenominator + baseDenominator)
+
 		return averageTeamStats - (statsPlayerAdds * denominatorPlayerAdds)
 	}
 }
 
-const createAvgSGPCalculator = (playerSpotRatio, averageAtBats) => {
-	const leagueBattingAverage = 0.268 //TODO: create setting for this
-	const averageHits = leagueBattingAverage * averageAtBats
-	const baseHits = playerSpotRatio * averageHits
-	const baseAtBats = playerSpotRatio * averageAtBats
-	return createRatioStatSGPCalculator(leagueBattingAverage, baseHits, baseAtBats)
+const getBaseStats = (stat, averageDenominator, baseToAverageRatio, perPeriod=1) => {
+	const averageStat = stat * (averageDenominator / perPeriod)
+	const baseStat = baseToAverageRatio * averageStat
+	const baseDenominator = baseToAverageRatio * averageDenominator
+	return [baseStat, baseDenominator]
 }
 
-const createObpSGPCalculator = (playerSpotRatio, averagePlateAppearances) => {
-	const leagueOnBasePercentage = 0.334 //TODO: create setting for this
-	const averageOnBaseRate = leagueOnBasePercentage * averagePlateAppearances
-	const baseOnBaseRate = playerSpotRatio * averageOnBaseRate
-	const basePlateAppearances = playerSpotRatio * averagePlateAppearances
-	return createRatioStatSGPCalculator(leagueOnBasePercentage, baseOnBaseRate, basePlateAppearances)
+// TODO: error catching
+const createRatioStatCalculation = (statCalculationFunction, id, denominator, perPeriod=1) => {
+		return (stats) => {
+			const stat = stats[id]
+			const denominatorStat = stats[denominator]
+			const preparedStat = ((stat * denominatorStat) / perPeriod)
+			return statCalculationFunction(preparedStat, denominatorStat)
+		}
 }
 
-const createSlgSGPCalculator = (playerSpotRatio, averageAtBats) => {
-	const leagueSluggingPercentage = 0.436 //TODO: create setting for this
-	const averageTotalBases = leagueSluggingPercentage * averageAtBats
-	const baseTotalBases = playerSpotRatio * averageTotalBases
-	const baseAtBats = playerSpotRatio * averageAtBats
-	return createRatioStatSGPCalculator(leagueSluggingPercentage, baseTotalBases, baseAtBats)
-}
+export const createSgpCalculationsForRatioStats = (ratioCategories, rosterSpots) => {
+	const baseToAverageRatio = ((rosterSpots - 1) / rosterSpots)
 
-const createEraSGPCalculator = (playerSpotRatio, averageInningsPitched) => {
-	const leagueAverageERA = 3.724 //TODO: create setting for this
-	const baseInningsPitched = playerSpotRatio * averageInningsPitched
-	const averageRunsPerNine = (averageInningsPitched / 9) * leagueAverageERA
-	const baseRuns = playerSpotRatio * averageRunsPerNine
-	return createRatioStatSGPCalculator(leagueAverageERA, baseRuns, baseInningsPitched, true, 9)
-}
+	let ratioCalculationFunctions = {}
+	for (let i = 0; i < ratioCategories.length; i++) {
+		const category = ratioCategories[i]
+		const {id, average, lowIsHigh, perPeriod, denominator, denominatorAverage} = category
 
-const createWhipSGPCalculator = (playerSpotRatio, averageInningsPitched) => {
-	const leagueAverageWHIP = 1.234 //TODO: create setting for this
-	const baseInningsPitched = playerSpotRatio * averageInningsPitched
-	const averageWalksHitsAllowed = averageInningsPitched * leagueAverageWHIP
-	const baseWalksHits = playerSpotRatio * averageWalksHitsAllowed
-	return createRatioStatSGPCalculator(leagueAverageWHIP, baseWalksHits, baseInningsPitched, true)
-}
+		const averageDenominators = denominatorAverage * rosterSpots
+		const baseStats = getBaseStats(average, averageDenominators, baseToAverageRatio, perPeriod)
+		const statCalculation = createRatioStatSGPCalculator(average, ...baseStats, lowIsHigh, perPeriod)
+		const ratioCalculationFunction = createRatioStatCalculation(statCalculation, id, denominator, perPeriod)
 
-const returnStatFromCalculationFunction = (calculationFunction, stats) => {
-	const {params, prepareParams, calculate} = calculationFunction
-	let paramsToEvaluate = []
-	if (params) {
-		const statParams = params.map( param => stats[param] )
-		paramsToEvaluate = prepareParams ? prepareParams(...statParams) : statParams
+		ratioCalculationFunctions[id] = ratioCalculationFunction
 	}
-	return calculate(...paramsToEvaluate)
+
+	return ratioCalculationFunctions
 }
 
-export const createSgpCalculationFunctionsFor = (type, rosterSpots) => {
-	const playerSpotRatio = ((rosterSpots - 1) / rosterSpots)
+const getSgpRatioCalculations = (categories, rosterSpots) => {
+	const categoryNames = categories.map( category => category.id )
+	const ratioCategories = categories.filter( category => category.isRatio )
 
-	switch (type) {
-		case 'pitcher':
-			const averageInningsPitched = 160 * rosterSpots //TODO: make 160 value a setting
-			return {
-				ERA: {
-					params: ['IP', 'ERA'],
-					prepareParams: (IP, ERA) => {
-						return [((IP * ERA) / 9), IP]
-					},
-					calculate: createEraSGPCalculator(playerSpotRatio, averageInningsPitched)
-				},
-				WHIP: {
-					params: ['IP', 'WHIP'],
-					prepareParams: (IP, WHIP) => {
-						return [(IP * WHIP), IP]
-					},
-					calculate: createWhipSGPCalculator(playerSpotRatio, averageInningsPitched)
-				}
-			}
-		case 'batter':
-			const averageAtBats = 475 * rosterSpots //TODO: make 475 value a setting
-			const averagePlateAppearances = 540 * rosterSpots //TODO: make 475 value a setting
-			const calcObp = createObpSGPCalculator(playerSpotRatio, averagePlateAppearances)
-			const calcSlg = createSlgSGPCalculator(playerSpotRatio, averageAtBats)
-			return {
-				AVG: {
-					params: ['AVG', 'AB'],
-					prepareParams: (AVG, AB) => {
-						return [(AVG * AB), AB]
-					},
-					calculate: createAvgSGPCalculator(playerSpotRatio, averageAtBats)
-				},
-				OBP: {
-					params: ['OBP', 'PA'],
-					prepareParams: (OBP, PA) => {
-						return [(OBP * PA), PA]
-					},
-					calculate: calcObp
-				},
-				SLG: {
-					params: ['SLG', 'AB'],
-					prepareParams: (SLG, AB) => {
-						return [(SLG * AB), AB]
-					},
-					calculate: calcSlg
-				},
-				OPS: {
-					params: ['SLG', 'OBP', 'AB', 'PA'],
-					prepareParams: (SLG, AB) => {
-						return [(SLG * AB), AB, (OBP * PA), PA]
-					},
-					calculate: (SLG, OBP, AB, PA) => {
-						return calcSlg(SLG, AB) + calcObp(OBP, PA)
-					}
-				}
-			}
-	}
+	const normalizedRatioCategories = ratioCategories.map( category => {
+		const {id, average, denominator, lowIsHigh, perPeriod} = category
+		const denominatorIndex = categoryNames.indexOf(denominator)
+		const denominatorAverage = categories[denominatorIndex].average
+		return {id, average, denominator, denominatorAverage, lowIsHigh, perPeriod}
+	})
+
+	return createSgpCalculationsForRatioStats(normalizedRatioCategories, rosterSpots)
 }
 
-export const calculateSGPFor = (players, categories, sgpCalculationFunctions=[]) => {
+export const calculateSGPFor = (players, categories, rosterSpots) => {
 	const playersWithStats = players.filter( player => player.stats)
+
+	//------------------------------------------------------------------------------//
+	// Ratio category values have to be calculated seperately from counting stats, so we have to create
+	// the ratio calculation functions first before getting each player's SGP
+	//------------------------------------------------------------------------------//
+	const sgpRatioCalculations = getSgpRatioCalculations(categories, rosterSpots)
+	//------------------------------------------------------------------------------//
+
+	const categoriesWithSgps = categories.filter( category => category.sgpd )
 	return playersWithStats.map( player => {
 		return Object.assign({}, player, {
-			sgp: categories.map( category => {
+			sgp: categoriesWithSgps.map( category => {
 				const {id, sgpd} = category
 				const {stats} = player
-				const calculationFunction = sgpCalculationFunctions[id]
-
-				let stat = stats[id]
-				if (calculationFunction) {
-					stat = returnStatFromCalculationFunction(calculationFunction, stats)
-				}
-
-				return stat / sgpd
+				const defaultCalculationFunction = (stats) => stats[id]
+				const sgpCalculationFunction = sgpRatioCalculations[id] || defaultCalculationFunction
+				return sgpCalculationFunction(stats) / sgpd
 			}).reduce( combineValues )
 		})
 	})

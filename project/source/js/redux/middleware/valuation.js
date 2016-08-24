@@ -8,7 +8,7 @@ import {
 
 import { filterBy } from '../../helpers/filterUtils';
 import { assignPlayerValues } from '../../helpers/PlayerValueUtils'
-import { createSgpCalculationFunctionsFor, calculateSGPFor} from '../../helpers/PlayerSgpUtils'
+import { calculateSGPFor} from '../../helpers/PlayerSgpUtils'
 
 const computeAllPlayerValues = (players, state) => {
 	const {
@@ -17,9 +17,9 @@ const computeAllPlayerValues = (players, state) => {
 		positionData } = state.settings.data
 
 	const playersArray = Object.toArray(players)
-	const positionDataArray = Object.toArray(positionData, 'type')
+	const positionDataTypes = Object.toArray(positionData, 'type')
 	const totalMoneyInPool = teamSalary * numTeams;
-	const valuedPlayers = positionDataArray.map(
+	const valuedPlayers = positionDataTypes.map(
 		playerType => {
 			const { categories, budgetPercentage, rosterSpots, positions, type } = playerType
 
@@ -38,8 +38,7 @@ const computeAllPlayerValues = (players, state) => {
 				}
 			)
 
-			const sgpCalculationFunctions = createSgpCalculationFunctionsFor(type, rosterSpots)
-			const playersWithSGPCalculated = calculateSGPFor(playersOfType, categoriesArray, sgpCalculationFunctions)
+			const playersWithSGPCalculated = calculateSGPFor(playersOfType, categoriesArray, rosterSpots)
 			const valuedPlayers = assignPlayerValues(playersWithSGPCalculated, playersToDraft, dollarsToSpend, normalizedPositions)
 
 			return valuedPlayers

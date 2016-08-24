@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 
 import * as SettingsUtils from '../helpers/SettingsUtils'
 import * as playerActions from '../redux/modules/players'
-import * as userActions from '../redux/modules/user'
 
 import ValueList from '../components/ValueList'
 import ActivePlayer from './ActivePlayer'
@@ -15,11 +14,7 @@ import classNames from 'classnames';
 
 import '../../stylesheets/components/players.scss'
 
-class Players extends Component {
-	constructor(props) {
-		super(props);
-	}
-
+const Players = React.createClass({
 	render() {
 
 		return (
@@ -41,26 +36,19 @@ class Players extends Component {
 			</div>
 		)
 	}
-}
+})
 
 
 function mapDispatchToProps(dispatch) {
 	return {
-		playerActions: bindActionCreators(playerActions, dispatch),
-		userActions: bindActionCreators(userActions, dispatch)
+		playerActions: bindActionCreators(playerActions, dispatch)
 	}
 }
 
 function mapStateToProps (state,ownProps) {
-
-	if (!state.players.data || !state.teams.data) {
-		return {}
-	}
-
 	var players = state.players.data,
 		teams = SettingsUtils.getTeamNames( state.teams.data ),
-		positionData = state.settings.data.positionData,
-		user = state.user
+		positionData = state.settings.data.positionData
 
 	var newPlayers = (this === undefined) ? null : !(this.oldPlayers === players)
 	if (this) {
@@ -68,15 +56,12 @@ function mapStateToProps (state,ownProps) {
 	}
 
 	return {
-		user,
 		rerender: newPlayers,
 		players,
 		positionData,
 		teams,
 		isLoading: state.players.isLoading
 	};
-
-	// return { ...state.players.lists };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Players)
