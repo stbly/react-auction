@@ -2,11 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Router, RouteHandler, Link, browserHistory } from 'react-router'
 import classNames from 'classnames';
 
-// import { connect } from 'react-redux'
-// import { bindActionCreators } from 'redux'
-// import { browserHistory } from 'react-router'
-
-import Player from './Player.js'
+import TableRow from './TableRow.js'
 import PlayerList from './PlayerList.js'
 import {sortBy} from '../helpers/arrayUtils';
 

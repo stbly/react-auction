@@ -19,34 +19,32 @@ const computeAllPlayerValues = (players, state) => {
 	const playersArray = Object.toArray(players)
 	const positionDataTypes = Object.toArray(positionData, 'type')
 	const totalMoneyInPool = teamSalary * numTeams;
-	const valuedPlayers = positionDataTypes.map(
-		playerType => {
-			const { categories, budgetPercentage, rosterSpots, positions, type } = playerType
 
-			const playersOfType = filterBy(playersArray, 'type', type)
-			const playersToDraft = rosterSpots * numTeams
-			const dollarsToSpend = totalMoneyInPool * (budgetPercentage / 100)
+	const valuedPlayers = positionDataTypes.map( playerType => {
+		const { categories, budgetPercentage, rosterSpots, positions, type } = playerType
+		const playersOfType = filterBy(playersArray, 'type', type)
+		const categoriesArray = Object.toArray(categories)
+		const positionsArray = Object.toArray(positions)
+		const playersToDraft = rosterSpots * numTeams
+		const dollarsToSpend = totalMoneyInPool * (budgetPercentage / 100)
+		const playersWithSGPCalculated = calculateSGPFor(playersOfType, categoriesArray, rosterSpots)
+		const normalizedPositions = normalizePositions(positionsArray, numTeams)
 
-			const categoriesArray = Object.toArray(categories)
-			const positionsArray = Object.toArray(positions)
-
-			const normalizedPositions = positionsArray.map(
-				position => {
-					const minimumPerTeam = position.minimum
-					const minimum = (minimumPerTeam || 0) * numTeams
-					return Object.assign({}, position, { minimum })
-				}
-			)
-
-			const playersWithSGPCalculated = calculateSGPFor(playersOfType, categoriesArray, rosterSpots)
-			const valuedPlayers = assignPlayerValues(playersWithSGPCalculated, playersToDraft, dollarsToSpend, normalizedPositions)
-
-			return valuedPlayers
-		}
-	)
+		return assignPlayerValues(playersWithSGPCalculated, playersToDraft, dollarsToSpend, normalizedPositions)
+	})
 
 	const combinedPlayers = Array.concat.apply([],valuedPlayers)
 	return Array.toObject(combinedPlayers)
+}
+
+const normalizePositions = (positionsArray, numTeams) => {
+	return positionsArray.map(
+		position => {
+			const minimumPerTeam = position.minimum
+			const minimum = (minimumPerTeam || 0) * numTeams
+			return Object.assign({}, position, { minimum })
+		}
+	)
 }
 
 const valuationMiddlware = ({ dispatch, getState }) => {

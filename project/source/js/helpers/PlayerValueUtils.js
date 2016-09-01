@@ -26,7 +26,7 @@ const assignValuesFor = (players, sgpGroups, pricePerSgp, inflationRate) => {
 	const playersSortedBySGP = sortBy(players,'sgp').reverse();
 	const sgpGroupPositions = sgpGroups.map( group => group.positions )
 
-	return playersSortedBySGP.map(function (player) {
+	return playersSortedBySGP.map( player => {
 		const playerPosition = primaryPositionFor(player)
 
 		for (let i=0; i < sgpGroupPositions.length; i++) {

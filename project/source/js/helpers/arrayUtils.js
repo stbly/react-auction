@@ -1,5 +1,46 @@
 export const combineValues = (a, b) => a + b
 
+
+export const arrayCheck = array => {
+	return (Object.prototype.toString.call( array ) === '[object Array]')
+}
+
+export const flatten = array => {
+	return array.reduce( (output, next) => output.concat(next) )
+}
+
+const isMatch = (item, query, strictMatch=true) => strictMatch ? item === query : item.indexOf(query) > -1
+
+const itemHas = (item, query, strictMatch=true) => {
+	const itemIsArray = arrayCheck(item)
+
+	if (itemIsArray) {
+		for (var i=0; i<item.length; i++) {
+			const match = isMatch( item[i], query, strictMatch )
+			if (match) {
+				return true
+			}
+		}
+	}
+
+	return isMatch (item, query, strictMatch)
+}
+
+export const valueMatch = (item, value, strictMatch=true) => {
+	const valueIsArray = arrayCheck(value)
+
+	if (valueIsArray) {
+		for (var i=0; i<value.length; i++) {
+			const match = itemHas( item, value[i], strictMatch )
+			if (match) {
+				return true
+			}
+		}
+	}
+
+	return itemHas( item, value, strictMatch )
+}
+
 export const findLastItemWithCondition = (array, conditionFunction) => {
 	for (let index = (array.length - 1); index >= 0; index--) {
 		const itemAtIndex = array[index]
@@ -11,8 +52,8 @@ export const findLastItemWithCondition = (array, conditionFunction) => {
 
 export const sortBy = (array, param, reverse, byBoolean) => {
 
-	const paramIsArray = (Object.prototype.toString.call( param ) === '[object Array]')
 	const direction = reverse ? -1 : 1
+	const paramIsArray = arrayCheck(param)
 
 	let sortFunction
 	if (paramIsArray) {

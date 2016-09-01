@@ -79,7 +79,7 @@ class SuggestedSearchBox extends Component {
 				var iterator = 0,
 				// var selectIndex = this.get('selectIndex');
 
-				matchingValues = matchingValues.map(function (selection) {
+				matchingValues = matchingValues.map( selection => {
 					iterator++;
 					var highlighted = iterator === 1;//selectIndex;
 					return {

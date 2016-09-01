@@ -88,6 +88,7 @@ class Input extends Component {
 
 	changeValue (newValue) {
 		this.allowChange = true
+
 		if (this.props.valueDidChange) {
 			this.props.valueDidChange(newValue, this);
 		}

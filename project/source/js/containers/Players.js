@@ -24,7 +24,7 @@ const Players = React.createClass({
 				<div className='combined-rankings'>
 					<PlayerListsContainer
 						shouldRender={this.props.rerender}
-						players={ Object.toArray(this.props.players) }
+						players={ this.props.players }
 						positionData={this.props.positionData}
 						teams={this.props.teams}
 						actions={this.props.playerActions} />
@@ -49,14 +49,14 @@ function mapStateToProps (state,ownProps) {
 	var players = state.players.data,
 		teams = SettingsUtils.getTeamNames( state.teams.data ),
 		positionData = state.settings.data.positionData
-
+/*
 	var newPlayers = (this === undefined) ? null : !(this.oldPlayers === players)
 	if (this) {
 		this.oldPlayers = players
-	}
+	}*/
 
 	return {
-		rerender: newPlayers,
+		// rerender: newPlayers,
 		players,
 		positionData,
 		teams,

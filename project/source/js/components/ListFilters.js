@@ -15,7 +15,7 @@ class ListFilters extends Component {
 	}
 
 	setSearchQuery (e) {
-		var searchValue = e.target.value;
+		const searchValue = e.target.value;
 		this.setState({searchValue});
 
 		if (this.props.setSearchQuery) {
@@ -23,10 +23,9 @@ class ListFilters extends Component {
 		}
 	}
 
-	filterSelected (e) {
-
+	filterSelected (property, value) {
 		if (this.props.filterSelected) {
-			this.props.filterSelected(e)
+			this.props.filterSelected(property, value)
 		}
 	}
 
@@ -34,46 +33,53 @@ class ListFilters extends Component {
 		return classNames('player-list-filter', buttonValue, buttonType, className, {'active': this.props.activeFilter === buttonValue})
 	}
 
-	getValue () {
+	getSearchValue () {
 		return this.props.searchQuery;
 	}
 
-
 	getFilters () {
-
-		if (!this.props.filters) {
-			return;
-		}
-		var _this = this;
 		return this.props.filters.map( (filter,index) => {
-			var text = filter.text || filter.value;
-			return <button
-						className={_this.getButtonClass(filter.value, filter.property, filter.className)}
-						key={index}
-						data-param={filter.property}
-						data-value={filter.value}
-						onClick={_this.filterSelected.bind(_this)} >
-							{text}
-					</button>
+			const { text, value, property } = filter
+			const filterList = (e) => this.filterSelected(property, value)
+			return (
+				<button
+					className={this.getButtonClass(filter.value, filter.property, filter.className)}
+					key={index}
+					data-param={filter.property}
+					data-value={filter.value}
+					onClick={filterList} >
+						{text || value}
+				</button>
+			)
 		})
 	}
 
 	render () {
 		return (
 			<div className='player-lists-filters'>
-
 				<input
 					className='player-list-filter'
 					type='text'
 					onChange={this.setSearchQuery.bind(this)}
 					placeholder='Search'
-					value= {this.getValue()} />
+					value= {this.getSearchValue()} />
 
 				{this.getFilters()}
 
 			</div>
 		)
 	}
+}
+
+ListFilters.propTypes = {
+	activeFilter: PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number
+	]),
+	searchQuery: PropTypes.string,
+	setSearchQuery: PropTypes.func,
+	filterSelected: PropTypes.func,
+	filters: PropTypes.array.isRequired
 }
 
 export default ListFilters;

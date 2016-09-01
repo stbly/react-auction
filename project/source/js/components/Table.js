@@ -1,71 +1,52 @@
 import React, { Component, PropTypes } from 'react'
-import { Router, RouteHandler, Link, browserHistory } from 'react-router'
-
 import classNames from 'classnames'
 
-// import { connect } from 'react-redux'
-// import { bindActionCreators } from 'redux'
-// import { browserHistory } from 'react-router'
+import {sortBy} from '../helpers/arrayUtils';
 
 import TableRow from './TableRow.js'
 import TableCell from './TableCell.js'
-import {sortBy} from '../helpers/arrayUtils';
-
-import '../../stylesheets/components/player-list.scss'
-
-
 
 class PlayerList extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			toggleSortDirection: true,
-			currentSortOption: 'adjustedValue',
-			sortedData: null,
+			reverseSortDirection: true,
+			sortParam: 'adjustedValue',
 		}
 	}
 
-	componentWillReceiveProps (nextProps) {
-		const { currentSortOption, toggleSortDirection } = this.state
-		const { data } = nextProps
+	getSortParam ( param ) {
+		const { sortingRules } = this.props
+		if (!sortingRules) return param
 
-		if (currentSortOption) {
-			const sortedData = sortBy(data, currentSortOption, toggleSortDirection)
-			this.setState({sortedData})
-		}
+		const sortingRule = sortingRules[param]
+		return sortingRule ? sortingRule(param) : param
 	}
 
-	sortList (param) {
-		const { dataToSort, currentSortOption, toggleSortDirection } = this.state
+	sortList (list) {
+		const { sortParam, reverseSortDirection } = this.state
+
+		const param = this.getSortParam(sortParam)
+		return sortBy(list, sortParam, reverseSortDirection)
+	}
+
+	setSortList (param) {
+		const { dataToSort, sortParam, reverseSortDirection } = this.state
 		const { data } = this.props
 
-		if (param === 'name' || param === 'cost' || param === 'pos') {
-			param = [
-				{ param: param },
-				{ param: 'adjustedValue', direction: -1 }
-			];
-		}
+		const oldParam = JSON.stringify(sortParam)
+		const newParam = JSON.stringify(param)
 
-		if (param === 'isFavorited') {
-			param = [
-				{ param: 'isFavoritedRank' }
-			]
-		}
-
-		let sortDirection = toggleSortDirection
-		if (param.toString() === currentSortOption.toString()) {
-			sortDirection = !toggleSortDirection
-		}
+		const directionSwitch = (oldParam === newParam)
+		const newDirection = directionSwitch ? !reverseSortDirection : reverseSortDirection
 
 		this.setState({
-			currentSortOption: param,
-			toggleSortDirection: sortDirection,
-			sortedData: sortBy(data, param, sortDirection)
+			sortParam: param,
+			reverseSortDirection: newDirection
 		});
 	}
 
 	rankData (data) {
-		const { currentSortOption, toggleSortDirection } = this.state
 		const dataSortedByValue = sortBy(data, 'adjustedValue', 'desc')
 		const rankedData = dataSortedByValue.map( (player, index) => {
 			return Object.assign({}, player, {
@@ -73,12 +54,13 @@ class PlayerList extends Component {
 			})
 		})
 
-		return sortBy(rankedData, currentSortOption, toggleSortDirection)
+		return this.sortList(rankedData)
 	}
 
 	getData () {
 		const { data, hideDraftedPlayers } = this.props
-		const playerList = this.state.sortedData || data;
+
+		const playerList = this.sortList(data) //this.state.sortedData || data;
 
 		let rankedData = this.rankData(playerList)
 		if (hideDraftedPlayers) {
@@ -121,7 +103,7 @@ class PlayerList extends Component {
 
 	renderTableCellHeader (data) {
 		const { heading, category, classes } = data
-		const sortFunction = () => this.sortList(value)
+		const sortFunction = () => this.setSortList(category)
 
 		return (
 			<td className={classes}
@@ -148,7 +130,8 @@ class PlayerList extends Component {
 
 PlayerList.propTypes = {
 	data: PropTypes.array.isRequired,
-	columns: PropTypes.array.isRequired
+	columns: PropTypes.array.isRequired,
+	sortingRules: PropTypes.object
 }
 
 export default PlayerList;

@@ -9,16 +9,19 @@ import '../../stylesheets/components/player.scss'
 import InputToggle from './InputToggle'
 import IconButton from './IconButton'
 
-class Player extends Component {
-	constructor (props) {
-			super(props)
-			this.state = {
-				hovered: false,
-				isEditing: false,
-				isFavorited: false,
-			}
-	}
+import TableCell from './TableCell.js'
+import InputPlayerStat from './InputPlayerStat.js'
 
+class TableRow extends Component {
+	constructor (props) {
+		super(props)
+		/*this.state = {
+			hovered: false,
+			isEditing: false,
+			isFavorited: false,
+		}*/
+	}
+/*
 	componentWillReceiveProps (nextProps) {
 		this.setState({isFavorited:nextProps.player.isFavorited})
 	}
@@ -30,8 +33,8 @@ class Player extends Component {
 	componentDidUpdate() {
 		//console.log(this.props.player.name,this.props.player.cost);
 		// this.setState({showCost:this.props.player.cost > 0});
-	}
-
+	}*/
+/*
 	getCheckbox () {
 		let el;
 		if (playerIsUndrafted(this.props.player)) {
@@ -80,8 +83,8 @@ class Player extends Component {
 				break;
 		}
 		return posName.toLowerCase();
-	}
-
+	}*/
+/*
 	startEditing (e) {
 		if (e) {
 			const editTarget = e.target.getAttribute('data-edittarget');
@@ -116,14 +119,13 @@ class Player extends Component {
 		this.startEditing();
 	}
 
-	updatePlayerStat (value, e) {
+	updatePlayerStat (stat, value) {
 		// console.log('updatedPlayerStat()')
 		// var stat = e.target.getAttribute('data-name');
 		this.setState({isEditing: false});
 		this.setState({hover: false});
-
 		if (this.props.updateStat) {
-			this.props.updateStat(this.props.player.id, e.props.stat, value);
+			this.props.updateStat(this.props.data.id, stat, value);
 		}
 	}
 
@@ -134,8 +136,8 @@ class Player extends Component {
 		this.setState({isEditing: false});
 		this.setState({hover: false});
 		if (this.props.updateCost) {
-			// console.log(cost, this.props.player.id);
-			this.props.updateCost(this.props.player.id, cost);
+			// console.log(cost, this.props.data.id);
+			this.props.updateCost(this.props.data.id, cost);
 		}
 	}
 
@@ -144,7 +146,7 @@ class Player extends Component {
 		const newSetting = !this.state.isFavorited;
 		this.setState({isFavorited: newSetting})
 		if (this.props.updateFavorited) {
-			this.props.updateFavorited(this.props.player.id);
+			this.props.updateFavorited(this.props.data.id);
 		}
 	}
 
@@ -156,9 +158,9 @@ class Player extends Component {
 	getMetaInfo () {
 		let els = [];
 		if (!this.props.hideMetaInfo) {
-			els.push(<td key={this.props.player.rank}>{this.props.rank}</td>);
+			els.push(<td key={this.props.data.rank}>{this.props.data.rank}</td>);
 			els.push(
-				<td key={this.props.player.rank + 'favorite-toggle'} className='favorite-toggle'>
+				<td key={this.props.data.rank + 'favorite-toggle'} className='favorite-toggle'>
 					{this.getCheckbox()}
 				</td>
 			);
@@ -167,8 +169,8 @@ class Player extends Component {
 	}
 
 	selectPlayer () {
-		if (this.props.playerSelected) {
-			this.props.playerSelected(this.props.player.id)
+		if (this.props.dataSelected) {
+			this.props.dataSelected(this.props.data.id)
 		}
 	}
 
@@ -180,7 +182,7 @@ class Player extends Component {
 		const positionClasses = classNames('position', this.getPosition());
 
 		return ([
-			<td key={'player-pos'} className={positionClasses}>{primaryPositionFor(this.props.player)}</td>,
+			<td key={'data-pos'} className={positionClasses}>{primaryPositionFor(this.props.player)}</td>,
 			<td key={'player-name'} onClick={this.selectPlayer.bind(this)} className={positionClasses}>{this.props.player.name}</td>
 		])
 	}
@@ -234,65 +236,52 @@ class Player extends Component {
 		return els;
 	}
 
-	getStats () {
-		const _this = this;
-		let stats = [];
-
-		if (!this.props.hideStats) {
-			for(let key in this.props.categories) {
-				if (this.props.categories.hasOwnProperty(key)) {
-					const category = this.props.categories[key].abbreviation;
-					const ratioStat = (category === 'AVG' || category === 'OBP' || category === 'SLG' || category === 'OPS' || category === 'ERA' || category === 'WHIP');
-					const decimalPlaces = ratioStat ? 3 : 0;
-					const increment = ratioStat ? 0.001 : 1;
-					const max = ratioStat ? 1 : 999;
-					let stat = this.props.player.stats[category];
-
-					stat = Number(stat).toFixed(decimalPlaces);
-
-					const statEl = <td key={key} className='can-edit'>
-						<InputToggle
-							value={stat}
-							stat={category}
-							step={increment}
-							max={max}
-							min={0}
-							didStartEditing={this.setEditState.bind(this)}
-							valueDidChange={this.updatePlayerStat.bind(this)} />
-						</td>
-
-					stats.push(statEl)
-				}
-			}
-		}
-
-		return stats;
-	}
-
 	componentDidUpdate (prevProps, prevState) {
 		if (this.valueToStartEditing) {
 			this.startEditingValue(this.valueToStartEditing);
 			this.valueToStartEditing = null;
 		}
 
-	}
+	}*/
 
 	render () {
-		const playerClasses = classNames('player', this.props.player.type, {'selected':playerIsDrafted(this.props.player)}, {'is-editing':this.state.isEditing});
+		const rowClasses = classNames('table-row');
+
+		return (
+			<tr className={rowClasses}>
+				{this.renderCells()}
+			</tr>
+		)
+}
+/*const playerClasses = classNames('player', this.props.player.type, {'selected':playerIsDrafted(this.props.player)}, {'is-editing':this.state.isEditing});
 
 		return (
 			<tr className={playerClasses} onBlur={this.stopEditing.bind(this)}>
-				{this.getMetaInfo()}
-				{this.getPlayerInfo()}
-				{this.getValueInfo()}
-				{this.getStats()}
+
+				{this.renderCells()}
+
 			</tr>
-		)
+		)*/
+
+	renderCells () {
+		const { data, columns } = this.props
+
+		return columns.map( (column, index) => {
+			const { category, cellContent, cellContentParams } = column
+			return (
+				<TableCell
+					data={data}
+					category={category}
+					cellContent={cellContent}
+					cellContentParams={cellContentParams} />
+			)
+		})
 	}
 }
 
-Player.propTypes = {
-
+TableRow.propTypes = {
+	data: PropTypes.object.isRequired,
+	columns: PropTypes.array.isRequired
 }
 
-export default Player;
+export default TableRow;

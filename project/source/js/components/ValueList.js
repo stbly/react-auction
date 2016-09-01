@@ -2,10 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { Router, RouteHandler, Link, browserHistory } from 'react-router'
 import classNames from 'classnames';
 
-// import { connect } from 'react-redux'
-// import { bindActionCreators } from 'redux'
-// import { browserHistory } from 'react-router'
-
 import PlayerList from './PlayerList.js'
 
 import '../../stylesheets/components/player-list.scss'

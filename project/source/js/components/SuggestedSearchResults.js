@@ -58,7 +58,7 @@ class SuggestedSearchResults extends Component {
 		var _this = this;
 
 		if(this.props.results) {
-			liItems = this.props.results.map(function (result) {
+			liItems = this.props.results.map( result => {
 
 				var itemClass = classNames({'selected': result.value === _this.state.activeResult});
 

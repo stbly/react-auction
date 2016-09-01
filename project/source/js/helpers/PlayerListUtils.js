@@ -6,10 +6,6 @@ export const getFavoritedPlayers = (players, type=null) => {
 	return players.filter( player => typeBool(player.type) && player.isFavorited && !(player.cost > 0) )
 }
 
-export const getUnusedPlayers = (players) => {
-	return players.filter( player => playerIsUndrafted(player) )
-}
-
 export const playerIsDrafted = (player) => {
 	return player.cost && player.cost !== 0
 }
@@ -29,24 +25,6 @@ export const rankPlayers = (players, category, descending=true) => {
 		player.rank = index + 1
 		return player
 	})
-}
-
-export const getMatchingPlayers = (players, query) => {
-	const searchValueString = query.toLowerCase()
-	const matchingValues = players.filter( player => {
-		const playerName = player.name.toLowerCase()
-		const eachWordArray = playerName.split(' ')
-
-		for(let i=0; i<eachWordArray.length; i++) {
-			const searchValueMatch = eachWordArray[i].indexOf(searchValueString) === 0
-			const selectionValueMatch = playerName.indexOf(searchValueString) === 0
-			if ( searchValueMatch || selectionValueMatch ) {
-				return true
-			}
-		}
-	})
-
-	return matchingValues || players
 }
 
 export const primaryPositionFor = (player) => {

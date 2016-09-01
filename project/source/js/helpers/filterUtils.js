@@ -31,6 +31,10 @@ Array.toObject = (array, id='id') => {
 	return object;
 }
 
+const createFilter = (property, value, text) => {
+	return { property, value, text }
+}
+
 const filterBy = (array, prop, value) => {
 	value = value === null ? true : value
 	return array.filter( obj => {
@@ -51,4 +55,4 @@ const propIsObject = (prop) => {
 	return Object.prototype.toString.call( prop ) === '[object Object]'
 }
 
-export { filterBy, filterByPosition }
+export { createFilter, filterBy, filterByPosition }
