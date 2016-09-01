@@ -270,6 +270,7 @@ class TableRow extends Component {
 			const { category, cellContent, cellContentParams } = column
 			return (
 				<TableCell
+					key={data.id + index}
 					data={data}
 					category={category}
 					cellContent={cellContent}

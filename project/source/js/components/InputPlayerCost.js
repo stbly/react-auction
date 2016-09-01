@@ -24,7 +24,7 @@ class InputPlayerCost extends Component {
 }
 
 InputPlayerCost.propTypes = {
-	cost: PropTypes.number.isRequired,
+	cost: PropTypes.number,
 	onCostChange: PropTypes.func,
 }
 

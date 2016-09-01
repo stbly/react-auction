@@ -9,6 +9,17 @@ export const flatten = array => {
 	return array.reduce( (output, next) => output.concat(next) )
 }
 
+export const flattenToObject = array => {
+	return array.reduce( (result, currentObject) => {
+	    for(var key in currentObject) {
+	    	if (currentObject.hasOwnProperty(key)) {
+	            result[key] = currentObject[key];
+	        }
+	    }
+	    return result;
+	}, {});
+}
+
 const isMatch = (item, query, strictMatch=true) => strictMatch ? item === query : item.indexOf(query) > -1
 
 const itemHas = (item, query, strictMatch=true) => {
@@ -50,57 +61,46 @@ export const findLastItemWithCondition = (array, conditionFunction) => {
 	}
 }
 
-export const sortBy = (array, param, reverse, byBoolean) => {
+const sort = (a, b, sortParam, paramDirection, allowZero=true) => {
+	const { param, paramFunction, direction } = sortParam
+	const currentParam = param || sortParam // in case sortParam isn't an object or doesn't contain param
 
-	const direction = reverse ? -1 : 1
-	const paramIsArray = arrayCheck(param)
+	const currentDirection = direction || paramDirection
 
-	let sortFunction
-	if (paramIsArray) {
-		sortFunction = array.sort( (a,b) => {
+	const compareA = paramFunction ? paramFunction(a) : a[currentParam]
+	const compareB = paramFunction ? paramFunction(b) : b[currentParam]
 
-			let sortValue = 0
-			let paramDirection = direction
-			for (let paramIndex = 0; paramIndex < param.length; paramIndex++) {
-
-				const currentParam = param[paramIndex].param
-
-				if (param[paramIndex].direction) {
-					paramDirection = param[paramIndex].direction
-				}
-
-				if (a[currentParam] < b[currentParam]) {
-					return -1 * paramDirection
-				}else if (a[currentParam] > b[currentParam]) {
-					return paramDirection
-				}
-
-			}
-
-		})
+	if (compareA < compareB) {
+		return -1 * currentDirection
+	}else if (compareA > compareB) {
+		return currentDirection
+	}else if (allowZero) {
+		return 0
 	}
-	else {
-		if (byBoolean) {
+}
 
-			sortFunction = array.sort( (a,b) => {
-				const sortValue = (a[param] === b[param]) ? 0 : a[param] ? -1 : 1
-				return sortValue * direction
-			})
+export const sortBy = (array, sortParam, reverse=false/*, byBoolean=false*/) => {
 
-		} else {
+	const paramDirection = reverse ? -1 : 1
+	const params = arrayCheck(sortParam) ? sortParam : [sortParam]
 
-			sortFunction = array.sort( (a,b) => {
-				if (a[param] < b[param]) {
-					return -1 * direction
-				} else if (a[param] > b[param]) {
-					return direction
-				} else {
-					return 0
-				}
-			})
-
+	return array.sort( (a,b) => {
+		for (let paramIndex = 0; paramIndex < params.length; paramIndex++) {
+			const currentParam = params[paramIndex]
+			const sortValue = sort(a, b, currentParam, paramDirection, false)
+			if (sortValue) return sortValue
 		}
-	}
+	})
 
-	return sortFunction
+	/*f (byBoolean) {
+
+		sortFunction = array.sort( (a,b) => {
+			const compareA = paramFunction ? paramFunction(a) : a[currentParam]
+			const compareB = paramFunction ? paramFunction(b) : b[currentParam]
+
+			const sortValue = (compareA === compareB) ? 0 : compareA ? -1 : 1
+			return sortValue * currentDirection
+		})
+
+	}*/
 }

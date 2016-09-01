@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
 
-import {sortBy} from '../helpers/arrayUtils';
+import {sortBy, flattenToObject} from '../helpers/arrayUtils';
 
 import TableRow from './TableRow.js'
 import TableCell from './TableCell.js'
 
-class PlayerList extends Component {
+class Table extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -15,29 +15,24 @@ class PlayerList extends Component {
 		}
 	}
 
+	componentWillReceiveProps (nextProps) {
+		if (nextProps.data !== this.props.data) {
+			this.rows = null
+		}
+	}
+
 	getSortParam ( param ) {
-		const { sortingRules } = this.props
-		if (!sortingRules) return param
+		const { columns } = this.props
+		const columnIds = columns.map( column => column.category )
+		const columnIndex = columnIds.indexOf(param)
+		const sortParam = columns[columnIndex].sortParam
 
-		const sortingRule = sortingRules[param]
-		return sortingRule ? sortingRule(param) : param
+		return sortParam ? sortParam(param) : param
 	}
 
-	sortList (list) {
+	setSortParam (param) {
 		const { sortParam, reverseSortDirection } = this.state
-
-		const param = this.getSortParam(sortParam)
-		return sortBy(list, sortParam, reverseSortDirection)
-	}
-
-	setSortList (param) {
-		const { dataToSort, sortParam, reverseSortDirection } = this.state
-		const { data } = this.props
-
-		const oldParam = JSON.stringify(sortParam)
-		const newParam = JSON.stringify(param)
-
-		const directionSwitch = (oldParam === newParam)
+		const directionSwitch = (param === sortParam)
 		const newDirection = directionSwitch ? !reverseSortDirection : reverseSortDirection
 
 		this.setState({
@@ -46,30 +41,33 @@ class PlayerList extends Component {
 		});
 	}
 
-	rankData (data) {
-		const dataSortedByValue = sortBy(data, 'adjustedValue', 'desc')
-		const rankedData = dataSortedByValue.map( (player, index) => {
-			return Object.assign({}, player, {
-				rank: index + 1
-			})
+	getSortedRows (list) {
+		const { data } = this.props
+		const { sortParam, reverseSortDirection } = this.state
+		const param = this.getSortParam(sortParam)
+
+		return sortBy(data, param, reverseSortDirection)
+	}
+
+	getRows () {
+		const { data } = this.props
+
+		const renderedRows = data.map( (item, index) => {
+			const row = this.createRow(item, index)
+			return { [item.id]: row }
 		})
 
-		return this.sortList(rankedData)
+		return flattenToObject(renderedRows)
 	}
 
-	getData () {
-		const { data, hideDraftedPlayers } = this.props
+	createRow (item, index) {
+		const { columns } = this.props
 
-		const playerList = this.sortList(data) //this.state.sortedData || data;
-
-		let rankedData = this.rankData(playerList)
-		if (hideDraftedPlayers) {
-			rankedData = rankedData.filter( player => !player.cost )
-		}
-
-		return rankedData
+		return <TableRow
+			key={index}
+			data={item}
+			columns={columns} />
 	}
-
 
 	render () {
 		var listClass = classNames('player-list');
@@ -78,7 +76,7 @@ class PlayerList extends Component {
 			<div className='player-list-container'>
 				<table className={listClass}>
 					<tbody>
-						{this.renderHeaders()}
+						{this.renderHeaderRow()}
 						{this.renderRows()}
 					</tbody>
 				</table>
@@ -87,11 +85,10 @@ class PlayerList extends Component {
 		)
 	}
 
-
-	renderHeaders () {
+	renderHeaderRow () {
 		const { columns } = this.props
 		const cells = columns.map(
-			column => this.renderTableCellHeader(column)
+			(column, index) => this.renderHeaderCells(column, index)
 		)
 
 		return (
@@ -101,37 +98,31 @@ class PlayerList extends Component {
 		)
 	}
 
-	renderTableCellHeader (data) {
-		const { heading, category, classes } = data
-		const sortFunction = () => this.setSortList(category)
+	renderHeaderCells (column, index) {
+		const { heading, category, classes } = column
+		const sortFunction = () => this.setSortParam(category)
 
 		return (
-			<td className={classes}
+			<td key={index} className={classes}
 				onClick={sortFunction} >
 					{heading || category}
 			</td>
 		)
-
 	}
 
 	renderRows () {
-		return this.getData().map( (data, index) => {
-			// const cells = this.renderCells(data)
-			const props = this.props
-			return (
-				<TableRow
-					key={index}
-					data={data}
-					columns={props.columns} />
-			)
-		})
+		if (!this.rows) {
+			this.rows = this.getRows()
+		}
+
+		const sortedRows = this.getSortedRows().map ( row => this.rows[row.id] )
+		return sortedRows
 	}
 }
 
-PlayerList.propTypes = {
+Table.propTypes = {
 	data: PropTypes.array.isRequired,
-	columns: PropTypes.array.isRequired,
-	sortingRules: PropTypes.object
+	columns: PropTypes.array.isRequired
 }
 
-export default PlayerList;
+export default Table;

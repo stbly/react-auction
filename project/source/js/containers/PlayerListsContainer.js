@@ -134,14 +134,16 @@ class PlayerListsContainer extends Component {
 
 	getFilteredPlayerIds () {
 		const { players } = this.props
-		const { property, value } = this.state.filter
+		const { filter, hideDraftedPlayers } = this.state
+		const { property, value } = filter
 		const filteredIds = this.getPlayerIds().filter( id => {
 			const player = players[id]
 			const playerHasValue = player.value
+			const showIfUndrafted = hideDraftedPlayers ? !player.cost : true
 			const propertyToCompare = (property === 'pos') ? primaryPositionFor(player) : player[property]
 			const propertyMatch = valueMatch(propertyToCompare, value)
 
-			return propertyMatch && playerHasValue
+			return propertyMatch && playerHasValue && showIfUndrafted
 		})
 
 		return filteredIds
@@ -170,20 +172,6 @@ class PlayerListsContainer extends Component {
 			this.setState({searchQuery: value})
 		} else {
 			this.setState({searchQuery: null})
-		}
-	}
-
-	getSortingRules () {
-		const sortByParamThenValue = (param) => [
-			{ param: param },
-			{ param: 'adjustedValue', direction: -1 }
-		]
-
-		return {
-			name: sortByParamThenValue,
-			cost: sortByParamThenValue,
-			pos: sortByParamThenValue,
-
 		}
 	}
 
@@ -228,8 +216,7 @@ class PlayerListsContainer extends Component {
 						<div className={mainClass}>
 							<Table
 								data={this.getPlayers()}
-								columns={this.getColumns()}
-								sortingRules={this.getSortingRules()} />
+								columns={this.getColumns()} />
 						</div>
 					</div>
 				</section>

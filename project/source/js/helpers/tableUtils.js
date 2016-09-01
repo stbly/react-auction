@@ -9,9 +9,9 @@ export const TableColumn = (category, params={}) => {
 		classes,
 		cellContent,
 		cellContentParams,
-		sortFunction } = params
+		sortParam } = params
 
-	return {category, heading, cellContent, cellContentParams, classes}
+	return {category, heading, cellContent, cellContentParams, sortParam, classes}
 }
 
 export const StatColumn = (category, statChangeDispatcher, isRatio=false, params={}) => {
@@ -22,16 +22,15 @@ export const StatColumn = (category, statChangeDispatcher, isRatio=false, params
 		return <InputPlayerStat value={statValue} category={category} onStatChange={onStatChange} isRatio={isRatio} />
 	}
 
-	const sortFunction = () => {
-
+	const sortParam = (param) => {
+		return {param: param, paramFunction: (player) => player.stats[category] }
 	}
-
 
 	return TableColumn(category,
 		Object.assign({}, params, {
-			sortFunction,
 			cellContent,
-			cellContentParams: ['id','stats']
+			cellContentParams: ['id','stats'],
+			sortParam
 		})
 	)
 }
@@ -43,7 +42,12 @@ export const CostColumn = (costChangeDispatcher, params={}) => {
 		return <InputPlayerCost cost={cost} onCostChange={onCostChange} />
 	}
 
-	return TableColumn('cost', Object.assign({}, params, { cellContent, cellContentParams: ['id', 'cost'] }) )
+	const sortParam = (param) => [
+		{ param: param, paramFunction: (data) => data.cost || 0, direction: -1},
+		{ param: 'adjustedValue' }
+	]
+
+	return TableColumn('cost', Object.assign({}, params, { cellContent, cellContentParams: ['id', 'cost'], sortParam }) )
 }
 
 export const ValueColumn = (category, params={}) => {
@@ -54,10 +58,15 @@ export const ValueColumn = (category, params={}) => {
 	return TableColumn(category, Object.assign({}, params, { cellContent }) )
 }
 
-export const PositionColumn = (category, params={}) => {
+export const PositionColumn = (params={}) => {
 	const cellContent = (data) => {
 		return primaryPositionFor(data)
 	}
 
-	return TableColumn(category, Object.assign({}, params, { cellContent }) )
+	const sortParam = (param) => [
+		{ param: param, paramFunction: cellContent },
+		{ param: 'adjustedValue', direction: -1 }
+	]
+
+	return TableColumn('pos', Object.assign({}, params, { cellContent, sortParam }) )
 }
