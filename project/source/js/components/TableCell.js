@@ -10,11 +10,11 @@ class TableCell extends Component {
 	}
 
 	render () {
-		const { classes } = this.props
+		const { category, classes } = this.props
 
 		return (
-			<td className={classes} >
-					{ this.renderContent() }
+			<td className={classNames(category, classes)} >
+				{ this.renderContent() }
 			</td>
 		)
 	}

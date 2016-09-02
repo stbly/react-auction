@@ -1,0 +1,57 @@
+@import '../init';
+
+.list-filters {
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+	.list-filter {
+		@include transandina-medium;
+	    width: 100%;
+
+		padding: .65em .65em .4em;
+		margin: 0px 0 10px 0;
+
+		border-radius: 5px;
+
+		cursor: pointer;
+
+	    color: $color-grey-medium;
+	    text-align: center;
+		text-transform: uppercase;
+
+		border: 1px solid $color-grey-medium;
+
+		&:hover,
+		&.active {
+			color: $color-grey-darkest;
+		}
+
+		&.pos {
+			width: calc((100% / 3) - 5px);
+			margin: 0 0 10px 0;
+		}
+
+	}
+	input[type=text] {
+		border-color: $color-grey-lightest;
+		color: $color-grey-lightest;
+		text-align: left;
+
+		&:focus,
+		&.hover {
+			border-color: $color-grey-medium;
+			color: $color-grey-darkest;
+		}
+	}
+
+
+	::-webkit-input-placeholder {
+		color: $color-grey-light;
+	}
+
+	@include width-under($bp-small) {
+		width: 100%;
+		float: none;
+	}
+}

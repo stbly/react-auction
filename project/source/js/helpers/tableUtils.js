@@ -17,7 +17,10 @@ export const TableColumn = (category, params={}) => {
 export const StatColumn = (category, statChangeDispatcher, isRatio=false, params={}) => {
 	const cellContent = (id, stats) => {
 		const statValue = stats[category]
-		const onStatChange = (stat, newValue) => statChangeDispatcher(id, stat, newValue)
+		const onStatChange = (stat, newValue) => {
+			console.log('why')
+			return statChangeDispatcher(id, stat, newValue)
+		}
 
 		return <InputPlayerStat value={statValue} category={category} onStatChange={onStatChange} isRatio={isRatio} />
 	}

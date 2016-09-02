@@ -61,26 +61,23 @@ class Table extends Component {
 	}
 
 	createRow (item, index) {
-		const { columns } = this.props
+		const { columns, rows, children } = this.props
+		const row = React.Children.only(children)
 
-		return <TableRow
-			key={index}
-			data={item}
-			columns={columns} />
+		const tableRow = row ? row : TableRow
+		const createFunction = row ? React.cloneElement : React.createElement
+		return createFunction(tableRow, {key: index, data: item, columns})
 	}
 
 	render () {
-		var listClass = classNames('player-list');
-
+		const { classes } = this.props
 		return (
-			<div className='player-list-container'>
-				<table className={listClass}>
-					<tbody>
-						{this.renderHeaderRow()}
-						{this.renderRows()}
-					</tbody>
-				</table>
-			</div>
+			<table className={classes}>
+				<tbody>
+					{this.renderHeaderRow()}
+					{this.renderRows()}
+				</tbody>
+			</table>
 
 		)
 	}
@@ -103,7 +100,7 @@ class Table extends Component {
 		const sortFunction = () => this.setSortParam(category)
 
 		return (
-			<td key={index} className={classes}
+			<td key={index} className={classNames(category, classes)}
 				onClick={sortFunction} >
 					{heading || category}
 			</td>
@@ -122,7 +119,8 @@ class Table extends Component {
 
 Table.propTypes = {
 	data: PropTypes.array.isRequired,
-	columns: PropTypes.array.isRequired
+	columns: PropTypes.array.isRequired,
+	classes: PropTypes.string
 }
 
 export default Table;

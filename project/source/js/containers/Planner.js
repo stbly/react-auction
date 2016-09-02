@@ -3,7 +3,6 @@ import { Router, RouteHandler, Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
-import ValueList from '../components/ValueList'
 import ActivePlayer from './ActivePlayer'
 import PlayerListsContainer from './PlayerListsContainer'
 import FavoritePlayerListsContainer from './FavoritePlayerListsContainer'

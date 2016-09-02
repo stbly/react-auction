@@ -1,18 +1,14 @@
 import React, { Component, PropTypes } from 'react'
-import { Router, Route, Link, browserHistory } from 'react-router'
 import classNames from 'classnames';
-import {primaryPositionFor, playerIsDrafted, playerIsUndrafted} from '../helpers/PlayerListUtils';
+// import {primaryPositionFor, playerIsDrafted, playerIsUndrafted} from '../helpers/PlayerListUtils';
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
 
 import '../../stylesheets/components/player.scss'
-import InputToggle from './InputToggle'
-import IconButton from './IconButton'
 
-import TableCell from './TableCell.js'
-import InputPlayerStat from './InputPlayerStat.js'
+import TableRow from './TableRow.js'
 
-class TableRow extends Component {
+class TableRowPlayer extends TableRow {
 	constructor (props) {
 		super(props)
 	}
@@ -241,7 +237,8 @@ class TableRow extends Component {
 	}*/
 
 	render () {
-		const rowClasses = classNames('table-row');
+		const { data } = this.props
+		const rowClasses = classNames('table-row', 'player', data.type, {'selected': data.cost});
 
 		return (
 			<tr className={rowClasses}>
@@ -249,36 +246,12 @@ class TableRow extends Component {
 			</tr>
 		)
 	}
-/*const playerClasses = classNames('player', this.props.player.type, {'selected':playerIsDrafted(this.props.player)}, {'is-editing':this.state.isEditing});
 
-		return (
-			<tr className={playerClasses} onBlur={this.stopEditing.bind(this)}>
-
-				{this.renderCells()}
-
-			</tr>
-		)*/
-
-	renderCells () {
-		const { data, columns } = this.props
-
-		return columns.map( (column, index) => {
-			const { category, cellContent, cellContentParams } = column
-			return (
-				<TableCell
-					key={data.id + index}
-					data={data}
-					category={category}
-					cellContent={cellContent}
-					cellContentParams={cellContentParams} />
-			)
-		})
-	}
 }
 
-TableRow.propTypes = {
+TableRowPlayer.propTypes = {
 	data: PropTypes.object.isRequired,
 	columns: PropTypes.array.isRequired
 }
 
-export default TableRow;
+export default TableRowPlayer;

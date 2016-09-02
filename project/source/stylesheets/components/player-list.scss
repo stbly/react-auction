@@ -1,121 +1,6 @@
 @import '../init';
 
-
-.drafting-tools {
-	display: flex;
-	align-items: flex-end;
-}
-
-.player-lists-container{
-
-}
-
-.player-lists-filters {
-	display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-	.player-list-filter {
-		@include transandina-medium;
-	    width: 100%;
-
-		padding: .65em .65em .4em;
-		margin: 0px 0 10px 0;
-
-		border-radius: 5px;
-
-		cursor: pointer;
-
-	    color: $color-grey-medium;
-	    text-align: center;
-		text-transform: uppercase;
-
-		border: 1px solid $color-grey-medium;
-
-		&:hover,
-		&.active {
-			color: $color-grey-darkest;
-		}
-
-		&.pos {
-			width: calc((100% / 3) - 5px);
-			margin: 0 0 10px 0;
-		}
-
-	}
-	input[type=text] {
-		border-color: $color-grey-lightest;
-		color: $color-grey-lightest;
-		text-align: left;
-
-		&:focus,
-		&.hover {
-			border-color: $color-grey-medium;
-			color: $color-grey-darkest;
-		}
-	}
-
-
-	::-webkit-input-placeholder {
-		color: $color-grey-light;
-	}
-
-	@include width-under($bp-small) {
-		width: 100%;
-		float: none;
-	}
-}
-
-.player-list-container {
-	position: relative;
-
-	.combined-rankings & {
-/*		width: 50%;
-		float: left;
-		padding-right: 0;
-
-		&:not(:first-child) {
-			padding-left: 0;
-		}
-*/
-		.player-rankings {
-			width: 100%;
-		}
-	}
-}
-
-.player-lists-header{
-	width: auto;
-	max-width: 75%;
-    margin-left: 150px;
-    display: inline-block;
-
-    @include width-under($bp-small) {
-	    width: 100%;
-	    margin-left: 0;
-    }
-}
-
-.hide-selected-container {
-	@include cantarell
-	flex-grow: 1;
-    width: calc(25% - 150px);
-	display: inline-block;
-    vertical-align: bottom;
-    margin-bottom: 10px;
-    padding-left: 10px;
-
-    font-size: 12px;
-
-    .hide-selected-text {
-	    width: calc(100% - 15px);
-	    display: inline-block;
-	    margin-left: 3px;
-    }
-}
-
-.player-list,
-.favorited-player-list {
+.player-list {
 	width: 100%;
 	height: auto;
 	min-height: 30px;
@@ -218,24 +103,82 @@
 		}
 	}
 
+	.table-row {
+		@include cantarell;
+		position: relative;
+	}
 
-	 &.batter,
-	 &.pitcher {
-
-		.number,
-		.value-info,
-		.player-info {
-			width: 6%;
+	&.batter {
+		td {
+			&.name {
+				width: 20%;
+			}
+			/*&.can-edit{
+				&:hover {
+					background: $color-batter-input-hover
+				}
+			}*/
 		}
+		.table-row {
+			background: $color-batter-default;
 
-		.name {
-			width: inherit;
+			&:nth-child(odd) {
+				background: $color-batter-alt;
+			}
+
+			.dark {
+				background: $color-batter-muted
+			}
+
+			&:hover {
+				background: $color-batter-highlight;
+
+				.dark {
+					background: $color-batter-highlight;
+				}
+			}
 		}
 	}
 
-	.value-info {
+	&.pitcher {
+		.table-row {
+			background: $color-pitcher-default;
+
+			&:nth-child(odd) {
+				background: $color-pitcher-alt;
+			}
+
+			.dark {
+				background: $color-pitcher-muted;
+			}
+
+			&:hover {
+				background: $color-pitcher-highlight;
+
+				.dark {
+					background: $color-pitcher-highlight;
+				}
+			}
+		}
 	}
 
+	&.selected {
+		.table-row {
+			td {
+				background: $color-batter-dark-grey;
+			}
+
+			.dark {
+				background: $color-batter-dark-grey;
+			}
+
+			&:hover {
+				.dark {
+					background: $color-batter-dark-grey;
+				}
+			}
+		}
+	}
 }
 
 .player-cost {
@@ -248,5 +191,23 @@
 
     .dollar-amount {
     	@include cantarell-bold;
+    }
+}
+
+.hide-selected-container {
+	@include cantarell
+	flex-grow: 1;
+    width: calc(25% - 150px);
+	display: inline-block;
+    vertical-align: bottom;
+    margin-bottom: 10px;
+    padding-left: 10px;
+
+    font-size: 12px;
+
+    .hide-selected-text {
+	    width: calc(100% - 15px);
+	    display: inline-block;
+	    margin-left: 3px;
     }
 }

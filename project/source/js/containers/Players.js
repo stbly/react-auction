@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux'
 import * as SettingsUtils from '../helpers/SettingsUtils'
 import * as playerActions from '../redux/modules/players'
 
-import ValueList from '../components/ValueList'
 import ActivePlayer from './ActivePlayer'
 import PlayerListsContainer from './PlayerListsContainer'
 import FavoritePlayerListsContainer from './FavoritePlayerListsContainer'
@@ -49,14 +48,8 @@ function mapStateToProps (state,ownProps) {
 	var players = state.players.data,
 		teams = SettingsUtils.getTeamNames( state.teams.data ),
 		positionData = state.settings.data.positionData
-/*
-	var newPlayers = (this === undefined) ? null : !(this.oldPlayers === players)
-	if (this) {
-		this.oldPlayers = players
-	}*/
 
 	return {
-		// rerender: newPlayers,
 		players,
 		positionData,
 		teams,

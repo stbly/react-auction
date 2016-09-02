@@ -7,13 +7,14 @@ import classNames from 'classnames';
 
 import * as SettingsUtils from '../helpers/SettingsUtils'
 import { playerIsUndrafted, primaryPositionFor } from '../helpers/PlayerListUtils'
-import { flatten, valueMatch } from '../helpers/arrayUtils'
+import { flatten, flattenToObject, valueMatch } from '../helpers/arrayUtils'
 import { stringMatch } from '../helpers/stringUtils'
 
-import Table from '../components/Table.js'
+import FilteredTable from '../components/FilteredTable.js'
 import PlayerInput from '../components/PlayerInput'
 import ActivePlayer from './ActivePlayer'
 import ListFilters from '../components/ListFilters'
+import TableRowPlayer from '../components/TableRowPlayer'
 
 import {createFilter, filterBy} from '../helpers/filterUtils';
 import { StatColumn, CostColumn, PositionColumn, ValueColumn, TableColumn } from '../helpers/tableUtils'
@@ -26,12 +27,8 @@ class PlayerListsContainer extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			filter: {
-				property: 'type',
-				value: 'batter'
-			},
-			hideDraftedPlayers: false,
-			searchQuery: null
+			listType: 'batter',
+			hideDraftedPlayers: false
 		}
 	}
 
@@ -58,6 +55,33 @@ class PlayerListsContainer extends Component {
 		return bool //|| this.props.shouldRender
 	}
 
+	setListType (type) {
+		if (this.state.type === type) return
+		this.setState({
+			listType: type
+		})
+	}
+
+	dataWasFiltered (prop, value) {
+		switch (prop) {
+			case 'type':
+				this.setListType(value)
+				break
+			case 'pos':
+				const { positionData } = this.props
+				const types = this.getPositionTypes()
+				for (var i = 0; i < types.length; i++) {
+					const type = types[i]
+					const categories = positionData[type].categories
+					const categoryMatch = categories[value]
+					if (categoryMatch) {
+						return this.setListType(type)
+					}
+				}
+				break
+		}
+	}
+
 	createPlayerArrayFromIds (idsArray) {
 		const { players } = this.props
 		return idsArray.map( id => players[id] )
@@ -80,48 +104,16 @@ class PlayerListsContainer extends Component {
 	}
 
 	getCategories () {
-		const types = this.getFilteredPlayerTypes();
-		const categoryArray = types.map( type => this.props.positionData[type].categories )
-		return flatten(categoryArray)
-	}
+		const { listType } = this.state
+		const { positionData } = this.props
+		const { categories } = positionData[listType]
 
-	getCategoryIds () {
-		const categories = this.getCategories()
-		return Object.keys(categories)
-	}
-
-	getCategoryArray () {
-		const categories = this.getCategories()
-		return this.getCategoryIds().map( id => Object.assign({}, categories[id], {id}) )
+		return categories
 	}
 
 	getPlayers () {
-		const { searchQuery } = this.state
-		const { players } = this.props
 		let filteredIds = this.getFilteredPlayerIds();
-
-		if (searchQuery && searchQuery.length > 2) {
-			filteredIds = filteredIds.filter( id => {
-				const name = players[id].name
-				return stringMatch(name, searchQuery)
-			})
-		}
-
 		return this.createPlayerArrayFromIds( filteredIds );
-	}
-
-	getFilteredPlayerTypes () {
-		const positionTypes = this.getPositionTypes()
-		const filterValue = this.state.filter.value
-
-		return positionTypes.filter( type => {
-			let match = valueMatch(type, filterValue)
-			if (!match) {
-				const positions = this.getPositionsForType(type)
-				match = valueMatch(positions, filterValue)
-			}
-			return match
-		})
 	}
 
 	getSearchablePlayers () {
@@ -134,16 +126,14 @@ class PlayerListsContainer extends Component {
 
 	getFilteredPlayerIds () {
 		const { players } = this.props
-		const { filter, hideDraftedPlayers } = this.state
-		const { property, value } = filter
+		const { hideDraftedPlayers } = this.state
+
 		const filteredIds = this.getPlayerIds().filter( id => {
 			const player = players[id]
 			const playerHasValue = player.value
 			const showIfUndrafted = hideDraftedPlayers ? !player.cost : true
-			const propertyToCompare = (property === 'pos') ? primaryPositionFor(player) : player[property]
-			const propertyMatch = valueMatch(propertyToCompare, value)
 
-			return propertyMatch && playerHasValue && showIfUndrafted
+			return playerHasValue && showIfUndrafted
 		})
 
 		return filteredIds
@@ -180,7 +170,7 @@ class PlayerListsContainer extends Component {
 	}
 
 	render () {
-		const mainClass = classNames({'is-loading': this.props.isLoading});
+		const { listType } = this.state
 
 		return (
 			<div className='player-lists-container'>
@@ -202,24 +192,16 @@ class PlayerListsContainer extends Component {
 						<span className='hide-selected-text'>Hide Drafted Players</span>
 					</div>
 				</section>
-				<section className='section-with-sidebar'>
-					<div className='sidebar'>
-						<ListFilters
-							activeFilter={this.state.filter.value}
-							searchQuery={this.state.searchQuery}
-							setSearchQuery={this.setSearchQuery.bind(this)}
-							filterSelected={this.setFilter.bind(this)}
-							filters={this.getFilters()} />
-					</div>
 
-					<div className='main'>
-						<div className={mainClass}>
-							<Table
-								data={this.getPlayers()}
-								columns={this.getColumns()} />
-						</div>
-					</div>
-				</section>
+				<FilteredTable
+					data={this.getPlayers()}
+					columns={this.getColumns()}
+					filters={this.getFilters()}
+					searchParameter='name'
+					onDataFiltered={this.dataWasFiltered.bind(this)}
+					classes={classNames('player-list', listType)} >
+						<TableRowPlayer data={ {} } columns={ [] } />
+				</FilteredTable>
 			</div>
 		)
 	}
@@ -256,7 +238,7 @@ class PlayerListsContainer extends Component {
 		const { changePlayerStat } = this.props.actions
 		const categories = this.getCategories()
 
-		return this.getCategoryIds().map( id => {
+		return Object.keys(categories).map( id => {
 			const isRatio = categories[id].isRatio
 
 			return StatColumn(id, changePlayerStat, isRatio)

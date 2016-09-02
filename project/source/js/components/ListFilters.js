@@ -1,10 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames';
 
-// import { connect } from 'react-redux'
-// import { bindActionCreators } from 'redux'
-// import { browserHistory } from 'react-router'
-
+import '../../stylesheets/components/list-filters.scss'
 
 class ListFilters extends Component {
 	constructor(props) {
@@ -30,7 +27,7 @@ class ListFilters extends Component {
 	}
 
 	getButtonClass (buttonValue, buttonType, className=null) {
-		return classNames('player-list-filter', buttonValue, buttonType, className, {'active': this.props.activeFilter === buttonValue})
+		return classNames('list-filter', buttonValue, buttonType, className, {'active': this.props.activeFilter === buttonValue})
 	}
 
 	getSearchValue () {
@@ -39,11 +36,11 @@ class ListFilters extends Component {
 
 	getFilters () {
 		return this.props.filters.map( (filter,index) => {
-			const { text, value, property } = filter
+			const { text, value, property, className} = filter
 			const filterList = (e) => this.filterSelected(property, value)
 			return (
 				<button
-					className={this.getButtonClass(filter.value, filter.property, filter.className)}
+					className={this.getButtonClass(value, property, className)}
 					key={index}
 					data-param={filter.property}
 					data-value={filter.value}
@@ -56,9 +53,9 @@ class ListFilters extends Component {
 
 	render () {
 		return (
-			<div className='player-lists-filters'>
+			<div className='list-filters'>
 				<input
-					className='player-list-filter'
+					className='list-filter'
 					type='text'
 					onChange={this.setSearchQuery.bind(this)}
 					placeholder='Search'
