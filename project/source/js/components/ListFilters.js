@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames';
 
+import Input from './Input.js'
+
 import '../../stylesheets/components/list-filters.scss'
 
 class ListFilters extends Component {
@@ -11,8 +13,7 @@ class ListFilters extends Component {
 		}
 	}
 
-	setSearchQuery (e) {
-		const searchValue = e.target.value;
+	setSearchQuery (searchValue) {
 		this.setState({searchValue});
 
 		if (this.props.setSearchQuery) {
@@ -20,48 +21,48 @@ class ListFilters extends Component {
 		}
 	}
 
-	filterSelected (property, value) {
+	filterSelected (property, id) {
 		if (this.props.filterSelected) {
-			this.props.filterSelected(property, value)
+			this.props.filterSelected(property, id)
 		}
 	}
 
-	getButtonClass (buttonValue, buttonType, className=null) {
-		return classNames('list-filter', buttonValue, buttonType, className, {'active': this.props.activeFilter === buttonValue})
-	}
-
 	getSearchValue () {
-		return this.props.searchQuery;
+		return this.state.searchValue;
 	}
 
-	getFilters () {
-		return this.props.filters.map( (filter,index) => {
-			const { text, value, property, className} = filter
-			const filterList = (e) => this.filterSelected(property, value)
+	getFilterButtons () {
+		const { tableRef, filters } = this.props
+		const filterButtons = filters.filter( filter => filter.button )
+
+		return filterButtons.map( (filter, index) => {
+			const { column, button} = filter
+			const filterFunction = () => this.filterSelected(column, button)
+			const classes = classNames('list-filter', column)
+
 			return (
 				<button
-					className={this.getButtonClass(value, property, className)}
+					className={classes}
 					key={index}
-					data-param={filter.property}
-					data-value={filter.value}
-					onClick={filterList} >
-						{text || value}
+					onClick={filterFunction} >
+						{button}
 				</button>
 			)
 		})
 	}
 
 	render () {
+
 		return (
 			<div className='list-filters'>
-				<input
-					className='list-filter'
+				<Input
+					classNames='list-filter'
 					type='text'
-					onChange={this.setSearchQuery.bind(this)}
 					placeholder='Search'
-					value= {this.getSearchValue()} />
+					value= {this.getSearchValue()}
+					valueDidUpdate={this.setSearchQuery.bind(this)} />
 
-				{this.getFilters()}
+				{this.getFilterButtons()}
 
 			</div>
 		)

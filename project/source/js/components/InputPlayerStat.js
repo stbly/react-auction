@@ -4,14 +4,27 @@ import InputToggle from './InputToggle'
 
 class InputPlayerStat extends Component {
 
+	constructor (props) {
+		super(props)
+		this.state = {
+			searchValue: null
+		}
+	}
+
+	shouldComponentUpdate (nextProps) {
+		// console.log('should component update?', nextProps.value !== this.props.value)
+		return nextProps.value !== this.props.value
+	}
+
 	onStatChange (value) {
 		const { category, onStatChange } = this.props
 		if (onStatChange) {
-			return onStatChange(category, value)
+			return onStatChange(value)
 		}
 	}
 
 	render () {
+		// console.log('component does update')
 		const { category, value, isRatio } = this.props
 		const decimalPlaces = isRatio ? 3 : 0;
 		const increment = isRatio ? 0.001 : 1;

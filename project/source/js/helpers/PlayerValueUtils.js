@@ -1,4 +1,4 @@
-import {combineValues, sortBy, findLastItemWithCondition} from './arrayUtils';
+import {combineValues, sortArrayByCategory, findLastItemWithCondition} from './arrayUtils';
 import {getPlayerList, primaryPositionFor} from './PlayerListUtils';
 
 const getPlayerValue = (playerSgp, minSgp, pricePerSgp) => {
@@ -23,7 +23,8 @@ const createSgpGroups = (players, positionGroups) => {
 }
 
 const assignValuesFor = (players, sgpGroups, pricePerSgp, inflationRate) => {
-	const playersSortedBySGP = sortBy(players,'sgp').reverse();
+	const playersSortedBySGP = sortArrayByCategory(players,'sgp', true)
+
 	const sgpGroupPositions = sgpGroups.map( group => group.positions )
 
 	return playersSortedBySGP.map( player => {

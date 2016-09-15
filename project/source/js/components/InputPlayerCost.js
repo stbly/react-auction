@@ -11,13 +11,22 @@ class InputPlayerCost extends Component {
 		}
 	}
 
+	startEditing () {
+		this.ref.startEditing()
+	}
+
 	render () {
 		const { cost } = this.props
+		const costToShow = (cost === 0) ? '' : cost
+		const classes = classNames({'dollar-amount': cost > 0})
+
 		return (
 			<InputToggle
-				value={cost}
+				ref={(ref) => this.ref = ref}
+				value={costToShow}
 				max={100}
 				min={0}
+				className={classes}
 				valueDidChange={this.onCostChange.bind(this)} />
 		)
 	}

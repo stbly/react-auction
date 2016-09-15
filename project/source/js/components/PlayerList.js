@@ -7,8 +7,6 @@ import classNames from 'classnames'
 // import { bindActionCreators } from 'redux'
 // import { browserHistory } from 'react-router'
 
-import TableRow from './TableRow.js'
-import TableCell from './TableCell.js'
 import {sortBy} from '../helpers/arrayUtils';
 
 import '../../stylesheets/components/player-list.scss'

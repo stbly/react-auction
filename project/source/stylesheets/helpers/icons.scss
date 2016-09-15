@@ -7,24 +7,26 @@
 
 	cursor: pointer;
 
+	/*border-color: $color-batter-dark-blue;*/
+	background: white;
+
 	svg {
-		fill: $color-grey-light;
+		fill: $color-batter-dark-blue;
 	}
 
 	&.active,
 	&:hover {
-		background: inherit;
-		/*border-color: $color-batter-alt;*/
+		background: $color-batter-dark-blue;
 		svg {
-			fill: $color-batter-dark-grey;
+			fill: $color-batter-muted;
 		}
 	}
 
 	&.active {
-		border-color: $color-batter-dark-blue;
+		/*border-color: $color-batter-dark-blue;*/
     	background: $color-batter-dark-blue;
     	svg {
-    		fill: $color-batter-default;
+    		fill: white;
     	}
     }
 }

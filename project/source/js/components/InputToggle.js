@@ -62,17 +62,18 @@ class InputToggle extends Input {
 	}
 
 	render () {
-		const className = classNames('input-toggle', {'showing-input': this.state.isEditing})
+		const classes = classNames('input-toggle', {'showing-input': this.state.isEditing})
 		const element = this.state.showValue ? this.renderValueDisplay() : this.renderValueInput()
 		return (
-			<span className={className}>
+			<span className={classes}>
 				{element}
 			</span>
 		)
 	}
 
 	renderValueDisplay () {
-		const classes = classNames(this.props.classNames, 'value-display')
+		const { className } = this.props
+		const classes = classNames(className, 'value-display',)
 		return (
 			<span
 				className={classes}

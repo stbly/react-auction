@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { Router, RouteHandler, Link, browserHistory } from 'react-router'
 import classNames from 'classnames';
 
-import TableRow from './TableRow.js'
 import PlayerList from './PlayerList.js'
 import {sortBy} from '../helpers/arrayUtils';
 

@@ -13,6 +13,10 @@ class Input extends Component {
 		}
 	}
 
+	shouldComponentUpdate (nextProps, nextState) {
+		return (nextProps.value !== this.props.value) || (nextState.value !== this.state.inputValue)
+	}
+
 	componentDidMount() {
 		this.setState({inputValue: this.props.value});
 		this.allowChange = true
@@ -23,9 +27,18 @@ class Input extends Component {
 	}
 
 	updateInputValue (e) {
-		this.setState({inputValue: e.target.value});
-		if (this.props.valueDidUpdate) {
-			this.props.valueDidUpdate(e.target.value)
+		const { valueDidUpdate } = this.props
+		const { value } = e.target
+
+		clearTimeout( this.state.keyTimeout )
+		this.setState({inputValue: value});
+
+		if (valueDidUpdate) {
+			this.setState({
+				keyTimeout: setTimeout( () => {
+					valueDidUpdate(value)
+				}, 200)
+			})
 		}
 	}
 
@@ -95,6 +108,7 @@ class Input extends Component {
 	}
 
 	startEditing() {
+		setFocus('in')
 		//TO DO: figure out why this.forceEdit exists and see if we can turn this into a state property
 		this.forceEdit = true;
 	}

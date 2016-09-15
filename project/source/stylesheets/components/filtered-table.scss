@@ -1,0 +1,43 @@
+@import '../init';
+
+.filtered-table{
+	.main {
+		position: relative;
+		overflow: hidden;
+		th {
+			z-index: 2;
+		}
+	}
+	/*&.is-loading {*/
+		.loading {
+			@include gradient(rgba(255,255,255,1), rgba(255,255,255,0))
+			transition: opacity transform;
+			transition-duration: 1s;
+			transition-timing-function: cubic-bezier(0, 0, 0, 1);
+			position: absolute;
+			z-index: 1;
+			width: 100%;
+			height: 450px;
+
+			opacity: 0;
+			transform: translateY(-100%);
+
+			svg {
+				position: absolute;
+				left: 50%;
+				top: 75px;
+				transform: translate(-50%, -50%);
+			}
+
+			&.active {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+	/*}*/
+
+	.hidden {
+		display: none;
+	}
+
+}

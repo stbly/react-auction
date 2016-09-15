@@ -19,9 +19,10 @@ class Icon extends Component {
 		var iconClasses = classNames('icon',this.props.type)
 		var width = this.props.width || '100%'
 		var height = this.props.height || '100%'
+		var style = {width, height}
 
 		return (
-			<svg className={iconClasses} width={ width } height={ height }>
+			<svg className={iconClasses} style={style}>
 	            <use xlinkHref={ ICONS[this.props.type] } />
 	        </svg>
         )

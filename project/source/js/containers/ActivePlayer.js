@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 
 import classNames from 'classnames';
 
-import PlayerList from '../components/PlayerList'
+// import PlayerList from '../components/PlayerList'
 import PlayerNotes from '../components/PlayerNotes'
 import IconButton from '../components/IconButton'
 import * as SettingsUtils from '../helpers/SettingsUtils'

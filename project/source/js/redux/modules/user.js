@@ -19,6 +19,7 @@ const DISPLAY_ERROR = 'user/actions/DISPLAY_ERROR'
 
 export const startListeningToAuth = () => {
 	return (dispatch,getState) => {
+		console.log('startListeningToAuth()')
 		firebase.auth().onAuthStateChanged( user => {
 			const state = getState()
 			console.log('onAuthStateChanged')

@@ -1,4 +1,4 @@
-import {sortBy} from '../helpers/arrayUtils'
+import {sort, sortArrayByCategory } from '../helpers/arrayUtils'
 import {filterByPosition} from '../helpers/filterUtils'
 
 export const getFavoritedPlayers = (players, type=null) => {
@@ -15,11 +15,7 @@ export const playerIsUndrafted = (player) => {
 }
 
 export const rankPlayers = (players, category, descending=true) => {
-	const sortedPlayers = sortBy(players, category, !descending)
-
-	if (descending) {
-		sortedPlayers.reverse()
-	}
+	const sortedPlayers = sortArrayByCategory(players, category, descending)
 
 	return sortedPlayers.map( (player, index) => {
 		player.rank = index + 1
@@ -48,7 +44,7 @@ const getScarcePositions = (players, positions) => {
 
 export const getPlayerList = (players, listSize, positions) => {
 
-	const playersSortedBySGP = sortBy(players, 'sgp').reverse()
+	const playersSortedBySGP = sortArrayByCategory(players, 'sgp', true)
 
 	let playersAboveReplacement = playersSortedBySGP.slice(0, listSize)
 	let playersBelowReplacement = playersSortedBySGP.slice(listSize, 1000)

@@ -1,6 +1,7 @@
 @import '../init';
 
 .player-list {
+	@include cantarell;
 	width: 100%;
 	height: auto;
 	min-height: 30px;
@@ -14,63 +15,28 @@
 		cursor: pointer;
 	}
 
+	.hidden {
+		display: none;
+	}
+
 	tr {
 		text-align: center;
 		padding: 10px;
 		border: solid white;
 		border-width: 1px 0;
 
-		&:not(.selected) {
-			.position {
-				/*
-				&.catcher { background: $color-catcher; }
-				&.first-base { background: $color-first-base; }
-				&.second-base { background: $color-second-base; }
-				&.third-base { background: $color-third-base; }
-				&.short-stop { background: $color-short-stop; }
-				&.outfield { background: $color-outfield; }
-				&.starting-pitcher { background: $color-starting-pitcher; }
-				&.closer { background: $color-closer; }
-				&.relief-pitcher { background: $color-relief-pitcher; }
-				*/
-			}
-
-			&:hover {
-				.position {
-					background: inherit;
-				}
-
-				&.catcher,
-				&.first-base,
-				&.second-base,
-				&.third-base,
-				&.short-stop,
-				&.outfield,
-				&.starting-pitcher,
-				&.closer,
-				&.relief-pitcher { background: inherit; }
-
-			}
-
-		}
-	}
-
-	td {
-		vertical-align: middle;
-
-	    padding: 15px 5px;
-		border: solid;
-		border-width: 0;
-
-		&.can-edit {
-			&:hover {
-				background: $color-batter-input-hover;
-			}
-		}
-	}
-
-	.headings {
+		th,
 		td {
+			&.widen {
+				width: 20%;
+			}
+			outline: none;
+		}
+
+
+		th {
+			@include transandina-medium;
+			text-transform: uppercase;
 			position: relative;
 			background: $color-batter-alt;
 			cursor: pointer;
@@ -101,25 +67,83 @@
 				}
 			}
 		}
+
+		td {
+			vertical-align: middle;
+
+		    padding: 15px 5px;
+			border: solid;
+			border-width: 0;
+
+			.icon-button {
+				margin: 0;
+				padding: 0;
+				width: 20px;
+				height: 20px;
+			}
+
+			&.has-action {
+				cursor: pointer;
+			}
+			&.can-edit {
+				&:hover {
+					background: $color-batter-input-hover;
+				}
+			}
+		}
+
+		&.selected {
+			td {
+				background: $color-batter-dark-grey;
+			}
+
+			.dark {
+				background: $color-batter-dark-grey;
+			}
+
+			&:hover {
+				.dark {
+					background: $color-batter-dark-grey;
+				}
+			}
+		}
+
+		/*&:not(.selected) {
+			.position {
+				&.catcher { background: $color-catcher; }
+				&.first-base { background: $color-first-base; }
+				&.second-base { background: $color-second-base; }
+				&.third-base { background: $color-third-base; }
+				&.short-stop { background: $color-short-stop; }
+				&.outfield { background: $color-outfield; }
+				&.starting-pitcher { background: $color-starting-pitcher; }
+				&.closer { background: $color-closer; }
+				&.relief-pitcher { background: $color-relief-pitcher; }
+			}
+
+			&:hover {
+				.position {
+					background: inherit;
+				}
+
+				&.catcher,
+				&.first-base,
+				&.second-base,
+				&.third-base,
+				&.short-stop,
+				&.outfield,
+				&.starting-pitcher,
+				&.closer,
+				&.relief-pitcher { background: inherit; }
+
+			}
+		}*/
 	}
 
-	.table-row {
-		@include cantarell;
-		position: relative;
-	}
 
 	&.batter {
-		td {
-			&.name {
-				width: 20%;
-			}
-			/*&.can-edit{
-				&:hover {
-					background: $color-batter-input-hover
-				}
-			}*/
-		}
-		.table-row {
+
+		tr {
 			background: $color-batter-default;
 
 			&:nth-child(odd) {
@@ -141,7 +165,7 @@
 	}
 
 	&.pitcher {
-		.table-row {
+		tr {
 			background: $color-pitcher-default;
 
 			&:nth-child(odd) {
@@ -159,40 +183,34 @@
 					background: $color-pitcher-highlight;
 				}
 			}
-		}
-	}
 
-	&.selected {
-		.table-row {
-			td {
-				background: $color-batter-dark-grey;
-			}
+			.icon-button {
+				border-color: $color-pitcher-dark-purple;
 
-			.dark {
-				background: $color-batter-dark-grey;
-			}
-
-			&:hover {
-				.dark {
-					background: $color-batter-dark-grey;
+				svg {
+					fill: $color-pitcher-dark-purple;
 				}
+
+				&.active,
+				&:hover {
+					background: $color-pitcher-dark-purple;
+					svg {
+						fill: $color-pitcher-alt;
+					}
+				}
+
+				&.active {
+					border-color: $color-pitcher-dark-purple;
+			    	background: $color-pitcher-dark-purple;
+			    	svg {
+			    		fill: white;
+			    	}
+			    }
 			}
 		}
 	}
 }
-
-.player-cost {
-    display: inline-block;
-    width: calc(100% - 10px);
-    padding: 3px;
-    border-radius: 3px;
-    background: lightgrey;
-    text-transform: uppercase;
-
-    .dollar-amount {
-    	@include cantarell-bold;
-    }
-}
+/*
 
 .hide-selected-container {
 	@include cantarell
@@ -210,4 +228,4 @@
 	    display: inline-block;
 	    margin-left: 3px;
     }
-}
+}*/

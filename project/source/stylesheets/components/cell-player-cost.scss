@@ -1,0 +1,21 @@
+@import '../init';
+
+.cell-player-cost {
+	&.is-drafted {
+		cursor: pointer;
+	    display: inline-block;
+	    width: calc(100% - 10px);
+	    padding: 3px;
+	    border-radius: 3px;
+	    background: lightgrey;
+	    text-transform: uppercase;
+
+	    .dollar-amount {
+	    	@include cantarell-bold;
+	    }
+	}
+	.input-toggle {
+		padding: 0;
+		margin-left: 5px;
+	}
+}

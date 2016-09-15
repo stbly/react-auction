@@ -1,23 +1,16 @@
 import React, { Component, PropTypes } from 'react'
-import { Router, RouteHandler, Link, browserHistory } from 'react-router'
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
 
 import classNames from 'classnames';
 
 import * as SettingsUtils from '../helpers/SettingsUtils'
-import { playerIsUndrafted, primaryPositionFor } from '../helpers/PlayerListUtils'
-import { flatten, flattenToObject, valueMatch } from '../helpers/arrayUtils'
+import { primaryPositionFor } from '../helpers/PlayerListUtils'
+import { sort, sortByProperty, createSort, sortMultiple, flatten, flattenToObject, valueMatch } from '../helpers/arrayUtils'
 import { stringMatch } from '../helpers/stringUtils'
 
 import FilteredTable from '../components/FilteredTable.js'
-import PlayerInput from '../components/PlayerInput'
-import ActivePlayer from './ActivePlayer'
-import ListFilters from '../components/ListFilters'
-import TableRowPlayer from '../components/TableRowPlayer'
 
 import {createFilter, filterBy} from '../helpers/filterUtils';
-import { StatColumn, CostColumn, PositionColumn, ValueColumn, TableColumn } from '../helpers/tableUtils'
+import { cellFactory, nameCellFactory, favoriteCellFactory, valueCellFactory, costCellFactory, statCellFactory, positionCellFactory, positionCellValueFactory, createNameMatchFilter, positionSort} from '../helpers/tableUtils'
 
 import '../../stylesheets/components/player-list.scss'
 
@@ -27,32 +20,8 @@ class PlayerListsContainer extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			listType: 'batter',
-			hideDraftedPlayers: false
+			listType: 'batter'
 		}
-	}
-
-	setFilter (property, value) {
-		console.log('setFilter', property, value)
-		this.setState({
-			filter: {
-				property,
-				value
-			}
-		})
-	}
-
-	shouldComponentUpdate (nextProps, nextState) {
-		var stringifiedNextProps = JSON.stringify(nextProps)
-		var stringifiedProps = JSON.stringify(this.props)
-		var stringifiedNextState = JSON.stringify(nextState)
-		var stringifiedState = JSON.stringify(this.state)
-
-		// console.log(this.props.players)
-		var bool = (stringifiedNextProps != stringifiedProps || stringifiedNextState != stringifiedState)
-		// console.log(stringifiedNextProps === stringifiedProps)
-		// console.log('should i update?',bool)
-		return bool //|| this.props.shouldRender
 	}
 
 	setListType (type) {
@@ -62,29 +31,16 @@ class PlayerListsContainer extends Component {
 		})
 	}
 
-	dataWasFiltered (prop, value) {
-		switch (prop) {
-			case 'type':
-				this.setListType(value)
-				break
-			case 'pos':
-				const { positionData } = this.props
-				const types = this.getPositionTypes()
-				for (var i = 0; i < types.length; i++) {
-					const type = types[i]
-					const categories = positionData[type].categories
-					const categoryMatch = categories[value]
-					if (categoryMatch) {
-						return this.setListType(type)
-					}
-				}
-				break
+	dataWasFiltered (prop) {
+		const types = this.getPositionTypes()
+		for (let i = 0; i < types.length; i++) {
+			const type = types[i]
+			const categories = this.getPositionsForType(type)
+			const categoryMatch = categories.indexOf(prop) > -1
+			if (type === prop || categoryMatch) {
+				return this.setListType(type)
+			}
 		}
-	}
-
-	createPlayerArrayFromIds (idsArray) {
-		const { players } = this.props
-		return idsArray.map( id => players[id] )
 	}
 
 	getPositionTypes () {
@@ -96,11 +52,6 @@ class PlayerListsContainer extends Component {
 		const { positionData } = this.props
 		const { positions } = positionData[type]
 		return Object.keys(positions)
-	}
-
-	getPlayerIds () {
-		const { players } = this.props
-		return Object.keys( players )
 	}
 
 	getCategories () {
@@ -116,138 +67,125 @@ class PlayerListsContainer extends Component {
 		return this.createPlayerArrayFromIds( filteredIds );
 	}
 
-	getSearchablePlayers () {
-		const { players } = this.props
-		const playerIds = this.getPlayerIds()
-		const unusedPlayerIds = playerIds.filter( id => playerIsUndrafted( players[id] ) )
-
-		return this.createPlayerArrayFromIds( unusedPlayerIds );
-	}
-
 	getFilteredPlayerIds () {
 		const { players } = this.props
-		const { hideDraftedPlayers } = this.state
 
-		const filteredIds = this.getPlayerIds().filter( id => {
-			const player = players[id]
+		const filteredIds = players.filter( player => {
 			const playerHasValue = player.value
-			const showIfUndrafted = hideDraftedPlayers ? !player.cost : true
-
-			return playerHasValue && showIfUndrafted
+			return playerHasValue
 		})
 
 		return filteredIds
 	}
 
+	getColumns () {
+		const { changePlayerStat, changePlayerCost, updateActivePlayer, updatePlayerFavorited } = this.props.actions
+		const categories = this.getCategories()
+
+		const categoryColumns = Object.keys(categories).map( statId => {
+			const { isRatio } = categories[statId]
+			return statCellFactory(statId, changePlayerStat, isRatio)
+		})
+
+		return [
+			cellFactory('rank'),
+			positionCellFactory(),
+			positionCellValueFactory(),
+			favoriteCellFactory(updatePlayerFavorited),
+			nameCellFactory(updateActivePlayer),
+			cellFactory('type', {className: 'hidden'}),
+			costCellFactory(changePlayerCost),
+			valueCellFactory('adjustedValue', 'bid'),
+			valueCellFactory('value', 'val'),
+			...categoryColumns
+		]
+	}
+
+	getSortingFunctions () {
+		const { players } = this.props
+		const { direction } = this.state
+		const categories = this.getCategories()
+		const categoriesSorts = Object.keys(categories)
+		const positionSort = {
+			column: 'pos',
+			direction: 'desc',
+			sortFunction: (playerIdA, playerIdB) => {
+
+				const posA = primaryPositionFor( players[playerIdA] )
+				const posB = primaryPositionFor( players[playerIdB] )
+				const valueA = players[playerIdA].adjustedValue
+				const valueB = players[playerIdB].adjustedValue
+				const descending = direction === 1 ? false : true
+				const comparePosition = sort(posA, posB, false, false)
+				const compareValue = sort(valueA, valueB, descending)
+
+				return sortMultiple( comparePosition, compareValue )
+			}
+		}
+
+		const sortCost = {
+			column: 'cost',
+			direction: 'desc',
+			sortFunction: (a,b) => {
+				const playerA = players[a]
+				const playerB = players[b]
+				const costSort = sort(playerA.cost, playerB.cost, false, false)
+				const valueSort = sort(playerA.value, playerB.value, direction)
+
+				return sortMultiple( costSort, valueSort)
+			}
+		}
+
+		const sortNumber = (column) => {
+			return {
+				column,
+				direction: 'asc',
+				sortFunction: (a, b) => {
+					return sort(Number(a), Number(b), true, false)
+				}
+			}
+		}
+
+		return [ sortCost, 'rank', 'name', sortNumber('bid'), sortNumber('val'), ...categoriesSorts, positionSort]
+	}
+
 	getFilters () {
 		const positionTypes = this.getPositionTypes()
-		const positionFilters = positionTypes.map( type => {
-			const typeFilter = createFilter('type', type, type + 's')
-			const positionFilters = this.getPositionsForType(type).map( position => {
-				return createFilter( 'pos', position )
-			})
+		const { positionData } = this.props
+
+		const positions = positionTypes.map( type => {
+			const typeFilter = createNameMatchFilter('type', type)
+			const positions = Object.keys(positionData[type].positions)
+			const positionFilters = positions.map( positionId => createNameMatchFilter('position', positionId) )
 
 			return [typeFilter, ...positionFilters]
 		})
 
-		return [
-			createFilter('type', positionTypes, 'all players'),
-			...flatten(positionFilters),
-			createFilter('isFavorited', 'Favorited')
-		]
-	}
-
-	setSearchQuery (value) {
-		if (value.length > 0) {
-			this.setState({searchQuery: value})
-		} else {
-			this.setState({searchQuery: null})
-		}
-	}
-
-	toggleHideDraftedPlayers () {
-		this.setState({hideDraftedPlayers: !this.state.hideDraftedPlayers})
+		return flatten(positions)
 	}
 
 	render () {
 		const { listType } = this.state
+		const { players } = this.props
 
+		const rowClassFunction = (item) => classNames( {'selected': item.cost } )
+		const classes = classNames('player-list', listType)
 		return (
-			<div className='player-lists-container'>
-				<section className='drafting-tools'>
-					<div className='player-lists-header'>
-						<ActivePlayer />
-						<PlayerInput
-							searchablePlayers={this.getSearchablePlayers()}
-							searchableTeams={this.props.teams}
-							playerEntered={this.props.actions.assignPlayer} />
-					</div>
-					<div className='hide-selected-container'>
-						<input className='hide-selected-toggle'
-							ref={(ref) => this.hideSelectedToggle = ref}
-							type="checkbox"
-							checked={this.state.hideDraftedPlayers}
-							onChange={this.toggleHideDraftedPlayers.bind(this)} />
-
-						<span className='hide-selected-text'>Hide Drafted Players</span>
-					</div>
-				</section>
-
-				<FilteredTable
-					data={this.getPlayers()}
-					columns={this.getColumns()}
-					filters={this.getFilters()}
-					searchParameter='name'
-					onDataFiltered={this.dataWasFiltered.bind(this)}
-					classes={classNames('player-list', listType)} >
-						<TableRowPlayer data={ {} } columns={ [] } />
-				</FilteredTable>
-			</div>
+			<FilteredTable
+				data={players}
+				className={classes}
+				columns={this.getColumns()}
+				filters={this.getFilters()}
+				searchKey='name'
+				sortingFunctions={this.getSortingFunctions()}
+				onFilter={this.dataWasFiltered.bind(this)}
+				rowClassFunction={rowClassFunction} />
 		)
-	}
-
-	getColumns () {
-		return [
-			...this.renderMetaColumns(),
-			...this.renderValueColumns(),
-			...this.renderCategoryColumns()
-		]
-	}
-
-	renderMetaColumns () {
-		const cellCalculation = (input) => primaryPositionFor(input)
-		return [
-			TableColumn('rank', {heading: '#'}),
-			// FavoritedColumn(),
-			PositionColumn('pos', {heading: 'pos'}),
-			TableColumn('name')
-		]
-	}
-
-	renderValueColumns () {
-		const { changePlayerCost } = this.props.actions
-
-		return [
-			CostColumn(changePlayerCost),
-			ValueColumn('adjustedValue', {heading: 'bid'}),
-			ValueColumn('value', {heading: 'val'})
-		]
-	}
-
-	renderCategoryColumns () {
-		const { changePlayerStat } = this.props.actions
-		const categories = this.getCategories()
-
-		return Object.keys(categories).map( id => {
-			const isRatio = categories[id].isRatio
-
-			return StatColumn(id, changePlayerStat, isRatio)
-		})
 	}
 }
 
 PlayerListsContainer.propTypes = {
-	players: PropTypes.object.isRequired,
+	players: PropTypes.array.isRequired,
 	positionData: PropTypes.object.isRequired,
 	teams: PropTypes.array,
 	isLoading: PropTypes.bool,

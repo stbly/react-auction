@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import { defaultPlayers } from '../../helpers/constants.js'
 
 const LOAD_PLAYERS_REQUEST = 'players/LOAD_PLAYERS_REQUEST'
 const LOAD_PLAYERS_SUCCESS = 'players/LOAD_PLAYERS_SUCCESS'
@@ -12,6 +13,7 @@ const UPDATE_PLAYER_NOTES = 'players/UPDATE_PLAYER_NOTES'
 const UPDATE_ACTIVE_PLAYER = 'players/UPDATE_ACTIVE_PLAYER'
 const UPDATE_PLAYER_COST = 'players/UPDATE_PLAYER_COST'
 const UPDATE_PLAYER_STAT = 'players/UPDATE_PLAYER_STAT'
+
 
 let initialState = {
 	fetching: false,
@@ -27,7 +29,17 @@ const scrubPlayerData = (players) => {
 		if (players.hasOwnProperty(id)) {
 			if (players[id].stats) {
 				if (players[id].stats.default) {
-					players[id].stats = players[id].stats.default
+					const stats = players[id].stats.default
+					const newStats = {}
+
+					for (const stat in stats) {
+						if (stats.hasOwnProperty(stat)) {
+							const val = stats[stat] || 0
+							newStats[stat] = val
+						}
+					}
+
+					players[id].stats = newStats
 				}
 			}
 		}
@@ -72,7 +84,12 @@ export const fetchPlayers = () => {
 	return (dispatch, getState) => {
 		const state = getState()
 		const { didInvalidate } = state.players
-		// console.log('fetchPlayers')
+		const debug = false //!navigator.onLine //true
+
+		if (debug) {
+			return dispatch( fetchOfflinePlayerData() )
+		}
+
 		return dispatch( fetchDefaultPlayers() )
 			.then( players => dispatch( fetchUserPlayers() )
 				.then( userPlayers => {
@@ -82,6 +99,15 @@ export const fetchPlayers = () => {
 				}
 			)
 	    )
+
+	}
+}
+
+const fetchOfflinePlayerData = () => {
+	return (dispatch, getState) => {
+		const players = scrubPlayerData(defaultPlayers)
+		dispatch( receivePlayers(players) )
+		return Promise.resolve()
 	}
 }
 
@@ -90,7 +116,6 @@ const fetchDefaultPlayers = () => {
 		const state = getState()
 		const { data, fetching, forceReload } = state.players
 		const shouldFetchPlayers = ((!data || forceReload) && !fetching)
-
 		if (shouldFetchPlayers) {
 			return dispatch( getPlayers('/players') ) // Load default player data
 				.then( players => scrubPlayerData(players) )
@@ -213,6 +238,13 @@ const reducer = (state = initialState, action) => {
 			return Object.assign({}, state, {
 				fetching: false,
 				forceReload: false
+			});
+
+		case LOAD_PLAYERS_ERROR:
+			console.log("LOAD_PLAYERS_ERROR")
+			return Object.assign({}, state, {
+				fetching: false,
+				didInvalidate: true
 			});
 
 		case RECEIVE_PLAYERS:
