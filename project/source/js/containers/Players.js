@@ -58,7 +58,7 @@ class Players extends Component {
 
 				<section className='drafting-tools'>
 					<div className='player-lists-header'>
-						<ActivePlayer />
+						{ this.renderActivePlayer() }
 						<PlayerInput
 							searchablePlayers={this.getSearchablePlayers()}
 							searchableTeams={teams}
@@ -88,6 +88,22 @@ class Players extends Component {
 			</div>
 		)
 	}
+
+	renderActivePlayer () {
+		const { activePlayer, positionData, playerActions } = this.props
+		const { updatePlayerStat, updatePlayerNotes, updatePlayerFavorited } = playerActions
+		if (!activePlayer) return
+
+		return (
+			<ActivePlayer
+				player = {activePlayer}
+				positionData = {positionData}
+				updateStat = {updatePlayerStat}
+				updateNotes = {updatePlayerNotes}
+				updateFavorited = {updatePlayerFavorited}
+			/>
+		)
+	}
 }
 
 
@@ -100,12 +116,14 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps (state,ownProps) {
 	var players = state.players.data,
 		teams = SettingsUtils.getTeamNames( state.teams.data ),
-		positionData = state.settings.data.positionData
+		positionData = state.settings.data.positionData,
+		activePlayer = players[state.players.activePlayerId]
 
 	return {
 		players,
 		positionData,
 		teams,
+		activePlayer: activePlayer,
 		isLoading: state.players.isLoading
 	};
 }

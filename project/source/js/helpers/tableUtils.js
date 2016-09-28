@@ -1,11 +1,67 @@
 import React from 'react'
 import classNames from 'classnames';
+import {Table, Tr, Td, Thead, Th} from 'reactable'
 
 import InputPlayerStat from '../components/InputPlayerStat.js'
 import CellPlayerCost from '../components/CellPlayerCost.js'
 import IconButton from '../components/IconButton'
 
 import { primaryPositionFor } from './PlayerListUtils'
+
+export const renderHeaderCells = (columns) => {
+	return columns.map( (object, index) => {
+		const {column, className} = object
+		const classes = classNames(className || column)
+		return (
+			<Th key={index} className={classes} column={column}>
+				{column}
+			</Th>
+		)
+	})
+}
+
+export const createHeaderRow = (columns) => {
+	const cells = renderHeaderCells(columns)
+	return (
+		<Thead>
+			{ cells }
+		</Thead>
+	)
+}
+
+export const createRows = (data, columns, classFunctions) => {
+	return data.map( (item, index) => {
+		const classes = classFunctions ? classFunctions(item) : null
+		return (
+			<Tr className={classes} key={index}>
+				{ createCells(item, columns) }
+			</Tr>
+		)
+	})
+}
+
+export const createCells = (item, columns) => {
+	return columns.map( (object, index) => {
+		const {column, className, content} = object
+		const { value, element, colSpan, cellClass } = content(item)
+		const data = (element || value)
+
+		const classes = classNames(className, cellClass)
+
+		return (
+			<Td colSpan={colSpan} key={index} className={classes} column={column} value={value}>
+				{ data }
+			</Td>
+		)
+	})
+}
+
+export const createStatCells = (categoryObject, changeHandler) => {
+	return Object.keys(categoryObject).map( statId => {
+		const { isRatio } = categoryObject[statId]
+		return statCellFactory(statId, changeHandler, isRatio)
+	})
+}
 
 export const statCellFactory = (statId, handler, isRatio=false) => {
 
@@ -109,7 +165,7 @@ export const favoriteCellFactory = (handler) => {
 				element: (
 					<IconButton
 						toggleButton={toggleHandler}
-						active={player.isFavorited}
+						isActive={player.isFavorited}
 						type={'watch'} />
 				)
 			}

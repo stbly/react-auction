@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 
 import classNames from 'classnames';
-import {Table, Tr, Td, Thead, Th} from 'reactable'
+import {Table} from 'reactable'
 
 import Icon from './Icon'
 
 import { primaryPositionFor } from '../helpers/PlayerListUtils'
 import { valueMatch } from '../helpers/arrayUtils'
 import { stringMatch } from '../helpers/stringUtils'
+import { createHeaderRow, createRows } from '../helpers/tableUtils'
 
 import ListFilters from './ListFilters'
 
@@ -112,7 +113,7 @@ class FilteredTable extends Component {
 	}
 
 	renderTable () {
-		const { sortingFunctions, className } = this.props
+		const { data, columns, className, sortingFunctions, rowClassFunction } = this.props
 		const { filter, sort } = this.state
 		const filters = this.getFilters()
 
@@ -127,63 +128,10 @@ class FilteredTable extends Component {
 				onFilter={ this.onFilter.bind(this) }
 				onSort={ this.onSort.bind(this) }
 				hideFilterInput >
-					{this.renderHeaders()}
-					{this.renderRows()}
+					{ createHeaderRow(columns) }
+					{ createRows(data, columns, rowClassFunction) }
 			</Table>
 		)
-	}
-
-	renderHeaders () {
-		const { columns } = this.props
-
-		const headerCells = columns.map( (object, index) => {
-			const {column, className} = object
-			const classes = classNames(className || column)
-			return (
-				<Th key={index} className={classes} column={column}>
-					{column}
-				</Th>
-			)
-		})
-
-		return (
-			<Thead>
-				{headerCells}
-			</Thead>
-		)
-	}
-
-	renderRows () {
-		const { data, rowClassFunction } = this.props
-
-		return data.map( (item, index) => {
-			const classes = rowClassFunction ? rowClassFunction(item) : null
-			return (
-				<Tr className={classes} key={index}>
-					{this.renderCells(item)}
-				</Tr>
-			)
-		})
-	}
-
-	renderCells (item) {
-		const stats = item.stats
-		const statsArray = Object.keys(stats)
-		const { columns } = this.props
-
-		return columns.map( (object, index) => {
-			const {column, className, content} = object
-			const { value, element, colSpan, cellClass } = content(item)
-			const data = (element || value)
-
-			const classes = classNames(className, cellClass)
-
-			return (
-				<Td colSpan={colSpan} key={index} className={classes} column={column} value={value}>
-					{ data }
-				</Td>
-			)
-		})
 	}
 }
 

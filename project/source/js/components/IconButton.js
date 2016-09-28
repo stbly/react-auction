@@ -10,7 +10,7 @@ class IconButton extends Component {
 	}
 
 	render () {
-		var iconClasses = classNames('icon-button', {active: this.props.active})
+		var iconClasses = classNames('icon-button', {active: this.props.isActive})
 
 		return (
 			<button className={iconClasses} onClick={this.props.toggleButton}>
@@ -18,6 +18,12 @@ class IconButton extends Component {
 			</button>
         )
 	}
+}
+
+IconButton.propTypes = {
+	type: PropTypes.string.isRequired,
+	toggleButton: PropTypes.func,
+	isActive: PropTypes.bool
 }
 
 export default IconButton

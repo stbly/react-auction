@@ -10,7 +10,7 @@ import { stringMatch } from '../helpers/stringUtils'
 import FilteredTable from '../components/FilteredTable.js'
 
 import {createFilter, filterBy} from '../helpers/filterUtils';
-import { cellFactory, nameCellFactory, favoriteCellFactory, valueCellFactory, costCellFactory, statCellFactory, positionCellFactory, positionCellValueFactory, createNameMatchFilter, positionSort} from '../helpers/tableUtils'
+import { cellFactory, nameCellFactory, favoriteCellFactory, valueCellFactory, costCellFactory, createStatCells, positionCellFactory, positionCellValueFactory, createNameMatchFilter, positionSort} from '../helpers/tableUtils'
 
 import '../../stylesheets/components/player-list.scss'
 
@@ -82,10 +82,7 @@ class PlayerListsContainer extends Component {
 		const { changePlayerStat, changePlayerCost, updateActivePlayer, updatePlayerFavorited } = this.props.actions
 		const categories = this.getCategories()
 
-		const categoryColumns = Object.keys(categories).map( statId => {
-			const { isRatio } = categories[statId]
-			return statCellFactory(statId, changePlayerStat, isRatio)
-		})
+		const categoryCells = createStatCells(categories, changePlayerStat)
 
 		return [
 			cellFactory('rank'),
@@ -97,7 +94,7 @@ class PlayerListsContainer extends Component {
 			costCellFactory(changePlayerCost),
 			valueCellFactory('adjustedValue', 'bid'),
 			valueCellFactory('value', 'val'),
-			...categoryColumns
+			...categoryCells
 		]
 	}
 
