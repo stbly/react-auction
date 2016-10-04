@@ -32,6 +32,7 @@ class PlayerListsContainer extends Component {
 	}
 
 	dataWasFiltered (prop) {
+		console.log('dataWasFiltered()', prop)
 		const types = this.getPositionTypes()
 		for (let i = 0; i < types.length; i++) {
 			const type = types[i]
@@ -57,14 +58,20 @@ class PlayerListsContainer extends Component {
 	getCategories () {
 		const { listType } = this.state
 		const { positionData } = this.props
-		const { categories } = positionData[listType]
 
+		// const cats = Object.keys(positionData).map( type => positionData[type].categories )
+		const { categories } = positionData[listType]
+		// console.log(categories, flattenToObject(cats) )
 		return categories
 	}
 
 	getPlayers () {
 		let filteredIds = this.getFilteredPlayerIds();
 		return this.createPlayerArrayFromIds( filteredIds );
+	}
+
+	playersById () {
+		return Array.toObject(this.props.players)
 	}
 
 	getFilteredPlayerIds () {
@@ -103,15 +110,16 @@ class PlayerListsContainer extends Component {
 		const { direction } = this.state
 		const categories = this.getCategories()
 		const categoriesSorts = Object.keys(categories)
+		const playerObject = this.playersById()
+
 		const positionSort = {
 			column: 'pos',
 			direction: 'desc',
 			sortFunction: (playerIdA, playerIdB) => {
-
-				const posA = primaryPositionFor( players[playerIdA] )
-				const posB = primaryPositionFor( players[playerIdB] )
-				const valueA = players[playerIdA].adjustedValue
-				const valueB = players[playerIdB].adjustedValue
+				const posA = primaryPositionFor( playerObject[playerIdA] )
+				const posB = primaryPositionFor( playerObject[playerIdB] )
+				const valueA = playerObject[playerIdA].adjustedValue
+				const valueB = playerObject[playerIdB].adjustedValue
 				const descending = direction === 1 ? false : true
 				const comparePosition = sort(posA, posB, false, false)
 				const compareValue = sort(valueA, valueB, descending)
@@ -124,8 +132,8 @@ class PlayerListsContainer extends Component {
 			column: 'cost',
 			direction: 'desc',
 			sortFunction: (a,b) => {
-				const playerA = players[a]
-				const playerB = players[b]
+				const playerA = playerObject[a]
+				const playerB = playerObject[b]
 				const costSort = sort(playerA.cost, playerB.cost, false, false)
 				const valueSort = sort(playerA.value, playerB.value, direction)
 
@@ -143,7 +151,15 @@ class PlayerListsContainer extends Component {
 			}
 		}
 
-		return [ sortCost, 'rank', 'name', sortNumber('bid'), sortNumber('val'), ...categoriesSorts, positionSort]
+		return [ 
+			sortCost, 
+			'rank', 
+			'name', 
+			sortNumber('bid'),
+			sortNumber('val'),
+			...categoriesSorts,
+			positionSort
+		]
 	}
 
 	getFilters () {

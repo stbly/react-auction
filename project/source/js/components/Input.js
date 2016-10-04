@@ -108,7 +108,7 @@ class Input extends Component {
 	}
 
 	startEditing() {
-		setFocus('in')
+		this.setFocus('in')
 		//TO DO: figure out why this.forceEdit exists and see if we can turn this into a state property
 		this.forceEdit = true;
 	}

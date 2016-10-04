@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 import classNames from 'classnames';
-import {Table} from 'reactable'
+import { CacheableTable, Tr, Td } from 'reactable-cacheable'
 
 import Icon from './Icon'
 
@@ -17,12 +17,13 @@ import '../../stylesheets/components/filtered-table.scss'
 class FilteredTable extends Component {
 	constructor(props) {
 		super(props)
+		this.currentFilter = 'batter'
+		this.currentSort = {
+			column: 'rank',
+			direction: 1
+		}
+		
 		this.state = {
-			filter: 'batter',
-			sort: {
-				column: 'rank',
-				direction: 1
-			},
 			searchQuery: null
 		}
 	}
@@ -35,25 +36,27 @@ class FilteredTable extends Component {
 	onFilter (filter) {
 		const { onFilter } = this.props
 
-		this.setState({ filter })
+		this.currentFilter = filter
 
 		if (onFilter) onFilter(filter)
 	}
 
 	onSort ( sort ) {
-		this.setState({ sort } )
-
+		this.currentSort = sort
 	}
 
 	setSearchQuery (value) {
-		this.searchQuery = value
-		this.table.filterBy( 'name' )
+		this.setState({searchQuery: value})
+		if (value) {
+			this.table.filterBy( 'name' )
+		} else {
+			this.table.filterBy( this.currentFilter )
+		}
 	}
 
 	getFilters () {
 
 		const { filters, searchKey } = this.props
-		const { filter, sort } = this.state
 
 		const tableFilters = filters.map( filter => {
 			const {column, filterFunction} = filter
@@ -73,24 +76,35 @@ class FilteredTable extends Component {
 	}
 
 	getSearchMatch( string ) {
-		const searchQuery = this.searchQuery.toLowerCase()
+		const searchQuery = this.state.searchQuery.toLowerCase()
 		// console.log(string)
 		const stringQuery = string ? string.toLowerCase() : null
 		return valueMatch(stringQuery, searchQuery, false)
 	}
 
+	getRows (data, columns, rowClassFunction) {
+		// if (!this.rows) {
+		// 	this.rows = createRows(data, columns, rowClassFunction)
+		// }
+		// return this.rows
+		return createRows(data, columns, rowClassFunction)
+	}
+
 	render () {
-		const { filter, searchQuery } = this.state
+		const { searchQuery } = this.state
 		const { data, columns, rows, filters } = this.props
 
 		const table = this.renderTable()
 		const loader = true ? this.renderLoader() : null
 
+		const currentFilter = this.currentFilter
+
+	
 		return (
 			<section className='filtered-table section-with-sidebar'>
 				<div className='sidebar'>
 					<ListFilters
-						activeFilter={filter.value}
+						activeFilter={currentFilter}
 						searchQuery={searchQuery}
 						setSearchQuery={this.setSearchQuery.bind(this)}
 						filterSelected={this.setFilter.bind(this)}
@@ -114,26 +128,32 @@ class FilteredTable extends Component {
 
 	renderTable () {
 		const { data, columns, className, sortingFunctions, rowClassFunction } = this.props
-		const { filter, sort } = this.state
 		const filters = this.getFilters()
 
+		const headers = createHeaderRow(columns)
+		const rows = this.getRows(data, columns, rowClassFunction)
+
+	
 		return (
-			<Table
+			<CacheableTable
 				ref={(ref) => this.table = ref}
 				className={className}
 				sortable={sortingFunctions}
 				filterable={filters}
-				defaultSort={sort}
-				filterBy={filter}
-				onFilter={ this.onFilter.bind(this) }
+				defaultSort={this.currentSort}
+				filterBy={this.currentFilter}
 				onSort={ this.onSort.bind(this) }
+				onFilter={ this.onFilter.bind(this) }
 				hideFilterInput >
-					{ createHeaderRow(columns) }
-					{ createRows(data, columns, rowClassFunction) }
-			</Table>
+					{headers}
+					{rows}
+			</CacheableTable>
 		)
 	}
 }
+				
+// { rows }
+					// 
 
 FilteredTable.propTypes = {
 	data: PropTypes.array.isRequired,

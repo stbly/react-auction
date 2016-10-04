@@ -95,6 +95,11 @@
 		&.selected {
 			td {
 				background: $color-batter-dark-grey;
+				&.can-edit {
+					&:hover {
+						background: $color-batter-dark-grey;
+					}
+				}
 			}
 
 			.dark {
@@ -102,7 +107,7 @@
 			}
 
 			&:hover {
-				.dark {
+				td {
 					background: $color-batter-dark-grey;
 				}
 			}

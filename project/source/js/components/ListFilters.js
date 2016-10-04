@@ -32,13 +32,13 @@ class ListFilters extends Component {
 	}
 
 	getFilterButtons () {
-		const { tableRef, filters } = this.props
+		const { tableRef, filters, activeFilter } = this.props
 		const filterButtons = filters.filter( filter => filter.button )
 
 		return filterButtons.map( (filter, index) => {
 			const { column, button} = filter
 			const filterFunction = () => this.filterSelected(column, button)
-			const classes = classNames('list-filter', column)
+			const classes = classNames('list-filter', column, {active: activeFilter === button})
 
 			return (
 				<button

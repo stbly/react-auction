@@ -11,7 +11,17 @@ class CellPlayerCost extends Component {
 		this.input.startEditing()
 	}
 
+	componentDidMount () {
+		// console.log('mounted')
+	}
+
+	shouldComponentUpdate (nextProps, nextState) {
+		// console.log(nextProps.cost !== this.props.cost)
+		return (nextProps.cost !== this.props.cost)
+	}
+
 	render () {
+		// console.log('updating')
 		const { cost, onCostChange } = this.props
 		const hasCost = cost > 0
 		const prefix = hasCost ? 'Drafted:' : null
