@@ -32,7 +32,6 @@ class PlayerListsContainer extends Component {
 	}
 
 	dataWasFiltered (prop) {
-		console.log('dataWasFiltered()', prop)
 		const types = this.getPositionTypes()
 		for (let i = 0; i < types.length; i++) {
 			const type = types[i]
@@ -58,10 +57,7 @@ class PlayerListsContainer extends Component {
 	getCategories () {
 		const { listType } = this.state
 		const { positionData } = this.props
-
-		// const cats = Object.keys(positionData).map( type => positionData[type].categories )
 		const { categories } = positionData[listType]
-		// console.log(categories, flattenToObject(cats) )
 		return categories
 	}
 
@@ -167,14 +163,14 @@ class PlayerListsContainer extends Component {
 		const { positionData } = this.props
 
 		const positions = positionTypes.map( type => {
-			const typeFilter = createNameMatchFilter('type', type)
+			const typeFilter = createNameMatchFilter('type', {label: type})
 			const positions = Object.keys(positionData[type].positions)
-			const positionFilters = positions.map( positionId => createNameMatchFilter('position', positionId) )
-
+			const positionFilters = positions.map( positionId => createNameMatchFilter('position', {label: positionId}) )
 			return [typeFilter, ...positionFilters]
 		})
 
-		return flatten(positions)
+		var flattenedFilters = flatten(positions)
+		return flattenedFilters
 	}
 
 	render () {

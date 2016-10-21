@@ -208,11 +208,15 @@ export const cellFactory = (property, params={}) => {
 	}
 }
 
-export const createNameMatchFilter = (column, button=null) => {
-	const filterFunction = (contents, filter) => contents.toLowerCase().indexOf(filter) > -1
+export const createNameMatchFilter = (column, params) => {
+	const { label, substring } = params
+	const filterFunction = (contents, filter) => {
+		const string = contents.toLowerCase()
+		return substring ? string.indexOf(filter) > -1 : string === filter
+	}
 	return {
 		column,
-		button,
+		label,
 		filterFunction
 	}
 }

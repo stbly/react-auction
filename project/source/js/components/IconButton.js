@@ -10,11 +10,15 @@ class IconButton extends Component {
 	}
 
 	render () {
-		var iconClasses = classNames('icon-button', {active: this.props.isActive})
+		const { isActive, children } = this.props
+		const iconClasses = classNames('icon-button', {active: isActive})
 
 		return (
 			<button className={iconClasses} onClick={this.props.toggleButton}>
-				<Icon type={this.props.type} />
+				{children}
+				<span className='icon-container'>
+					<Icon type={this.props.type} />
+				</span>
 			</button>
         )
 	}

@@ -11,7 +11,7 @@ import IconButton from '../components/IconButton'
 import * as SettingsUtils from '../helpers/SettingsUtils'
 import {primaryPositionFor} from '../helpers/PlayerListUtils';
 import * as playerActions from '../redux/modules/players'
-import {Table} from 'reactable'
+import {Table} from 'reactable-cacheable'
 
 import playerImage from '../../images/player-image.png'
 
@@ -57,6 +57,8 @@ class ActivePlayer extends Component {
 
 		const playerClasses = classNames('active-player',type)
 		const tableClasses = classNames('player-list',type)
+
+		console.log( '---',Table)
 
 		return (
 			<div className={playerClasses}>

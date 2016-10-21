@@ -99,7 +99,6 @@ export const fetchPlayers = () => {
 				}
 			)
 	    )
-
 	}
 }
 
@@ -117,7 +116,7 @@ const fetchDefaultPlayers = () => {
 		const { data, fetching, forceReload } = state.players
 		const shouldFetchPlayers = ((!data || forceReload) && !fetching)
 		if (shouldFetchPlayers) {
-			return dispatch( getPlayers('/players') ) // Load default player data
+			return dispatch( getPlayers('/defaults/players') ) // Load default player data
 				.then( players => scrubPlayerData(players) )
 		} else {
 			return Promise.resolve()

@@ -1,0 +1,48 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true,
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid",
+        "players": {
+          "$player_id": {
+            "stats": {
+              "$category_id": {
+                ".validate": "newData.isNumber()"
+              }
+            }
+          }
+        },
+        "leagues": {
+          "$league_id": {
+            "settings": {},
+            "teams": {
+              "$team_id": {}
+            }
+          }
+        }
+      }
+    },
+    "players": {
+      ".read": true,
+      ".write": "root.child('users').child(auth.uid).child('isAdmin').val() == true",
+      "$player_id": {
+        "name": {
+          ".validate": "newData.isString()"
+        },
+        "stats": {
+          "$category_id": {
+            ".validate": "newData.isNumber()"
+          }
+        },
+        "positions": {
+          "$position_id": {
+            ".validate": "newData.isBoolean()"
+          }
+        }
+      }
+    }
+  }
+}

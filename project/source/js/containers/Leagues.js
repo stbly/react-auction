@@ -7,6 +7,9 @@ import * as SettingsUtils from '../helpers/SettingsUtils'
 import * as playerActions from '../redux/modules/players'
 import * as userActions from '../redux/modules/user'
 
+import IconButton from '../components/IconButton'
+import LeagueSettings from '../components/LeagueSettings'
+
 import classNames from 'classnames';
 
 
@@ -16,22 +19,61 @@ class Leagues extends Component {
 	}
 
 	render() {
+		const { uid } = this.props.user
 
 		return (
-
 			<div className='leagues-route page'>
-
-				<section className='section-with-sidebar'>
-					<div className='sidebar'>
-						<button>League One</button>
-					</div>
-					<div className='main'>
-					</div>
-				</section>
-
-				<div className='clear-both'></div>
+				{ uid ? this.renderLeagueSelect() : this.renderLoginMessage() }
 			</div>
 		)
+	}
+
+	renderLoginMessage () {
+		return (
+			<div>
+				You are not logged in. Please log in to select a saved league.
+			</div>
+		)
+	}
+
+	renderLeagueSelect () {
+		const { currentLeague } = this.props
+
+		return (			
+			<div>
+				<section className='section-with-sidebar'>
+					<div className='sidebar'>
+
+						<button className='button'> Add league + </button>
+						{ this.renderLeagueSelectButtons() }
+
+					</div>
+					<div className='main'>
+						{ currentLeague ? this.renderLeagueSettings() : this.renderCreateLeagueMessage}
+					</div>
+				</section>
+				
+				<div className='clear-both'></div>
+			</div>
+		)				
+	}
+
+	renderLeagueSelectButtons () {
+		const { leagues } = this.props
+		if (!leagues) return
+		return leagues.map( league => {
+			return <button>league.id</button>
+		})
+	}
+
+	renderLeagueSettings () {
+		console.log('render this')
+		return <LeagueSettings />
+	}
+
+	renderCreateLeagueMessage () {
+		console.log('render this')
+		return <div>Select a league, or create a new one.</div>
 	}
 }
 
@@ -44,23 +86,15 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps (state,ownProps) {
-
+	const { user } = state
+/*
 	if (!state.categories.data || !state.teams.data) {
 		return {}
 	}
-
-	var categories = state.categories.data,
-		teams = SettingsUtils.getTeamNames( state.teams.data ),
-		positions = state.positions.data,
-		settings = state.settings.data,
-		user = state.user
-
+*/
 	return {
 		user,
-		teams,
-		categories,
-		positions,
-		settings
+		currentLeague: true
 	};
 
 	// return { ...state.players.lists };

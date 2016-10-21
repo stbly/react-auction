@@ -5,11 +5,11 @@ import { bindActionCreators } from 'redux'
 
 import ActivePlayer from './ActivePlayer'
 import PlayerListsContainer from './PlayerListsContainer'
-import FavoritePlayerListsContainer from './FavoritePlayerListsContainer'
+// import FavoritePlayerListsContainer from './FavoritePlayerListsContainer'
 
 import classNames from 'classnames';
 
-import '../../stylesheets/components/app.scss'
+
 import '../../stylesheets/components/players.scss'
 
 class Planner extends Component {

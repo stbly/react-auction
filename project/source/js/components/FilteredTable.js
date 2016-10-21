@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 import classNames from 'classnames';
-import { CacheableTable, Tr, Td } from 'reactable-cacheable'
+import { Table, Tr, Td } from 'reactable-cacheable'
 
 import Icon from './Icon'
 
@@ -132,10 +132,9 @@ class FilteredTable extends Component {
 
 		const headers = createHeaderRow(columns)
 		const rows = this.getRows(data, columns, rowClassFunction)
-
 	
 		return (
-			<CacheableTable
+			<Table
 				ref={(ref) => this.table = ref}
 				className={className}
 				sortable={sortingFunctions}
@@ -147,7 +146,7 @@ class FilteredTable extends Component {
 				hideFilterInput >
 					{headers}
 					{rows}
-			</CacheableTable>
+			</Table>
 		)
 	}
 }

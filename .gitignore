@@ -1,3 +1,4 @@
+# Numerous always-ignore extensions
 *.diff
 *.err
 *.orig
@@ -8,10 +9,12 @@
 *~
 *.psd
 
+.DS_Store
+
+node_modules
+
+project/deploy/*
+
 # webpack
 webpack-stats.json
 webpack-assets.json
-
-node_modules/
-
-project/deploy/*
