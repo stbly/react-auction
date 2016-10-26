@@ -7107,7 +7107,7 @@
     "246": {
         "name": "Jimmy Rollins",
         "type": "batter",
-        "positions": [],
+        "positions": ["SS"],
         "stats": {
             "default": {
                 "PA": 413,
@@ -7136,7 +7136,7 @@
     "247": {
         "name": "Michael Saunders",
         "type": "batter",
-        "positions": [],
+        "positions": ["OF"],
         "stats": {
             "default": {
                 "PA": 298,
@@ -7165,7 +7165,7 @@
     "248": {
         "name": "Jonathan Villar",
         "type": "batter",
-        "positions": [],
+        "positions": ["SS"],
         "stats": {
             "default": {
                 "PA": 255,
@@ -7194,7 +7194,7 @@
     "249": {
         "name": "Brandon Guyer",
         "type": "batter",
-        "positions": [],
+        "positions": ["OF"],
         "stats": {
             "default": {
                 "PA": 302,
@@ -7223,7 +7223,7 @@
     "250": {
         "name": "Jace Peterson",
         "type": "batter",
-        "positions": [],
+        "positions": ["OF"],
         "stats": {
             "default": {
                 "PA": 508,
@@ -7252,7 +7252,7 @@
     "251": {
         "name": "Jordy Mercer",
         "type": "batter",
-        "positions": [],
+        "positions": ["OF"],
         "stats": {
             "default": {
                 "PA": 464,
@@ -7484,7 +7484,7 @@
     "259": {
         "name": "Marlon Byrd",
         "type": "batter",
-        "positions": [],
+        "positions": ["OF"],
         "stats": {
             "default": {
                 "PA": 381,

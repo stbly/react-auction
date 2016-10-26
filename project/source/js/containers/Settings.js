@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import * as SettingsUtils from '../helpers/SettingsUtils'
+import * as settingsActions from '../redux/modules/settings'
+import * as leagueActions from '../redux/modules/leagues'
 import * as playerActions from '../redux/modules/players'
 import * as userActions from '../redux/modules/user'
 
@@ -12,8 +14,7 @@ import LeagueSettings from '../components/LeagueSettings'
 
 import classNames from 'classnames';
 
-
-class Leagues extends Component {
+class Settings extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -37,7 +38,7 @@ class Leagues extends Component {
 	}
 
 	renderLeagueSelect () {
-		const { currentLeague } = this.props
+		const { activeLeague } = this.props
 
 		return (			
 			<div>
@@ -49,7 +50,7 @@ class Leagues extends Component {
 
 					</div>
 					<div className='main'>
-						{ currentLeague ? this.renderLeagueSettings() : this.renderCreateLeagueMessage}
+						{ activeLeague ? this.renderLeagueSettings() : this.renderCreateLeagueMessage}
 					</div>
 				</section>
 				
@@ -67,12 +68,19 @@ class Leagues extends Component {
 	}
 
 	renderLeagueSettings () {
-		console.log('render this')
-		return <LeagueSettings />
+		const { settings, settingsActions, leagueActions, activeLeague } = this.props
+		const { changeSetting } = settingsActions
+		const { changeActiveLeagueName } = leagueActions
+
+		
+		return <LeagueSettings 
+			name={activeLeague.name} 
+			settings={settings} 
+			changeLeagueName={changeActiveLeagueName}
+			changeSetting={changeSetting} />
 	}
 
 	renderCreateLeagueMessage () {
-		console.log('render this')
 		return <div>Select a league, or create a new one.</div>
 	}
 }
@@ -80,24 +88,24 @@ class Leagues extends Component {
 
 function mapDispatchToProps(dispatch) {
 	return {
+		settingsActions: bindActionCreators(settingsActions, dispatch),
+		leagueActions: bindActionCreators(leagueActions, dispatch),
 		playerActions: bindActionCreators(playerActions, dispatch),
 		userActions: bindActionCreators(userActions, dispatch)
 	}
 }
 
 function mapStateToProps (state,ownProps) {
-	const { user } = state
-/*
-	if (!state.categories.data || !state.teams.data) {
-		return {}
-	}
-*/
+	const { user, settings, leagues } = state
+	const { activeLeague } = leagues
+	
 	return {
 		user,
-		currentLeague: true
+		activeLeague,
+		settings: settings.data
 	};
 
 	// return { ...state.players.lists };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Leagues)
+export default connect(mapStateToProps, mapDispatchToProps)(Settings)

@@ -8,21 +8,24 @@
 			"rosterSpots": 13,
 			"positions": {
 				"1B": {
-					"name": "First Base"
+					"name": "First Base",
+					"minimum": 1
 				},
 				"2B": {
 					"name": "Second Base",
 					"minimum": 1
 				},
 				"3B": {
-					"name": "Third Base"
+					"name": "Third Base",
+					"minimum": 1
 				},
 				"SS": {
 					"name": "Short Stop",
 					"minimum": 1
 				},
 				"OF": {
-					"name": "Outfield"
+					"name": "Outfield",
+					"minimum": 3
 				},
 				"C": {
 					"full_name": "Catcher",
@@ -89,7 +92,8 @@
 			"rosterSpots": 11,
 			"positions": {
 				"SP": {
-					"name": "Starting Pitcher"
+					"name": "Starting Pitcher",
+					"minimum": 1
 				},
 				"RP": {
 					"name": "Relief Pitcher",

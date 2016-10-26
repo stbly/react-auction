@@ -65,6 +65,7 @@ class PlayerList extends Component {
 	rankData (data) {
 		const { currentSortOption, toggleSortDirection } = this.state
 		const dataSortedByValue = sortBy(data, 'adjustedValue', 'desc')
+		console.log(dataSortedByValue)
 		const rankedData = dataSortedByValue.map( (player, index) => {
 			return Object.assign({}, player, {
 				rank: index + 1

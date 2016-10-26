@@ -1,5 +1,10 @@
 import * as SettingsUtils from '../../helpers/SettingsUtils'
 import { defaultSettings } from '../../helpers/constants.js'
+import { 
+	mergeDeep,
+	endpointToObject } from '../../helpers/dataUtils'
+
+import { settingsEndpoints } from '../../helpers/constants/settings'
 
 let initialState = {
 	fetching: false,
@@ -7,6 +12,11 @@ let initialState = {
 	data: null
 }
 
+const LOAD_SETTINGS_REQUEST = 'players/LOAD_SETTINGS_REQUEST'
+const LOAD_SETTINGS_SUCCESS = 'players/LOAD_SETTINGS_SUCCESS'
+const LOAD_SETTINGS_ERROR = 'players/LOAD_SETTINGS_ERROR'
+
+// Prune data from server to play nicely with the app
 const scrubSettingsData = (settings) => {
 	/*for (const id in settings) {
 		if (settings.hasOwnProperty(id)) {
@@ -38,52 +48,40 @@ export const getSettings = (endpoint) => {
 	}
 }
 
-export const fetchSettings = () => {
+export const fetchSettings = (forceFetch=false) => {
 	return (dispatch, getState) => {
 		const state = getState()
-		const { didInvalidate } = state.settings
 		const debug = false
 
 		if (debug) {
 			return dispatch( fetchOfflineSettingData() )
 		}
 
-		return dispatch( fetchDefaultSettings() )
-			.then( settings => dispatch( fetchUserSettings() )
-				.then( userSettings => {
-					const defaultSettings = settings || state.settings.data
-					const synthesizedSettings = synthesizeSettingsData(defaultSettings, userSettings)
-					return dispatch(receiveSettings(synthesizedSettings))
-				}
-			)
-	    )
+		const { data, fetching } = state.settings
+
+		const shouldFetchSettings = ((!data || forceFetch) && !fetching)
+
+		if (shouldFetchSettings) { 
+			return dispatch( fetchDefaultSettings() )
+				.then( settings => dispatch( fetchUserSettings() )
+					.then( userSettings => {
+						const defaultSettings = settings || state.settings.data
+						const synthesizedSettings = mergeDeep(defaultSettings, userSettings)
+						return dispatch(receiveSettings(synthesizedSettings))
+					}
+				)
+		    )
+		} else {
+			return Promise.resolve()
+		}
 	}
 }
 
-const synthesizeSettingsData = (settingsData, userSettingsData=null) => {
-	/*if (userSettingsData) {
-		for (const userPlayerId in userSettingsData) {
-			if (userSettingsData.hasOwnProperty(userPlayerId)) {
-
-				const player = settingsData[userPlayerId]
-				const userPlayer = userSettingsData[userPlayerId]
-
-				for (const key in userPlayer) {
-					if (userPlayer.hasOwnProperty(key)) {
-
-						if (!player[key]) {
-							player[key] = userPlayer[key]
-						} else {
-							Object.assign(player[key], userPlayer[key])
-						}
-
-					}
-				}
-			}
-		}
-	}*/
+/*const synthesizeSettingsData = (settingsData, userSettingsData=null) => {
+	let synthesizedSettings = mergeDeep(settingsData, userSettingsData)
+	console.log('synthesizedSettings',settingsData,userSettingsData)
 	return settingsData
-}
+}*/
 
 const fetchOfflineSettingData = () => {
 	return (dispatch, getState) => {
@@ -95,27 +93,22 @@ const fetchOfflineSettingData = () => {
 
 const fetchDefaultSettings = () => {
 	return (dispatch, getState) => {
-		const state = getState()
-		const { data, fetching, forceReload } = state.settings
-		const shouldFetchSettings = ((!data || forceReload) && !fetching)
-		if (shouldFetchSettings) {
-			return dispatch( getSettings('/settings') ) // Load default player data
-				.then( settings => scrubSettingsData(settings) )
-		} else {
-			return Promise.resolve()
-		}
+		return dispatch( getSettings('/defaults/settings') ) // Load default player data
+			.then( settings => scrubSettingsData(settings) )
 	}
 }
 
 const fetchUserSettings = () => {
 	return (dispatch, getState) => {
 		const state = getState()
-		const { uid, didInvalidate } = state.user
-		const { fetching, didUnsynthesize, leagueId } = state.settings
-		const shouldFetchUserSettings = (uid && leagueId && didUnsynthesize && !fetching)
-		// console.log('FETCH USER PLAYERS?',uid, didUnsynthesize, fetching)
+		const { fetching } = state.settings
+		const { uid } = state.user
+		const { activeLeague } = state.leagues
+		const activeLeagueId = activeLeague ? activeLeague.id : null
+		const shouldFetchUserSettings = (activeLeagueId && uid && !fetching)
+
 		if (shouldFetchUserSettings) {
-			return dispatch ( getSettings('/users/' + uid + '/leagues/' + leagueId) ) // Get Player Data
+			return dispatch ( getSettings('/users/' + uid + '/leagues/' + activeLeagueId + '/settings/') ) // Get Settings Data
 				.then( userSettings => userSettings )
 		} else {
 			return Promise.resolve()
@@ -128,12 +121,16 @@ export const REQUEST_SETTINGS = 'settings/REQUEST_SETTINGS'
 export const RECEIVE_SETTINGS = 'settings/RECEIVE_SETTINGS'
 export const UPDATE_SETTING = 'settings/UPDATE_SETTING'
 
-
 export const changeSetting = (setting, value) => {
 	return (dispatch, getState) => {
 		dispatch( updateSetting(setting, value))
+		
 		const settings = getState().settings.data
-		return dispatch( receiveSettings(settings) )
+		const endpoint = settingsEndpoints[setting]
+		const newData = endpointToObject(endpoint, value)
+		const mergedData = mergeDeep(settings, newData)
+
+		return dispatch( receiveSettings(mergedData) )
 	}
 }
 
@@ -162,22 +159,35 @@ const reducer = (state = initialState, action) => {
 				didInvalidate: true
 			});
 
+		case LOAD_SETTINGS_REQUEST:
+			return Object.assign({}, state, {
+				fetching: true,
+				didInvalidate: true
+			});
+
+		case LOAD_SETTINGS_SUCCESS:
+			return Object.assign({}, state, {
+				fetching: false,
+				forceReload: false
+			});
+
+		case LOAD_SETTINGS_ERROR:
+			return Object.assign({}, state, {
+				fetching: false,
+				didInvalidate: true
+			});
+
+
 		case RECEIVE_SETTINGS:
 			return Object.assign({}, state, {
 				fetching: false,
 				didInvalidate: false,
 				data: action.payload.settings
 			});
-
+		
 		case UPDATE_SETTING:
-			var {setting, value} = action.payload,
-				newData = Object.assign({}, state.data, {
-					[setting]: value
-				})
-
 			return Object.assign({}, state, {
-				didInvalidate: true,
-				data: newData
+				didInvalidate: true
 			})
 
 		default:

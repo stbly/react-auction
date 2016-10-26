@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { defaultPlayers } from '../../helpers/constants.js'
+import { mergeDeep } from '../../helpers/dataUtils.js'
 
 const LOAD_PLAYERS_REQUEST = 'players/LOAD_PLAYERS_REQUEST'
 const LOAD_PLAYERS_SUCCESS = 'players/LOAD_PLAYERS_SUCCESS'
@@ -24,6 +25,7 @@ let initialState = {
 	activePlayerId: null
 }
 
+// Prune data from server to play nicely with the app
 const scrubPlayerData = (players) => {
 	for (const id in players) {
 		if (players.hasOwnProperty(id)) {
@@ -46,31 +48,31 @@ const scrubPlayerData = (players) => {
 	}
 	return players
 }
-
+/*
 const synthesizePlayerData = (playerData, userPlayerData=null) => {
-	if (userPlayerData) {
-		for (const userPlayerId in userPlayerData) {
-			if (userPlayerData.hasOwnProperty(userPlayerId)) {
 
-				const player = playerData[userPlayerId]
-				const userPlayer = userPlayerData[userPlayerId]
+	for (const userPlayerId in userPlayerData) {
+		if (userPlayerData.hasOwnProperty(userPlayerId)) {
 
-				for (const key in userPlayer) {
-					if (userPlayer.hasOwnProperty(key)) {
+			const player = playerData[userPlayerId]
+			const userPlayer = userPlayerData[userPlayerId]
 
-						if (!player[key]) {
-							player[key] = userPlayer[key]
-						} else {
-							Object.assign(player[key], userPlayer[key])
-						}
+			for (const key in userPlayer) {
+				if (userPlayer.hasOwnProperty(key)) {
 
+					if (!player[key]) {
+						player[key] = userPlayer[key]
+					} else {
+						Object.assign(player[key], userPlayer[key])
 					}
+
 				}
 			}
 		}
 	}
-	return playerData
-}
+
+	return mergeDeep(playerData, userPlayerData)
+}*/
 
 export const getPlayers = (endpoint) => {
 	return {
@@ -94,7 +96,7 @@ export const fetchPlayers = () => {
 			.then( players => dispatch( fetchUserPlayers() )
 				.then( userPlayers => {
 					const defaultPlayers = players || state.players.data
-					const synthesizedPlayers = synthesizePlayerData(defaultPlayers, userPlayers)
+					const synthesizedPlayers = mergeDeep(defaultPlayers, userPlayers)
 					return dispatch(receivePlayers(synthesizedPlayers))
 				}
 			)
@@ -174,7 +176,6 @@ export const invalidatePlayers = () => {
 }
 
 export const unsynthesizePlayers = () => {
-	console.log('unsynthesizePlayers()')
 	return { type: UNSYNTHESIZE_PLAYERS }
 }
 
@@ -240,7 +241,6 @@ const reducer = (state = initialState, action) => {
 			});
 
 		case LOAD_PLAYERS_ERROR:
-			console.log("LOAD_PLAYERS_ERROR")
 			return Object.assign({}, state, {
 				fetching: false,
 				didInvalidate: true

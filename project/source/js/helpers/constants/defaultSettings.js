@@ -4,7 +4,6 @@ const defaultBatterSpots = 13;
 export const defaultSettings = {
 	numTeams: 14,
 	teamSalary: 270,
-	totalRosterSpots: defaultRosterSpots,
 	positionData: {
 		batter: {
 			budgetPercentage: 70,
@@ -12,6 +11,7 @@ export const defaultSettings = {
 			positions: {
 				'1B': {
 					name: 'First Base',
+					minimum: 1
 				},
 				'2B': {
 					name: 'Second Base',
@@ -25,7 +25,8 @@ export const defaultSettings = {
 					minimum: 1
 				},
 				'OF': {
-					name: 'Outfield'
+					name: 'Outfield',
+					minimum: 3
 				},
 				'C': {
 					full_name: 'Catcher',
@@ -92,7 +93,8 @@ export const defaultSettings = {
 			rosterSpots: defaultRosterSpots - defaultBatterSpots,
 			positions: {
 				'SP': {
-					name: 'Starting Pitcher'
+					name: 'Starting Pitcher',
+					minimum: 2
 				},
 				'RP': {
 					name: 'Relief Pitcher',

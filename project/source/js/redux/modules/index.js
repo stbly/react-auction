@@ -2,12 +2,14 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
 import user from './user'
-import players from './players'
+import leagues from './leagues'
 import settings from './settings'
 import teams from './teams'
+import players from './players'
 
 const rootReducer = combineReducers({
 	user,
+	leagues,
     players,
     // activePlayer,
     settings,

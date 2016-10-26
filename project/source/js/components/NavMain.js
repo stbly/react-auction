@@ -16,7 +16,7 @@ class NavMain extends Component {
 			<div className='nav-main'>
 				<span>FBB Auction Draft Tool</span>
 				<Link to="/players" activeClassName='active'>Players</Link>
-				<Link to="/leagues" activeClassName='active'>Leagues</Link>
+				<Link to="/settings" activeClassName='active'>Settings</Link>
 
 				<Login />
 			</div>

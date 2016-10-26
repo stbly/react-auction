@@ -7,6 +7,9 @@ import {
 	forceLoadPlayers,
 	unsynthesizePlayers } from './players'
 
+import {
+	fetchLeagues } from './leagues'
+
 export const AWAITING_AUTH_RESPONSE = 'user/status/AWAITING_AUTH_RESPONSE'
 export const ANONYMOUS = 'user/status/ANONYMOUS'
 export const LOGGED_IN = 'user/status/LOGGED_IN'
@@ -77,17 +80,20 @@ export const attemptLogout = () => {
 
 export const loginUser = (uid, username) => {
 	return (dispatch,getState) => {
+
 		dispatch( unsynthesizePlayers() )
 		dispatch( userLoggedIn(uid, username) )
+		dispatch( fetchLeagues () )
 		return dispatch( fetchPlayers() )
 	}
 }
 
 export const logoutUser = () => {
 	return (dispatch,getState) => {
-		console.log('logoutUser')
+
 		dispatch( forceLoadPlayers() )
 		dispatch( userLoggedOut() )
+		dispatch( fetchLeagues () )
 		return dispatch( fetchPlayers() )
 	}
 }

@@ -1,5 +1,5 @@
 import {combineValues, sortArrayByCategory, findLastItemWithCondition} from './arrayUtils';
-import {getPlayerList, primaryPositionFor} from './PlayerListUtils';
+import {getPlayerList, primaryPositionFor, rankPlayers } from './PlayerListUtils';
 
 const getPlayerValue = (playerSgp, minSgp, pricePerSgp) => {
 	return ((playerSgp - minSgp) * pricePerSgp) + 1
@@ -38,7 +38,6 @@ const assignValuesFor = (players, sgpGroups, pricePerSgp, inflationRate) => {
 			if (positionIndex > -1) {
 				const value = getPlayerValue(player.sgp, sgpGroup.minSgp, pricePerSgp)
 				const adjustedValue = inflationRate ? value * inflationRate : null
-
 				return Object.assign({}, player, {
 					value,
 					adjustedValue
@@ -72,6 +71,7 @@ export const assignPlayerValues = (players, playersToDraft, dollarsToSpend, posi
 		positionGroups] = getPlayerList(players, playersToDraft, positions);
 
 	const sgpGroups = createSgpGroups(playersAboveReplacement, positionGroups);
+
 	const cumulativeSgp = playersAboveReplacement.map( player => player.sgp ).reduce( combineValues )
 	const marginalSgp = getMarginalSgps(playersAboveReplacement, sgpGroups)
 
@@ -80,18 +80,33 @@ export const assignPlayerValues = (players, playersToDraft, dollarsToSpend, posi
 	const pricePerSgp = marginalDollars / marginalSgp;
 
 	const valuedPlayers = assignValuesFor(playersAboveReplacement, sgpGroups, pricePerSgp);
-	const totalPlayerValue = valuedPlayers.map( player => player.value ).reduce( combineValues )
 
+	const totalPlayerValue = valuedPlayers.map( player => player.value ).reduce( combineValues )
 	const playersAlreadyDrafted = valuedPlayers.filter( player => player.cost )
+
 	const draftedPlayerValue = playersAlreadyDrafted.map( player => player.value ).reduce( combineValues, 0 )
+
 	const totalSpentOnPlayers = playersAlreadyDrafted.map( player => player.cost ).reduce( combineValues, 0 )
+
 
 	const remainingValue = totalPlayerValue - draftedPlayerValue
 	const remainingDollars = dollarsToSpend - totalSpentOnPlayers;
 	const inflationRate = remainingDollars / remainingValue;
 
 	const playersWithInflationValue = assignValuesFor(valuedPlayers, sgpGroups, pricePerSgp, inflationRate);
-	const combinedPlayers = [].concat(playersWithInflationValue, playersBelowReplacement)
+
+	/* 
+	// Make sure money values make sense
+	console.log(dollarsToSpend)
+	console.log(playersWithInflationValue.map( player => {
+		return player.adjustedValue
+	}).reduce( (prev, next) => prev+next) )
+	*/
+
+	const combinedPlayers = [].concat(
+		rankPlayers(playersWithInflationValue,'adjustedValue'), 
+		rankPlayers(playersBelowReplacement,'sgp')
+	)
 
 	return combinedPlayers;
 }
