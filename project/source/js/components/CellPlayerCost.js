@@ -22,11 +22,11 @@ class CellPlayerCost extends Component {
 
 	render () {
 		// console.log('updating')
-		const { cost, onCostChange } = this.props
+		const { cost, onCostChange, disabled } = this.props
 		const hasCost = cost > 0
-		const prefix = hasCost ? 'Drafted:' : null
-		const classes = classNames('cell-player-cost', {'is-drafted': hasCost} )
-
+		const prefix = hasCost && !disabled ? 'Drafted:' : null
+		const classes = classNames('cell-player-cost', {'is-drafted': hasCost, 'is-disabled': disabled},)
+		
 		return (
 			<div className={classes}
 				onClick={this.startEditing.bind(this)}>
@@ -34,6 +34,7 @@ class CellPlayerCost extends Component {
 					<InputPlayerCost
 						ref={(ref) => this.input=ref }
 						cost = {cost}
+						disabled = {disabled}
 						onCostChange = {onCostChange} />
 			</div>
 		)
@@ -43,6 +44,7 @@ class CellPlayerCost extends Component {
 CellPlayerCost.propTypes = {
 	cost: PropTypes.number,
 	onCostChange: PropTypes.func,
+	disabled: PropTypes.bool
 }
 
 export default CellPlayerCost;

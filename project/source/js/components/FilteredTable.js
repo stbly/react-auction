@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 import classNames from 'classnames';
-import { Table, Tr, Td } from 'reactable-cacheable'
+import { Table } from 'reactable-cacheable'
 
 import Icon from './Icon'
 
@@ -55,8 +55,8 @@ class FilteredTable extends Component {
 	}
 
 	getFilters () {
-
 		const { filters, searchKey } = this.props
+		if (!filters) return
 
 		const tableFilters = filters.map( filter => {
 			const {column, filterFunction} = filter

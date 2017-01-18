@@ -20,4 +20,11 @@
 	&.showing-input {
 
 	}
+
+	&.is-disabled {
+		.value-display {
+			cursor: default;
+			outline: none;
+		}
+	}
 }

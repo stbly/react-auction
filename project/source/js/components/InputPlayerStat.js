@@ -25,7 +25,7 @@ class InputPlayerStat extends Component {
 
 	render () {
 		// console.log('component does update')
-		const { category, value, isRatio } = this.props
+		const { category, value, isRatio, disabled } = this.props
 		const decimalPlaces = isRatio ? 3 : 0;
 		const increment = isRatio ? 0.001 : 1;
 		const max = isRatio ? 1 : 999;
@@ -37,6 +37,7 @@ class InputPlayerStat extends Component {
 				step={increment}
 				max={max || 1000}
 				min={0}
+				disabled={disabled}
 				valueDidChange={this.onStatChange.bind(this)} />
 		)
 	}
@@ -47,6 +48,7 @@ InputPlayerStat.propTypes = {
 	value: PropTypes.number.isRequired,
 	onStatChange: PropTypes.func,
 	isRatio: PropTypes.bool,
+	disabled: PropTypes.bool
 }
 
 export default InputPlayerStat;

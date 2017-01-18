@@ -115,7 +115,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps (state,ownProps) {
 	var players = state.players.data,
-		teams = SettingsUtils.getTeamNames( state.teams.data ),
+		teams = state.teams.data ? SettingsUtils.getTeamNames( state.teams.data ) : null,
 		positionData = state.settings.data.positionData,
 		activePlayer = players[state.players.activePlayerId]
 

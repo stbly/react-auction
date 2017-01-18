@@ -1,6 +1,7 @@
 //TODO: refactor further
 
 import {combineValues} from './arrayUtils'
+import {deduceStatFromRatio} from './statUtils'
 
 const createRatioStatSGPCalculator = (averageStat, baseStat, baseDenominator, lowIsHigh = false, perPeriod = 1) => {
 	const posNeg = lowIsHigh ? 1 : -1
@@ -20,14 +21,15 @@ const getBaseStats = (stat, averageDenominator, baseToAverageRatio, perPeriod=1)
 	return [baseStat, baseDenominator]
 }
 
+
 // TODO: error catching
 const createRatioStatCalculation = (statCalculationFunction, id, denominator, perPeriod=1) => {
-		return (stats) => {
-			const stat = stats[id]
-			const denominatorStat = stats[denominator]
-			const preparedStat = ((stat * denominatorStat) / perPeriod)
-			return statCalculationFunction(preparedStat, denominatorStat)
-		}
+	return (stats) => {
+		const numeratorStat = stats[id]
+		const denominatorStat = stats[denominator]
+		const playerStat = deduceStatFromRatio(numeratorStat, denominatorStat, perPeriod);
+		return statCalculationFunction(playerStat, denominatorStat)
+	}
 }
 
 export const createSgpCalculationsForRatioStats = (ratioCategories, rosterSpots) => {

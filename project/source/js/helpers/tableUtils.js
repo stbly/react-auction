@@ -67,12 +67,12 @@ export const statCellFactory = (statId, handler, isRatio=false) => {
 
 	return {
 		column: statId,
-		className: 'can-edit',
+		className: handler ? 'can-edit' : null,
 		content: (player, index) => {
 
 			const statValue = player.stats[statId] || 0
 			const statChangeHandler = (value) => {
-				return handler(player.id, statId, value)
+				return handler ? handler(player.id, statId, value) : null
 			}
 
 			return {
@@ -82,6 +82,7 @@ export const statCellFactory = (statId, handler, isRatio=false) => {
 		        	key={index}
 		        	value={statValue || 0}
 		        	isRatio={isRatio}
+		        	disabled={!handler}
 		        	onStatChange={statChangeHandler} />
 	        }
 		}
@@ -92,21 +93,22 @@ export const costCellFactory = (handler) => {
 
 	return {
 		column: 'cost',
-		className: 'can-edit',
+		className: handler ? 'can-edit' : null,
 		content: (player, index) => {
 
 			const cost = Number(player.cost || 0)
 			const hasCost = cost > 0
 			const costChangeHandler = (value) => {
-				return handler(player.id, value)
+				return handler ? handler(player.id, value) : null
 			}
-
+			
 			return {
 				value: player.id,
-				colSpan: hasCost ? 3 : 1,
+				colSpan: hasCost && handler ? 3 : 1,
 				element: (
 					<CellPlayerCost
 						cost = {cost}
+			        	disabled={!handler}
 			        	onCostChange = {costChangeHandler} />
 	        	)
 	        }
@@ -114,13 +116,14 @@ export const costCellFactory = (handler) => {
 	}
 }
 
-export const valueCellFactory = (property, heading=null) => {
+export const valueCellFactory = (property, heading=null, forceDisplay) => {
 	return {
 		column: heading || property,
 		content: (player) => {
 			const value = Number(player[property]).toFixed(1)
-			const hasCost = player.cost > 0
+			const hasCost = !forceDisplay && player.cost > 0
 			const cellClass = classNames({'hidden': hasCost})
+
 			return {
 				value: value,
 				cellClass,
@@ -145,7 +148,7 @@ export const positionCellValueFactory = () => {
 export const positionCellFactory = () => {
 	return {
 		column: 'position',
-		className: 'hidden',
+		// className: 'hidden',
 		content: (player) => {
 			return {
 				value: primaryPositionFor(player)
@@ -218,5 +221,51 @@ export const createNameMatchFilter = (column, params) => {
 		column,
 		label,
 		filterFunction
+	}
+}
+
+
+// Sorting Functions //
+
+export const sortPosition = (players) => {
+	return {
+		column: 'pos',
+		direction: 'desc',
+		sortFunction: (playerIdA, playerIdB) => {
+			const posA = primaryPositionFor( players[playerIdA] )
+			const posB = primaryPositionFor( players[playerIdB] )
+			const valueA = players[playerIdA].adjustedValue
+			const valueB = players[playerIdB].adjustedValue
+			const descending = direction === 1 ? false : true
+			const comparePosition = sort(posA, posB, false, false)
+			const compareValue = sort(valueA, valueB, descending)
+
+			return sortMultiple( comparePosition, compareValue )
+		}
+	}
+}
+
+export const sortCost = (players) => {
+	return {
+		column: 'cost',
+		direction: 'desc',
+		sortFunction: (a,b) => {
+			const playerA = players[a]
+			const playerB = players[b]
+			const costSort = sort(playerA.cost, playerB.cost, false, false)
+			const valueSort = sort(playerA.value, playerB.value, direction)
+
+			return sortMultiple( costSort, valueSort)
+		}
+	}
+}
+
+export const sortNumber = (column) => {
+	return {
+		column,
+		direction: 'asc',
+		sortFunction: (a, b) => {
+			return sort(Number(a), Number(b), true, false)
+		}
 	}
 }

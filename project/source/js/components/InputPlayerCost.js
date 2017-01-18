@@ -16,7 +16,7 @@ class InputPlayerCost extends Component {
 	}
 
 	render () {
-		const { cost } = this.props
+		const { cost, disabled } = this.props
 		const costToShow = (cost === 0) ? '' : cost
 		const classes = classNames({'dollar-amount': cost > 0})
 
@@ -26,6 +26,7 @@ class InputPlayerCost extends Component {
 				value={costToShow}
 				max={100}
 				min={0}
+				disabled={disabled}
 				className={classes}
 				valueDidChange={this.onCostChange.bind(this)} />
 		)

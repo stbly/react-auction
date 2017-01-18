@@ -3,14 +3,11 @@ import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames';
 
 import * as SettingsUtils from '../helpers/SettingsUtils'
-import { primaryPositionFor } from '../helpers/PlayerListUtils'
-import { sort, sortByProperty, createSort, sortMultiple, flatten, flattenToObject, valueMatch } from '../helpers/arrayUtils'
-import { stringMatch } from '../helpers/stringUtils'
+import { flatten, flattenToObject, valueMatch } from '../helpers/arrayUtils'
 
 import FilteredTable from '../components/FilteredTable.js'
 
-import {createFilter, filterBy} from '../helpers/filterUtils';
-import { cellFactory, nameCellFactory, favoriteCellFactory, valueCellFactory, costCellFactory, createStatCells, positionCellFactory, positionCellValueFactory, createNameMatchFilter, positionSort} from '../helpers/tableUtils'
+import { sortCost, sortNumber, sortPosition, cellFactory, nameCellFactory, favoriteCellFactory, valueCellFactory, costCellFactory, createStatCells, positionCellFactory, positionCellValueFactory, createNameMatchFilter, positionSort} from '../helpers/tableUtils'
 
 import '../../stylesheets/components/player-list.scss'
 
@@ -108,53 +105,14 @@ class PlayerListsContainer extends Component {
 		const categoriesSorts = Object.keys(categories)
 		const playerObject = this.playersById()
 
-		const positionSort = {
-			column: 'pos',
-			direction: 'desc',
-			sortFunction: (playerIdA, playerIdB) => {
-				const posA = primaryPositionFor( playerObject[playerIdA] )
-				const posB = primaryPositionFor( playerObject[playerIdB] )
-				const valueA = playerObject[playerIdA].adjustedValue
-				const valueB = playerObject[playerIdB].adjustedValue
-				const descending = direction === 1 ? false : true
-				const comparePosition = sort(posA, posB, false, false)
-				const compareValue = sort(valueA, valueB, descending)
-
-				return sortMultiple( comparePosition, compareValue )
-			}
-		}
-
-		const sortCost = {
-			column: 'cost',
-			direction: 'desc',
-			sortFunction: (a,b) => {
-				const playerA = playerObject[a]
-				const playerB = playerObject[b]
-				const costSort = sort(playerA.cost, playerB.cost, false, false)
-				const valueSort = sort(playerA.value, playerB.value, direction)
-
-				return sortMultiple( costSort, valueSort)
-			}
-		}
-
-		const sortNumber = (column) => {
-			return {
-				column,
-				direction: 'asc',
-				sortFunction: (a, b) => {
-					return sort(Number(a), Number(b), true, false)
-				}
-			}
-		}
-
 		return [ 
-			sortCost, 
+			sortCost(playerObject), 
 			'rank', 
 			'name', 
 			sortNumber('bid'),
 			sortNumber('val'),
 			...categoriesSorts,
-			positionSort
+			sortPosition(playerObject)
 		]
 	}
 

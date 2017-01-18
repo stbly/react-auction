@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import InputToggle from './InputToggle'
 
-class Settings extends Component {
+class SettingsInputs extends Component {
 
 	onChangeFactory (id) {
 		const { onChange } = this.props
@@ -40,9 +40,9 @@ class Settings extends Component {
 	}
 }
 
-Settings.propTypes = {
+SettingsInputs.propTypes = {
     settings: PropTypes.object.isRequired,
     onChange: PropTypes.func
 }
 
-export default Settings
+export default SettingsInputs

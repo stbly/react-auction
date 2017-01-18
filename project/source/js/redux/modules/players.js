@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import { defaultPlayers } from '../../helpers/constants.js'
 import { mergeDeep } from '../../helpers/dataUtils.js'
+import { addPlayerToTeam } from './teams'
 
 const LOAD_PLAYERS_REQUEST = 'players/LOAD_PLAYERS_REQUEST'
 const LOAD_PLAYERS_SUCCESS = 'players/LOAD_PLAYERS_SUCCESS'
@@ -158,10 +159,10 @@ export const changePlayerCost = (id, cost) => {
 	}
 }
 
-export const assignPlayer = (id, cost, team) => {
+export const draftPlayer = (id, cost, teamId) => {
 	return (dispatch, getState) => {
 		dispatch( updatePlayerCost(id, cost) )
-		// dispatch( updatePlayerTeam(id, team) )
+		dispatch( addPlayerToTeam(id, teamId) )
 		const players = getState().players.data
 		return dispatch( receivePlayers(players) )
 	}
@@ -183,6 +184,7 @@ export const loadPlayersRequest = () => {
 	return { type: loadPlayersRequest }
 }
 
+// TO DO: see if we can remove this by just adding a forceReload parameter to fetchPlayers
 export const forceLoadPlayers = () => {
 	return { type: FORCE_LOAD_PLAYERS }
 }

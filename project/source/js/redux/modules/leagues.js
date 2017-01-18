@@ -16,15 +16,18 @@ const INVALIDATE_LEAGUES = 'players/INVALIDATE_LEAGUES'
 const UNSYNTHESIZE_LEAGUES = 'players/UNSYNTHESIZE_LEAGUES'
 const UPDATE_ACTIVE_LEAGUE = 'players/UPDATE_ACTIVE_LEAGUE'
 const UPDATE_ACTIVE_LEAGUE_NAME = 'players/UPDATE_ACTIVE_LEAGUE_NAME'
+const CREATE_LEAGUE = 'players/CREATE_LEAGUE'
 
 import { fetchSettings } from './settings'
+import { fetchTeams } from './teams'
 
 let initialState = {
 	fetching: false,
 	didInvalidate: true,
 	didUnsynthesize: true,
 	forceReload: false,
-	data: null
+	data: {},
+	activeLeague: null
 }
 
 const synthesizeLeagueData = (playerData, userLeagueData=null) => {
@@ -65,7 +68,6 @@ export const fetchLeagues = () => {
 
 		return dispatch( fetchUserLeagues() )
 			.then( userLeagues => {
-
 				if (!userLeagues) return
 
 				let leagueInfo = {}
@@ -103,8 +105,20 @@ const fetchUserLeagues = () => {
 export const changeActiveLeague = (id) => {
 	return (dispatch, getState) => {
 		dispatch( updateActiveLeague(id) )
+		dispatch( fetchTeams() )
 		return dispatch( fetchSettings(true) )
 	}
+}
+
+export const saveLeague = (id, name, settings) => {
+	return (dispatch, getState) => {
+		const leagueObject = {name, settings}
+		return dispatch( createLeague(id, leagueObject) )
+	}
+}
+
+export const createLeague = (id, leagueObject) => {
+	return {type: CREATE_LEAGUE, payload: {id, leagueObject}}	
 }
 
 export const changeActiveLeagueName = (name) => {
@@ -133,8 +147,9 @@ export const updateActiveLeague = (id) => {
 
 const reducer = (state = initialState, action) => {
 	const { payload } = action
+	const { leagues, id, name } = (payload || {})
+	const { activeLeague, data } = state
 
-	const { leagues, id, cost, value, team, notes, stat } = (payload || {})
 
 	switch (action.type) {
 		case INVALIDATE_LEAGUES:
@@ -170,23 +185,20 @@ const reducer = (state = initialState, action) => {
 				fetching: false,
 				didInvalidate: false,
 				didUnsynthesize: false,
-				data: leagues
+				data: payload.leagues
 			});
 
 		case UPDATE_ACTIVE_LEAGUE:
-			const { data } = state
-			const name = data[id]
+			const activeLeagueName = data[id]
 
 			return Object.assign({}, state, {
-				activeLeague:{ id, name}
+				activeLeague: id ? { id, name: activeLeagueName } : null
 			});
 
 		case UPDATE_ACTIVE_LEAGUE_NAME: 
-			const { activeLeague } = state
-			const newName = payload.name
-			console.log(newName)
 			return Object.assign({}, state, {
-				activeLeague: Object.assign({}, activeLeague, { name: newName })
+				activeLeague: Object.assign({}, activeLeague, { name }),
+				data: Object.assign({}, data, { [activeLeague.id]: name })
 			})
 
 		default:
@@ -199,6 +211,7 @@ export {
 	LOAD_LEAGUES_REQUEST,
 	INVALIDATE_LEAGUES,
 	RECEIVE_LEAGUES,
+	CREATE_LEAGUE,
 	UPDATE_ACTIVE_LEAGUE,
 	UPDATE_ACTIVE_LEAGUE_NAME
 }

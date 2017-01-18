@@ -44,12 +44,22 @@ class PlayerInput extends Component {
 
 		this.submitted = true;
 
+		this.playerInput.reset();
+		// this.teamInput.reset();
+
+
 		if (!playerName || !playerCost /*|| !playerTeam*/) {
 
 			console.log('not enough inputs');
 
 		} else {
 
+			this.setState({
+				playerName: null,
+				playerCost: '',
+				playerTeam: null
+			})
+			
 			let playerId;
 			for (let key in searchablePlayers) {
 			    // skip loop if the property is from prototype
@@ -71,14 +81,6 @@ class PlayerInput extends Component {
 			}
 		}
 
-		this.playerInput.reset();
-		// this.teamInput.reset();
-
-		this.setState({
-			playerName: null,
-			playerCost: '',
-			playerTeam: null
-		})
 	}
 
 	setCost (cost) {

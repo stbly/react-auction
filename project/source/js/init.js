@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import App from './containers/App'
 import Players from './containers/Players'
 import Settings from './containers/Settings'
+import Teams from './containers/Teams'
 import Planner from './containers/Planner'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
@@ -34,6 +35,7 @@ dispatch( fetchSettings() )
 					<Route name='app' path="/" component={App}>
 						<Route path='players' component={Players} />
 						<Route path='settings' component={Settings} />
+						<Route path='teams' component={Teams} />
 						<Route path='planner' component={Planner} />
 					</Route>
 				</Router>

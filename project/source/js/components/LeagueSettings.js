@@ -9,7 +9,7 @@ import {
 	createPositionSettings } from '../helpers/constants/settings'
 
 import InputToggle from './InputToggle'
-import Settings from './Settings'
+import SettingsInputs from './SettingsInputs'
 
 import '../../stylesheets/components/league-settings.scss'
 
@@ -37,7 +37,23 @@ class LeagueSettings extends Component {
 		const minPitchers = this.getMinimumDraftedPlayersOfType('pitcher')
 
 		return Math.ceil((minPitchers + minBatters) / numTeams)
-	}*/
+	}
+	*/
+
+	settingWasChanged (setting, value) {
+		const { changeSetting } = this.props
+
+		if ( changeSetting ) {
+			changeSetting(setting, value)
+		}
+	}
+
+	leagueNameWasChanged (name) {
+		const { changeLeagueName } = this.props
+		if ( changeLeagueName ) {
+			changeLeagueName(name)
+		}
+	}
 
 	getMinimumPlayersPerTeamOfType (type) {
 		const { numTeams } = this.props.settings
@@ -81,26 +97,28 @@ class LeagueSettings extends Component {
 		return settingMaxs[setting] || 999
 	}
 
-
 	render() {
-		const { name, settings, changeLeagueName } = this.props
+		const { name, settings } = this.props
 		const { numTeams, teamSalary } = settings
 
 		return (
 			<div className='league-settings'>
 
 				<h1 className='league-name'>
-					<InputToggle value={name} type='text' valueDidChange={changeLeagueName} />
+					<InputToggle 
+						value={name} 
+						type='text' 
+						placeholder='League Name' 
+						valueDidChange={this.leagueNameWasChanged.bind(this)} />
 				</h1>
 				{ this.renderTeamSettingsSection() }
 				{ this.renderPositionSettingsSection() }
-
 			</div>
 		)
 	}
 
 	renderTeamSettingsSection () {
-		const { settings, changeSetting } = this.props
+		const { settings } = this.props
 		if (!settings) return
 
 		const teamSettings = createTeamSettings(settings)
@@ -108,7 +126,7 @@ class LeagueSettings extends Component {
 		return (
 			<section className='team-settings'>
 				<h2>Team Settings</h2>	
-				<Settings settings={teamSettings} onChange={changeSetting} />
+				<SettingsInputs settings={teamSettings} onChange={this.settingWasChanged.bind(this)} />
 			</section>
 		)
 	}
@@ -132,18 +150,15 @@ class LeagueSettings extends Component {
 	}
 
 	renderPositionSettings (type, positionSettingsObject) {
-		const { changeSetting } = this.props
 		const positionSettings = createPositionSettings(type, positionSettingsObject)
 
 		return (
 			<div key={type} className='position-settings'>
 				<h2>{type} Settings</h2>	
-				<Settings settings={positionSettings} onChange={changeSetting} />
+				<SettingsInputs settings={positionSettings} onChange={this.settingWasChanged.bind(this)} />
 			</div>
 		)
 	}
-
-
 
 }
 
@@ -151,8 +166,7 @@ LeagueSettings.propTypes = {
     settings: PropTypes.object.isRequired,
     name: PropTypes.string,
     changeSetting: PropTypes.func,
-    changeLeagueName: PropTypes.func,
-    teams: PropTypes.object,
+    changeLeagueName: PropTypes.func
 }
 
 export default LeagueSettings

@@ -30,7 +30,6 @@ class FavoritePlayerListsContainer extends Component {
 	}
 
 	shouldComponentUpdate (nextProps, nextState) {
-		console.log('trying to update FavoritePlayerLists')
 		var stringifiedNextProps = JSON.stringify(nextProps)
 		var stringifiedProps = JSON.stringify(this.props)
 		return (stringifiedNextProps != stringifiedProps)

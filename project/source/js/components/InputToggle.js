@@ -28,7 +28,6 @@ class InputToggle extends Input {
 
 			if (nextProps.currentEditElement === this) {
 				showValue = this.state.isEditing ? false : showValue;
-				console.log(this.state.isEditing)
 			}
 
 			this.setState({showValue: showValue});
@@ -62,8 +61,9 @@ class InputToggle extends Input {
 	}
 
 	render () {
-		const classes = classNames('input-toggle', {'showing-input': this.state.isEditing})
-		const element = this.state.showValue ? this.renderValueDisplay() : this.renderValueInput()
+		const { disabled } = this.props;
+		const classes = classNames('input-toggle', {'showing-input': this.state.isEditing && !disabled}, {'is-disabled': disabled})
+		const element = (!this.state.showValue && !disabled) ? this.renderValueInput() : this.renderValueDisplay()
 		return (
 			<span className={classes}>
 				{element}
@@ -72,8 +72,8 @@ class InputToggle extends Input {
 	}
 
 	renderValueDisplay () {
-		const { className } = this.props
-		const classes = classNames(className, 'value-display',)
+		const { className, disabled } = this.props
+		const classes = classNames(className, 'value-display')
 		return (
 			<span
 				className={classes}

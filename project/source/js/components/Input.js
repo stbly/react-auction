@@ -75,6 +75,9 @@ class Input extends Component {
 
 	handleBlur (e) {
 		this.attemptChangeValue(e)
+		if (this.props.handleBlur) {
+			this.props.handleBlur(e)
+		}
 	}
 
 	attemptChangeValue(e) {
@@ -191,21 +194,21 @@ class Input extends Component {
 }
 
 Input.propTypes = {
-	value: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.number
+	value: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number
 	]),
-	classNames: React.PropTypes.string,
-	type: React.PropTypes.string,
-	step: React.PropTypes.number,
-	min: React.PropTypes.number,
-	max: React.PropTypes.number,
-	placeholder: React.PropTypes.string,
-	didStartEditing: React.PropTypes.func,
-	didStopEditing: React.PropTypes.func,
-	valueDidChange: React.PropTypes.func,
-	valueDidUpdate: React.PropTypes.func,
-	keyWasPressed: React.PropTypes.func
+	classNames: PropTypes.string,
+	type: PropTypes.string,
+	step: PropTypes.number,
+	min: PropTypes.number,
+	max: PropTypes.number,
+	placeholder: PropTypes.string,
+	didStartEditing: PropTypes.func,
+	didStopEditing: PropTypes.func,
+	valueDidChange: PropTypes.func,
+	valueDidUpdate: PropTypes.func,
+	keyWasPressed: PropTypes.func
 }
 
 export default Input;

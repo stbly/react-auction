@@ -94,7 +94,11 @@ const fetchOfflineSettingData = () => {
 const fetchDefaultSettings = () => {
 	return (dispatch, getState) => {
 		return dispatch( getSettings('/defaults/settings') ) // Load default player data
-			.then( settings => scrubSettingsData(settings) )
+			.then( settings => {
+				const scrubbedSettings = scrubSettingsData(settings)
+				dispatch( receiveDefaultSettings(scrubbedSettings) )
+				return scrubbedSettings
+			})
 	}
 }
 
@@ -119,6 +123,7 @@ const fetchUserSettings = () => {
 export const INVALIDATE_SETTINGS = 'settings/INVALIDATE_SETTINGS'
 export const REQUEST_SETTINGS = 'settings/REQUEST_SETTINGS'
 export const RECEIVE_SETTINGS = 'settings/RECEIVE_SETTINGS'
+export const RECEIVE_DEFAULT_SETTINGS = 'settings/RECEIVE_DEFAULT_SETTINGS'
 export const UPDATE_SETTING = 'settings/UPDATE_SETTING'
 
 export const changeSetting = (setting, value) => {
@@ -146,6 +151,10 @@ export const receiveSettings  = (settings) => {
 	return { type: RECEIVE_SETTINGS, payload: {settings} }
 }
 
+export const receiveDefaultSettings  = (settings) => {
+	return { type: RECEIVE_DEFAULT_SETTINGS, payload: {settings} }
+}
+
 export const updateSetting  = (setting, value) => {
 	return { type: UPDATE_SETTING, payload: {setting, value}}
 }
@@ -167,8 +176,7 @@ const reducer = (state = initialState, action) => {
 
 		case LOAD_SETTINGS_SUCCESS:
 			return Object.assign({}, state, {
-				fetching: false,
-				forceReload: false
+				fetching: false
 			});
 
 		case LOAD_SETTINGS_ERROR:
@@ -177,12 +185,16 @@ const reducer = (state = initialState, action) => {
 				didInvalidate: true
 			});
 
-
 		case RECEIVE_SETTINGS:
 			return Object.assign({}, state, {
 				fetching: false,
 				didInvalidate: false,
 				data: action.payload.settings
+			});
+
+		case RECEIVE_DEFAULT_SETTINGS:
+			return Object.assign({}, state, {
+				defaults: action.payload.settings
 			});
 		
 		case UPDATE_SETTING:

@@ -7,6 +7,12 @@
 	<body>
 		<div id="root" class="app">
         </div>
+		<script src="https://code.jquery.com/qunit/qunit-2.0.1.js"></script>
+		<script>
+			QUnit.log(function( details ) {
+			   console.log( "QUnit Log: ", details.result, details.message );
+			});
+		</script>
 		<script src="/static/js/bundle.js"></script>
 	</body>
 </html>
