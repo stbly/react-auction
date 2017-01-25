@@ -4,7 +4,7 @@ import firebase from 'firebase'
 import { firebaseRef } from '../middleware/firebase'
 import {
 	fetchPlayers,
-	forceLoadPlayers,
+	// forceLoadPlayers,
 	unsynthesizePlayers } from './players'
 
 import {
@@ -80,21 +80,19 @@ export const attemptLogout = () => {
 
 export const loginUser = (uid, username) => {
 	return (dispatch,getState) => {
-
 		dispatch( unsynthesizePlayers() )
 		dispatch( userLoggedIn(uid, username) )
-		dispatch( fetchLeagues () )
-		return dispatch( fetchPlayers() )
+		return dispatch( fetchLeagues () )
 	}
 }
 
 export const logoutUser = () => {
 	return (dispatch,getState) => {
 
-		dispatch( forceLoadPlayers() )
+		// dispatch( forceLoadPlayers() )
 		dispatch( userLoggedOut() )
-		dispatch( fetchLeagues () )
-		return dispatch( fetchPlayers() )
+		return dispatch( fetchLeagues () )
+		// return dispatch( fetchPlayers() )
 	}
 }
 

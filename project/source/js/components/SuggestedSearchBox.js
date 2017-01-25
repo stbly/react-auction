@@ -57,7 +57,6 @@ class SuggestedSearchBox extends Component {
 					var selectionValue = queryProperty ? selection[queryProperty].toLowerCase() : selection.toLowerCase();
 					var eachWord = selectionValue.split(' '),
 						valueMatch;
-					// console.log(selectionValue)
 
 					for(var i=0; i<eachWord.length; i++) {
 						if (eachWord[i].indexOf(searchValueString) === 0 || selectionValue.indexOf(searchValueString) === 0) {
@@ -68,7 +67,6 @@ class SuggestedSearchBox extends Component {
 					var valueAlreadyChosen,	valueAlreadyChosenException;
 
 					if (!_this.props.inclusive) {
-						valueAlreadyChosen = playerIsDrafted(selection)
 						var currentSelection = _this.props.value;
 						valueAlreadyChosenException = currentSelection ? (selectionValue === _this.props.value.toLowerCase()) : false;
 					}
@@ -92,7 +90,6 @@ class SuggestedSearchBox extends Component {
 					matchingValues = null;
 				}
 			}
-
 		return matchingValues;
 	}
 

@@ -90,6 +90,11 @@
 					background: $color-batter-input-hover;
 				}
 			}
+			&.no-value {
+				span {
+					display: none;
+				}
+			}
 		}
 
 		&.selected {

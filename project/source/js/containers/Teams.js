@@ -8,7 +8,9 @@ import * as playerActions from '../redux/modules/players'
 import * as teamActions from '../redux/modules/teams'
 
 import Team from '../components/Team'
+import TeamPlanner from '../components/TeamPlanner'
 import PlayerInput from '../components/PlayerInput'
+import ValueSubValueDisplay from '../components/ValueSubValueDisplay'
 
 import classNames from 'classnames';
 
@@ -39,7 +41,7 @@ class Teams extends Component {
 
 		const useablePlayers = playerIds.filter( id => {
 			// const draftable = players[id].value
-			const drafted = players[id].cost
+			const drafted = players[id].owner
 			return /*draftable &&*/ !drafted
 		})
 
@@ -53,6 +55,23 @@ class Teams extends Component {
 		})
 	}
 
+	addPlayer (playerId, playerCost) {
+		const { draftPlayer } = this.props.playerActions
+		const { activeTeam } = this.state
+		draftPlayer(playerId, playerCost, activeTeam)
+	}
+	
+	removeAllPlayers (teamId) {
+		const players = this.props.teams[teamId].players;
+		if (!players) return;
+
+		const { undraftPlayer } = this.props.playerActions
+
+		players.forEach( playerId => {
+			undraftPlayer(playerId, teamId)
+		})
+	}
+
 	render() {
 		const { uid } = this.props.user
 
@@ -62,15 +81,9 @@ class Teams extends Component {
 			</div>
 		)
 	}
-
-	addPlayer (playerId, playerCost) {
-		const { draftPlayer } = this.props.playerActions
-		const { activeTeam } = this.state
-		draftPlayer(playerId, playerCost, activeTeam)
-	}
-
 	renderTeams () {
-		const { teamActions, teams } = this.props
+		const { teamActions, leagues, teams } = this.props
+
 		return (			
 			<div>
 				<section className='section-with-sidebar'>
@@ -86,7 +99,10 @@ class Teams extends Component {
 							searchableTeams={teams}
 							playerEntered={this.addPlayer.bind(this)} />
 
-						{ this.renderLeagueTeams() }
+						<div class='team-info'>
+							{ teams && this.state.activeTeam && this.renderBudgetInfo( this.state.activeTeam ) }
+							{ teams && this.state.activeTeam && this.renderRoster( this.state.activeTeam ) }
+						</div>
 					</div>
 				</section>
 				
@@ -112,25 +128,51 @@ class Teams extends Component {
 		})
 	}
 
-	renderLeagueTeams () {
-		const { leagues, teams } = this.props
-		if (!teams || !this.state.activeTeam) return
+	renderBudgetInfo (id) {
+		// const { changeTeamName, removeAllPlayers } = this.props.teamActions
+		// const { undraftPlayer } = this.props.playerActions
+		// const { settings } = this.props
+		// const { positionData, teamSalary } = settings
+		// const team = this.props.teams[id]
+		// const { players, name } = team
+		
+		// const teamPlayers = players ? this.getPlayersFromIds( players ) : null
 
-		return this.renderTeam( this.state.activeTeam )
+		// const undraftPlayerFromTeam = (playerId) => {
+		// 	undraftPlayer(playerId, id)
+		// } 
+
+		return <ValueSubValueDisplay 
+			value={270} 
+			heading='Remaining Budget' 
+			subValue='52'
+			subValueHeading='Max Bid'
+			valueIsDollarAmount={true} 
+			subValueIsDollarAmount={true} />
 	}
 
-	renderTeam (id) {
-		const { changeTeamName } = this.props.teamActions
-		const { positionData } = this.props
+	renderRoster (id) {
+		const { changeTeamName, removeAllPlayers } = this.props.teamActions
+		const { undraftPlayer } = this.props.playerActions
+		const { settings } = this.props
+		const { positionData, teamSalary } = settings
 		const team = this.props.teams[id]
 		const { players, name } = team
-
+		
 		const teamPlayers = players ? this.getPlayersFromIds( players ) : null
-		const onChangeTeamName = function (name) {
-			changeTeamName(id, name)
-		}
 
-		return <Team name={name} players={teamPlayers} positionData={positionData} onChangeTeamName={onChangeTeamName}/>
+		const undraftPlayerFromTeam = (playerId) => {
+			undraftPlayer(playerId, id)
+		} 
+
+		return <TeamPlanner
+			name={name} 
+			players={teamPlayers}
+			positionData={positionData}
+			teamSalary={teamSalary}
+			onChangeTeamName={changeTeamName.bind(this, id)}
+			onResetPlayers={this.removeAllPlayers.bind(this, id)}
+			undraftPlayer={undraftPlayerFromTeam}/>
 	}
 
 	getPlayersFromIds (ids) {
@@ -157,14 +199,14 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps (state,ownProps) {
-	const { teams, user, leagues, players } = state
+	const { teams, user, leagues, players, settings } = state
 	const { activeLeague } = leagues
 
 	return {
 		activeLeague,
 		user,
+		settings: settings.data,
 		players: players.data,
-		positionData: state.settings.data.positionData,
 		teams: teams.data
 	};
 }

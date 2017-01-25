@@ -1,5 +1,5 @@
 import * as SettingsUtils from '../../helpers/SettingsUtils'
-import { defaultSettings } from '../../helpers/constants.js'
+import { defaultSettings } from '../../helpers/constants/defaultSettings'
 import { 
 	mergeDeep,
 	endpointToObject } from '../../helpers/dataUtils'
@@ -51,7 +51,7 @@ export const getSettings = (endpoint) => {
 export const fetchSettings = (forceFetch=false) => {
 	return (dispatch, getState) => {
 		const state = getState()
-		const debug = false
+		const debug = !navigator.onLine //true
 
 		if (debug) {
 			return dispatch( fetchOfflineSettingData() )

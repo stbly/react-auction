@@ -4,11 +4,14 @@ var express = require('express')
 var webpack = require('webpack')
 var webpackDevMiddleware = require('webpack-dev-middleware')
 var webpackHotMiddleware = require('webpack-hot-middleware')
-var config = require('./webpack.config')
+var config = require('./webpack.dev.config')
 var fs = require('fs');
+var morgan = require('morgan')
 
 var app = express()
 var compiler = webpack(config)
+
+app.use(morgan('combined'))
 
 var PLAYERS_FILE = path.join(__dirname, '/data/players.json');
 
@@ -22,7 +25,16 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler))
 
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+
 app.use(express.static(__dirname))
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, '/index.html'))
+})
 
 app.get('/api/players', function(req, res) {
 	console.log('server.js', res);
@@ -33,10 +45,6 @@ app.get('/api/players', function(req, res) {
 		}
 		res.json(JSON.parse(data));
 	});
-})
-
-app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, '/index.html'))
 })
 
 var PORT = process.env.PORT || 8080

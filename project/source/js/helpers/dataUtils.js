@@ -1,3 +1,5 @@
+import { arrayCheck } from './arrayUtils'
+
 /**
  * Code via Salakar on Stack Overflow http://stackoverflow.com/a/34749873
  */
@@ -6,18 +8,25 @@ const isObject = (item) => {
 	return (item && typeof item === 'object' && !Array.isArray(item));
 }
 
-export const mergeDeep = (target, source) => { 
-	if (isObject(target) && isObject(source)) {
-		for (const key in source) {
-			if (isObject(source[key])) {
-				if (!target[key]) Object.assign(target, { [key]: {} });
-				mergeDeep(target[key], source[key]);
-			} else {
-				Object.assign(target, { [key]: source[key] });
+export const mergeDeep = (...params) => { 
+	const returnVal = params.reduce( (source, target) => {
+		if (arrayCheck(source)) source = Array.toObject(source)
+		if (arrayCheck(target)) target = Array.toObject(target)
+
+		if (isObject(source) && isObject(source)) {
+			for (const key in target) {
+				if (isObject(target[key])) {
+					if (!source[key]) Object.assign(source, { [key]: {} });
+					mergeDeep(source[key], target[key]);
+				} else {
+					Object.assign(source, { [key]: target[key] });
+				}
 			}
 		}
-	}
-	return target;
+		return source;
+	})
+	
+	return returnVal
 }
 
 export const cleanObject = (target, source) => {

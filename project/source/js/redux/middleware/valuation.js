@@ -1,6 +1,7 @@
 import {
 	receivePlayers,
-	RECEIVE_PLAYERS } from '../modules/players'
+	RECEIVE_PLAYERS,
+	fetchPlayers } from '../modules/players'
 
 import {
 	RECEIVE_SETTINGS } from '../modules/settings'
@@ -28,9 +29,9 @@ const computeAllPlayerValues = (players, settings) => {
 		const dollarsToSpend = totalMoneyInPool * (budgetPercentage / 100)
 		const playersWithSGPCalculated = calculateSGPFor(playersOfType, categoriesArray, rosterSpots)
 		const normalizedPositions = normalizePositions(positionsArray, numTeams)
-
 		return assignPlayerValues(playersWithSGPCalculated, playersToDraft, dollarsToSpend, normalizedPositions)
 	})
+	
 	const combinedPlayers = Array.concat.apply([],valuedPlayers)
 	return Array.toObject(combinedPlayers)
 }
@@ -55,12 +56,15 @@ const valuationMiddlware = ({ dispatch, getState }) => {
 					action.payload.players = computeAllPlayerValues(players, state.settings.data)
 				}
 				break
+
 			case RECEIVE_SETTINGS:
-				const statePlayers = state.players.data
+				const { fetching } = state.players
+				const playerData = state.players.data
 				const settings = action.payload.settings
-				if (statePlayers && state.settings.didInvalidate) {
+
+				if (players && state.settings.didInvalidate) {
 					console.log('settings changed, recomputing player values')
-					dispatch( receivePlayers( computeAllPlayerValues(statePlayers, settings) ))
+					dispatch( receivePlayers( computeAllPlayerValues(playerData, settings) ))
 				}
 				break
 		}

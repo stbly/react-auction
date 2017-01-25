@@ -1,7 +1,10 @@
 import fetch from 'isomorphic-fetch'
-import { defaultPlayers } from '../../helpers/constants.js'
-import { mergeDeep } from '../../helpers/dataUtils.js'
-import { addPlayerToTeam } from './teams'
+import { defaultPlayers } from '../../helpers/constants/defaultPlayers'
+import { mergeDeep } from '../../helpers/dataUtils'
+import { arrayCheck } from '../../helpers/arrayUtils'
+import { 
+	addPlayerToTeam,
+	removePlayerFromTeam } from './teams'
 
 const LOAD_PLAYERS_REQUEST = 'players/LOAD_PLAYERS_REQUEST'
 const LOAD_PLAYERS_SUCCESS = 'players/LOAD_PLAYERS_SUCCESS'
@@ -15,13 +18,12 @@ const UPDATE_PLAYER_NOTES = 'players/UPDATE_PLAYER_NOTES'
 const UPDATE_ACTIVE_PLAYER = 'players/UPDATE_ACTIVE_PLAYER'
 const UPDATE_PLAYER_COST = 'players/UPDATE_PLAYER_COST'
 const UPDATE_PLAYER_STAT = 'players/UPDATE_PLAYER_STAT'
+const UPDATE_PLAYER_OWNER = 'players/UPDATE_PLAYER_OWNER'
 
 
 let initialState = {
 	fetching: false,
 	didInvalidate: true,
-	didUnsynthesize: false,
-	forceReload: false,
 	data: null,
 	activePlayerId: null
 }
@@ -41,8 +43,12 @@ const scrubPlayerData = (players) => {
 							newStats[stat] = val
 						}
 					}
-
+					
 					players[id].stats = newStats
+					if (!players[id].positions || players[id].positions.length === 0) {
+						players[id].positions = ['OF']
+					}
+
 				}
 			}
 		}
@@ -83,23 +89,36 @@ export const getPlayers = (endpoint) => {
 	}
 }
 
-export const fetchPlayers = () => {
+export const fetchPlayers = (forceFetch = false) => {
 	return (dispatch, getState) => {
 		const state = getState()
 		const { didInvalidate } = state.players
-		const debug = false //!navigator.onLine //true
+		const debug = !navigator.onLine //true
 
 		if (debug) {
 			return dispatch( fetchOfflinePlayerData() )
 		}
 
-		return dispatch( fetchDefaultPlayers() )
-			.then( players => dispatch( fetchUserPlayers() )
-				.then( userPlayers => {
-					const defaultPlayers = players || state.players.data
-					const synthesizedPlayers = mergeDeep(defaultPlayers, userPlayers)
-					return dispatch(receivePlayers(synthesizedPlayers))
-				}
+		if (forceFetch) {
+			dispatch( unsynthesizePlayers() )
+		}
+
+		const { uid } = state.user
+		const { activeLeague } = state.leagues
+
+		const defaultPlayerPath = '/defaults/players'
+		const userPlayerPath = uid ? '/users/' + uid + '/players/' : null
+		const leaguePlayerPath = (uid && activeLeague) ? '/users/' + uid + '/leagues/' + activeLeague.id + '/players/' : null
+
+		return dispatch( fetchPlayersAtPath(defaultPlayerPath) )
+			.then( players => dispatch( fetchPlayersAtPath(userPlayerPath) )
+				.then( userPlayers => dispatch( fetchPlayersAtPath(leaguePlayerPath) )
+					.then( leaguePlayers => {
+						const defaultPlayers = players || state.players.data
+						const synthesizedPlayers = mergeDeep(defaultPlayers, userPlayers, leaguePlayers)
+						return dispatch(receivePlayers(synthesizedPlayers))
+					}
+				)
 			)
 	    )
 	}
@@ -113,13 +132,15 @@ const fetchOfflinePlayerData = () => {
 	}
 }
 
-const fetchDefaultPlayers = () => {
+const fetchPlayersAtPath = (path) => {
 	return (dispatch, getState) => {
 		const state = getState()
-		const { data, fetching, forceReload } = state.players
-		const shouldFetchPlayers = ((!data || forceReload) && !fetching)
+		const { fetching, didInvalidate } = state.players
+
+		const shouldFetchPlayers = path && (didInvalidate && !fetching)
+
 		if (shouldFetchPlayers) {
-			return dispatch( getPlayers('/defaults/players') ) // Load default player data
+			return dispatch( getPlayers(path) ) // Load default player data
 				.then( players => scrubPlayerData(players) )
 		} else {
 			return Promise.resolve()
@@ -127,19 +148,11 @@ const fetchDefaultPlayers = () => {
 	}
 }
 
-const fetchUserPlayers = () => {
-	return (dispatch, getState) => {
-		const state = getState()
-		const { uid, didInvalidate } = state.user
-		const { fetching, didUnsynthesize } = state.players
-		const shouldFetchUserPlayers = (uid && didUnsynthesize && !fetching)
-		// console.log('FETCH USER PLAYERS?',uid, didUnsynthesize, fetching)
-		if (shouldFetchUserPlayers) {
-			return dispatch ( getPlayers('/users/' + uid + '/players') ) // Get Player Data
-				.then( userPlayers => userPlayers )
-		} else {
-			return Promise.resolve()
-		}
+const formatPlayers = (players) => {
+	if (arrayCheck(players)) {
+		return Array.toObject(players)	
+	} else {
+		return players
 	}
 }
 
@@ -162,7 +175,19 @@ export const changePlayerCost = (id, cost) => {
 export const draftPlayer = (id, cost, teamId) => {
 	return (dispatch, getState) => {
 		dispatch( updatePlayerCost(id, cost) )
+		dispatch( updatePlayerOwner(id, teamId) )
 		dispatch( addPlayerToTeam(id, teamId) )
+		const players = getState().players.data
+		return dispatch( receivePlayers(players) )
+	}
+}
+
+export const undraftPlayer = (id, teamId) => {
+	return (dispatch, getState) => {
+		console.log(id, teamId)
+		dispatch( updatePlayerCost(id, null) )
+		dispatch( updatePlayerOwner(id, null) )
+		dispatch( removePlayerFromTeam(id, teamId) )
 		const players = getState().players.data
 		return dispatch( receivePlayers(players) )
 	}
@@ -178,15 +203,6 @@ export const invalidatePlayers = () => {
 
 export const unsynthesizePlayers = () => {
 	return { type: UNSYNTHESIZE_PLAYERS }
-}
-
-export const loadPlayersRequest = () => {
-	return { type: loadPlayersRequest }
-}
-
-// TO DO: see if we can remove this by just adding a forceReload parameter to fetchPlayers
-export const forceLoadPlayers = () => {
-	return { type: FORCE_LOAD_PLAYERS }
 }
 
 export const updatePlayerFavorited = (id) => {
@@ -209,6 +225,10 @@ export const updatePlayerCost = (id, cost) => {
 	return { type: UPDATE_PLAYER_COST, payload: {id, cost} }
 }
 
+export const updatePlayerOwner = (id, team) => {
+	return { type: UPDATE_PLAYER_OWNER, payload: {id, team} }
+}
+
 const reducer = (state = initialState, action) => {
 
 	const { payload } = action
@@ -220,14 +240,9 @@ const reducer = (state = initialState, action) => {
 				didInvalidate: true
 			});
 
-		case FORCE_LOAD_PLAYERS:
-			return Object.assign({}, state, {
-				forceReload: true
-			})
-
 		case UNSYNTHESIZE_PLAYERS:
 			return Object.assign({}, state, {
-				didUnsynthesize: true
+				didInvalidate: true
 			});
 
 		case LOAD_PLAYERS_REQUEST:
@@ -238,8 +253,7 @@ const reducer = (state = initialState, action) => {
 
 		case LOAD_PLAYERS_SUCCESS:
 			return Object.assign({}, state, {
-				fetching: false,
-				forceReload: false
+				fetching: false
 			});
 
 		case LOAD_PLAYERS_ERROR:
@@ -252,7 +266,6 @@ const reducer = (state = initialState, action) => {
 			return Object.assign({}, state, {
 				fetching: false,
 				didInvalidate: false,
-				didUnsynthesize: false,
 				data: players
 				// playerLists: returnPlayerLists( action.players )
 			});
@@ -290,6 +303,16 @@ const reducer = (state = initialState, action) => {
 				})
 			})
 
+		case UPDATE_PLAYER_OWNER:
+			return Object.assign({}, state, {
+				didInvalidate: true,
+				data: Object.assign({}, state.data, {
+					[id]: Object.assign({}, state.data[id], {
+						owner: team
+					})
+				})
+			})
+
 		case UPDATE_PLAYER_STAT:
 			return Object.assign({}, state, {
 				didInvalidate: true,
@@ -316,5 +339,6 @@ export {
 	UPDATE_PLAYER_NOTES,
 	UPDATE_ACTIVE_PLAYER,
 	UPDATE_PLAYER_COST,
-	UPDATE_PLAYER_STAT
+	UPDATE_PLAYER_STAT,
+	UPDATE_PLAYER_OWNER
 }

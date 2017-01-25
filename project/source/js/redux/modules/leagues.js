@@ -8,6 +8,12 @@
 
 import fetch from 'isomorphic-fetch'
 
+import { defaultLeagues } from '../../helpers/constants/defaultLeagues'
+
+import {
+	fetchPlayers,
+	unsynthesizePlayers } from './players'
+
 const LOAD_LEAGUES_REQUEST = 'leagues/LOAD_LEAGUES_REQUEST'
 const LOAD_LEAGUES_SUCCESS = 'leagues/LOAD_LEAGUES_SUCCESS'
 const LOAD_LEAGUES_ERROR = 'leagues/LOAD_LEAGUES_ERROR'
@@ -66,6 +72,12 @@ export const getLeagues = (endpoint) => {
 export const fetchLeagues = () => {
 	return (dispatch, getState) => {
 
+		const debug = !navigator.onLine //true
+
+		if (debug) {
+			return dispatch( fetchOfflineLeagueData() )
+		}
+
 		return dispatch( fetchUserLeagues() )
 			.then( userLeagues => {
 				if (!userLeagues) return
@@ -76,12 +88,23 @@ export const fetchLeagues = () => {
 				})
 
 				const defaultLeagueId = Object.keys(leagueInfo)[0]
-
 				dispatch( receiveLeagues(leagueInfo) )
 				return dispatch( changeActiveLeague( defaultLeagueId ))
 			}
 		)
+	}
+}
 
+const fetchOfflineLeagueData = () => {
+	return (dispatch, getState) => {
+
+		let leagueInfo = {}
+		Object.keys(defaultLeagues).forEach( id => {
+			leagueInfo[id] = defaultLeagues[id].name
+		})
+		dispatch( receiveLeagues(leagueInfo) )
+		const defaultLeagueId = Object.keys(defaultLeagues)[0]
+		return dispatch( changeActiveLeague( defaultLeagueId ))
 	}
 }
 
@@ -90,7 +113,7 @@ const fetchUserLeagues = () => {
 		const state = getState()
 
 		const { uid, didInvalidate } = state.user
-		
+
 		const { fetching, didUnsynthesize } = state.leagues
 		const shouldFetchUserLeagues = (uid && didUnsynthesize && !fetching)
 		if (shouldFetchUserLeagues) {
@@ -105,6 +128,7 @@ const fetchUserLeagues = () => {
 export const changeActiveLeague = (id) => {
 	return (dispatch, getState) => {
 		dispatch( updateActiveLeague(id) )
+		dispatch( fetchPlayers(true) )
 		dispatch( fetchTeams() )
 		return dispatch( fetchSettings(true) )
 	}

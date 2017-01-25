@@ -112,6 +112,7 @@ class PlayerInput extends Component {
 
 	render () {
 		const costContainerClasses = classNames('cost-container',{'is-editing':this.state.isEditingCost});
+
 		return (
 			<div className='player-input'>
 				<form onSubmit={this.handleSubmit.bind(this)}>

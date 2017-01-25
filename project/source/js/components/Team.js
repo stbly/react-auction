@@ -32,8 +32,9 @@ class Team extends Component {
 	}
 
 	render() {
-		const { name, players, onChangeTeamName } = this.props
+		const { name, players, onChangeTeamName, onResetPlayers } = this.props
 		const classes = classNames('team', 'team-' + name)
+		
 		return (
 			<div className={classes}>
 				<div className='team-name'>
@@ -42,6 +43,7 @@ class Team extends Component {
 				<div>
 					{ players ? this.renderPlayers() : null}
 				</div>
+				<button onClick={onResetPlayers}>Reset All Players</button>
 			</div>
 		)
 	}
@@ -151,7 +153,8 @@ Team.propTypes = {
 	name: PropTypes.string.isRequired,
 	players: PropTypes.array,
 	positionData: PropTypes.object,
-	onChangeTeamName: PropTypes.func
+	onChangeTeamName: PropTypes.func,
+	onResetPlayers: PropTypes.func
 }
 
 export default Team

@@ -82,6 +82,7 @@ export const assignPlayerValues = (players, playersToDraft, dollarsToSpend, posi
 	const valuedPlayers = assignValuesFor(playersAboveReplacement, sgpGroups, pricePerSgp);
 
 	const totalPlayerValue = valuedPlayers.map( player => player.value ).reduce( combineValues )
+
 	const playersAlreadyDrafted = valuedPlayers.filter( player => player.cost )
 
 	const draftedPlayerValue = playersAlreadyDrafted.map( player => player.value ).reduce( combineValues, 0 )
@@ -103,10 +104,9 @@ export const assignPlayerValues = (players, playersToDraft, dollarsToSpend, posi
 	}).reduce( (prev, next) => prev+next) )
 	*/
 
-	const combinedPlayers = [].concat(
-		rankPlayers(playersWithInflationValue,'adjustedValue'), 
-		rankPlayers(playersBelowReplacement,'sgp')
-	)
+	const belowReplacementPlayerValues = assignValuesFor(playersBelowReplacement, sgpGroups, pricePerSgp, inflationRate)
+
+	const combinedPlayers = rankPlayers([...playersWithInflationValue, ...belowReplacementPlayerValues],'adjustedValue');
 
 	return combinedPlayers;
 }

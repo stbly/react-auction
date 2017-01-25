@@ -1,6 +1,5 @@
 export const combineValues = (a, b) => a + b
 
-
 export const arrayCheck = array => {
 	return (Object.prototype.toString.call( array ) === '[object Array]')
 }
@@ -143,4 +142,142 @@ export const sortBy = (sortParam, reverse=false/*, byBoolean=false*/) => {
 		})
 
 	}*/
+}
+
+export const distributeValues = (amount, weights=[]) => {
+	const distributedAmounts = []
+	let totalWeights = weights.reduce( (a,b) => a + b)
+	
+	weights.forEach( weight => {
+		const weightValue = parseFloat(weight)
+		const percentage = weightValue / totalWeights
+		const distributedAmount = Math.round(percentage * amount)
+		distributedAmounts.push(distributedAmount)
+		totalWeights -= weightValue
+		amount -= distributedAmount
+	})
+
+	return distributedAmounts
+}
+
+// export const getDistributions = (amount, min, max, setLength) => {
+
+// 	if((max + max - setLength + 1) * setLength / 2 < amount) return null;
+//     if((min + min + setLength - 1) * setLength / 2 > amount) return null;
+//     const set = [];
+
+//     let val = min
+//     for (let i = 0; i < setLength; i++) {
+//         set[i] = val++;
+//     }
+
+//     let sum = (min + val - 1) * setLength / 2;
+//     let dev = amount - sum;
+//     if (dev) {
+//         let adj = dev / setLength;
+//         if(dev % setLength) adj++;
+//         for(let i = setLength -1; dev; i--)
+//         {
+// 	        console.log(i, adj)
+//             if(adj > dev) adj = dev;
+//             set[i] += adj;
+//             dev -= adj;
+//         }
+//     }
+
+//     console.log(amount)
+//     console.log(set.reduce((a,b)))
+//     return set;
+// }
+
+export const redistributeValuesToEqual = (values=[], amount, indecesToIgnore=[]) => {
+
+	let iterator = 0
+	let newValues = values.slice()
+
+	let totalAssignedValue = newValues.reduce((a,b) => a+b);
+
+	const lastIndex = (newValues.length - 1);
+	const getIndex = (iterator) => {
+		return iterator > lastIndex ? iterator % lastIndex : iterator
+	}
+
+	const surplus = totalAssignedValue - amount;
+	if (surplus > 0) {
+		const usableValues = values.filter( (value, index) => {
+			console.log(indecesToIgnore, index, indecesToIgnore.indexOf(index))
+			return indecesToIgnore.indexOf(index) === -1
+		})
+		let minValue = 0
+		for (var i = 0; i < usableValues.length; i++) {
+			minValue++
+		}
+			console.log(surplus, minValue)
+
+		console.log(totalAssignedValue, minValue,amount)
+		console.log( (totalAssignedValue - minValue) > amount )
+
+		if ((totalAssignedValue - minValue) > (amount - surplus)) {
+			// throw new Error('Cannot redistribute values: minimum values would be less than 0');
+		}
+	}
+
+	while (totalAssignedValue > amount) {
+		iterator = getIndex(iterator)
+		if (indecesToIgnore.indexOf(iterator) < 0 && newValues[iterator] > 1) {
+			newValues[iterator]--
+		}
+		iterator ++
+		totalAssignedValue = newValues.reduce((a,b) => a+b);
+	}
+	while (totalAssignedValue < amount) {
+		iterator = getIndex(iterator)
+		if (indecesToIgnore.indexOf(iterator) < 0) {
+			newValues[iterator]++
+		}
+		iterator ++
+		totalAssignedValue = newValues.reduce((a,b) => a+b);
+	}
+
+	console.log('oldValues:',values);
+	console.log('newValues:',newValues)
+
+	return newValues
+}
+
+export const getDistributions = (amount, distributions, modifier, indecesToIgnore=[], forcedValues=[]) => {
+	const values = []
+	let amountLeft = amount;
+	
+	const forcedValueIndexes = forcedValues.map( item => item.index )
+	for (let i = 0; i < distributions; i++ ) {
+		var forcedValueIndex = forcedValueIndexes.indexOf(i)
+		var forceValue = forcedValueIndex > -1 ? forcedValues[forcedValueIndex].value : null
+		if (forceValue) {
+			indecesToIgnore.push(i)
+		}
+
+		const value = forceValue ? forceValue : Math.max(Math.round((amountLeft / (modifier || 4))),1)
+		amountLeft -= value
+
+		if (i === distributions.length - 1) {
+			values.push(1)		
+		} else {
+			values.push(value)
+		}
+	}
+
+
+	// -------------------------------------------- //
+	// --- correct for cases where total values --- //
+	// --- end up greater/less than amount      --- //
+	// -------------------------------------------- //
+
+	const correctedValues = redistributeValuesToEqual(values, amount, indecesToIgnore, forcedValues)	
+
+	// -------------------------------------------- //
+	// -------------- end correction -------------- //
+	// -------------------------------------------- //
+
+	return correctedValues;
 }

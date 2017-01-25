@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 import classNames from 'classnames';
 
-import '../../stylesheets/helpers/icons.scss'
+import '../../stylesheets/helpers/_icons.scss'
 
 const ICONS = {
     'watch': require('../../icons/watch.svg'),

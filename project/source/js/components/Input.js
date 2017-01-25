@@ -169,7 +169,7 @@ class Input extends Component {
 				onChange={this.updateInputValue.bind(this)}
 				onBlur={this.handleBlur.bind(this)}
 				onKeyPress={this.handleKeyPress.bind(this)}
-				value={this.state.inputValue}>
+				value={this.state.inputValue || ''}>
 			</input>
 		)
 	}

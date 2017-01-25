@@ -6,6 +6,8 @@ import InputPlayerStat from '../components/InputPlayerStat.js'
 import CellPlayerCost from '../components/CellPlayerCost.js'
 import IconButton from '../components/IconButton'
 
+import { sort } from './arrayUtils'
+
 import { primaryPositionFor } from './PlayerListUtils'
 
 export const renderHeaderCells = (columns) => {
@@ -29,11 +31,12 @@ export const createHeaderRow = (columns) => {
 	)
 }
 
-export const createRows = (data, columns, classFunctions) => {
+export const createRows = (data, columns, classFunctions, actions={}) => {
 	return data.map( (item, index) => {
 		const classes = classFunctions ? classFunctions(item) : null
+		const { onClick } = actions
 		return (
-			<Tr className={classes} key={index}>
+			<Tr className={classes} key={index} onClick={ onClick ? (onClick).bind(this, item) : null}>
 				{ createCells(item, columns) }
 			</Tr>
 		)
@@ -75,8 +78,11 @@ export const statCellFactory = (statId, handler, isRatio=false) => {
 				return handler ? handler(player.id, statId, value) : null
 			}
 
+			const isNull = player.stats[statId] === null || player.stats[statId] === undefined
+			const cellClass = classNames({'no-value':isNull})
 			return {
 				value: statValue,
+				cellClass,
 				element: <InputPlayerStat
 		        	category={statId}
 		        	key={index}
@@ -101,7 +107,7 @@ export const costCellFactory = (handler) => {
 			const costChangeHandler = (value) => {
 				return handler ? handler(player.id, value) : null
 			}
-			
+
 			return {
 				value: player.id,
 				colSpan: hasCost && handler ? 3 : 1,
@@ -120,14 +126,15 @@ export const valueCellFactory = (property, heading=null, forceDisplay) => {
 	return {
 		column: heading || property,
 		content: (player) => {
+			const isNull = player[property] === null || player[property] === undefined
 			const value = Number(player[property]).toFixed(1)
 			const hasCost = !forceDisplay && player.cost > 0
-			const cellClass = classNames({'hidden': hasCost})
+			const cellClass = classNames({'hidden': hasCost, 'no-value': isNull})
 
 			return {
 				value: value,
 				cellClass,
-				element: <span className='dollar-amount'> {value} </span>
+				element: <span className={classNames('dollar-amount')}> {value} </span>
 			}
 		}
 	}
@@ -182,7 +189,11 @@ export const nameCellFactory = (handler) => {
 		className: 'has-action widen',
 		content: (player) => {
 			const value = player.name
-			const clickHandler = () => handler(player.id)
+			const clickHandler = () => {
+				if (handler) {
+					handler(player.id)
+				}
+			}
 
 			return {
 				value,
@@ -198,9 +209,9 @@ export const cellFactory = (property, params={}) => {
 	return {
 		className,
 		column: heading || property,
-		content: (player) => {
+		content: (object) => {
 
-			const value = player[property] || 0
+			const value = object[property] || 0
 			const element = onClick ? <span onClick={onClick}> {value}> </span> : null
 
 			return {
@@ -260,10 +271,10 @@ export const sortCost = (players) => {
 	}
 }
 
-export const sortNumber = (column) => {
+export const sortNumber = (column, desc=false) => {
 	return {
 		column,
-		direction: 'asc',
+		direction: desc? 'desc' : 'asc',
 		sortFunction: (a, b) => {
 			return sort(Number(a), Number(b), true, false)
 		}

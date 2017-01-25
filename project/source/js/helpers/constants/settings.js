@@ -69,7 +69,7 @@ export const createTeamSettings = (settings) => {
 export const createPositionSettings = (type, positionSettings) => {
 	const { positions, budgetPercentage } = positionSettings
 	const budgetKey = POSITION_SETTINGS_DICTIONARY['BUDGET_' + type.toUpperCase()]
-	console.log(budgetKey, budgetPercentage)
+
 	const settings = {
 		[budgetKey]: {
 			label: 'Percent of Budget',

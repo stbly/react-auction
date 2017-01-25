@@ -1,3 +1,5 @@
+import update from 'immutability-helper';
+import { defaultTeams } from '../../helpers/constants/defaultTeams'
 
 let initialState = {
 	fetching: false
@@ -9,17 +11,20 @@ const LOAD_TEAMS_ERROR = 'teams/LOAD_TEAMS_ERROR'
 
 const RECEIVE_TEAMS = 'teams/RECEIVE_TEAMS'
 const CHANGE_TEAM_NAME = 'teams/CHANGE_TEAM_NAME'
-const ADD_PLAYER_TO_TEAM = 'teams/ADD_PLAYER_TO_TEAM'
+const RECEIVE_TEAM_PLAYERS = 'teams/RECEIVE_TEAM_PLAYERS'
+const REMOVE_ALL_PLAYERS = 'teams/REMOVE_ALL_PLAYERS'
 
 const scrubTeamData = (teams) => {
+
 	for (const id in teams) {
 		if (teams.hasOwnProperty(id)) {
 			if (teams[id].teams) {
-				var newPlayers = Object.keys(teams).map( key => teams[key])
-				teams[id].teams = newPlayers
+				var newTeams = Object.keys(teams).map( key => teams[key])
+				teams[id].teams = newTeams
 			}
 		}
 	}
+
 	return teams
 }
 
@@ -31,11 +36,25 @@ export const getTeams = (endpoint) => {
 	}
 }
 
+const fetchOfflineTeamData = () => {
+	return (dispatch, getState) => {
+		const teams = scrubTeamData(defaultTeams)
+		dispatch( receiveTeams(teams) )
+		return Promise.resolve()
+	}
+}
+
 export const fetchTeams = () => {
 	return (dispatch, getState) => {
 		const state = getState()
 		const { uid } = state.user
 		const { id } = state.leagues.activeLeague
+
+		const debug = !navigator.onLine //true
+
+		if (debug) {
+			return dispatch( fetchOfflineTeamData() )
+		}
 
 		return dispatch( getTeams('/users/' + uid + '/leagues/' + id + '/teams') )
 			.then( teams => {
@@ -44,7 +63,23 @@ export const fetchTeams = () => {
 				return dispatch( receiveTeams( scrubbedTeams ) )
 			}
 		)
+	}
+}
 
+export function addPlayerToTeam (playerId, teamId) {
+	return (dispatch, getState) => {
+		const players = (getState().teams.data[teamId].players || [])
+		var newPlayers = update(players, {$push: [playerId]});
+		return dispatch( receiveTeamPlayers(teamId, newPlayers) )
+	}
+}
+
+export function removePlayerFromTeam (playerId, teamId) {
+	return (dispatch, getState) => {
+		const players = (getState().teams.data[teamId].players || [])
+		const playerIndex = players.indexOf(playerId)
+		var newPlayers = update(players, {$splice: [[playerIndex, 1]]});
+		return dispatch( receiveTeamPlayers(teamId, newPlayers) )
 	}
 }
 
@@ -52,16 +87,17 @@ export function receiveTeams (teams) {
    return { type: RECEIVE_TEAMS, payload: {teams} }
 }
 
-export function changeTeamName (id, name) {
-	return { type: CHANGE_TEAM_NAME, payload: {id, name} }
+export function changeTeamName (teamId, name) {
+	return { type: CHANGE_TEAM_NAME, payload: {teamId, name} }
 }
 
-export function addPlayerToTeam (playerId, teamId) {
-	return { type: ADD_PLAYER_TO_TEAM, payload: {playerId, teamId} }
+export function receiveTeamPlayers (teamId, players) {
+	return { type: RECEIVE_TEAM_PLAYERS, payload: {teamId, players} }
 }
 
 export default function reducer (state = initialState, action) {
-	const {payload} = action
+	const { payload } = action
+	const { teamId, players, name } = (payload || {})
 	const { data } = state
 	let teamObject
 
@@ -78,12 +114,9 @@ export default function reducer (state = initialState, action) {
 			});
 			return newState
 
-		case ADD_PLAYER_TO_TEAM:
-			const { teamId, playerId } = payload
+		case RECEIVE_TEAM_PLAYERS:
 			teamObject = data[teamId]
-			const players = teamObject.players || []
-			players.push(playerId)
-			console.log(teamId)
+
 			return Object.assign({}, state, {
 				didInvalidate: true,
 				data: Object.assign({}, data, {
@@ -92,8 +125,7 @@ export default function reducer (state = initialState, action) {
 			})
 
 		case CHANGE_TEAM_NAME:
-			const { id, name } = payload
-			teamObject = data[id]
+			teamObject = data[teamId]
 
 			return Object.assign({}, state, {
 				fetching: false,
@@ -108,5 +140,7 @@ export default function reducer (state = initialState, action) {
 }
 
 export {
-	CHANGE_TEAM_NAME
+	CHANGE_TEAM_NAME,
+	RECEIVE_TEAM_PLAYERS,
+	REMOVE_ALL_PLAYERS
 }

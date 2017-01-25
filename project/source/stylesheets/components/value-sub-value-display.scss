@@ -1,0 +1,35 @@
+@import '../helpers/vars';
+@import '../helpers/mixins';
+
+.value-sub-value-display {
+	.heading {
+		font-size: 0.625em;
+	}
+
+	.value,
+	.sub-value {
+		display: inline-block;
+		vertical-align: bottom;
+	}
+
+	.value-amount {
+		@include transandina-black ;
+		font-size: 3em;
+	}
+
+	.value {
+		.value-amount-container {
+			margin: 5px 0 0;
+			padding: 0.5em 1em;
+			background: $color-batter-default;
+			border-radius: 4px;
+		}
+	}
+
+	.sub-value {
+		margin-left: 5px;
+		.value-amount {
+			font-size: 2.5em;
+		}
+	}
+}

@@ -7,7 +7,7 @@ export const getFavoritedPlayers = (players, type=null) => {
 }
 
 export const playerIsDrafted = (player) => {
-	return player.cost && player.cost !== 0
+	return player.owner && player.cost !== 0
 }
 
 export const playerIsUndrafted = (player) => {

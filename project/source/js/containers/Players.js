@@ -7,6 +7,7 @@ import * as SettingsUtils from '../helpers/SettingsUtils'
 import * as playerActions from '../redux/modules/players'
 
 import { playerIsUndrafted } from '../helpers/PlayerListUtils'
+import { sortByProperty } from '../helpers/arrayUtils';
 
 import ActivePlayer from './ActivePlayer'
 import PlayerInput from '../components/PlayerInput'
@@ -20,7 +21,8 @@ class Players extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			hideDraftedPlayers: false
+			hideDraftedPlayers: false,
+			showPlayersBelowReplacement: false
 		}
 	}
 
@@ -37,11 +39,29 @@ class Players extends Component {
 
 		const useablePlayers = playerIds.filter( id => {
 			const draftable = players[id].value
-			const drafted = hideDraftedPlayers ? players[id].cost : false
+			const drafted = hideDraftedPlayers ? players[id].owner : false
 			return draftable && !drafted
 		})
 
 		return this.createPlayerArrayFromIds( useablePlayers );
+	}
+
+	getPlayersToDisplay () {
+		const { players, positionData, numTeams } = this.props
+		const { showPlayersBelowReplacement } = this.state
+		const playerArray = Object.keys(players).map( id => players[id])
+
+		const useablePlayers = []
+		Object.keys(positionData).forEach( type => {
+			const limit = positionData[type].rosterSpots * numTeams
+			console.log(type, limit - 1)
+			const playersOfType = playerArray.filter( player => player.type === type )
+			const playersInOrder = playersOfType.sort( (a,b) => sortByProperty(a,b,'rank') )
+			const group = showPlayersBelowReplacement ? playersInOrder : playersInOrder.splice(0, limit)
+			useablePlayers.push( ...group )
+		})
+
+		return useablePlayers;
 	}
 
 	toggleHideDraftedPlayers () {
@@ -76,7 +96,7 @@ class Players extends Component {
 
 				<div className='combined-rankings'>
 					<PlayerListsContainer
-						players={ this.getSearchablePlayers() }
+						players={ this.getPlayersToDisplay() }
 						positionData={positionData}
 						teams={teams}
 						actions={playerActions} />
@@ -116,13 +136,14 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps (state,ownProps) {
 	var players = state.players.data,
 		teams = state.teams.data ? SettingsUtils.getTeamNames( state.teams.data ) : null,
-		positionData = state.settings.data.positionData,
+		{ numTeams, positionData } = state.settings.data,
 		activePlayer = players[state.players.activePlayerId]
 
 	return {
 		players,
-		positionData,
 		teams,
+		numTeams,
+		positionData,
 		activePlayer: activePlayer,
 		isLoading: state.players.isLoading
 	};
