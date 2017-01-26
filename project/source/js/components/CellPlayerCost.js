@@ -4,7 +4,6 @@ import InputPlayerCost from './InputPlayerCost'
 
 import '../../stylesheets/components/cell-player-cost.scss'
 
-
 class CellPlayerCost extends Component {
 
 	startEditing () {

@@ -1,11 +1,7 @@
-@import '../helpers/vars';
-@import '../helpers/mixins';
+@import '../helpers/colors';
+@import '../helpers/fonts';
 
 .input {
-	.value-select {
-		@include button
-	}
-
 	textarea, input {
 		outline: none;
 		background: none;

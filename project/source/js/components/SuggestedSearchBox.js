@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import { playerIsDrafted } from '../helpers/PlayerListUtils'
 import InputToggle from './InputToggle'
 import SuggestedSearchResults from './SuggestedSearchResults'
+
 import '../../stylesheets/components/suggested-search.scss'
 
 class SuggestedSearchBox extends Component {

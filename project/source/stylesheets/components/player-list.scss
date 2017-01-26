@@ -1,4 +1,5 @@
-@import '../init';
+@import '../helpers/colors';
+@import '../helpers/fonts';
 
 .player-list {
 	@include cantarell;
@@ -220,22 +221,3 @@
 		}
 	}
 }
-/*
-
-.hide-selected-container {
-	@include cantarell
-	flex-grow: 1;
-    width: calc(25% - 150px);
-	display: inline-block;
-    vertical-align: bottom;
-    margin-bottom: 10px;
-    padding-left: 10px;
-
-    font-size: 12px;
-
-    .hide-selected-text {
-	    width: calc(100% - 15px);
-	    display: inline-block;
-	    margin-left: 3px;
-    }
-}*/

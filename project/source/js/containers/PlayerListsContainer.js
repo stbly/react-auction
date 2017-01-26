@@ -9,7 +9,7 @@ import FilteredTable from '../components/FilteredTable.js'
 
 import { sortCost, sortNumber, sortPosition, cellFactory, nameCellFactory, favoriteCellFactory, valueCellFactory, costCellFactory, createStatCells, positionCellFactory, positionCellValueFactory, createNameMatchFilter, positionSort} from '../helpers/tableUtils'
 
-import '../../stylesheets/components/player-list.scss'
+// import '../../stylesheets/components/player-list.scss'
 
 //MAJOR TODO: allow filters to be cumulative, not just one at a time
 

@@ -7,8 +7,6 @@ import {sortBy} from '../helpers/arrayUtils';
 
 import '../../stylesheets/components/favorited-player-list.scss'
 
-
-
 class FavoritePlayerList extends PlayerList {
 	constructor(props) {
 		super(props)

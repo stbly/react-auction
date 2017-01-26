@@ -1,4 +1,6 @@
-@import '../init';
+@import '../helpers/colors';
+@import '../helpers/fonts';
+@import '../helpers/layout';
 
 .active-player {
 	@include transandina-black;

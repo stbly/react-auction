@@ -14,8 +14,6 @@ import PlayerInput from '../components/PlayerInput'
 import PlayerListsContainer from './PlayerListsContainer'
 import classNames from 'classnames';
 
-import '../../stylesheets/components/players.scss'
-
 class Players extends Component {
 
 	constructor(props) {

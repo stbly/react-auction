@@ -18,7 +18,7 @@ import FavoritePlayerList from '../components/FavoritePlayerList.js'
 
 import PlayerInput from '../components/PlayerInput'
 
-import '../../stylesheets/components/player-list.scss'
+// import '../../stylesheets/components/player-list.scss'
 
 class FavoritePlayerListsContainer extends Component {
 	constructor(props) {

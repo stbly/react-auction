@@ -155,7 +155,7 @@ class Input extends Component {
 
 	renderInput () {
 		const valueExists = this.state.inputValue ? this.state.inputValue.length > 0 : false
-		const classes = classNames(this.props.classNames, 'value-select', {'has-value': valueExists})
+		const classes = classNames(this.props.classNames, 'button', 'value-select', {'has-value': valueExists})
 		return (
 			<input className={classes}
 				ref={(ref) => this.el = ref}

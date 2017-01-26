@@ -1,0 +1,38 @@
+$bp-phone: 460px;
+$bp-small: 760px;
+$bp-medium: 1080px;
+$bp-large: 1300px;
+
+@mixin width-under($width) {
+    @media only screen and(max-width: $width) { @content; }
+}
+
+@mixin width-over($width) {
+    @media only screen and(min-width: $width) { @content; }
+}
+
+@mixin width-between($low, $high) {
+    @if($high < $low) {
+        $temp : $high;
+        $high : $low;
+        $low : $temp;
+    }
+    @media only screen and(min-width: $low) and(max-width: $high) { @content; }
+}
+
+@mixin height-under($height) {
+    @media only screen and(max-height: $height) { @content; }
+}
+
+@mixin height-over($height) {
+    @media only screen and(min-height: $height) { @content; }
+}
+
+@mixin height-between($low, $high) {
+    @if($high < $low) {
+        $temp : $high;
+        $high : $low;
+        $low : $temp;
+    }
+    @media only screen and(min-height: $low) and(max-height: $high) { @content; }
+}

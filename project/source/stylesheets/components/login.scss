@@ -1,6 +1,5 @@
-@import '../helpers/mixins';
+@import '../helpers/colors';
 @import '../helpers/fonts';
-@import '../helpers/vars';
 
 .login {
     @include transandina-medium;
@@ -14,7 +13,6 @@
     }
 
 	input[type=submit] {
-		@include button;
 		background: white;
 	}
 

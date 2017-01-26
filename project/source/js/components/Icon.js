@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react'
 
 import classNames from 'classnames';
 
-import '../../stylesheets/helpers/_icons.scss'
-
 const ICONS = {
     'watch': require('../../icons/watch.svg'),
     'avoid': require('../../icons/avoid.svg'),

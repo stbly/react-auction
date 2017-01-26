@@ -10,7 +10,7 @@ import PlayerListsContainer from './PlayerListsContainer'
 import classNames from 'classnames';
 
 
-import '../../stylesheets/components/players.scss'
+// import '../../stylesheets/components/players.scss'
 
 class Planner extends Component {
 	constructor(props) {

@@ -1,10 +1,7 @@
-@import '../init';
-
-body {
-	@include transandina-medium
-	-webkit-font-smoothing: antialiased;
-	font-size: 100%;
-}
+@import '../helpers/mixins';
+@import '../helpers/layout';
+@import '../helpers/fonts';
+@import '../helpers/colors';
 
 h1 {
 	font-size: 2em;
@@ -16,64 +13,136 @@ h2 {
 	margin: 0 0 10px;
 }
 
-/*.draft-planner {*/
-	.clear-both {
-		clear: both;
+input {
+	&:focus {
+		outline: none;
 	}
+}
 
-	.app {
+body {
+	@include transandina-medium
+    margin: 0;
+    vertical-align: baseline;
+    box-sizing: border-box;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-size: 100%;
+    line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+// HTML5 display-role reset for older browsers
+article, aside, details,
+summary, figcaption, figure,
+footer, header, hgroup,
+menu, nav, section {
+    display: block;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input[type=submit],
+button,
+.button {
+    @include transandina-medium;
+	position: relative;
+    margin: 0.625em 0.625em 0.625em 0;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid $color-grey-lightest;
+    padding: 0.625em 0.625em 0.375em;
+    background: inherit;
+    color: inherit;
+    text-align: left;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover,
+    &:focus,
+    &.active {
+        background: $color-grey-lightest;
+    }
+    
+    &.has-value {
+        background: $color-batter-highlight;
+    }
+
+}
+
+a {
+    color: inherit;
+}
+
+.dollar-amount {
+    @include super-script('$');
+    &:after {
+        right: 100%;
+    }
+}
+
+.clear-both {
+	clear: both;
+}
+
+.app {
+}
+
+.headings {
+	@include transandina-medium;
+	text-transform: uppercase;
+}
+
+.page {
+	padding: 2.5% 100px;
+	clear: both;
+
+	@include width-under($bp-medium) {
+		padding-left: 30px;
+		padding-right: 30px;
 	}
+}
 
-	.headings {
-		@include transandina-medium;
-		text-transform: uppercase;
-	}
+.section-with-sidebar {
+	.sidebar {
+		width: 140px;
+		float: left;
 
-	.page {
-		padding: 2.5% 100px;
-		clear: both;
+		button {
+			width: 100%;
+			text-align: center;
+		}
 
-		@include width-under($bp-medium) {
-			padding-left: 30px;
-			padding-right: 30px;
+		@include width-under($bp-small) {
+			width: 100%;
+			float: none;
 		}
 	}
 
-	button {
-		@include button;
-		position: relative;
-	}
+	.main {
+		width: calc(100% - 150px);
+		float: right;
 
-	input {
-		&:focus {
-			outline: none;
+		@include width-under($bp-small) {
+			width: 100%;
+			float: none;
 		}
 	}
-
-	.section-with-sidebar {
-		.sidebar {
-			width: 140px;
-			float: left;
-
-			button {
-				width: 100%;
-				text-align: center;
-			}
-
-			@include width-under($bp-small) {
-				width: 100%;
-				float: none;
-			}
-		}
-
-		.main {
-			width: calc(100% - 150px);
-			float: right;
-
-			@include width-under($bp-small) {
-				width: 100%;
-				float: none;
-			}
-		}
-	}
-/*}*/
+}
