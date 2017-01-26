@@ -1,6 +1,8 @@
 @import '../helpers/colors';
+@import '../helpers/fonts';
 
 .team-tabs {
+	@include transandina-medium
 	width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
