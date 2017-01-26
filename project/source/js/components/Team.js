@@ -25,6 +25,7 @@ import { Table, Tfoot } from 'reactable-cacheable'
 import { addAllNormalStatValuesOfTypeForPlayers, addAllRatioStatValuesOfTypeForPlayers } from '../helpers/statUtils'
 
 import '../../stylesheets/components/team.scss'
+import '../../stylesheets/components/player-list.scss'
 
 class Team extends Component {
 	constructor(props) {
