@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { Router, RouteHandler, Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
+import classNames from 'classnames';
+import { Table, Tfoot } from 'reactable-cacheable'
 
 import { 
 		createRows, 
@@ -11,18 +13,16 @@ import {
 		sortNumber, 
 		sortPosition, 
 		cellFactory, 
+		earnedCellFactory,
 		nameCellFactory, 
 		valueCellFactory, 
 		costCellFactory, 
 		positionCellFactory, 
 		createStatCells} from '../helpers/tableUtils'
 
-import classNames from 'classnames';
+import { getStatTotals } from '../helpers/statUtils'
 
 import InputToggle from './InputToggle'
-import { Table, Tfoot } from 'reactable-cacheable'
-
-import { addAllNormalStatValuesOfTypeForPlayers, addAllRatioStatValuesOfTypeForPlayers } from '../helpers/statUtils'
 
 import '../../stylesheets/components/team.scss'
 import '../../stylesheets/components/player-list.scss'
@@ -33,112 +33,105 @@ class Team extends Component {
 	}
 
 	render() {
-		const { name, players, onChangeTeamName, onResetPlayers } = this.props
-		const classes = classNames('team', 'team-' + name)
+		const { players } = this.props
+		const classes = classNames('roster')
 		
 		return (
 			<div className={classes}>
-				<div className='team-name'>
-					<InputToggle type='string' value={name} valueDidChange={onChangeTeamName} />
-				</div>
-				<div>
-					{ players ? this.renderPlayers() : null}
-				</div>
-				<button onClick={onResetPlayers}>Reset All Players</button>
+				{ players ? this.renderPlayers() : null}
 			</div>
 		)
 	}
 
 	renderPlayers () {
-		const { players, positionData } = this.props
+		const { players, positionData, type, onRowClick } = this.props
 
-		return Object.keys(positionData).map( position => {
-			const filteredPlayers = players.filter( player => {
-				return player.type === position
-			})
+		const { categories } = positionData
 
-			const playerObject = Array.toObject(filteredPlayers)
-			const categories = positionData[position].categories
-			const categoryCells = createStatCells(categories)
-			const columns = [
-				positionCellFactory(),
-				nameCellFactory(),
-				cellFactory('type', {className: 'hidden'}),
-				costCellFactory(),
-				valueCellFactory('adjustedValue', 'bid', true),
-				valueCellFactory('value', 'val', true),
-				...categoryCells
-			]
+		const playerObject = Array.toObject(players)
+		const categoryCells = createStatCells(categories)
+		const columns = [
+			valueCellFactory('budget', 'budget', true),
+			positionCellFactory(),
+			nameCellFactory(),
+			earnedCellFactory(),
+			cellFactory('type', {className: 'hidden'}),
+			costCellFactory(),
+			// valueCellFactory('adjustedValue', 'bid', true),
+			valueCellFactory('value', 'val', true),
+			...categoryCells
+		]
 
-			const sorts = [ 
-				sortCost(playerObject), 
-				'rank', 
-				'name', 
-				sortNumber('bid'),
-				sortNumber('val'),
-				sortPosition(playerObject),
-				...Object.keys(categories)
-			]
+		const sorts = [ 
+			sortNumber('budget'),
+			sortCost(playerObject), 
+			'rank', 
+			'name', 
+			'earned', 
+			// sortNumber('bid'),
+			sortNumber('val'),
+			sortPosition(playerObject),
+			...Object.keys(categories)
+		]
 
-			const sumRow = this.getSumRow(filteredPlayers, categories);
+		const headers = createHeaderRow(columns)
+		const rows = createRows(players, columns, null, { 
+			onClick: (player) => { 
+				if (!player) return 
+				const { id } = player;
+				(onRowClick && id) ? onRowClick(id) : null 
+			}
+		})
 
-			// const sumRow = (
-			// 	<Row>
-			// 		<Cell value={statSumCalculation(filteredPlayers, )}></Cell>
-			// 	</Row>
-			// )
+		const sumRow = this.getSumRow(players, categories);
 
-			const headers = createHeaderRow(columns)
-			const rows = createRows(filteredPlayers, columns)
-
-			return <Table
-				key={position}
-				className={classNames('player-list',position)}
-				sortable={sorts}
-				defaultSort='position' >
-					{headers}
-					{rows} 
-					<Tfoot>
-						{sumRow}
-					</Tfoot>
-			</Table> 
-
-			// const positionFilters = positions.map( positionId => createNameMatchFilter('position', {label: positionId}) )
-			// return [typeFilter, ...positionFilters]
-		})		
+		return <Table
+			className={classNames('player-list', type)}
+			sortable={sorts}
+			defaultSort='budget'>
+				{headers}
+				{rows} 
+				<Tfoot>
+					{sumRow}
+				</Tfoot>
+		</Table> 
 	}
 
-	getSumRow (players, categories) {
-		if (players.length === 0) return 
+	getSumRow (playerRows, categories) {
+		if (playerRows.length === 0) return 
+		const playersWithValue = playerRows.filter( row => row.value )
+		if (!playersWithValue || playersWithValue.length === 0) return
 
 		const categoryCells = createStatCells(categories)
 
 		const columns = [
+			valueCellFactory('budget', 'budget', true),
+			earnedCellFactory(),
 			costCellFactory(),
-			valueCellFactory('adjustedValue', 'bid', true),
+			// valueCellFactory('adjustedValue', 'bid', true),
 			valueCellFactory('value', 'val', true),
 			...categoryCells
 		]
 
 		const sumObject = {}
 		const valueCategories = ['cost', 'adjustedValue', 'value'];
+	
+		if (playersWithValue.length > 0) {
+			valueCategories.forEach( category => {
+				sumObject[category] = playersWithValue.map( player => {
+					return player[category]
+				}).reduce( (a, b) => a + b);
+			})
+		}
 
-		valueCategories.forEach( category => {
-			sumObject[category] = players.map( player => player[category]).reduce( (a, b) => a + b);
-		})
 
-		const statObject = {}
-		Object.keys(categories).map( category => {
-			const { isRatio, denominator, perPeriod } = categories[category];
-			const statCalculation = isRatio ? addAllRatioStatValuesOfTypeForPlayers : addAllNormalStatValuesOfTypeForPlayers;
-			let params = [players, category];
-			if (isRatio) {
-				params.push(denominator, perPeriod);
-			}
-			statObject[category] = statCalculation(...params);
-		})			
+		sumObject.earned = playersWithValue.map( player => {
+			return player.value - player.cost
+		}).reduce( (a, b) => a + b)
 
-		sumObject.stats = statObject;	
+		const statTotals = getStatTotals(playersWithValue, categories)
+
+		sumObject.stats = statTotals;	
 
 		return (
 			<tr key={'sums'}>
@@ -151,11 +144,9 @@ class Team extends Component {
 }
 
 Team.propTypes = {
-	name: PropTypes.string.isRequired,
 	players: PropTypes.array,
 	positionData: PropTypes.object,
-	onChangeTeamName: PropTypes.func,
-	onResetPlayers: PropTypes.func
+	onRowClick: PropTypes.func
 }
 
 export default Team

@@ -3,6 +3,19 @@
 @import '../helpers/fonts';
 @import '../helpers/colors';
 
+body {
+	@include transandina-medium;
+    margin: 0;
+    vertical-align: baseline;
+    box-sizing: border-box;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-size: 100%;
+    line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
 h1 {
 	font-size: 2em;
 	margin: 0 0 20px;
@@ -19,19 +32,6 @@ input {
 	}
 }
 
-body {
-	@include transandina-medium
-    margin: 0;
-    vertical-align: baseline;
-    box-sizing: border-box;
-    border: 0;
-    padding: 0;
-    font: inherit;
-    font-size: 100%;
-    line-height: 1;
-	-webkit-font-smoothing: antialiased;
-}
-
 // HTML5 display-role reset for older browsers
 article, aside, details,
 summary, figcaption, figure,
@@ -42,6 +42,7 @@ menu, nav, section {
 
 ol, ul {
     list-style: none;
+	padding-left: 0;
 }
 
 blockquote, q {
@@ -84,7 +85,10 @@ button,
     &.has-value {
         background: $color-batter-highlight;
     }
+}
 
+input[type=submit] {
+	margin: 0;
 }
 
 a {

@@ -22,22 +22,22 @@ function createWebpackLoaders () {
       include: path.join(config.context, 'js')
   },
    // BUG: Fonts were not loading without using ExtractTextPlugin
+  // {
+  //   test: /\.scss$/,
+  //   loaders: [
+  //     'style-loader',
+  //     'css-loader?importLoaders=2&sourceMap',
+  //     'postcss-loader',
+  //     'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
+  //   ],
+  //   include: path.join(config.context, 'stylesheets')
+  // }
   {
-    test: /\.scss$/,
-    loaders: [
-      'style-loader',
-      'css-loader?importLoaders=2&sourceMap',
-      'postcss-loader',
-      'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
-    ],
-    include: path.join(config.context, 'stylesheets')
-  }
-  /*{
     test: /\.scss$/,
     loader: ExtractTextPlugin.extract('style',
       'css?sourceMap!postcss!sass'),
     include: path.join(config.context, 'stylesheets')
-  }*/]
+  }]
 
   return loaders
 }

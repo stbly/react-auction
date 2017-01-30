@@ -205,23 +205,24 @@ export const redistributeValuesToEqual = (values=[], amount, indecesToIgnore=[])
 	const surplus = totalAssignedValue - amount;
 	if (surplus > 0) {
 		const usableValues = values.filter( (value, index) => {
-			console.log(indecesToIgnore, index, indecesToIgnore.indexOf(index))
+			// console.log(indecesToIgnore, index, indecesToIgnore.indexOf(index))
 			return indecesToIgnore.indexOf(index) === -1
 		})
 		let minValue = 0
 		for (var i = 0; i < usableValues.length; i++) {
 			minValue++
 		}
-			console.log(surplus, minValue)
+			// console.log(surplus, minValue)
 
-		console.log(totalAssignedValue, minValue,amount)
-		console.log( (totalAssignedValue - minValue) > amount )
+		// console.log(totalAssignedValue, minValue,amount)
+		// console.log( (totalAssignedValue - minValue) > amount )
 
 		if ((totalAssignedValue - minValue) > (amount - surplus)) {
 			// throw new Error('Cannot redistribute values: minimum values would be less than 0');
 		}
 	}
 
+	console.log(totalAssignedValue, amount)
 	while (totalAssignedValue > amount) {
 		iterator = getIndex(iterator)
 		if (indecesToIgnore.indexOf(iterator) < 0 && newValues[iterator] > 1) {
@@ -239,8 +240,8 @@ export const redistributeValuesToEqual = (values=[], amount, indecesToIgnore=[])
 		totalAssignedValue = newValues.reduce((a,b) => a+b);
 	}
 
-	console.log('oldValues:',values);
-	console.log('newValues:',newValues)
+	// console.log('oldValues:',values);
+	// console.log('newValues:',newValues)
 
 	return newValues
 }

@@ -2,7 +2,8 @@ import update from 'immutability-helper';
 import { defaultTeams } from '../../helpers/constants/defaultTeams'
 
 let initialState = {
-	fetching: false
+	fetching: false,
+	activeTeam: null
 }
 
 const LOAD_TEAMS_REQUEST = 'teams/LOAD_TEAMS_REQUEST'
@@ -11,6 +12,7 @@ const LOAD_TEAMS_ERROR = 'teams/LOAD_TEAMS_ERROR'
 
 const RECEIVE_TEAMS = 'teams/RECEIVE_TEAMS'
 const CHANGE_TEAM_NAME = 'teams/CHANGE_TEAM_NAME'
+const CHANGE_ACTIVE_TEAM = 'teams/CHANGE_ACTIVE_TEAM'
 const RECEIVE_TEAM_PLAYERS = 'teams/RECEIVE_TEAM_PLAYERS'
 const REMOVE_ALL_PLAYERS = 'teams/REMOVE_ALL_PLAYERS'
 
@@ -70,7 +72,8 @@ export function addPlayerToTeam (playerId, teamId) {
 	return (dispatch, getState) => {
 		const players = (getState().teams.data[teamId].players || [])
 		var newPlayers = update(players, {$push: [playerId]});
-		return dispatch( receiveTeamPlayers(teamId, newPlayers) )
+		dispatch( receiveTeamPlayers(teamId, newPlayers) )
+		return dispatch( receiveTeams( getState().teams.data ) )
 	}
 }
 
@@ -79,16 +82,21 @@ export function removePlayerFromTeam (playerId, teamId) {
 		const players = (getState().teams.data[teamId].players || [])
 		const playerIndex = players.indexOf(playerId)
 		var newPlayers = update(players, {$splice: [[playerIndex, 1]]});
-		return dispatch( receiveTeamPlayers(teamId, newPlayers) )
+		dispatch( receiveTeamPlayers(teamId, newPlayers) )
+		return dispatch( receiveTeams( getState().teams.data ) )
 	}
 }
 
 export function receiveTeams (teams) {
-   return { type: RECEIVE_TEAMS, payload: {teams} }
+	return { type: RECEIVE_TEAMS, payload: {teams} }
 }
 
 export function changeTeamName (teamId, name) {
 	return { type: CHANGE_TEAM_NAME, payload: {teamId, name} }
+}
+
+export function changeActiveTeam (teamId) {
+	return { type: CHANGE_ACTIVE_TEAM, payload: {teamId} }
 }
 
 export function receiveTeamPlayers (teamId, players) {
@@ -108,8 +116,10 @@ export default function reducer (state = initialState, action) {
 			});
 
 		case RECEIVE_TEAMS:
+			const activeTeam = state.activeTeam || Object.keys(payload.teams)[0]
 			const newState = Object.assign({}, state, {
 				fetching: false,
+				activeTeam: activeTeam,
 				data: payload.teams
 			});
 			return newState
@@ -134,12 +144,18 @@ export default function reducer (state = initialState, action) {
 				})
 			});
 
+		case CHANGE_ACTIVE_TEAM:
+			return Object.assign({}, state, {
+				activeTeam: teamId
+			});
+
 		default:
 			return state;
 	}
 }
 
 export {
+	RECEIVE_TEAMS,
 	CHANGE_TEAM_NAME,
 	RECEIVE_TEAM_PLAYERS,
 	REMOVE_ALL_PLAYERS

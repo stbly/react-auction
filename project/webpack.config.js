@@ -72,10 +72,10 @@ function createWebpackLoaders () {
   const loaders = [{
     test: /\.svg$/,
     loader: 'svg-sprite'
-  }, /*{
+  }, {
     test: /\.(otf|ttf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
-    loader: 'file?name=public/fonts/[name].[ext]'
-  },*/ {
+    loader: 'file'
+  }, {
     test: /\.(ogg|mp?4a|mp3)$/,
     loader: 'file'
   }, {

@@ -1,14 +1,29 @@
 @import '../helpers/colors';
 @import '../helpers/fonts';
 
+.team {
+	h2 {
+		@include transandina-black;
+		text-transform: uppercase;
+	}
+	.team-name {
+		padding: 6px 0;
+		margin: 10px 0;
+		font-size: 1em;
+		text-transform: uppercase;
+		.value-display {
+			@include transandina-black;
+		}
+	}
+}
 .team-tabs {
-	@include transandina-medium
 	width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
 	border: 1px solid $color-batter-default;
 
 	.team-tab {
+		@include transandina-medium
 		display: inline-block;
 		padding: 4px 7px;
 		cursor: pointer;
@@ -24,13 +39,86 @@
 	}
 }
 
-.team {
+.budget-tracker {
+	.value-sub-value-display {
+		display: inline-block;
+
+		&:not(:last-child) {
+			margin-right: 15px;
+		}
+
+		&.batter {
+			.value {
+				.heading {
+					color: $color-batter-dark-blue;
+				}
+				.value-amount-container {
+					background-color: $color-batter-default;
+					.value-amount {
+						color: $color-batter-dark-blue;
+					}
+				}
+			}
+
+			.sub-value {
+				color: $color-batter-dark-blue;
+				.value-amount {
+					color: $color-batter-dark-blue;
+				}
+			}
+		}
+		&.pitcher {
+			.value {
+				.heading {
+					color: $color-pitcher-dark-purple;
+				}
+				.value-amount-container {
+					background-color: $color-pitcher-default;
+					.value-amount {
+						color: $color-batter-dark-blue;
+					}
+				}
+			}
+
+			.sub-value {
+				color: $color-pitcher-dark-purple;
+				.value-amount {
+					color: $color-pitcher-alt;
+				}
+			}
+		}
+	}
+}
+
+.roster-container {
+	display: flex;
+
+	.goals {
+		padding: 5px;
+
+		.goal {
+			border: 1px solid #e5e9ef;
+			border-radius: 5px;
+			&:not(:first-child) {
+				margin-top: 5px;
+			}
+		}
+
+		.value-sub-value-display {
+			display: flex;
+			align-items: flex-end;
+			padding: 4px;
+
+			.value-amount-container {
+				font-size: 2em;
+			}
+		}
+	}
+}
+
+.roster {
 	/*display: flex;*/
 	border: 1px solid $color-batter-default;
 	padding: 5px;
 	margin: 5px 0;
-
-	.team-name {
-		padding: 6px 0;
-	}
 }

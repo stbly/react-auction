@@ -1,3 +1,53 @@
+
+@font-face {
+    font-family: 'Cantarell-Regular';
+    src: url('../../fonts/Cantarell/Cantarell-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cantarell-Oblique';
+    src: url('../../fonts/Cantarell/Cantarell-Oblique.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Cantarell-BoldOblique';
+    src: url('../../fonts/Cantarell/Cantarell-BoldOblique.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Cantarell-Bold';
+    src: url('../../fonts/Cantarell/Cantarell-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TrasandinaBlack';
+    src: url('../../fonts/Trasandina/TrasandinaBlack.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TrasandinaMedium';
+    src: url('../../fonts/Trasandina/TrasandinaMedium.otf') format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TrasandinaLight';
+    src: url('../../fonts/Trasandina/TrasandinaLight.otf') format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 $helvetica     : 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
 $georgia       : Georgia, Cambria, 'Times New Roman', Times, serif !default;
 $lucida-grande : 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif !default;
@@ -9,6 +59,7 @@ $cantarell-boldoblique     : 'Cantarell-BoldOblique', $lucida-grande;
 $cantarell-oblique     : 'Cantarell-Oblique', $lucida-grande;
 $cantarell-regular     : 'Cantarell-Regular', $lucida-grande;
 
+$transandina-light     : 'TrasandinaLight', $lucida-grande;
 $transandina-medium     : 'TrasandinaMedium', $lucida-grande;
 $transandina-black     : 'TrasandinaBlack', $lucida-grande;
 
@@ -18,8 +69,9 @@ $transandina-black     : 'TrasandinaBlack', $lucida-grande;
 @mixin monospace     { font-family: $monospace; }
 @mixin verdana       { font-family: $verdana; }
 
-@mixin transandina-medium     { font-family: $transandina-medium; }
-@mixin transandina-black     { font-family: $transandina-black; }
+@mixin transandina-light     { font-family: $transandina-light; margin-bottom: -.2em; }
+@mixin transandina-medium     { font-family: $transandina-medium; margin-bottom: -.2em; }
+@mixin transandina-black     { font-family: $transandina-black; margin-bottom: -.2em; }
 
 @mixin cantarell { font-family: $cantarell-regular; letter-spacing: -.03125em; }
 @mixin cantarell-bold { @include cantarell; font-family: $cantarell-bold; }

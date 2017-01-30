@@ -17,7 +17,7 @@ import playerImage from '../../images/player-image.png'
 
 import { createStatCells, createHeaderRow, createRows } from '../helpers/tableUtils'
 
-// import '../../stylesheets/components/active-player.scss'
+import '../../stylesheets/components/active-player.scss'
 
 class ActivePlayer extends Component {
 	constructor(props) {

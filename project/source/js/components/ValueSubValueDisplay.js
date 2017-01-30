@@ -12,11 +12,11 @@ class ValueSubValueDisplay extends Component {
 
 	render () {
 
-		const { value, subValue, heading, valueIsDollarAmount } = this.props
+		const { value, subValue, heading, valueIsDollarAmount, className } = this.props
 
 		const valueClasses = classNames('value-amount', {'dollar-amount': valueIsDollarAmount})
 		return (
-			<div className='value-sub-value-display'>
+			<div className={classNames('value-sub-value-display', className)}>
 
 				<div className='value'>
 					<div className='heading'>{heading}</div>

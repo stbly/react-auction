@@ -128,9 +128,11 @@ const fetchUserLeagues = () => {
 export const changeActiveLeague = (id) => {
 	return (dispatch, getState) => {
 		dispatch( updateActiveLeague(id) )
-		dispatch( fetchPlayers(true) )
-		dispatch( fetchTeams() )
-		return dispatch( fetchSettings(true) )
+		return dispatch( fetchSettings(true) ).then( () => {
+			return dispatch( fetchPlayers(true) ).then( () => {
+				return dispatch( fetchTeams() )
+			})
+		})
 	}
 }
 

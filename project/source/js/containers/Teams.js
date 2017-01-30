@@ -10,32 +10,18 @@ import * as teamActions from '../redux/modules/teams'
 import Team from '../components/Team'
 import TeamPlanner from '../components/TeamPlanner'
 import PlayerInput from '../components/PlayerInput'
-import ValueSubValueDisplay from '../components/ValueSubValueDisplay'
 
 import classNames from 'classnames';
 
 class Teams extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			activeTeam: null
-		}
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (!this.state.activeTeam && nextProps.teams) {
-
-			var teamNames = Object.keys(nextProps.teams);
-			this.setState({
-				activeTeam: teamNames[0]
-			})
-		}
 	}
 
 	createNewTeam () {
 	}
 
-	getSearchablePlayers () {
+	getUndraftedPlayers () {
 		const { players } = this.props
 		const playerIds = Object.keys(players)
 
@@ -48,16 +34,14 @@ class Teams extends Component {
 		return useablePlayers.map( id => players[id]);
 	}
 
-
 	makeTeamActive(id) {
-		this.setState({
-			activeTeam: id
-		})
+		const { changeActiveTeam } = this.props.teamActions
+		changeActiveTeam( id )
 	}
 
 	addPlayer (playerId, playerCost) {
 		const { draftPlayer } = this.props.playerActions
-		const { activeTeam } = this.state
+		const { activeTeam } = this.props
 		draftPlayer(playerId, playerCost, activeTeam)
 	}
 	
@@ -81,8 +65,9 @@ class Teams extends Component {
 			</div>
 		)
 	}
+
 	renderTeams () {
-		const { teamActions, leagues, teams } = this.props
+		const { teamActions, leagues, teams, activeTeam } = this.props
 
 		return (			
 			<div>
@@ -95,13 +80,12 @@ class Teams extends Component {
 							{ this.renderTeamTabs() }
 						</div>
 						<PlayerInput
-							searchablePlayers={this.getSearchablePlayers()}
+							searchablePlayers={this.getUndraftedPlayers()}
 							searchableTeams={teams}
 							playerEntered={this.addPlayer.bind(this)} />
 
-						<div class='team-info'>
-							{ teams && this.state.activeTeam && this.renderBudgetInfo( this.state.activeTeam ) }
-							{ teams && this.state.activeTeam && this.renderRoster( this.state.activeTeam ) }
+						<div className='team-info'>
+							{ teams && activeTeam && this.renderTeam( activeTeam ) }
 						</div>
 					</div>
 				</section>
@@ -112,11 +96,11 @@ class Teams extends Component {
 	}
 
 	renderTeamTabs () {
-		const { leagues, teams } = this.props
+		const { leagues, teams, activeTeam } = this.props
 		if (!teams) return
 
 		return Object.keys(teams).map( (key, id) => {
-			var isActive = this.state.activeTeam === key;
+			var isActive = activeTeam === key;
 			return (
 				<div
 					key={key} 
@@ -128,38 +112,20 @@ class Teams extends Component {
 		})
 	}
 
-	renderBudgetInfo (id) {
-		// const { changeTeamName, removeAllPlayers } = this.props.teamActions
-		// const { undraftPlayer } = this.props.playerActions
-		// const { settings } = this.props
-		// const { positionData, teamSalary } = settings
-		// const team = this.props.teams[id]
-		// const { players, name } = team
-		
-		// const teamPlayers = players ? this.getPlayersFromIds( players ) : null
-
-		// const undraftPlayerFromTeam = (playerId) => {
-		// 	undraftPlayer(playerId, id)
-		// } 
-
-		return <ValueSubValueDisplay 
-			value={270} 
-			heading='Remaining Budget' 
-			subValue='52'
-			subValueHeading='Max Bid'
-			valueIsDollarAmount={true} 
-			subValueIsDollarAmount={true} />
-	}
-
-	renderRoster (id) {
+	renderTeam (id) {
 		const { changeTeamName, removeAllPlayers } = this.props.teamActions
 		const { undraftPlayer } = this.props.playerActions
 		const { settings } = this.props
+		const playerData = this.props.players
 		const { positionData, teamSalary } = settings
 		const team = this.props.teams[id]
-		const { players, name } = team
+		const { players, name, budgetData } = team
 		
 		const teamPlayers = players ? this.getPlayersFromIds( players ) : null
+
+		const draftablePlayers = Object.keys(playerData)
+			.filter(id => playerData[id].value >= 1)
+			.map( id => playerData[id] )
 
 		const undraftPlayerFromTeam = (playerId) => {
 			undraftPlayer(playerId, id)
@@ -167,7 +133,9 @@ class Teams extends Component {
 
 		return <TeamPlanner
 			name={name} 
-			players={teamPlayers}
+			teamPlayers={teamPlayers}
+			draftablePlayers={draftablePlayers}
+			budgetData={budgetData}
 			positionData={positionData}
 			teamSalary={teamSalary}
 			onChangeTeamName={changeTeamName.bind(this, id)}
@@ -201,13 +169,14 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps (state,ownProps) {
 	const { teams, user, leagues, players, settings } = state
 	const { activeLeague } = leagues
-
+	
 	return {
 		activeLeague,
 		user,
 		settings: settings.data,
 		players: players.data,
-		teams: teams.data
+		teams: teams.data,
+		activeTeam: teams.activeTeam
 	};
 }
 

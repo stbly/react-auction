@@ -60,10 +60,30 @@ export const createCells = (item, columns) => {
 }
 
 export const createStatCells = (categoryObject, changeHandler) => {
-	return Object.keys(categoryObject).map( statId => {
+	const categoriesWithSgpd = Object.keys(categoryObject).filter( key => categoryObject[key].sgpd )
+	return categoriesWithSgpd.map( statId => {
 		const { isRatio } = categoryObject[statId]
 		return statCellFactory(statId, changeHandler, isRatio)
 	})
+}
+
+export const cellFactory = (property, params={}) => {
+	const {className, heading, onClick, valueFunction } = params
+
+	return {
+		className,
+		column: heading || property,
+		content: (object) => {
+
+			const value = valueFunction ? valueFunction(object) : (object[property] || 0)
+			const element = onClick ? <span onClick={onClick}> {value}> </span> : null
+
+			return {
+				value,
+				element
+			}
+		}
+	}
 }
 
 export const statCellFactory = (statId, handler, isRatio=false) => {
@@ -140,6 +160,23 @@ export const valueCellFactory = (property, heading=null, forceDisplay) => {
 	}
 }
 
+export const earnedCellFactory = () => {
+	return {
+		column: 'earned',
+		content: (player) => {
+			const isNull = player.cost === null || player.cost === undefined
+			const earned = Number( player.value - player.cost ).toFixed(1)
+			const cellClass = classNames({ 'no-value': isNull})
+
+			return {
+				value: earned,
+				cellClass,
+				element: <span className={classNames('dollar-amount')}> {earned} </span>
+			}
+		}
+	}
+}
+
 export const positionCellValueFactory = () => {
 	return  {
 		column: 'pos',
@@ -198,25 +235,6 @@ export const nameCellFactory = (handler) => {
 			return {
 				value,
 				element: <span onClick={clickHandler}> {value} </span>
-			}
-		}
-	}
-}
-
-export const cellFactory = (property, params={}) => {
-	const {className, heading, onClick} = params
-
-	return {
-		className,
-		column: heading || property,
-		content: (object) => {
-
-			const value = object[property] || 0
-			const element = onClick ? <span onClick={onClick}> {value}> </span> : null
-
-			return {
-				value,
-				element
 			}
 		}
 	}

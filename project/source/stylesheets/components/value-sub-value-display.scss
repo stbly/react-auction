@@ -2,7 +2,10 @@
 @import '../helpers/fonts';
 
 .value-sub-value-display {
+	font-size: 1em;
+
 	.heading {
+		@include transandina-light;
 		font-size: 0.625em;
 	}
 
@@ -12,24 +15,30 @@
 		vertical-align: bottom;
 	}
 
+	.value-amount-container {
+		font-size: 3em;
+	}
+
 	.value-amount {
 		@include transandina-black ;
-		font-size: 3em;
+		color: $color-batter-dark-grey;
 	}
 
 	.value {
 		.value-amount-container {
 			margin: 5px 0 0;
-			padding: 0.5em 1em;
-			background: $color-batter-default;
+			padding: 0.125em 0.25em;
+			background: $color-neutral;
 			border-radius: 4px;
 		}
 	}
 
 	.sub-value {
 		margin-left: 5px;
+		color: $color-batter-dark-grey;
 		.value-amount {
-			font-size: 2.5em;
+			font-size: 0.75em;
+			color: $color-batter-dark-grey;
 		}
 	}
 }

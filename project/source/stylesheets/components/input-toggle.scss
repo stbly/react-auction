@@ -1,5 +1,7 @@
+@import '../helpers/fonts';
 
 .input-toggle {
+	@include cantarell;
 	padding: 3px 5px;
 
 	text-align: center;
@@ -15,6 +17,10 @@
 		height: 1em;
 		line-height: 1em;
 		cursor: pointer;
+	}
+
+	input {
+		margin: 0;
 	}
 
 	&.showing-input {
