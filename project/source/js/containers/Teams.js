@@ -73,12 +73,11 @@ class Teams extends Component {
 			<div>
 				<section className='section-with-sidebar'>
 					<div className='sidebar'>
-						<button onClick={ this.createNewTeam.bind(this) } className='button'> Add Team + </button>
+						<ul className='team-tabs'>
+							{ this.renderTeamTabs() }
+						</ul>
 					</div>
 					<div className='main'>
-						<div className='team-tabs'>
-							{ this.renderTeamTabs() }
-						</div>
 						<PlayerInput
 							searchablePlayers={this.getUndraftedPlayers()}
 							searchableTeams={teams}
@@ -102,12 +101,12 @@ class Teams extends Component {
 		return Object.keys(teams).map( (key, id) => {
 			var isActive = activeTeam === key;
 			return (
-				<div
+				<li
 					key={key} 
 					onClick={this.makeTeamActive.bind(this,key)}
 					className={classNames('team-tab', {'active': isActive})}>
 						{teams[key].name}
-				</div>
+				</li>
 			)
 		})
 	}

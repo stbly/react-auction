@@ -6,7 +6,9 @@ import {
 	NUM_PITCHERS,
 	NUM_TEAMS,
 	createTeamSettings,
-	createPositionSettings } from '../helpers/constants/settings'
+	createLeagueSettings,
+	createPositionSettings,
+	createCategorySettings } from '../helpers/constants/settings'
 
 import InputToggle from './InputToggle'
 import SettingsInputs from './SettingsInputs'
@@ -40,11 +42,13 @@ class LeagueSettings extends Component {
 	}
 	*/
 
-	settingWasChanged (setting, value) {
+	settingWasChanged (setting, value, endpoint) {
 		const { changeSetting } = this.props
 
+
+		console.log('---2',setting, value)
 		if ( changeSetting ) {
-			changeSetting(setting, value)
+			changeSetting(setting, value, endpoint)
 		}
 	}
 
@@ -111,16 +115,27 @@ class LeagueSettings extends Component {
 						placeholder='League Name' 
 						valueDidChange={this.leagueNameWasChanged.bind(this)} />
 				</h1>
-				{ this.renderTeamSettingsSection() }
-				{ this.renderPositionSettingsSection() }
+
+				{ settings && this.renderLeagueSettingsSection( settings ) }
+				{ settings && this.renderTeamSettingsSection( settings ) }
+				{ settings && this.renderPositionSettingsSection( settings ) }
+
 			</div>
 		)
 	}
 
-	renderTeamSettingsSection () {
-		const { settings } = this.props
-		if (!settings) return
+	renderLeagueSettingsSection (settings) {
+		const leagueSettings = createLeagueSettings(settings)
 
+		return (
+			<section className='league-specific-settings'>
+				<h2>League Settings</h2>	
+				<SettingsInputs settings={leagueSettings} onChange={this.settingWasChanged.bind(this)} />
+			</section>
+		)
+	}
+
+	renderTeamSettingsSection (settings) {
 		const teamSettings = createTeamSettings(settings)
 
 		return (
@@ -131,15 +146,12 @@ class LeagueSettings extends Component {
 		)
 	}
 
-	renderPositionSettingsSection () {
-		const { settings } = this.props
-		if (!settings) return
-
-		const { positionData } = settings
+	renderPositionSettingsSection (settings) {
+		const { positionData, isAuctionLeague } = settings
 		if (!positionData) return
 
 		const allPositionSettings = Object.keys(positionData).map( (type, index) => {
-			return this.renderPositionSettings( type, positionData[type] )
+			return this.renderPositionSettings( type, positionData[type], isAuctionLeague )
 		})
 
 		return (
@@ -149,13 +161,45 @@ class LeagueSettings extends Component {
 		)
 	}
 
-	renderPositionSettings (type, positionSettingsObject) {
-		const positionSettings = createPositionSettings(type, positionSettingsObject)
-
+	renderPositionSettings (type, positionSettingsObject, isAuctionLeague) {
+		const positionSettings = createPositionSettings(type, positionSettingsObject, isAuctionLeague)
+		const categorySettings = createCategorySettings(positionSettingsObject.categories)
 		return (
 			<div key={type} className='position-settings'>
-				<h2>{type} Settings</h2>	
+				<h2>{type.toNormalCase()} Settings</h2>	
 				<SettingsInputs settings={positionSettings} onChange={this.settingWasChanged.bind(this)} />
+				<div className='position-settings-container'>
+					{categorySettings.map( (category, index) => {
+						return (
+							<div key={index} className='position-setting'>
+								<input className='position-toggle'
+									type="checkbox" 
+									checked={category.checked}
+									onChange={ (e) => {
+										const { checked } = e.target
+										const endpoint = 'positionData/' +  type + '/categories/' + category.label + '/scoringStat'
+										this.settingWasChanged('scoringStat', checked, endpoint)
+									}} />
+								<span>{category.label}</span>
+								{category.sgpd && category.checked &&
+									<span className='sgpd-container'>
+										<span>SGPD</span>
+										<InputToggle 
+											type='number' 
+											step={0.001} 
+											value={category.sgpd}
+											valueDidChange={(value) => {
+												const endpoint = 'positionData/' +  type + '/categories/' + category.label + '/sgpd'
+												this.settingWasChanged('sgpd', value, endpoint)
+											}}
+											allowZero={true}
+											min={ 0 } />
+									</span>
+								}
+							</div>
+						)
+					})}
+				</div>
 			</div>
 		)
 	}

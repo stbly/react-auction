@@ -35,7 +35,7 @@ const computeAllPlayerValues = (players, settings) => {
 		const normalizedPositions = normalizePositions(positionsArray, numTeams)
 		return assignPlayerValues(playersWithSGPCalculated, playersToDraft, dollarsToSpend, normalizedPositions)
 	})
-	
+
 	const combinedPlayers = Array.concat.apply([],valuedPlayers)
 	return Array.toObject(combinedPlayers)
 }

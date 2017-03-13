@@ -29,12 +29,18 @@ let initialState = {
 }
 
 // Prune data from server to play nicely with the app
-const scrubPlayerData = (players) => {
+const normalizePlayerData = (players) => {
 	for (const id in players) {
 		if (players.hasOwnProperty(id)) {
-			if (players[id].stats) {
-				if (players[id].stats.default) {
-					const stats = players[id].stats.default
+			const player = players[id]
+
+			if (!player.name && player.first_name && player.last_name) {
+				player.name = player.first_name + ' ' + player.last_name;
+			}
+
+			if (player.stats) {
+				if (player.stats.default) {
+					const stats = player.stats.default
 					const newStats = {}
 
 					for (const stat in stats) {
@@ -43,12 +49,7 @@ const scrubPlayerData = (players) => {
 							newStats[stat] = val
 						}
 					}
-					
-					players[id].stats = newStats
-					if (!players[id].positions || players[id].positions.length === 0) {
-						players[id].positions = ['OF']
-					}
-
+					player.stats = newStats
 				}
 			}
 		}
@@ -126,7 +127,7 @@ export const fetchPlayers = (forceFetch = false) => {
 
 const fetchOfflinePlayerData = () => {
 	return (dispatch, getState) => {
-		const players = scrubPlayerData(defaultPlayers)
+		const players = normalizePlayerData(defaultPlayers)
 		dispatch( receivePlayers(players) )
 		return Promise.resolve()
 	}
@@ -141,7 +142,7 @@ const fetchPlayersAtPath = (path) => {
 
 		if (shouldFetchPlayers) {
 			return dispatch( getPlayers(path) ) // Load default player data
-				.then( players => scrubPlayerData(players) )
+				.then( players => normalizePlayerData(players) )
 		} else {
 			return Promise.resolve()
 		}
@@ -184,7 +185,6 @@ export const draftPlayer = (id, cost, teamId) => {
 
 export const undraftPlayer = (id, teamId) => {
 	return (dispatch, getState) => {
-		console.log(id, teamId)
 		dispatch( updatePlayerCost(id, null) )
 		dispatch( updatePlayerOwner(id, null) )
 		dispatch( removePlayerFromTeam(id, teamId) )

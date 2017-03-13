@@ -85,10 +85,13 @@ const updateFirebaseUserSetting = (state, action) => {
 	const { id } = activeLeague
 	if (!id) return
 
-	const {setting, value} = action.payload
+	const {setting, value, endpoint} = action.payload
 	const usersRef = getUserRef()
-	const endpoint = settingsEndpoints[setting]
-	const path = state.user.uid + '/leagues/' + id + '/settings/' + endpoint
+	const settingEndpoint = endpoint || settingsEndpoints[setting]
+	const path = state.user.uid + '/leagues/' + id + '/settings/' + settingEndpoint
+
+	// console.log(path, value)
+
 	usersRef.update({
 		[path]: value
 	})

@@ -26,4 +26,25 @@
 			background: $color-grey-lightest;
 		}
 	}
+
+	.position-settings-container {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.position-setting {
+		min-width: 25%;
+		margin: 10px 0;
+
+		.sgpd-container {
+			background: $color-batter-alt;
+			padding: 6px 3px;
+			margin: 0 5px;
+		}
+
+		.input-toggle {
+			margin-left: 5px;
+		}
+	}
+	
 }

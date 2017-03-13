@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import ActivePlayer from './ActivePlayer'
-import PlayerListsContainer from './PlayerListsContainer'
-// import FavoritePlayerListsContainer from './FavoritePlayerListsContainer'
+import PlayerList from '../components/PlayerList'
+// import FavoritePlayerList from './FavoritePlayerList'
 
 import classNames from 'classnames';
 

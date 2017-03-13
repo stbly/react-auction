@@ -16,17 +16,20 @@ class InputToggle extends Input {
 	}
 
 	componentDidMount() {
+		const { value, allowZero } = this.props
 		super.componentDidMount()
-		this.setState({showValue: this.shouldShowValue(this.props.value)});
+		this.setState({showValue: this.shouldShowValue( value, allowZero )});
 	}
 
 	componentWillReceiveProps (nextProps) {
+		const { value, allowZero, currentEditElement } = nextProps
+
 		super.componentWillReceiveProps(nextProps)
 
-		if(nextProps.value !== this.props.value) {
-			let showValue = this.shouldShowValue(nextProps.value);
+		if(value !== this.props.value) {
+			let showValue = this.shouldShowValue(value, allowZero);
 
-			if (nextProps.currentEditElement === this) {
+			if (currentEditElement === this) {
 				showValue = this.state.isEditing ? false : showValue;
 			}
 
@@ -34,11 +37,11 @@ class InputToggle extends Input {
 		}
 	}
 
-	shouldShowValue (value) {
-		if (value) {
-			return value > 0 || value.length > 0;
+	shouldShowValue (value, allowZero) {
+		if (value || allowZero) {
+			return value > 0 || value.length > 0 || allowZero;
 		} else {
-			return null;
+			return false;
 		}
 	}
 
@@ -51,8 +54,10 @@ class InputToggle extends Input {
 	}
 
 	handleBlur (e) {
+		const { allowZero } = this.props
+		const { inputValue } = this.state
 		super.handleBlur(e)
-		this.setState({showValue: this.shouldShowValue(this.state.inputValue)})
+		this.setState({showValue: this.shouldShowValue(inputValue, allowZero)})
 	}
 
 	startEditing() {

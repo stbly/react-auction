@@ -43,7 +43,7 @@ class TeamPlanner extends Component {
 		Object.keys(positionData).map( type => {
 			const { rosterSpots, budgetPercentage } = positionData[type]
 			const amountToSpend = Math.round(teamSalary * (budgetPercentage/100))
-			const playersOfType = players.filter( player => player.type === type )
+			const playersOfType = (players || []).filter( player => player.type === type )
 
 			const slotWeights = getDistributions(amountToSpend, rosterSpots, 3.5, [0, rosterSpots - 1])
 			const playerSlots = slotWeights.map( slot => {
@@ -52,26 +52,6 @@ class TeamPlanner extends Component {
 				}
 			})
 
-			/*const playersAssignedToSlots = playerSlots.filter(slot => (slot.player)).map( slot => {
-				return {
-					playerId: slot.player.id,
-					slotIndex: playerSlots.indexOf(slot)
-				}
-			})*/
-
-			// ------------------------------------------------ //
-			// ---- make sure player is still on the team ----- //
-			// ------------------------------------------------ //
-			
-			/*const playerIds = (players || []).map( player => player.id )
-
-			playersAssignedToSlots.forEach( slot => {
-				if (playerIds.indexOf(slot.playerId) === -1) {
-					console.log('remove player at', playerSlots[slot.slotIndex])
-					playerSlots[slot.slotIndex].player = null
-				}
-			})
-			*/
 
 			// ------------------------------------------------ //
 			// --- end make sure player is still on the team -- //
@@ -86,15 +66,7 @@ class TeamPlanner extends Component {
 				players.forEach( player => {
 					// Find suitable player slot
 					const { cost } = player
-					// const assignedPlayerIds = playersAssignedToSlots.map( slot => slot.playerId )
-					// const assignmentIndex = assignedPlayerIds.indexOf(player.id)
 
-					// if (assignmentIndex > -1) {
-					// 	const currentSlotIndex = playersAssignedToSlots[assignmentIndex].slotIndex
-					// 	playerSlots[currentSlotIndex].player = player;
-					// 	playerSlots[currentSlotIndex].budget = player.cost
-					// 	console.log(playerSlots[currentSlotIndex])
-					// } else {
 					const availableSlots = playerSlots.filter( slot => !slot.player )
 
 					let closestMatchIndex = 0
@@ -111,7 +83,7 @@ class TeamPlanner extends Component {
 					playerSlots[closestMatchIndex].player = player
 					playerSlots[closestMatchIndex].budget = player.cost
 					// console.log(availableSlots)
-					// }
+
 				})
 
 				// ------------------------------------------------ //
@@ -147,18 +119,11 @@ class TeamPlanner extends Component {
 					playerSlots[indexOfSlot].budget = recalculatedSlotValues[index]
 				})
 
-				// const test = playerSlots.map(slot => slot.budget)
-				// console.log('slots after players', amountToSpend, test)
-				// console.log('slots after players sum', test.reduce((a,b) => a+ b))
-
-
 				// ------------------------------------------------ //
 				// - end recalculate slot values w/ players added - //
 				// ------------------------------------------------ //
 
 			}
-
-			// console.log(playerSlots)
 			
 			slots[type] = playerSlots.map( slot => {
 				const player = slot.player || newPlayer()
@@ -198,7 +163,6 @@ class TeamPlanner extends Component {
 		const { name, teamPlayers, positionData, undraftPlayer, onChangeTeamName, onResetPlayers } = this.props
 		const { playerSlots } = this.state
 
-		console.log('PLAYER SLOTS',playerSlots)
 		return Object.keys(playerSlots).map( type => {
 			const categories = positionData[type].categories
 			const players = playerSlots[type]
@@ -273,8 +237,9 @@ class TeamPlanner extends Component {
 		const undraftedPlayersOfType = undraftedPlayers.filter( player => {
 			const remainingBudgetedSlots = playerSlots[type].filter( slot => !slot.cost )
 			const highestBudgetedSlot = Math.max( ...remainingBudgetedSlots.map( slot => slot.budget ))
-			console.log(highestBudgetedSlot)
-			return player.type === type && player.value >= 1 && player.value <= highestBudgetedSlot
+			const observeHighestBudgetedSlot = remainingBudgetedSlots.length === playerSlots.length
+
+			return player.type === type && player.value >= 1 && (observeHighestBudgetedSlot ? player.value <= highestBudgetedSlot : true)
 		})
 
 		// ------------------------------------------------ //
@@ -284,9 +249,9 @@ class TeamPlanner extends Component {
 
 		const averagePlayerStatObject = {}
 		Object.keys(categories).forEach(categoryKey => {
-			const { isRatio } = categories[categoryKey]
+			const { isRatioStat } = categories[categoryKey]
 			const leagueStatTotal = getStatTotal( undraftedPlayersOfType, categories[categoryKey], categoryKey ) 
-			const leagueStatAverage = isRatio ? leagueStatTotal : (leagueStatTotal / (undraftedPlayersOfType.length))
+			const leagueStatAverage = isRatioStat ? leagueStatTotal : (leagueStatTotal / (undraftedPlayersOfType.length))
 			Object.assign(averagePlayerStatObject, {
 				[categoryKey]: leagueStatAverage
 			})
@@ -310,13 +275,13 @@ class TeamPlanner extends Component {
 		const draftablePlayersOfType = draftablePlayers.filter ( player => player.type === type )
 
 		const categoryTrackers = goalCategories.map( key => {
-			const { isRatio } = categories[key]
+			const { isRatioStat } = categories[key]
 			
 			const leagueStatTotal = getStatTotal( draftablePlayersOfType, categories[key], key ) 
 			const stat = projectedTotals[key]
-			const averageStat = isRatio ? stat : (stat / rosterSpots)
-			const goal = isRatio ? leagueStatTotal : (leagueStatTotal / (draftablePlayersOfType.length))
-			const decimalPlaces = isRatio ? 3 : 0
+			const averageStat = isRatioStat ? stat : (stat / rosterSpots)
+			const goal = isRatioStat ? leagueStatTotal : (leagueStatTotal / (draftablePlayersOfType.length))
+			const decimalPlaces = isRatioStat ? 3 : 0
 
 			return (
 				<div className={classNames('goal', key)}>

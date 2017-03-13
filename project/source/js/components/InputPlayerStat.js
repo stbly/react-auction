@@ -25,10 +25,10 @@ class InputPlayerStat extends Component {
 
 	render () {
 		// console.log('component does update')
-		const { category, value, isRatio, disabled } = this.props
-		const decimalPlaces = isRatio ? 3 : 0;
-		const increment = isRatio ? 0.001 : 1;
-		const max = isRatio ? 1 : 999;
+		const { category, value, isRatioStat, disabled } = this.props
+		const decimalPlaces = isRatioStat ? 3 : 0;
+		const increment = isRatioStat ? 0.001 : 1;
+		const max = isRatioStat ? 1 : 999;
 		const inputValue = Number(value || 0).toFixed(decimalPlaces);
 
 		return (
@@ -47,7 +47,7 @@ InputPlayerStat.propTypes = {
 	category: PropTypes.string.isRequired,
 	value: PropTypes.number.isRequired,
 	onStatChange: PropTypes.func,
-	isRatio: PropTypes.bool,
+	isRatioStat: PropTypes.bool,
 	disabled: PropTypes.bool
 }
 

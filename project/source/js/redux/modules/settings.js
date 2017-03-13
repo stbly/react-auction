@@ -126,15 +126,15 @@ export const RECEIVE_SETTINGS = 'settings/RECEIVE_SETTINGS'
 export const RECEIVE_DEFAULT_SETTINGS = 'settings/RECEIVE_DEFAULT_SETTINGS'
 export const UPDATE_SETTING = 'settings/UPDATE_SETTING'
 
-export const changeSetting = (setting, value) => {
+export const changeSetting = (setting, value, endpoint) => {
 	return (dispatch, getState) => {
-		dispatch( updateSetting(setting, value))
-		
+		dispatch( invalidateSettings() )
+		dispatch( updateSetting(setting, value, endpoint))
 		const settings = getState().settings.data
-		const endpoint = settingsEndpoints[setting]
-		const newData = endpointToObject(endpoint, value)
-		const mergedData = mergeDeep(settings, newData)
-
+		const path = endpoint || settingsEndpoints[setting]
+		const newData = endpointToObject(path, value)
+		const settingsCopy = Object.assign({}, settings)
+		const mergedData = mergeDeep(settingsCopy, newData)
 		return dispatch( receiveSettings(mergedData) )
 	}
 }
@@ -155,8 +155,8 @@ export const receiveDefaultSettings  = (settings) => {
 	return { type: RECEIVE_DEFAULT_SETTINGS, payload: {settings} }
 }
 
-export const updateSetting  = (setting, value) => {
-	return { type: UPDATE_SETTING, payload: {setting, value}}
+export const updateSetting  = (setting, value, endpoint) => {
+	return { type: UPDATE_SETTING, payload: {setting, value, endpoint}}
 }
 
 const reducer = (state = initialState, action) => {
@@ -197,7 +197,7 @@ const reducer = (state = initialState, action) => {
 				defaults: action.payload.settings
 			});
 		
-		case UPDATE_SETTING:
+		case INVALIDATE_SETTINGS:
 			return Object.assign({}, state, {
 				didInvalidate: true
 			})

@@ -92,6 +92,7 @@ export function receiveTeams (teams) {
 }
 
 export function changeTeamName (teamId, name) {
+	console.log(teamId, name)
 	return { type: CHANGE_TEAM_NAME, payload: {teamId, name} }
 }
 
@@ -140,7 +141,7 @@ export default function reducer (state = initialState, action) {
 			return Object.assign({}, state, {
 				fetching: false,
 				data: Object.assign({}, data, { 
-					[id]: Object.assign({}, teamObject, { name })
+					[teamId]: Object.assign({}, teamObject, { name })
 				})
 			});
 

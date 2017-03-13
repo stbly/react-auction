@@ -11,7 +11,7 @@ import { sortByProperty } from '../helpers/arrayUtils';
 
 import ActivePlayer from './ActivePlayer'
 import PlayerInput from '../components/PlayerInput'
-import PlayerListsContainer from './PlayerListsContainer'
+import PlayerList from '../components/PlayerList'
 import classNames from 'classnames';
 
 class Players extends Component {
@@ -20,7 +20,9 @@ class Players extends Component {
 		super(props)
 		this.state = {
 			hideDraftedPlayers: false,
-			showPlayersBelowReplacement: false
+			showRatios: false,
+			showPlayersBelowReplacement: false,
+			preserveRatios: true
 		}
 	}
 
@@ -52,7 +54,6 @@ class Players extends Component {
 		const useablePlayers = []
 		Object.keys(positionData).forEach( type => {
 			const limit = positionData[type].rosterSpots * numTeams
-			console.log(type, limit - 1)
 			const playersOfType = playerArray.filter( player => player.type === type )
 			const playersInOrder = playersOfType.sort( (a,b) => sortByProperty(a,b,'rank') )
 			const group = showPlayersBelowReplacement ? playersInOrder : playersInOrder.splice(0, limit)
@@ -66,9 +67,18 @@ class Players extends Component {
 		this.setState({hideDraftedPlayers: !this.state.hideDraftedPlayers})
 	}
 
+	toggleShowRatios () {
+		this.setState({showRatios: !this.state.showRatios})
+	}
+
+
+	togglePreserveRatios () {
+		this.setState({preserveRatios: !this.state.preserveRatios})
+	}
+
 
 	render() {
-		const { hideDraftedPlayers } = this.state
+		const { hideDraftedPlayers, showRatios, preserveRatios } = this.state
 		const { teams, positionData, playerActions } = this.props
 		return (
 
@@ -87,14 +97,29 @@ class Players extends Component {
 							type="checkbox"
 							checked={hideDraftedPlayers}
 							onChange={this.toggleHideDraftedPlayers.bind(this)} />
-
 						<span className='hide-selected-text'>Hide Drafted Players</span>
+					</div>
+					<div className='show-ratios-container'>
+						<input className='show-ratios-toggle'
+							type="checkbox"
+							checked={showRatios}
+							onChange={this.toggleShowRatios.bind(this)} />
+						<span className='hide-selected-text'>Show Stat Ratios</span>
+					</div>
+					<div className='preserve-ratios-container'>
+						<input className='preserve-ratios-toggle'
+							type="checkbox"
+							checked={preserveRatios}
+							onChange={this.togglePreserveRatios.bind(this)} />
+						<span className='hide-selected-text'>Preserve Stat Ratios</span>
 					</div>
 				</section>
 
 				<div className='combined-rankings'>
-					<PlayerListsContainer
+					<PlayerList
 						players={ this.getPlayersToDisplay() }
+						showRatios={showRatios}
+						preserveRatios={preserveRatios}
 						positionData={positionData}
 						teams={teams}
 						actions={playerActions} />

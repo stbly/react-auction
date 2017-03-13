@@ -25,7 +25,7 @@ class Settings extends Component {
 			localSettings: this.props.settings
 		}
 	}
-
+	
 	createNewLeague () {
 		const { changeActiveLeague } = this.props.leagueActions
 		const newLeagueId = generateLeagueId()
@@ -64,14 +64,14 @@ class Settings extends Component {
 		}
 	}
 
-	settingWasChanged (setting, value) {
+	settingWasChanged (setting, value, endpoint) {
 		const { leagueIsSaved } = this.getLeagueSavedState()
-
 		if (leagueIsSaved) {
 			const { changeSetting } = this.props.settingsActions
-			if (changeSetting) changeSetting(setting, value)
+			if (changeSetting) changeSetting(setting, value, endpoint)
 		} else {
-			const newSetting = endpointToObject(settingsEndpoints[setting], value)
+			const endpoint = endpoint || settingsEndpoints[setting]
+			const newSetting = endpointToObject(endpoint, value)
 			this.setState({
 				localSettings: mergeDeep(this.state.localSettings, newSetting)
 			})

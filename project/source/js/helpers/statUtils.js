@@ -23,11 +23,11 @@ export const addAllRatioStatValuesOfTypeForPlayers = (players, statId, denominat
 }
 
 export const getStatTotal = (players, category, categoryKey) => {
-	const { isRatio, denominator, perPeriod } = category;
-	const statCalculation = isRatio ? addAllRatioStatValuesOfTypeForPlayers : addAllNormalStatValuesOfTypeForPlayers;
+	const { isRatioStat, denominator, perPeriod } = category;
+	const statCalculation = isRatioStat ? addAllRatioStatValuesOfTypeForPlayers : addAllNormalStatValuesOfTypeForPlayers;
 
 	let params = [players, categoryKey];
-	if (isRatio) {
+	if (isRatioStat) {
 		params.push(denominator, perPeriod);
 	}
 

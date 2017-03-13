@@ -17,15 +17,17 @@
 	}
 }
 .team-tabs {
-	width: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	border: 1px solid $color-batter-default;
+	/*width: 100%;*/
+	/*white-space: nowrap;*/
+	/*overflow: hidden;*/
+	/*border: 1px solid $color-batter-default;*/
 
 	.team-tab {
 		@include transandina-medium
 		display: inline-block;
-		padding: 4px 7px;
+		box-sizing: border-box;
+		width: 100%;
+		padding: 12px 7px 4px;
 		cursor: pointer;
 
 		&:hover,
@@ -34,7 +36,8 @@
 		}
 
 		&:not(:last-child) {
-			border-right: 1px solid $color-batter-default;
+			border-bottom: 1px solid $color-batter-default;
+			/*margin-bottom: 10px;*/
 		}
 	}
 }
@@ -110,7 +113,34 @@
 			padding: 4px;
 
 			.value-amount-container {
-				font-size: 2em;
+				font-size: 2.5em;
+			}
+
+			.value {
+				.value-amount-container {
+					background: none;
+					padding: 0;
+					margin-top: 0;
+				}
+			}
+
+			.sub-value {
+				.heading {
+					text-align: right;
+				}
+
+				.value-amount-container {
+					position: relative;
+					background: $color-batter-default;
+				    padding: 0.125em 0.25em;
+					margin-top: 4px;
+
+				}
+
+				.value-amount {
+					font-size: 0.5em;
+				}
+
 			}
 		}
 	}

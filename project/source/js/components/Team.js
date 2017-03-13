@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames';
 import { Table, Tfoot } from 'reactable-cacheable'
+import { primaryPositionFor } from '../helpers/PlayerListUtils'
 
 import { 
 		createRows, 
@@ -14,10 +15,8 @@ import {
 		sortPosition, 
 		cellFactory, 
 		earnedCellFactory,
-		nameCellFactory, 
 		valueCellFactory, 
 		costCellFactory, 
-		positionCellFactory, 
 		createStatCells} from '../helpers/tableUtils'
 
 import { getStatTotals } from '../helpers/statUtils'
@@ -52,8 +51,8 @@ class Team extends Component {
 		const categoryCells = createStatCells(categories)
 		const columns = [
 			valueCellFactory('budget', 'budget', true),
-			positionCellFactory(),
-			nameCellFactory(),
+			cellFactory('position', {className: 'hidden', valueFunction: primaryPositionFor}),
+			cellFactory('name', {className: 'widen'}),
 			earnedCellFactory(),
 			cellFactory('type', {className: 'hidden'}),
 			costCellFactory(),

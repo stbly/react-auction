@@ -16,7 +16,6 @@ export const playerIsUndrafted = (player) => {
 
 export const rankPlayers = (players, category, descending=true) => {
 	const sortedPlayers = sortArrayByCategory(players, category, descending)
-
 	return sortedPlayers.map( (player, index) => {
 		player.rank = index + 1
 		return player

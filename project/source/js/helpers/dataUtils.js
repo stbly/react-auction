@@ -4,7 +4,7 @@ import { arrayCheck } from './arrayUtils'
  * Code via Salakar on Stack Overflow http://stackoverflow.com/a/34749873
  */
 
-const isObject = (item) => {
+export const isObject = (item) => {
 	return (item && typeof item === 'object' && !Array.isArray(item));
 }
 

@@ -6,7 +6,7 @@ import InputPlayerStat from '../components/InputPlayerStat.js'
 import CellPlayerCost from '../components/CellPlayerCost.js'
 import IconButton from '../components/IconButton'
 
-import { sort } from './arrayUtils'
+import { sort, sortMultiple } from './arrayUtils'
 
 import { primaryPositionFor } from './PlayerListUtils'
 
@@ -60,23 +60,24 @@ export const createCells = (item, columns) => {
 }
 
 export const createStatCells = (categoryObject, changeHandler) => {
-	const categoriesWithSgpd = Object.keys(categoryObject).filter( key => categoryObject[key].sgpd )
-	return categoriesWithSgpd.map( statId => {
-		const { isRatio } = categoryObject[statId]
-		return statCellFactory(statId, changeHandler, isRatio)
+	return Object.keys(categoryObject).map( statId => {
+		const { isRatioStat } = categoryObject[statId]
+		return statCellFactory(statId, changeHandler, isRatioStat)
 	})
 }
 
 export const cellFactory = (property, params={}) => {
-	const {className, heading, onClick, valueFunction } = params
+	const {className, heading, onClick, valueFunction, elementFunction } = params
 
 	return {
 		className,
 		column: heading || property,
 		content: (object) => {
 
+			const handleClick = onClick ? () => { onClick(object) } : null
 			const value = valueFunction ? valueFunction(object) : (object[property] || 0)
-			const element = onClick ? <span onClick={onClick}> {value}> </span> : null
+			const element = elementFunction ? elementFunction(object) : 
+				onClick ? <span onClick={ handleClick }> {value} </span> : null
 
 			return {
 				value,
@@ -86,7 +87,7 @@ export const cellFactory = (property, params={}) => {
 	}
 }
 
-export const statCellFactory = (statId, handler, isRatio=false) => {
+export const statCellFactory = (statId, handler, isRatioStat=false) => {
 
 	return {
 		column: statId,
@@ -107,7 +108,7 @@ export const statCellFactory = (statId, handler, isRatio=false) => {
 		        	category={statId}
 		        	key={index}
 		        	value={statValue || 0}
-		        	isRatio={isRatio}
+		        	isRatioStat={isRatioStat}
 		        	disabled={!handler}
 		        	onStatChange={statChangeHandler} />
 	        }
@@ -177,30 +178,6 @@ export const earnedCellFactory = () => {
 	}
 }
 
-export const positionCellValueFactory = () => {
-	return  {
-		column: 'pos',
-		content: (player) => {
-			return {
-				value: player.id,
-				element: primaryPositionFor(player)
-			}
-		}
-	}
-}
-
-export const positionCellFactory = () => {
-	return {
-		column: 'position',
-		// className: 'hidden',
-		content: (player) => {
-			return {
-				value: primaryPositionFor(player)
-			}
-		}
-	}
-}
-
 export const favoriteCellFactory = (handler) => {
 	return {
 		column: '*',
@@ -215,26 +192,6 @@ export const favoriteCellFactory = (handler) => {
 						isActive={player.isFavorited}
 						type={'watch'} />
 				)
-			}
-		}
-	}
-}
-
-export const nameCellFactory = (handler) => {
-	return {
-		column: 'name',
-		className: 'has-action widen',
-		content: (player) => {
-			const value = player.name
-			const clickHandler = () => {
-				if (handler) {
-					handler(player.id)
-				}
-			}
-
-			return {
-				value,
-				element: <span onClick={clickHandler}> {value} </span>
 			}
 		}
 	}
@@ -265,9 +222,9 @@ export const sortPosition = (players) => {
 			const posB = primaryPositionFor( players[playerIdB] )
 			const valueA = players[playerIdA].adjustedValue
 			const valueB = players[playerIdB].adjustedValue
-			const descending = direction === 1 ? false : true
+			// const descending = direction === 1 ? false : true
 			const comparePosition = sort(posA, posB, false, false)
-			const compareValue = sort(valueA, valueB, descending)
+			const compareValue = sort(valueA, valueB, true) //descending)
 
 			return sortMultiple( comparePosition, compareValue )
 		}
@@ -282,7 +239,7 @@ export const sortCost = (players) => {
 			const playerA = players[a]
 			const playerB = players[b]
 			const costSort = sort(playerA.cost, playerB.cost, false, false)
-			const valueSort = sort(playerA.value, playerB.value, direction)
+			const valueSort = sort(playerA.value, playerB.value, false)//, direction)
 
 			return sortMultiple( costSort, valueSort)
 		}

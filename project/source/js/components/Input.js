@@ -94,11 +94,11 @@ class Input extends Component {
 				if (min && value < min) (value = min)
 				if (max && value > max) (value = max)
 			}
-
 			if (value != this.state.startValue) {
 				this.changeValue(value)
 			}
 		}
+
 		this.stopEditing()
 	}
 
@@ -148,6 +148,8 @@ class Input extends Component {
 		switch (this.props.type) {
 			case 'textarea':
 				return this.renderTextArea()
+			case 'select':
+				return this.renderSelect()
 			default:
 				return this.renderInput()
 		}
@@ -191,6 +193,25 @@ class Input extends Component {
 			</textarea>
 		)
 	}
+
+	renderSelect () {
+		const {options} = this.props
+		const classes = classNames(this.props.classNames)
+
+		const optionEls = options.map( (option, index) => {
+			const value = option.label || option
+			return <option key={index} value={value}>{value}</option>	
+		})
+
+		return (
+			<select className={classes}
+				ref={(ref) => this.el = ref}
+				onChange={this.updateInputValue.bind(this)}
+				value={this.state.inputValue}>
+					{optionEls}
+			</select>
+		)
+	}
 }
 
 Input.propTypes = {
@@ -204,6 +225,7 @@ Input.propTypes = {
 	min: PropTypes.number,
 	max: PropTypes.number,
 	placeholder: PropTypes.string,
+	options: PropTypes.array,
 	didStartEditing: PropTypes.func,
 	didStopEditing: PropTypes.func,
 	valueDidChange: PropTypes.func,

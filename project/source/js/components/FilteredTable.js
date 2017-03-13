@@ -83,10 +83,6 @@ class FilteredTable extends Component {
 	}
 
 	getRows (data, columns, rowClassFunction) {
-		// if (!this.rows) {
-		// 	this.rows = createRows(data, columns, rowClassFunction)
-		// }
-		// return this.rows
 		return createRows(data, columns, rowClassFunction)
 	}
 
@@ -98,7 +94,6 @@ class FilteredTable extends Component {
 		const loader = true ? this.renderLoader() : null
 
 		const currentFilter = this.currentFilter
-
 	
 		return (
 			<section className='filtered-table section-with-sidebar'>

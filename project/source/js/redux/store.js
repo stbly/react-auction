@@ -2,6 +2,7 @@ import thunkMiddleware from 'redux-thunk'
 import apiMiddlware from './middleware/api'
 import firebaseMiddleware from './middleware/firebase'
 import valuationMiddlware from './middleware/valuation'
+import statMiddleware from './middleware/stat'
 import { createStore, applyMiddleware } from 'redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { routeReducer, syncHistory } from 'react-router-redux'
@@ -14,7 +15,8 @@ const configureStore = (initialState) => {
 			thunkMiddleware, // lets us dispatch() functions
 			apiMiddlware,
 			firebaseMiddleware,
-			valuationMiddlware
+			valuationMiddlware,
+			statMiddleware
 		)
     )
     return store
