@@ -14,6 +14,7 @@ export const renderHeaderCells = (columns) => {
 	return columns.map( (object, index) => {
 		const {column, className} = object
 		const classes = classNames(className || column)
+
 		return (
 			<Th key={index} className={classes} column={column}>
 				{column}
@@ -32,7 +33,8 @@ export const createHeaderRow = (columns) => {
 }
 
 export const createRows = (data, columns, classFunctions, actions={}) => {
-	return data.map( (item, index) => {
+	
+	const returnData = data.map( (item, index) => {
 		const classes = classFunctions ? classFunctions(item) : null
 		const { onClick } = actions
 		return (
@@ -41,6 +43,8 @@ export const createRows = (data, columns, classFunctions, actions={}) => {
 			</Tr>
 		)
 	})
+
+	return returnData
 }
 
 export const createCells = (item, columns) => {
@@ -50,7 +54,7 @@ export const createCells = (item, columns) => {
 		const data = (element || value)
 
 		const classes = classNames(className, cellClass)
-
+		
 		return (
 			<Td colSpan={colSpan} key={index} className={classes} column={column} value={value}>
 				{ data }
@@ -61,21 +65,24 @@ export const createCells = (item, columns) => {
 
 export const createStatCells = (categoryObject, changeHandler) => {
 	return Object.keys(categoryObject).map( statId => {
-		const { isRatioStat } = categoryObject[statId]
-		return statCellFactory(statId, changeHandler, isRatioStat)
+		const { isRatioStat, max, min } = categoryObject[statId]
+		return statCellFactory(statId, changeHandler, {isRatioStat, max, min})
 	})
 }
 
 export const cellFactory = (property, params={}) => {
-	const {className, heading, onClick, valueFunction, elementFunction } = params
+	const {className, heading, onClick, valueFunction, elementFunction, isText } = params
+
+	const hasActionClass = onClick ? 'has-action' : ''
+	const classes = className ? [className, hasActionClass].join(' ') : hasActionClass
 
 	return {
-		className,
+		className: classes,
 		column: heading || property,
 		content: (object) => {
 
 			const handleClick = onClick ? () => { onClick(object) } : null
-			const value = valueFunction ? valueFunction(object) : (object[property] || 0)
+			const value = valueFunction ? valueFunction(object) : (object[property] || (isText ? '' : 0))
 			const element = elementFunction ? elementFunction(object) : 
 				onClick ? <span onClick={ handleClick }> {value} </span> : null
 
@@ -87,8 +94,8 @@ export const cellFactory = (property, params={}) => {
 	}
 }
 
-export const statCellFactory = (statId, handler, isRatioStat=false) => {
-
+export const statCellFactory = (statId, handler, params) => {
+	const {isRatioStat, max, min} = params || {}
 	return {
 		column: statId,
 		className: handler ? 'can-edit' : null,
@@ -109,6 +116,8 @@ export const statCellFactory = (statId, handler, isRatioStat=false) => {
 		        	key={index}
 		        	value={statValue || 0}
 		        	isRatioStat={isRatioStat}
+		        	max={max}
+		        	min={min}
 		        	disabled={!handler}
 		        	onStatChange={statChangeHandler} />
 	        }
@@ -197,19 +206,20 @@ export const favoriteCellFactory = (handler) => {
 	}
 }
 
-export const createNameMatchFilter = (column, params) => {
-	const { label, substring } = params
+export const createNameMatchFilter = (column, matches, params={}) => {
+	const { heading, substring } = params
 	const filterFunction = (contents, filter) => {
+		// console.log('createNameMatchFilter', contents, filter)
 		const string = contents.toLowerCase()
 		return substring ? string.indexOf(filter) > -1 : string === filter
 	}
 	return {
 		column,
-		label,
+		heading,
+		label: matches,
 		filterFunction
 	}
 }
-
 
 // Sorting Functions //
 
@@ -236,6 +246,7 @@ export const sortCost = (players) => {
 		column: 'cost',
 		direction: 'desc',
 		sortFunction: (a,b) => {
+
 			const playerA = players[a]
 			const playerB = players[b]
 			const costSort = sort(playerA.cost, playerB.cost, false, false)

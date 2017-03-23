@@ -17,14 +17,14 @@ import '../../stylesheets/components/filtered-table.scss'
 class FilteredTable extends Component {
 	constructor(props) {
 		super(props)
-		this.currentFilter = 'batter'
-		this.currentSort = {
-			column: 'rank',
-			direction: 1
-		}
 		
 		this.state = {
-			searchQuery: null
+			searchQuery: null,
+			filter: 'batter',
+			sort: {
+				column: 'rank',
+				direction: 1
+			}
 		}
 	}
 
@@ -36,21 +36,26 @@ class FilteredTable extends Component {
 	onFilter (filter) {
 		const { onFilter } = this.props
 
-		this.currentFilter = filter
+		this.setState({filter})
 
 		if (onFilter) onFilter(filter)
 	}
 
 	onSort ( sort ) {
-		this.currentSort = sort
+		const { data } = this.props
+		this.setState({
+			sort	
+		})
 	}
 
 	setSearchQuery (value) {
+		const { filter } = this.state
+
 		this.setState({searchQuery: value})
 		if (value) {
 			this.table.filterBy( 'name' )
 		} else {
-			this.table.filterBy( this.currentFilter )
+			this.table.filterBy( filter )
 		}
 	}
 
@@ -70,14 +75,12 @@ class FilteredTable extends Component {
 				return this.getSearchMatch(contents)
 			}
 		}
-
 		return [...tableFilters, searchFilter]
 
 	}
 
 	getSearchMatch( string ) {
 		const searchQuery = this.state.searchQuery.toLowerCase()
-		// console.log(string)
 		const stringQuery = string ? string.toLowerCase() : null
 		return valueMatch(stringQuery, searchQuery, false)
 	}
@@ -87,19 +90,17 @@ class FilteredTable extends Component {
 	}
 
 	render () {
-		const { searchQuery } = this.state
-		const { data, columns, rows, filters } = this.props
+		const { searchQuery, filter } = this.state
+		const { filters } = this.props
 
 		const table = this.renderTable()
 		const loader = true ? this.renderLoader() : null
 
-		const currentFilter = this.currentFilter
-	
 		return (
 			<section className='filtered-table section-with-sidebar'>
 				<div className='sidebar'>
 					<ListFilters
-						activeFilter={currentFilter}
+						activeFilter={filter}
 						searchQuery={searchQuery}
 						setSearchQuery={this.setSearchQuery.bind(this)}
 						filterSelected={this.setFilter.bind(this)}
@@ -123,19 +124,20 @@ class FilteredTable extends Component {
 
 	renderTable () {
 		const { data, columns, className, sortingFunctions, rowClassFunction } = this.props
+		const { filter, sort } = this.state
 		const filters = this.getFilters()
 
 		const headers = createHeaderRow(columns)
 		const rows = this.getRows(data, columns, rowClassFunction)
-	
+
 		return (
 			<Table
 				ref={(ref) => this.table = ref}
 				className={className}
 				sortable={sortingFunctions}
 				filterable={filters}
-				defaultSort={this.currentSort}
-				filterBy={this.currentFilter}
+				defaultSort={sort}
+				filterBy={filter}
 				onSort={ this.onSort.bind(this) }
 				onFilter={ this.onFilter.bind(this) }
 				hideFilterInput >
@@ -145,9 +147,6 @@ class FilteredTable extends Component {
 		)
 	}
 }
-				
-// { rows }
-					// 
 
 FilteredTable.propTypes = {
 	data: PropTypes.array.isRequired,

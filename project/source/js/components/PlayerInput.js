@@ -39,6 +39,8 @@ class PlayerInput extends Component {
 			e.preventDefault();
 		}
 
+
+		console.log('handlesubmit')
 		const {playerName, playerCost, playerTeam} = this.state
 		const searchablePlayers = this.props.searchablePlayers;
 

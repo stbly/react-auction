@@ -140,16 +140,6 @@ const createDefaultTeams = (numTeams) => {
 	return teams
 }
 
-const changeTeamName = (state, action) => {
-	const { payload } = action
-	const { activeLeague } = state.leagues
-
-	const usersRef = getUserRef()
-	const path = state.user.uid + '/leagues/' + activeLeague.id + '/teams/' + payload.id + '/name/'
-	usersRef.update({
-		[path]: payload.name
-	})
-}
 
 const updatePlayerOwner = (state, action) => {
 	const { payload } = action
@@ -175,6 +165,19 @@ const updateTeamPlayers = (state, action) => {
 	})
 }
 
+const updateTeamName = (state, action) => {
+	const { payload } = action
+	const { teamId, name } = payload
+	const { activeLeague } = state.leagues
+
+	const usersRef = getUserRef()
+	const teamPath = state.user.uid + '/leagues/' + activeLeague.id + '/teams/' + teamId + '/name/'
+
+	usersRef.update({
+		[teamPath]: name
+	})
+}
+
 const actionHandlers = {
 	[UPDATE_PLAYER_STAT]: updateFirebaseUserPlayerStat,
 	[UPDATE_PLAYER_COST]: updateFirebaseUserPlayerDraftPrice,
@@ -184,7 +187,7 @@ const actionHandlers = {
 	[UPDATE_SETTING]: updateFirebaseUserSetting,
 	[UPDATE_ACTIVE_LEAGUE_NAME]: updateFirebaseLeagueName,
 	[CREATE_LEAGUE]: addLeagueToFirebase,
-	[CHANGE_TEAM_NAME]: changeTeamName,
+	[CHANGE_TEAM_NAME]: updateTeamName,
 	[RECEIVE_TEAM_PLAYERS]: updateTeamPlayers
 }
 

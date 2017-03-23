@@ -222,7 +222,6 @@ export const redistributeValuesToEqual = (values=[], amount, indecesToIgnore=[])
 		}
 	}
 
-	console.log(totalAssignedValue, amount)
 	while (totalAssignedValue > amount) {
 		iterator = getIndex(iterator)
 		if (indecesToIgnore.indexOf(iterator) < 0 && newValues[iterator] > 1) {
@@ -258,6 +257,7 @@ export const getDistributions = (amount, distributions, modifier, indecesToIgnor
 			indecesToIgnore.push(i)
 		}
 
+		// TO DO: Find a better way to distribute values than this arbitrary modifier value
 		const value = forceValue ? forceValue : Math.max(Math.round((amountLeft / (modifier || 4))),1)
 		amountLeft -= value
 

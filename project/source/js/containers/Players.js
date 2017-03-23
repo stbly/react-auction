@@ -60,28 +60,21 @@ class Players extends Component {
 			useablePlayers.push( ...group )
 		})
 
-		return useablePlayers;
+		return useablePlayers.sort( (a,b) => sortByProperty(a,b,'rank') );
 	}
 
-	toggleHideDraftedPlayers () {
-		this.setState({hideDraftedPlayers: !this.state.hideDraftedPlayers})
+	toggleState(property) {
+		console.log(property)
+		this.setState({
+			[property]: !this.state[property]
+		})
 	}
-
-	toggleShowRatios () {
-		this.setState({showRatios: !this.state.showRatios})
-	}
-
-
-	togglePreserveRatios () {
-		this.setState({preserveRatios: !this.state.preserveRatios})
-	}
-
 
 	render() {
-		const { hideDraftedPlayers, showRatios, preserveRatios } = this.state
+		const { hideDraftedPlayers, showPlayersBelowReplacement, showRatios, preserveRatios } = this.state
 		const { teams, positionData, playerActions } = this.props
+		const toggleState = this.toggleState.bind(this)
 		return (
-
 			<div className='players-route page'>
 
 				<section className='drafting-tools'>
@@ -90,27 +83,34 @@ class Players extends Component {
 						<PlayerInput
 							searchablePlayers={this.getSearchablePlayers()}
 							searchableTeams={teams}
-							playerEntered={playerActions.assignPlayer} />
+							playerEntered={playerActions.draftPlayer} />
 					</div>
 					<div className='hide-selected-container'>
 						<input className='hide-selected-toggle'
 							type="checkbox"
 							checked={hideDraftedPlayers}
-							onChange={this.toggleHideDraftedPlayers.bind(this)} />
+							onChange={() => toggleState('hideDraftedPlayers')} />
 						<span className='hide-selected-text'>Hide Drafted Players</span>
+					</div>
+					<div className='show-replacement-container'>
+						<input className='show-replacement-toggle'
+							type="checkbox"
+							checked={showPlayersBelowReplacement}
+							onChange={() => toggleState('showPlayersBelowReplacement')} />
+						<span className='hide-selected-text'>Show Replacement Players</span>
 					</div>
 					<div className='show-ratios-container'>
 						<input className='show-ratios-toggle'
 							type="checkbox"
 							checked={showRatios}
-							onChange={this.toggleShowRatios.bind(this)} />
+							onChange={() => toggleState('showRatios')} />
 						<span className='hide-selected-text'>Show Stat Ratios</span>
 					</div>
 					<div className='preserve-ratios-container'>
 						<input className='preserve-ratios-toggle'
 							type="checkbox"
 							checked={preserveRatios}
-							onChange={this.togglePreserveRatios.bind(this)} />
+							onChange={() => toggleState('preserveRatios')} />
 						<span className='hide-selected-text'>Preserve Stat Ratios</span>
 					</div>
 				</section>

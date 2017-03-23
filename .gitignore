@@ -13,7 +13,7 @@
 
 node_modules/*
 
-project/deploy/*
+project/static/*
 
 # webpack
 webpack-stats.json

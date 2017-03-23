@@ -25,18 +25,19 @@ class InputPlayerStat extends Component {
 
 	render () {
 		// console.log('component does update')
-		const { category, value, isRatioStat, disabled } = this.props
+		const { category, value, isRatioStat, disabled, max, min } = this.props
 		const decimalPlaces = isRatioStat ? 3 : 0;
 		const increment = isRatioStat ? 0.001 : 1;
-		const max = isRatioStat ? 1 : 999;
+		const maxVal = max ? max : (isRatioStat ? 1 : 999);
+		const minVal = min ? min : 0;
 		const inputValue = Number(value || 0).toFixed(decimalPlaces);
-
+		
 		return (
 			<InputToggle
 				value={inputValue}
 				step={increment}
-				max={max || 1000}
-				min={0}
+				max={maxVal}
+				min={minVal}
 				disabled={disabled}
 				valueDidChange={this.onStatChange.bind(this)} />
 		)

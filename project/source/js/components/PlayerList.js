@@ -4,9 +4,10 @@ import classNames from 'classnames';
 
 import * as SettingsUtils from '../helpers/SettingsUtils'
 import * as tableUtils from '../helpers/tableUtils'
-import { primaryPositionFor } from '../helpers/PlayerListUtils'
+import { primaryPositionFor, getCategories } from '../helpers/PlayerListUtils'
 
 import { flatten, flattenToObject, valueMatch } from '../helpers/arrayUtils'
+import { sortArrayByCategory } from '../helpers/arrayUtils'
 
 import FilteredTable from '../components/FilteredTable.js'
 
@@ -32,6 +33,7 @@ class PlayerList extends Component {
 
 	dataWasFiltered (prop) {
 		const types = this.getPositionTypes()
+		
 		for (let i = 0; i < types.length; i++) {
 			const type = types[i]
 			const categories = this.getPositionsForType(type)
@@ -40,6 +42,8 @@ class PlayerList extends Component {
 				return this.setListType(type)
 			}
 		}
+
+		return this.setListType(null)
 	}
 
 	getPositionTypes () {
@@ -57,29 +61,8 @@ class PlayerList extends Component {
 		const { listType } = this.state
 		const { positionData, showRatios } = this.props
 		const { categories } = positionData[listType]
-		const categoryKeys = Object.keys(categories)
-
-		const scoringCategories = categoryKeys.filter( category => {
-			return categories[category].scoringStat
-		})
-
-		const parentCategories = [];
-		categoryKeys.forEach( category => {
-			const { denominator } = categories[category]
-			if (denominator && parentCategories.indexOf(denominator) < 0) {
-				parentCategories.push(denominator)
-			}
-		})
-
-		const combinedCategories = [...parentCategories, ...scoringCategories]
-		const displayCategories = {}
-		combinedCategories.forEach( category => {
-			const categoryStat = categories[category]
-			const label = categoryStat.isCountingStat && categoryStat.denominator && showRatios ? category + '_Ratio' : category
-			displayCategories[label] = categories[label]
-		})
-
-		return displayCategories
+		
+		return getCategories(categories, showRatios)
 	}
 
 	getPlayers () {
@@ -184,12 +167,15 @@ class PlayerList extends Component {
 	}
 
 	getColumns () {
+		const { listType } = this.state
 		const { changePlayerCost, updateActivePlayer, updatePlayerFavorited } = this.props.actions
 		const { cellFactory, favoriteCellFactory, valueCellFactory } = tableUtils
-		const categories = this.getCategories()
-
-		const categoryCells = tableUtils.createStatCells(categories, this.changePlayerStat.bind(this))
 		
+		let categoryCells = []
+		if (listType) {
+			categoryCells = tableUtils.createStatCells(this.getCategories(), this.changePlayerStat.bind(this))
+		}
+
 		const nameClick = (player) => {
 			updateActivePlayer(player.id)
 		}
@@ -199,7 +185,7 @@ class PlayerList extends Component {
 			tableUtils.cellFactory('position', {className: 'hidden', valueFunction: primaryPositionFor}),
 			tableUtils.cellFactory('pos', {valueFunction: player => player.id, elementFunction: player => primaryPositionFor(player) }),
 			tableUtils.favoriteCellFactory(updatePlayerFavorited),
-			tableUtils.cellFactory('name', {className: 'has-action widen', onClick: nameClick}),
+			tableUtils.cellFactory('name', {className: 'widen', onClick: nameClick}),
 			tableUtils.cellFactory('type', {className: 'hidden'}),
 			tableUtils.costCellFactory(changePlayerCost),
 			tableUtils.valueCellFactory('adjustedValue', 'bid'),
@@ -210,10 +196,14 @@ class PlayerList extends Component {
 
 	getSortingFunctions () {
 		const { players } = this.props
-		const { direction } = this.state
+		const { listType, direction } = this.state
 		const { sortCost, sortNumber, sortPosition } = tableUtils
-		const categories = this.getCategories()
-		const categoriesSorts = Object.keys(categories)
+
+		let categorySorts = []
+		if (listType) {
+			categorySorts = Object.keys( this.getCategories() )
+		}
+
 		const playerObject = this.playersById()
 
 		return [ 
@@ -222,7 +212,7 @@ class PlayerList extends Component {
 			'name', 
 			sortNumber('bid'),
 			sortNumber('val'),
-			...categoriesSorts,
+			...categorySorts,
 			sortPosition(playerObject)
 		]
 	}
@@ -231,23 +221,26 @@ class PlayerList extends Component {
 		const positionTypes = this.getPositionTypes()
 		const { positionData } = this.props
 
-		const positions = positionTypes.map( type => {
-			const typeFilter = tableUtils.createNameMatchFilter('type', {label: type})
+		const filters = [
+			tableUtils.createNameMatchFilter('type', ['batter', 'pitcher'], {heading: 'All Players'})
+		]
+
+		const positions = positionTypes.forEach( type => {
+			const typeFilter = tableUtils.createNameMatchFilter('type', type)
 			const positions = Object.keys(positionData[type].positions)
-			const positionFilters = positions.map( positionId => tableUtils.createNameMatchFilter('position', {label: positionId}) )
-			return [typeFilter, ...positionFilters]
+			const positionFilters = positions.map( positionId => tableUtils.createNameMatchFilter('position', positionId) )
+			filters.push(typeFilter, ...positionFilters)
 		})
 
-		var flattenedFilters = flatten(positions)
-		return flattenedFilters
+		// var flattenedFilters = flatten(filters)
+		return filters
 	}
 
 	render () {
 		const { listType } = this.state
 		const { players } = this.props
-
-		const rowClassFunction = (item) => classNames( {'selected': item.cost } )
-		const classes = classNames('player-list', listType)
+		const rowClassFunction = (item) => classNames( item.type, {'selected': item.cost } )
+		const classes = classNames('player-list')
 		return (
 			<FilteredTable
 				data={players}

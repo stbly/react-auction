@@ -36,7 +36,7 @@ class ListFilters extends Component {
 		const filterButtons = filters.filter( filter => filter.label )
 
 		return filterButtons.map( (filter, index) => {
-			const { column, label } = filter
+			const { column, label, heading } = filter
 			const filterFunction = () => this.filterSelected(column, label)
 			const classes = classNames('list-filter', column, {active: activeFilter === label})
 
@@ -45,7 +45,7 @@ class ListFilters extends Component {
 					className={classes}
 					key={index}
 					onClick={filterFunction} >
-						{label}
+						{heading || label}
 				</button>
 			)
 		})
@@ -72,7 +72,7 @@ class ListFilters extends Component {
 ListFilters.propTypes = {
 	activeFilter: PropTypes.oneOfType([
 		React.PropTypes.string,
-		React.PropTypes.number
+		React.PropTypes.array
 	]),
 	searchQuery: PropTypes.string,
 	setSearchQuery: PropTypes.func,

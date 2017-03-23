@@ -22,6 +22,33 @@ export const rankPlayers = (players, category, descending=true) => {
 	})
 }
 
+export const getCategories = (categories, showRatios) => {
+	const categoryArray = Object.keys(categories)
+	categoryArray.sort( (a,b) => (categories[a].order || a) - (categories[b].order || b) )
+
+	const scoringCategories = categoryArray.filter( category => {
+		return categories[category].scoringStat
+	})
+
+	const parentCategories = [];
+	categoryArray.forEach( category => {
+		const { denominator } = categories[category]
+		if (denominator && parentCategories.indexOf(denominator) < 0) {
+			parentCategories.push(denominator)
+		}
+	})
+	parentCategories.sort((a,b) => (categories[a].order || a) - (categories[b].order || b))
+	const combinedCategories = [...parentCategories, ...scoringCategories]
+	const displayCategories = {}
+	combinedCategories.forEach( category => {
+		const categoryStat = categories[category]
+		const label = categoryStat.isCountingStat && categoryStat.denominator && showRatios ? category + '_Ratio' : category
+		displayCategories[label] = categories[label]
+	})
+
+	return displayCategories
+}
+
 export const primaryPositionFor = (player) => {
 	return player.positions ? (player.positions.length > 0 ? player.positions[0] : '') : ''
 }
@@ -43,7 +70,7 @@ const getScarcePositions = (players, positions) => {
 
 export const getPlayerList = (players, listSize, positions) => {
 
-	const playersSortedBySGP = sortArrayByCategory(players, 'sgp', true)
+	const playersSortedBySGP = sortArrayByCategory(players, 'sgp', true).filter( player => !player.removedFromPlayerPool )
 
 	let playersAboveReplacement = playersSortedBySGP.slice(0, listSize)
 	let playersBelowReplacement = playersSortedBySGP.slice(listSize, 1000)

@@ -52,6 +52,7 @@ const normalizePlayerData = (players) => {
 					player.stats = newStats
 				}
 			}
+			player.sport = 'baseball'
 		}
 	}
 	return players
@@ -159,6 +160,7 @@ const formatPlayers = (players) => {
 
 export const changePlayerStat = (id, stat, value) => {
 	return (dispatch, getState) => {
+		console.log(id, stat)
 		dispatch( updatePlayerStat(id, stat, value) )
 		const players = getState().players.data
 		return dispatch( receivePlayers(players) )
@@ -167,7 +169,12 @@ export const changePlayerStat = (id, stat, value) => {
 
 export const changePlayerCost = (id, cost) => {
 	return (dispatch, getState) => {
-		dispatch( updatePlayerCost(id, cost) )
+		const { owner } = getState().players.data[id]
+		if ((cost === null || cost === 0) && owner) {
+			dispatch( undraftPlayer(id, owner) )
+		} else {
+			dispatch( draftPlayer(id, cost, owner) )
+		}
 		const players = getState().players.data
 		return dispatch( receivePlayers(players) )
 	}
@@ -176,8 +183,10 @@ export const changePlayerCost = (id, cost) => {
 export const draftPlayer = (id, cost, teamId) => {
 	return (dispatch, getState) => {
 		dispatch( updatePlayerCost(id, cost) )
-		dispatch( updatePlayerOwner(id, teamId) )
-		dispatch( addPlayerToTeam(id, teamId) )
+		if (teamId) {
+			dispatch( updatePlayerOwner(id, teamId) )
+			dispatch( addPlayerToTeam(id, teamId) )
+		}
 		const players = getState().players.data
 		return dispatch( receivePlayers(players) )
 	}

@@ -19,30 +19,30 @@ class TeamPlanner extends Component {
 	constructor(props) {
 		super(props);
 
-		const {teamPlayers, positionData} = props
+		const {teamPlayers, positionData, teamSalary, draftablePlayers} = props
 
 		this.state = {
-			playerSlots: this.createPlayerSlots(teamPlayers, positionData)
+			playerSlots: this.createPlayerSlots(teamPlayers, positionData, teamSalary, draftablePlayers)
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const { teamPlayers, positionData } = nextProps
+		const { teamPlayers, positionData, teamSalary, draftablePlayers } = nextProps
 
 		this.setState({
-			playerSlots: this.createPlayerSlots(teamPlayers, positionData)
+			playerSlots: this.createPlayerSlots(teamPlayers, positionData, teamSalary, draftablePlayers)
 		})
 
 	}
 
-	createPlayerSlots (players, positionData) {
-		const { teamSalary } = this.props
+	createPlayerSlots (players, positionData, teamSalary, draftablePlayers) {
 
 		const slots = {}
 
 		Object.keys(positionData).map( type => {
 			const { rosterSpots, budgetPercentage } = positionData[type]
 			const amountToSpend = Math.round(teamSalary * (budgetPercentage/100))
+			const playersLeft = draftablePlayers.filter( player => !player.cost && player.type === type )
 			const playersOfType = (players || []).filter( player => player.type === type )
 
 			const slotWeights = getDistributions(amountToSpend, rosterSpots, 3.5, [0, rosterSpots - 1])
@@ -51,7 +51,6 @@ class TeamPlanner extends Component {
 					budget: slot
 				}
 			})
-
 
 			// ------------------------------------------------ //
 			// --- end make sure player is still on the team -- //
@@ -63,18 +62,19 @@ class TeamPlanner extends Component {
 				// --- assign drafted players to existing slots --- //
 				// ------------------------------------------------ //
 
-				players.forEach( player => {
+				playersOfType.forEach( player => {
 					// Find suitable player slot
+					console.log('-----------------')
 					const { cost } = player
-
 					const availableSlots = playerSlots.filter( slot => !slot.player )
 
 					let closestMatchIndex = 0
 					let closestDistance = 1000
 					for (let i = 0; i < availableSlots.length; i++) {
-						const current = availableSlots[i]
-						const distance = Math.abs(availableSlots[i].budget - cost)
+						const { budget } = availableSlots[i]
+						const distance = Math.abs(budget - cost)
 						if ( distance < closestDistance ) {
+							console.log(player.name, 'cost',cost, 'budget:', budget, 'distance:', distance)
 							closestMatchIndex = playerSlots.indexOf( availableSlots[i] )
 							closestDistance = distance
 						}
@@ -112,6 +112,14 @@ class TeamPlanner extends Component {
 						index: playerSlots.indexOf(slot) 
 					}
 				})
+
+				const playerValuesLeft = playersLeft.map( player => player.value )
+				const valueOfPlayersLeft = playerValuesLeft.reduce( (a,b) => a + b)
+				const averageValueLeft = valueOfPlayersLeft / playerValuesLeft.length
+
+				const averageLeftToSpend = remainingBudget / slotsToRecalculate.length
+				console.log(valueOfPlayersLeft, averageValueLeft, averageLeftToSpend)
+
 				const recalculatedSlotValues = getDistributions(amountToSpend, rosterSpots, 3.5, [0], forcedValues)
 
 				playerSlots.forEach( (slot, index) => {

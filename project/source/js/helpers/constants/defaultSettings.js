@@ -39,37 +39,43 @@ export const defaultSettings = {
 				}
 			},
 			categories: {
-				'AB': {
-					name: 'At Bats',
-					average: 475
-				},
 				'PA': {
 					name: 'Plate Appearances',
-					average: 540
+					average: 540,
+					order: 1
+				},
+				'AB': {
+					name: 'At Bats',
+					average: 475,
+					order: 2
 				},
 				'R': {
 					name: 'Runs',
 					sgpd: 20.01,
 					goal: 830,
 					scoringStat: true,
+					order: 3
 				},
 				'HR': {
 					name: 'Home Runs',
 					sgpd: 9.253,
 					goal: 235,
-					scoringStat: true
+					scoringStat: true,
+					order: 4
 				},
 				'RBI': {
 					name: 'Runs Batting In',
 					sgpd: 18.591,
 					goal: 800,
-					scoringStat: true
+					scoringStat: true,
+					order: 5
 				},
 				'SB': {
 					name: 'Stolen Bases',
 					sgpd: 5.820,
 					goal: 130,
-					scoringStat: true
+					scoringStat: true,
+					order: 6
 				},
 				'AVG': {
 					name: 'Batting Average',
@@ -78,7 +84,8 @@ export const defaultSettings = {
 					average: 0.268,
 					isRatioStat: true,
 					denominator: 'AB',
-					scoringStat: true
+					scoringStat: true,
+					order: 7
 				},
 				'OBP': {
 					name: 'On Base Percentage',
@@ -86,7 +93,8 @@ export const defaultSettings = {
 					goal: .350,
 					average: 0.334,
 					isRatioStat: true,
-					denominator: 'PA'
+					denominator: 'PA',
+					order: 8
 				},
 				'SLG': {
 					name: 'Slugging Percentage',
@@ -94,7 +102,8 @@ export const defaultSettings = {
 					goal: .465,
 					average: 0.436,
 					isRatioStat: true,
-					denominator: 'AB'
+					denominator: 'AB',
+					order: 9
 				}
 			}
 		},
@@ -118,30 +127,35 @@ export const defaultSettings = {
 			categories: {
 				'IP': {
 					name: 'Innings Pitched',
-					average: 160
+					average: 160,
+					order: 1
 				},
 				'W': {
 					name: 'Wins',
 					sgpd: 3.756,
 					goal: 120,
-					scoringStat: true
+					scoringStat: true,
+					order: 2
 				},
 				'SV': {
 					name: 'Saves',
 					sgpd: 7.868,
 					goal: 100,
-					scoringStat: true
+					scoringStat: true,
+					order: 3
 				},
 				'HD': {
 					name: 'Holds',
 					sgpd: 20.01,
-					goal: 60
+					goal: 60,
+					order: 4
 				},
 				'K': {
 					name: 'Strikeouts',
 					sgpd: 50.048,
 					goal: 1550,
-					scoringStat: true
+					scoringStat: true,
+					order: 5
 				},
 				'ERA': {
 					name: 'Earned Run Average',
@@ -152,7 +166,8 @@ export const defaultSettings = {
 					perPeriod: 9,
 					isRatioStat: true,
 					denominator: 'IP',
-					scoringStat: true
+					scoringStat: true,
+					order: 6
 				},
 				'WHIP': {
 					name: 'Walks/Hits Per Inning Pitched',
@@ -162,12 +177,14 @@ export const defaultSettings = {
 					average: 1.234,
 					isRatioStat: true,
 					denominator: 'IP',
-					scoringStat: true
+					scoringStat: true,
+					order: 7
 				},
 				'QS': {
 					name: 'Quality Starts',
 					sgpd: 4.796,
-					goal: 130
+					goal: 130,
+					order: 8
 				}
 			}
 		}

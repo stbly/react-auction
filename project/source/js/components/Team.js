@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames';
 import { Table, Tfoot } from 'reactable-cacheable'
-import { primaryPositionFor } from '../helpers/PlayerListUtils'
+import { primaryPositionFor, getCategories } from '../helpers/PlayerListUtils'
 
 import { 
 		createRows, 
@@ -46,13 +46,14 @@ class Team extends Component {
 		const { players, positionData, type, onRowClick } = this.props
 
 		const { categories } = positionData
+		const displayCategories = getCategories(categories)
 
 		const playerObject = Array.toObject(players)
-		const categoryCells = createStatCells(categories)
+		const categoryCells = createStatCells(displayCategories)
 		const columns = [
 			valueCellFactory('budget', 'budget', true),
 			cellFactory('position', {className: 'hidden', valueFunction: primaryPositionFor}),
-			cellFactory('name', {className: 'widen'}),
+			cellFactory('name', {isText: true, className: 'widen'}),
 			earnedCellFactory(),
 			cellFactory('type', {className: 'hidden'}),
 			costCellFactory(),
@@ -82,7 +83,7 @@ class Team extends Component {
 			}
 		})
 
-		const sumRow = this.getSumRow(players, categories);
+		const sumRow = this.getSumRow(players, displayCategories);
 
 		return <Table
 			className={classNames('player-list', type)}
@@ -104,7 +105,6 @@ class Team extends Component {
 		const categoryCells = createStatCells(categories)
 
 		const columns = [
-			valueCellFactory('budget', 'budget', true),
 			earnedCellFactory(),
 			costCellFactory(),
 			// valueCellFactory('adjustedValue', 'bid', true),

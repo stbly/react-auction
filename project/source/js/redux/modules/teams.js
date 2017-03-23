@@ -92,7 +92,6 @@ export function receiveTeams (teams) {
 }
 
 export function changeTeamName (teamId, name) {
-	console.log(teamId, name)
 	return { type: CHANGE_TEAM_NAME, payload: {teamId, name} }
 }
 

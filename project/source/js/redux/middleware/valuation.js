@@ -13,6 +13,7 @@ import {
 import { filterBy } from '../../helpers/filterUtils';
 import { assignPlayerValues } from '../../helpers/PlayerValueUtils'
 import { calculateSGPFor} from '../../helpers/PlayerSgpUtils'
+import { rankPlayers } from '../../helpers/PlayerListUtils';
 
 const computeAllPlayerValues = (players, settings) => {
 	const {
@@ -37,6 +38,8 @@ const computeAllPlayerValues = (players, settings) => {
 	})
 
 	const combinedPlayers = Array.concat.apply([],valuedPlayers)
+	const rankedPlayers = rankPlayers(combinedPlayers, 'adjustedValue', true )
+
 	return Array.toObject(combinedPlayers)
 }
 

@@ -39,17 +39,19 @@
 				}
 			},
 			"categories": {
-				"AB": {
-					"name": "At Bats",
-					"average": 475,
-					"denominator": "PA",
-					"isCountingStat": true
-				},
 				"PA": {
 					"name": "Plate Appearances",
 					"average": 540,
 					"denominator": "AB",
-					"isCountingStat": true
+					"isCountingStat": true,
+					"order": 1
+				},
+				"AB": {
+					"name": "At Bats",
+					"average": 475,
+					"denominator": "PA",
+					"isCountingStat": true,
+					"order": 2
 				},
 				"R": {
 					"name": "Runs",
@@ -57,7 +59,8 @@
 					"goal": 830,
 					"scoringStat": true,
 					"isCountingStat": true,
-					"denominator": "AB"
+					"denominator": "AB",
+					"order": 3
 				},
 				"HR": {
 					"name": "Home Runs",
@@ -65,7 +68,8 @@
 					"goal": 235,
 					"scoringStat": true,
 					"isCountingStat": true,
-					"denominator": "AB"
+					"denominator": "AB",
+					"order": 4
 				},
 				"RBI": {
 					"name": "Runs Batting In",
@@ -73,7 +77,8 @@
 					"goal": 800,
 					"scoringStat": true,
 					"isCountingStat": true,
-					"denominator": "AB"
+					"denominator": "AB",
+					"order": 5
 				},
 				"SB": {
 					"name": "Stolen Bases",
@@ -81,7 +86,8 @@
 					"goal": 130,
 					"scoringStat": true,
 					"isCountingStat": true,
-					"denominator": "AB"
+					"denominator": "AB",
+					"order": 6
 				},
 				"AVG": {
 					"name": "Batting Average",
@@ -90,7 +96,8 @@
 					"average": 0.268,
 					"isRatioStat": true,
 					"denominator": "AB",
-					"scoringStat": true
+					"scoringStat": true,
+					"order": 7
 				},
 				"OBP": {
 					"name": "On Base Percentage",
@@ -98,7 +105,8 @@
 					"goal": 0.350,
 					"average": 0.334,
 					"isRatioStat": true,
-					"denominator": "PA"
+					"denominator": "PA",
+					"order": 8
 				},
 				"SLG": {
 					"name": "Slugging Percentage",
@@ -106,7 +114,8 @@
 					"goal": 0.465,
 					"average": 0.436,
 					"isRatioStat": true,
-					"denominator": "AB"
+					"denominator": "AB",
+					"order": 9
 				},
 				"PA_Ratio": {
 					"name": "Plate Appearances Ratio",
@@ -164,16 +173,19 @@
 				}
 			},
 			"categories": {
-				"GS": {
-					"name": "Games Start"
-				},
 				"G": {
-					"name": "Games Played"
+					"name": "Games Played",
+					"order": 1
+				},
+				"GS": {
+					"name": "Games Start",
+					"order": 2
 				},
 				"IP": {
 					"name": "Innings Pitched",
 					"average": 160,
-					"denominator": "G"
+					"denominator": "G",
+					"order": 3
 				},
 				"W": {
 					"name": "Wins",
@@ -181,7 +193,8 @@
 					"goal": 120,
 					"scoringStat": true,
 					"isCountingStat": true,
-					"denominator": "IP"
+					"denominator": "IP",
+					"order": 4
 				},
 				"SV": {
 					"name": "Saves",
@@ -189,14 +202,16 @@
 					"goal": 100,
 					"scoringStat": true,
 					"isCountingStat": true,
-					"denominator": "IP"
+					"denominator": "IP",
+					"order": 5
 				},
 				"HD": {
 					"name": "Holds",
 					"sgpd": 20.01,
 					"goal": 60,
 					"isCountingStat": true,
-					"denominator": "IP"
+					"denominator": "IP",
+					"order": 6
 				},
 				"K": {
 					"name": "Strikeouts",
@@ -204,33 +219,39 @@
 					"goal": 1550,
 					"scoringStat": true,
 					"isCountingStat": true,
-					"denominator": "IP"
+					"denominator": "IP",
+					"order": 7
 				},
 				"ERA": {
 					"name": "Earned Run Average",
 					"sgpd": 0.076,
 					"goal": 3.25,
 					"average": 3.724,
+					"max": 999,
 					"lowIsHigh": true,
 					"perPeriod": 9,
 					"isRatioStat": true,
 					"denominator": "IP",
-					"scoringStat": true
+					"scoringStat": true,
+					"order": 8
 				},
 				"WHIP": {
 					"name": "Walks/Hits Per Inning Pitched",
 					"sgpd": 0.01,
 					"goal": 1.17,
+					"max": 10,
 					"lowIsHigh": true,
 					"average": 1.234,
 					"isRatioStat": true,
 					"denominator": "IP",
-					"scoringStat": true
+					"scoringStat": true,
+					"order": 9
 				},
 				"QS": {
 					"name": "Quality Starts",
 					"sgpd": 4.796,
-					"goal": 130
+					"goal": 130,
+					"order": 10
 				}
 			}
 		}

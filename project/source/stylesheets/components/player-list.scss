@@ -32,6 +32,13 @@
 				width: 20%;
 			}
 			outline: none;
+
+			/* ---- TEMPORARY ---- */
+			&[label="PA"],
+			&.reactable-th-pa {
+				display: none;
+			}
+			/* ------------------- */
 		}
 
 
@@ -149,12 +156,8 @@
 
 			}
 		}*/
-	}
 
-
-	&.batter {
-
-		tr {
+		&.batter {
 			background: $color-batter-default;
 
 			&:nth-child(odd) {
@@ -173,10 +176,8 @@
 				}
 			}
 		}
-	}
 
-	&.pitcher {
-		tr {
+		&.pitcher {
 			background: $color-pitcher-default;
 
 			&:nth-child(odd) {
