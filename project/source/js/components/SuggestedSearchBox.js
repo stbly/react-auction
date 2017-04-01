@@ -6,7 +6,6 @@ import classNames from 'classnames';
 // import { bindActionCreators } from 'redux'
 // import { browserHistory } from 'react-router'
 
-import { playerIsDrafted } from '../helpers/PlayerListUtils'
 import InputToggle from './InputToggle'
 import SuggestedSearchResults from './SuggestedSearchResults'
 

@@ -9,7 +9,9 @@ import {
 	UPDATE_PLAYER_COST,
 	UPDATE_PLAYER_FAVORITED,
 	UPDATE_PLAYER_NOTES,
-	UPDATE_PLAYER_OWNER } from '../modules/players'
+	UPDATE_PLAYER_OWNER,
+	UPDATE_PLAYER_DRAFTED,
+	UPDATE_PLAYER_TIER } from '../modules/players'
 
 import {
 	UPDATE_SETTING } from '../modules/settings'
@@ -178,6 +180,32 @@ const updateTeamName = (state, action) => {
 	})
 }
 
+const updatePlayerDrafted = (state, action) => {
+	const { payload } = action
+	const { id, isDrafted } = payload
+	const { activeLeague } = state.leagues
+
+	const usersRef = getUserRef()
+	const isDraftedPath = state.user.uid + '/leagues/' + activeLeague.id + '/players/' + id + '/isDrafted'
+
+	usersRef.update({
+		[isDraftedPath]: isDrafted
+	})
+}
+
+const updatePlayerTier = (state, action) => {
+	const { payload } = action
+	const { id, position, value } = payload
+	const { activeLeague } = state.leagues
+
+	const usersRef = getUserRef()
+	const tierPath = state.user.uid + '/leagues/' + activeLeague.id + '/players/' + id + '/tiers/' + position 
+
+	usersRef.update({
+		[tierPath]: value
+	})
+}
+
 const actionHandlers = {
 	[UPDATE_PLAYER_STAT]: updateFirebaseUserPlayerStat,
 	[UPDATE_PLAYER_COST]: updateFirebaseUserPlayerDraftPrice,
@@ -188,7 +216,9 @@ const actionHandlers = {
 	[UPDATE_ACTIVE_LEAGUE_NAME]: updateFirebaseLeagueName,
 	[CREATE_LEAGUE]: addLeagueToFirebase,
 	[CHANGE_TEAM_NAME]: updateTeamName,
-	[RECEIVE_TEAM_PLAYERS]: updateTeamPlayers
+	[RECEIVE_TEAM_PLAYERS]: updateTeamPlayers,
+	[UPDATE_PLAYER_DRAFTED]: updatePlayerDrafted,
+	[UPDATE_PLAYER_TIER]: updatePlayerTier
 }
 
 export default function firebaseMiddleware({ dispatch, getState }) {

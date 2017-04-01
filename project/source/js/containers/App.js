@@ -5,6 +5,10 @@ import NavMain from '../components/NavMain'
 
 import '../../stylesheets/components/app.scss'
 
+String.prototype.toNormalCase = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 class App extends Component {
 	constructor(props) {
 		super(props)

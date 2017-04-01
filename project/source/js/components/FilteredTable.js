@@ -5,9 +5,7 @@ import { Table } from 'reactable-cacheable'
 
 import Icon from './Icon'
 
-import { primaryPositionFor } from '../helpers/PlayerListUtils'
 import { valueMatch } from '../helpers/arrayUtils'
-import { stringMatch } from '../helpers/stringUtils'
 import { createHeaderRow, createRows } from '../helpers/tableUtils'
 
 import ListFilters from './ListFilters'

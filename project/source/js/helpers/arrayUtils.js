@@ -62,6 +62,7 @@ export const findLastItemWithCondition = (array, conditionFunction) => {
 
 export const sort = (a, b, desc=false, allowZero=true) => {
 	const direction = desc ? -1 : 1
+	console.log(direction, a, b)
 	if (a < b) {
 		return -1 * direction
 	}else if (a > b) {
@@ -73,13 +74,6 @@ export const sort = (a, b, desc=false, allowZero=true) => {
 
 export const createSort = (a, b, desc=false, allowZero) => {
 	return () => sort(a, b, desc, allowZero)
-}
-
-export const sortByProperty = (a, b, property, desc=false, allowZero=false) => {
-	const direction = desc ? -1 : 1
-	const compareA = a[property]
-	const compareB = b[property]
-	return sort(compareA, compareB, desc, allowZero)
 }
 
 export const sortMultiple = (...props) => {
@@ -100,6 +94,13 @@ export const sortArrayByCategory = (array, category, desc=false, allowZero=false
 	})
 }
 
+export const sortByProperty = (a, b, property, desc=false, allowZero=false) => {
+	const direction = desc ? -1 : 1
+	const compareA = a[property]
+	const compareB = b[property]
+	return sort(compareA, compareB, desc, allowZero)
+}
+
 /*export const sort = (a, b, sortParam, paramDirection, allowZero=true) => {
 	const { param, paramFunction, direction } = sortParam
 	const currentParam = param || sortParam // in case sortParam isn't an object or doesn't contain param
@@ -118,7 +119,7 @@ export const sortArrayByCategory = (array, category, desc=false, allowZero=false
 	}
 }*/
 
-export const sortBy = (sortParam, reverse=false/*, byBoolean=false*/) => {
+/*export const sortBy = (sortParam, reverse=false) => {
 
 	const paramDirection = reverse ? -1 : 1
 	const params = arrayCheck(sortParam) ? sortParam : [sortParam]
@@ -130,19 +131,7 @@ export const sortBy = (sortParam, reverse=false/*, byBoolean=false*/) => {
 			if (sortValue) return sortValue
 		}
 	})
-
-	/*f (byBoolean) {
-
-		sortFunction = array.sort( (a,b) => {
-			const compareA = paramFunction ? paramFunction(a) : a[currentParam]
-			const compareB = paramFunction ? paramFunction(b) : b[currentParam]
-
-			const sortValue = (compareA === compareB) ? 0 : compareA ? -1 : 1
-			return sortValue * currentDirection
-		})
-
-	}*/
-}
+}*/
 
 export const distributeValues = (amount, weights=[]) => {
 	const distributedAmounts = []

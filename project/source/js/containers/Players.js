@@ -39,7 +39,7 @@ class Players extends Component {
 
 		const useablePlayers = playerIds.filter( id => {
 			const draftable = players[id].value
-			const drafted = hideDraftedPlayers ? players[id].owner : false
+			const drafted = hideDraftedPlayers ? players[id].isDrafted : false
 			return draftable && !drafted
 		})
 
@@ -48,10 +48,10 @@ class Players extends Component {
 
 	getPlayersToDisplay () {
 		const { players, positionData, numTeams } = this.props
-		const { showPlayersBelowReplacement } = this.state
+		const { showPlayersBelowReplacement, hideDraftedPlayers } = this.state
 		const playerArray = Object.keys(players).map( id => players[id])
 
-		const useablePlayers = []
+		let useablePlayers = []
 		Object.keys(positionData).forEach( type => {
 			const limit = positionData[type].rosterSpots * numTeams
 			const playersOfType = playerArray.filter( player => player.type === type )
@@ -60,11 +60,14 @@ class Players extends Component {
 			useablePlayers.push( ...group )
 		})
 
+		if (hideDraftedPlayers) {
+			useablePlayers = useablePlayers.filter( player => !player.isDrafted )
+		}
+
 		return useablePlayers.sort( (a,b) => sortByProperty(a,b,'rank') );
 	}
 
 	toggleState(property) {
-		console.log(property)
 		this.setState({
 			[property]: !this.state[property]
 		})
@@ -72,7 +75,7 @@ class Players extends Component {
 
 	render() {
 		const { hideDraftedPlayers, showPlayersBelowReplacement, showRatios, preserveRatios } = this.state
-		const { teams, positionData, playerActions } = this.props
+		const { teams, isAuctionLeague, positionData, playerActions } = this.props
 		const toggleState = this.toggleState.bind(this)
 		return (
 			<div className='players-route page'>
@@ -119,6 +122,7 @@ class Players extends Component {
 					<PlayerList
 						players={ this.getPlayersToDisplay() }
 						showRatios={showRatios}
+						isAuctionLeague={isAuctionLeague}
 						preserveRatios={preserveRatios}
 						positionData={positionData}
 						teams={teams}
@@ -159,7 +163,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps (state,ownProps) {
 	var players = state.players.data,
 		teams = state.teams.data ? SettingsUtils.getTeamNames( state.teams.data ) : null,
-		{ numTeams, positionData } = state.settings.data,
+		{ numTeams, positionData, isAuctionLeague } = state.settings.data,
 		activePlayer = players[state.players.activePlayerId]
 
 	return {
@@ -167,6 +171,7 @@ function mapStateToProps (state,ownProps) {
 		teams,
 		numTeams,
 		positionData,
+		isAuctionLeague,
 		activePlayer: activePlayer,
 		isLoading: state.players.isLoading
 	};

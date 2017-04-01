@@ -19,7 +19,8 @@ const computeAllPlayerValues = (players, settings) => {
 	const {
 		numTeams,
 		teamSalary,
-		positionData } = settings
+		positionData,
+		isAuctionLeague } = settings
 
 	const playersArray = Object.toArray(players)
 	const positionDataTypes = Object.toArray(positionData, 'type')
@@ -39,6 +40,13 @@ const computeAllPlayerValues = (players, settings) => {
 
 	const combinedPlayers = Array.concat.apply([],valuedPlayers)
 	const rankedPlayers = rankPlayers(combinedPlayers, 'adjustedValue', true )
+
+	/*if (!isAuctionLeague) {
+		rankedPlayers.forEach( player => {
+			const round = player.rank % numTeams
+			player.rank = 
+		})
+	}*/
 
 	return Array.toObject(combinedPlayers)
 }

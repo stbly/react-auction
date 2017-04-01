@@ -37,7 +37,12 @@ class PlayerList extends Component {
 		for (let i = 0; i < types.length; i++) {
 			const type = types[i]
 			const categories = this.getPositionsForType(type)
-			const categoryMatch = categories.indexOf(prop) > -1
+			const categoryMatch = categories.includes(prop)
+			if (categoryMatch) {
+				this.setState({ filteredPosition: prop })
+			} else {
+				this.setState({ filteredPosition: null })
+			}
 			if (type === prop || categoryMatch) {
 				return this.setListType(type)
 			}
@@ -121,6 +126,7 @@ class PlayerList extends Component {
 							changePlayerStat(id,dependentStat,newDependentStatValue)
 							
 							const moreDependentStats = this.getDependentStatsFor(dependentStat)
+							console.log(dependentStat, moreDependentStats)
 							if (moreDependentStats.length > 0) {
 								updateQueue.push({
 									stat: dependentStat,
@@ -167,9 +173,10 @@ class PlayerList extends Component {
 	}
 
 	getColumns () {
-		const { listType } = this.state
-		const { changePlayerCost, updateActivePlayer, updatePlayerFavorited } = this.props.actions
-		const { cellFactory, favoriteCellFactory, valueCellFactory } = tableUtils
+		const { listType, filteredPosition } = this.state
+		const { isAuctionLeague, actions } = this.props
+		const { changePlayerCost, updateActivePlayer, updatePlayerFavorited, setPlayerDrafted, updatePlayerTier } = actions
+		const { cellFactory, favoriteCellFactory, valueCellFactory, isDraftedCellFactory } = tableUtils
 		
 		let categoryCells = []
 		if (listType) {
@@ -180,23 +187,37 @@ class PlayerList extends Component {
 			updateActivePlayer(player.id)
 		}
 
-		return [
-			tableUtils.cellFactory('rank'),
-			tableUtils.cellFactory('position', {className: 'hidden', valueFunction: primaryPositionFor}),
-			tableUtils.cellFactory('pos', {valueFunction: player => player.id, elementFunction: player => primaryPositionFor(player) }),
-			tableUtils.favoriteCellFactory(updatePlayerFavorited),
-			tableUtils.cellFactory('name', {className: 'widen', onClick: nameClick}),
-			tableUtils.cellFactory('type', {className: 'hidden'}),
+		const valueCells = isAuctionLeague ? [
 			tableUtils.costCellFactory(changePlayerCost),
 			tableUtils.valueCellFactory('adjustedValue', 'bid'),
-			tableUtils.valueCellFactory('value', 'val'),
+			tableUtils.valueCellFactory('value', 'val')
+		] : []
+
+		const draftedCells = !isAuctionLeague ? [
+			tableUtils.isDraftedCellFactory(setPlayerDrafted)
+		] : []
+
+		const tierCells = filteredPosition ? [
+			tableUtils.tierCellFactory(filteredPosition, updatePlayerTier)
+		] : []
+
+		return [
+			tableUtils.cellFactory('rank', {className: 'small-cell'}),
+			...draftedCells,
+			...tierCells,
+			tableUtils.cellFactory('position', {className: 'small-cell hidden', valueFunction: primaryPositionFor}),
+			tableUtils.cellFactory('pos', {className: 'small-cell', valueFunction: player => player.id, elementFunction: player => primaryPositionFor(player) }),
+			tableUtils.favoriteCellFactory(updatePlayerFavorited),
+			tableUtils.cellFactory('name', {className: 'large-cell', onClick: nameClick}),
+			tableUtils.cellFactory('type', {className: 'hidden'}),
+			...valueCells,
 			...categoryCells
 		]
 	}
 
 	getSortingFunctions () {
-		const { players } = this.props
-		const { listType, direction } = this.state
+		const { players, isAuctionLeague } = this.props
+		const { listType, direction, filteredPosition } = this.state
 		const { sortCost, sortNumber, sortPosition } = tableUtils
 
 		let categorySorts = []
@@ -204,14 +225,24 @@ class PlayerList extends Component {
 			categorySorts = Object.keys( this.getCategories() )
 		}
 
+		const tierSorts = filteredPosition ? [
+			sortNumber('tier')
+		] : []
+
 		const playerObject = this.playersById()
 
-		return [ 
+		const valueSorts = isAuctionLeague ? [
 			sortCost(playerObject), 
-			'rank', 
-			'name', 
 			sortNumber('bid'),
-			sortNumber('val'),
+			sortNumber('val')
+		] : []
+
+
+		return [ 
+			'rank', 
+			'name',
+			...tierSorts,
+			...valueSorts,
 			...categorySorts,
 			sortPosition(playerObject)
 		]
@@ -239,7 +270,7 @@ class PlayerList extends Component {
 	render () {
 		const { listType } = this.state
 		const { players } = this.props
-		const rowClassFunction = (item) => classNames( item.type, {'selected': item.cost } )
+		const rowClassFunction = (item) => classNames( item.type, {'selected': item.cost || item.isDrafted } )
 		const classes = classNames('player-list')
 		return (
 			<FilteredTable
@@ -260,6 +291,7 @@ PlayerList.propTypes = {
 	positionData: PropTypes.object.isRequired, 
 	teams: PropTypes.array,
 	isLoading: PropTypes.bool,
+	isAuctionLeague: PropTypes.bool,
 	showRatios:PropTypes.bool,
 	preserveRatios:PropTypes.bool,
 	actions: PropTypes.object

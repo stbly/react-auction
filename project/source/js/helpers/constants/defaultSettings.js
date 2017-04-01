@@ -35,7 +35,22 @@ export const defaultSettings = {
 				},
 				'DH': {
 					name: 'Designated Hitter',
-					max: 1
+					minimum: 0
+				},
+				'UTIL': {
+					name: 'Utility',
+					associatedPositions: ['1B', '2B', '3B', 'SS', 'OF', 'C','DH'],
+					minimum: 2
+				},
+				'MI': {
+					name: 'Middle Infielder',
+					associatedPositions: ['2B', 'SS'],
+					minimum: 1
+				},
+				'CI': {
+					name: 'Corner Infielder',
+					associatedPositions: ['1B', '3B'],
+					minimum: 1
 				}
 			},
 			categories: {

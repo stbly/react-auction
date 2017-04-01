@@ -46,7 +46,6 @@ class LeagueSettings extends Component {
 		const { changeSetting } = this.props
 
 
-		console.log('---2',setting, value)
 		if ( changeSetting ) {
 			changeSetting(setting, value, endpoint)
 		}
@@ -164,6 +163,7 @@ class LeagueSettings extends Component {
 	renderPositionSettings (type, positionSettingsObject, isAuctionLeague) {
 		const positionSettings = createPositionSettings(type, positionSettingsObject, isAuctionLeague)
 		const categorySettings = createCategorySettings(positionSettingsObject.categories)
+		
 		return (
 			<div key={type} className='position-settings'>
 				<h2>{type.toNormalCase()} Settings</h2>	
@@ -177,7 +177,7 @@ class LeagueSettings extends Component {
 									checked={category.checked}
 									onChange={ (e) => {
 										const { checked } = e.target
-										const endpoint = 'positionData/' +  type + '/categories/' + category.label + '/scoringStat'
+										const endpoint = 'positionData/' + type + '/categories/' + category.label + '/scoringStat'
 										this.settingWasChanged('scoringStat', checked, endpoint)
 									}} />
 								<span>{category.label}</span>

@@ -5,6 +5,7 @@ import {Tr, Td, Thead, Th} from 'reactable-cacheable'
 import InputPlayerStat from '../components/InputPlayerStat.js'
 import CellPlayerCost from '../components/CellPlayerCost.js'
 import IconButton from '../components/IconButton'
+import InputToggle from '../components/InputToggle'
 
 import { sort, sortMultiple } from './arrayUtils'
 
@@ -152,6 +153,56 @@ export const costCellFactory = (handler) => {
 	}
 }
 
+export const tierCellFactory = (tierPosition, handler) => {
+
+	return {
+		column: 'tier',
+		className: handler ? 'small-cell can-edit' : null,
+		content: (player) => {
+
+			const tierChangeHandler = (value) => {
+				return handler ? handler(player.id, tierPosition, value) : null
+			}
+
+			return {
+				value: player.tier,
+				colSpan: 1,
+				element: (
+					<InputToggle
+						value={player.tiers[tierPosition]}
+						max={100}
+						min={0}
+						valueDidChange={tierChangeHandler} />
+	        	)
+	        }
+		}
+	}
+}
+
+export const isDraftedCellFactory = (handler) => {
+
+	return {
+		column: 'drafted',
+		className: classNames('small-cell', {'can-edit': handler }),
+		content: (player, index) => {
+
+			const isDraftedHandler = (e) => {
+				const { checked } = e.target
+				return handler ? handler(player.id, checked) : null
+			}
+
+			return {
+				element: (
+					<input className='setting-toggle'
+						type="checkbox" 
+						checked={player.isDrafted || false}
+						onChange={ isDraftedHandler } />
+	        	)
+	        }
+		}
+	}
+}
+
 export const valueCellFactory = (property, heading=null, forceDisplay) => {
 	return {
 		column: heading || property,
@@ -159,7 +210,7 @@ export const valueCellFactory = (property, heading=null, forceDisplay) => {
 			const isNull = player[property] === null || player[property] === undefined
 			const value = Number(player[property]).toFixed(1)
 			const hasCost = !forceDisplay && player.cost > 0
-			const cellClass = classNames({'hidden': hasCost, 'no-value': isNull})
+			const cellClass = classNames('small-cell', {'hidden': hasCost, 'no-value': isNull})
 
 			return {
 				value: value,
@@ -190,7 +241,7 @@ export const earnedCellFactory = () => {
 export const favoriteCellFactory = (handler) => {
 	return {
 		column: '*',
-		className: 'favorite-toggle',
+		className: 'small-cell favorite-toggle',
 		content: (player) => {
 			const toggleHandler = () => handler(player.id)
 			return {

@@ -15,8 +15,10 @@ const INVALIDATE_PLAYERS = 'players/INVALIDATE_PLAYERS'
 const UNSYNTHESIZE_PLAYERS = 'players/UNSYNTHESIZE_PLAYERS'
 const UPDATE_PLAYER_FAVORITED = 'players/UPDATE_PLAYER_FAVORITED'
 const UPDATE_PLAYER_NOTES = 'players/UPDATE_PLAYER_NOTES'
+const UPDATE_PLAYER_TIER = 'players/UPDATE_PLAYER_TIER'
 const UPDATE_ACTIVE_PLAYER = 'players/UPDATE_ACTIVE_PLAYER'
 const UPDATE_PLAYER_COST = 'players/UPDATE_PLAYER_COST'
+const UPDATE_PLAYER_DRAFTED = 'players/UPDATE_PLAYER_DRAFTED'
 const UPDATE_PLAYER_STAT = 'players/UPDATE_PLAYER_STAT'
 const UPDATE_PLAYER_OWNER = 'players/UPDATE_PLAYER_OWNER'
 
@@ -52,6 +54,7 @@ const normalizePlayerData = (players) => {
 					player.stats = newStats
 				}
 			}
+
 			player.sport = 'baseball'
 		}
 	}
@@ -160,7 +163,6 @@ const formatPlayers = (players) => {
 
 export const changePlayerStat = (id, stat, value) => {
 	return (dispatch, getState) => {
-		console.log(id, stat)
 		dispatch( updatePlayerStat(id, stat, value) )
 		const players = getState().players.data
 		return dispatch( receivePlayers(players) )
@@ -180,13 +182,31 @@ export const changePlayerCost = (id, cost) => {
 	}
 }
 
+export const setPlayerDrafted = (id, isDrafted) => {
+	return (dispatch, getState) => {
+		if (isDrafted) {
+			dispatch( draftPlayer(id) )
+		} else {
+			dispatch( undraftPlayer(id) )
+		}
+	}
+}
+
 export const draftPlayer = (id, cost, teamId) => {
 	return (dispatch, getState) => {
-		dispatch( updatePlayerCost(id, cost) )
+		const { isAuctionLeague } = getState().settings.data
+		
+		if (isAuctionLeague) {
+			dispatch( updatePlayerCost(id, cost) )
+		}
+		
 		if (teamId) {
 			dispatch( updatePlayerOwner(id, teamId) )
 			dispatch( addPlayerToTeam(id, teamId) )
 		}
+
+		dispatch( updatePlayerDrafted(id, true) )
+
 		const players = getState().players.data
 		return dispatch( receivePlayers(players) )
 	}
@@ -194,9 +214,19 @@ export const draftPlayer = (id, cost, teamId) => {
 
 export const undraftPlayer = (id, teamId) => {
 	return (dispatch, getState) => {
-		dispatch( updatePlayerCost(id, null) )
-		dispatch( updatePlayerOwner(id, null) )
-		dispatch( removePlayerFromTeam(id, teamId) )
+		const { isAuctionLeague } = getState().settings.data
+
+		if (isAuctionLeague) {
+			dispatch( updatePlayerCost(id, null) )
+		}
+
+		if (teamId) {
+			dispatch( updatePlayerOwner(id, null) )
+			dispatch( removePlayerFromTeam(id, teamId) )
+		}
+		
+		dispatch( updatePlayerDrafted(id, false) )
+
 		const players = getState().players.data
 		return dispatch( receivePlayers(players) )
 	}
@@ -226,12 +256,20 @@ export const updatePlayerNotes = (id, notes) => {
 	return { type: UPDATE_PLAYER_NOTES, payload: {id, notes} }
 }
 
+export const updatePlayerTier = (id, position, value) => {
+	return { type: UPDATE_PLAYER_TIER, payload: {id, position, value} }
+}
+
 export const updateActivePlayer = (id) => {
 	return { type: UPDATE_ACTIVE_PLAYER, payload: {id} }
 }
 
 export const updatePlayerCost = (id, cost) => {
 	return { type: UPDATE_PLAYER_COST, payload: {id, cost} }
+}
+
+export const updatePlayerDrafted = (id, isDrafted) => {
+	return { type: UPDATE_PLAYER_DRAFTED, payload: {id, isDrafted} }
 }
 
 export const updatePlayerOwner = (id, team) => {
@@ -241,7 +279,7 @@ export const updatePlayerOwner = (id, team) => {
 const reducer = (state = initialState, action) => {
 
 	const { payload } = action
-	const { players, id, cost, value, team, notes, stat } = (payload || {})
+	const { players, id, cost, value, position, team, notes, stat, isDrafted } = (payload || {})
 
 	switch (action.type) {
 		case INVALIDATE_PLAYERS:
@@ -297,6 +335,17 @@ const reducer = (state = initialState, action) => {
 				})
 			})
 
+		case UPDATE_PLAYER_TIER:
+			return Object.assign({}, state, {
+				data: Object.assign({}, state.data, {
+					[id]: Object.assign({}, state.data[id], {
+						tiers: Object.assign({}, state.data[id], {
+							[position]: value
+						})
+					})
+				})
+			})
+
 		case UPDATE_ACTIVE_PLAYER:
 			return Object.assign({}, state, {
 				activePlayerId: id
@@ -308,6 +357,16 @@ const reducer = (state = initialState, action) => {
 				data: Object.assign({}, state.data, {
 					[id]: Object.assign({}, state.data[id], {
 						cost: cost > 0 ? cost : null
+					})
+				})
+			})
+
+		case UPDATE_PLAYER_DRAFTED:
+			return Object.assign({}, state, {
+				didInvalidate: true,
+				data: Object.assign({}, state.data, {
+					[id]: Object.assign({}, state.data[id], {
+						isDrafted
 					})
 				})
 			})
@@ -348,6 +407,8 @@ export {
 	UPDATE_PLAYER_NOTES,
 	UPDATE_ACTIVE_PLAYER,
 	UPDATE_PLAYER_COST,
+	UPDATE_PLAYER_DRAFTED,
 	UPDATE_PLAYER_STAT,
-	UPDATE_PLAYER_OWNER
+	UPDATE_PLAYER_OWNER,
+	UPDATE_PLAYER_TIER
 }

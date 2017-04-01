@@ -2,6 +2,9 @@ import {
 	receivePlayers,
 	RECEIVE_PLAYERS } from '../modules/players'
 
+import {
+	RECEIVE_SETTINGS } from '../modules/settings'
+
 import { filterBy } from '../../helpers/filterUtils';
 
 const computeRatioStats = (players, settings) => {
@@ -18,28 +21,40 @@ const computeRatioStats = (players, settings) => {
 			return categories[category].isCountingStatRatioModifier 
 		})
 
+		const cumulativeStats = categoriesArray.filter( category => {
+			return categories[category].isCumulativeStat 
+		})
+
 		playersOfType.forEach( player => {
 			const newPlayer = Object.assign({}, player)
+			const { stats } = player
+
 			countingStatRatioModifiers.forEach( stat => {
 				const category = categories[stat]
 				const { numerator } = category
-				const { stats } = player
 				newPlayer.stats[stat] = stats[numerator] / stats[categories[numerator].denominator]
 			})
+
+			cumulativeStats.forEach( stat => {
+				const category = categories[stat]
+				const { dependentStats } = category
+				const total = dependentStats.map( id => stats[id] ).reduce( (a, b) => a + b )
+				newPlayer.stats[stat] = total
+			})
+
 			newPlayers.push(newPlayer)
 		})
 	})
 
 	return Array.toObject(newPlayers)
-
 }
 
 const statMiddleware = ({ dispatch, getState }) => {
 	return next => action => {
 		const state = getState()
 		const { teams, settings, players } = state
-		const playerData = players.data
 		const settingsData = settings.data
+		const playerData = players.data
 
 		switch (action.type) {
 			case RECEIVE_PLAYERS:

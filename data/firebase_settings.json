@@ -8,34 +8,59 @@
 			"budgetPercentage": 70,
 			"rosterSpots": 13,
 			"positions": {
-				"1B": {
-					"name": "First Base",
-					"minimum": 1
-				},
-				"2B": {
-					"name": "Second Base",
-					"minimum": 1
-				},
-				"3B": {
-					"name": "Third Base",
-					"minimum": 1
+				"C": {
+					"name": "Catcher",
+					"minimum": 1,
+					"order": 1
 				},
 				"SS": {
 					"name": "Short Stop",
-					"minimum": 1
+					"minimum": 1,
+					"order": 2
+				},
+				"2B": {
+					"name": "Second Base",
+					"minimum": 1,
+					"order": 3
+				},
+				"3B": {
+					"name": "Third Base",
+					"minimum": 1,
+					"order": 4
+				},
+				"1B": {
+					"name": "First Base",
+					"minimum": 1,
+					"order": 5
 				},
 				"OF": {
 					"name": "Outfield",
-					"minimum": 3
+					"minimum": 3,
+					"order": 6
 				},
-				"C": {
-					"name": "Catcher",
-					"minimum": 1
+				"MI": {
+					"name": "Middle Infielder",
+					"associatedPositions": ["2B", "SS"],
+					"minimum": 1,
+					"order": 7
 				},
 				"DH": {
 					"name": "Designated Hitter",
 					"minimum": 0,
-					"max": 1
+					"max": 1,
+					"order": 7
+				},
+				"CI": {
+					"name": "Corner Infielder",
+					"associatedPositions": ["1B", "3B"],
+					"minimum": 1,
+					"order": 8
+				},
+				"UTIL": {
+					"name": "Utility",
+					"associatedPositions": ["1B", "2B", "3B", "SS", "OF", "C","DH"],
+					"minimum": 2,
+					"order": 9
 				}
 			},
 			"categories": {
@@ -117,6 +142,16 @@
 					"denominator": "AB",
 					"order": 9
 				},
+				"OPS": {
+					"name": "On Base Plus Slugging",
+					"sgpd": 0.0053,
+					"goal": 0.465,
+					"average": 0.436,
+					"isRatioStat": true,
+					"isCumulativeStat": true,
+					"dependentStats": ["OBP","SLG"],
+					"order": 10
+				},
 				"PA_Ratio": {
 					"name": "Plate Appearances Ratio",
 					"isRatioStat": true,
@@ -161,29 +196,36 @@
 			"positions": {
 				"SP": {
 					"name": "Starting Pitcher",
-					"minimum": 1
+					"minimum": 1,
+					"order": 3
 				},
 				"RP": {
 					"name": "Relief Pitcher",
-					"minimum": 2
+					"minimum": 2,
+					"order": 2
 				},
 				"CP": {
 					"name": "Closer",
-					"minimum": 2
+					"minimum": 2,
+					"order": 1
 				}
 			},
 			"categories": {
 				"G": {
 					"name": "Games Played",
+					"isCountingStat": true,
 					"order": 1
 				},
 				"GS": {
 					"name": "Games Start",
+					"isCountingStat": true,
+					"denominator": "G",
 					"order": 2
 				},
 				"IP": {
 					"name": "Innings Pitched",
 					"average": 160,
+					"isCountingStat": true,
 					"denominator": "G",
 					"order": 3
 				},
@@ -193,7 +235,7 @@
 					"goal": 120,
 					"scoringStat": true,
 					"isCountingStat": true,
-					"denominator": "IP",
+					"denominator": "G",
 					"order": 4
 				},
 				"SV": {
@@ -202,7 +244,7 @@
 					"goal": 100,
 					"scoringStat": true,
 					"isCountingStat": true,
-					"denominator": "IP",
+					"denominator": "G",
 					"order": 5
 				},
 				"HD": {
@@ -210,7 +252,7 @@
 					"sgpd": 20.01,
 					"goal": 60,
 					"isCountingStat": true,
-					"denominator": "IP",
+					"denominator": "G",
 					"order": 6
 				},
 				"K": {
@@ -251,7 +293,51 @@
 					"name": "Quality Starts",
 					"sgpd": 4.796,
 					"goal": 130,
+					"isCountingStat": true,
+					"denominator": "G",
 					"order": 10
+				},
+				"GS_Ratio": {
+					"name": "Games Started Ratio",
+					"isRatioStat": true,
+					"numerator": "GS",
+					"isCountingStatRatioModifier": true
+				},
+				"IP_Ratio": {
+					"name": "Innings Pitched Ratio",
+					"isRatioStat": true,
+					"numerator": "IP",
+					"isCountingStatRatioModifier": true
+				},
+				"W_Ratio": {
+					"name": "Innings Pitched Ratio",
+					"isRatioStat": true,
+					"numerator": "W",
+					"isCountingStatRatioModifier": true
+				},
+				"SV_Ratio": {
+					"name": "Runs Ratio",
+					"isRatioStat": true,
+					"numerator": "SV",
+					"isCountingStatRatioModifier": true
+				},
+				"HD_Ratio": {
+					"name": "Home Runs Ratio",
+					"isRatioStat": true,
+					"numerator": "HD",
+					"isCountingStatRatioModifier": true
+				},
+				"K_Ratio": {
+					"name": "Runs Batting In Ratio",
+					"isRatioStat": true,
+					"numerator": "K",
+					"isCountingStatRatioModifier": true
+				},
+				"QS_Ratio": {
+					"name": "Quality Starts Ratio",
+					"isRatioStat": true,
+					"numerator": "QS",
+					"isCountingStatRatioModifier": true
 				}
 			}
 		}

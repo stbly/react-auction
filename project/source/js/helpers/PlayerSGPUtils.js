@@ -53,7 +53,10 @@ export const createSgpCalculationsForRatioStats = (ratioCategories, rosterSpots)
 
 const getSgpRatioCalculations = (categories, rosterSpots) => {
 	const categoryNames = categories.map( category => category.id )
-	const ratioCategories = categories.filter( category => category.isRatioStat && category.scoringStat )
+	const ratioCategories = categories.filter( category => {
+		const { isRatioStat, scoringStat, isCumulativeStat } = category
+		return isRatioStat && scoringStat && !isCumulativeStat 
+	})
 
 	const normalizedRatioCategories = ratioCategories.map( category => {
 		const {id, average, denominator, lowIsHigh, perPeriod} = category
@@ -81,7 +84,12 @@ export const calculateSGPFor = (players, categories, rosterSpots) => {
 			sgp: categoriesWithSgps.map( category => {
 				const {id, sgpd} = category
 				const {stats} = player
-				const defaultCalculationFunction = (stats) => stats[id]
+				const defaultCalculationFunction = (stats) => {
+					/*if (id === 'OPS') {
+						console.log(player.name, stats, stats['OPS'])
+					}*/
+					return stats[id]
+				}
 				const sgpCalculationFunction = sgpRatioCalculations[id] || defaultCalculationFunction
 				return sgpCalculationFunction(stats) / sgpd
 			}).reduce( combineValues )

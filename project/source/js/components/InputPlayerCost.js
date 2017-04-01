@@ -10,9 +10,9 @@ class InputPlayerCost extends Component {
 			return onCostChange(newCost)
 		}
 	}
-
+	
 	startEditing () {
-		this.ref.startEditing()
+		this.input.startEditing()
 	}
 
 	render () {

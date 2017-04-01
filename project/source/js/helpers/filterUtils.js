@@ -1,4 +1,3 @@
-import {primaryPositionFor} from './PlayerListUtils';
 
 Object.filter = (obj, predicate) =>
     Object.keys(obj)
@@ -42,12 +41,6 @@ const filterBy = (array, prop, value) => {
 	});
 }
 
-const filterByPosition = (array, pos) => {
-	return array.filter(function (obj) {
-		return primaryPositionFor(obj) === pos
-	});
-}
-
 const propIsArray = (prop) => {
 	return Object.prototype.toString.call( prop ) === '[object Array]'
 }
@@ -55,4 +48,4 @@ const propIsObject = (prop) => {
 	return Object.prototype.toString.call( prop ) === '[object Object]'
 }
 
-export { createFilter, filterBy, filterByPosition }
+export { createFilter, filterBy }
