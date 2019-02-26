@@ -1,8 +1,8 @@
-import {flatten, sort, sortArrayByCategory } from '../helpers/arrayUtils'
+import {flatten, sort, sortArrayByCategory, sortArrayByCategories } from '../helpers/arrayUtils'
 
 export const getFavoritedPlayers = (players, type=null) => {
 	const typeBool = typeToCheck => type ? typeToCheck = type : true
-	return players.filter( player => typeBool(player.type) && player.isFavorited && !(player.cost > 0) )
+	return players.filter( player => typeBool(player.type) && player.isFavorited && !player.cost )
 }
 
 export const playerIsDrafted = (player) => {
@@ -26,7 +26,17 @@ export const rankPlayers = (players, category, descending=true) => {
 		}) 
 	}
 
-	const rankedAboveReplacement = ranker(aboveReplacement)
+	const unforcedOneDollarPlayers = aboveReplacement.filter( player => !player.forcedOneDollar)
+	let forcedOneDollarPlayers = aboveReplacement.filter( player => player.forcedOneDollar)
+	if (forcedOneDollarPlayers && forcedOneDollarPlayers.length > 0) {
+		forcedOneDollarPlayers = sortArrayByCategory(forcedOneDollarPlayers, 'sgp', descending)
+	} else {
+		forcedOneDollarPlayers = []
+	}
+
+	const combinedPlayers = [...unforcedOneDollarPlayers, ...forcedOneDollarPlayers]
+
+	const rankedAboveReplacement = ranker(combinedPlayers)
 	const rankedBelowReplacement = ranker(belowReplacement)
 
 	return [...rankedAboveReplacement, ...rankedBelowReplacement]

@@ -7,19 +7,16 @@
 
 	cursor: pointer;
 
-	/*border-color: $color-batter-dark-blue;*/
-	background: white;
+	border-color: $color-batter-dark-blue;
+	/*background: $color-batter-dark-blue;*/
 
 	svg {
 		fill: $color-batter-dark-blue;
 	}
 
-	&.active,
+	
 	&:hover {
-		background: $color-batter-dark-blue;
-		svg {
-			fill: $color-batter-muted;
-		}
+		background: $color-batter-default;
 	}
 
 	&.active {
@@ -28,6 +25,11 @@
     	svg {
     		fill: white;
     	}
+    }
+
+    &.disabled {
+    	pointer-events: none;
+    	opacity: 0.5;
     }
 }
 

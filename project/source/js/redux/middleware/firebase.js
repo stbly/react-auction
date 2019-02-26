@@ -5,12 +5,13 @@ import { settingsEndpoints } from '../../helpers/constants/settings'
 import { cleanObject } from '../../helpers/dataUtils'
 
 import {
-	UPDATE_PLAYER_STAT,
+	UPDATE_PLAYER_STATS,
 	UPDATE_PLAYER_COST,
 	UPDATE_PLAYER_FAVORITED,
 	UPDATE_PLAYER_NOTES,
 	UPDATE_PLAYER_OWNER,
 	UPDATE_PLAYER_DRAFTED,
+	UPDATE_PLAYER_SLEEPER_STATUS,
 	UPDATE_PLAYER_TIER } from '../modules/players'
 
 import {
@@ -32,14 +33,18 @@ const getUserRef = () => {
 	return firebaseData.ref().child("users")
 }
 
-const updateFirebaseUserPlayerStat = (state, action) => {
-	const {id, stat, value} = action.payload
+const updateFirebaseUserPlayerStats = (state, action) => {
+	const {id, stats} = action.payload
 	const usersRef = getUserRef()
-	const path = state.user.uid + '/players/' + id + '/stats/' + stat + '/'
+	const updateObject = {}
 
-	usersRef.update({
-		[path]: Number(value)
+	stats.forEach(entry => {
+		const {stat, value} = entry
+		const path = state.user.uid + '/players/' + id + '/stats/' + stat + '/'
+		updateObject[path] = Number(value)
 	})
+
+	usersRef.update(updateObject)
 }
 
 const updateFirebaseUserPlayerDraftPrice = (state, action) => {
@@ -50,9 +55,8 @@ const updateFirebaseUserPlayerDraftPrice = (state, action) => {
 
 	const path = state.user.uid + '/leagues/' + leagueId + '/players/' + id + '/cost/'
 
-	let costToSend = Number(cost)
-	costToSend = costToSend > 0 ? costToSend : null
-
+	let costToSend = (cost || cost === 0) ? Number(cost) : null
+	console.log('sending draft price to firebase', costToSend)
 	usersRef.update({
 		[path]: costToSend
 	})
@@ -67,6 +71,19 @@ const updateFirebaseUserPlayerFavorited = (state, action) => {
 
 	usersRef.update({
 		[path]: isFavorited
+	})
+}
+
+
+const updateFirebaseUserPlayerSleeperStatus = (state, action) => {
+	const {id} = action.payload
+	const usersRef = getUserRef()
+	const path = state.user.uid + '/players/' + id + '/isSleeper/'
+
+	const isSleeper = state.players.data[id].isSleeper ? null : true
+	console.log(path, isSleeper)
+	usersRef.update({
+		[path]: isSleeper
 	})
 }
 
@@ -118,7 +135,7 @@ const addLeagueToFirebase = (state, action) => {
 	const usersRef = getUserRef()
 	const path = state.user.uid + '/leagues/' + id + '/'
 
-	const { defaults } = state.settings 
+	const { defaults } = state.settings
 	const { settings } = leagueObject
 
 	const cleanedLeagueObject = Object.assign({}, leagueObject, {
@@ -148,7 +165,7 @@ const updatePlayerOwner = (state, action) => {
 	const { id, team } = payload
 	const { activeLeague } = state.leagues
 	const usersRef = getUserRef()
-	
+
 	const playerPath = state.user.uid + '/leagues/' + activeLeague.id + '/players/' + id + '/owner/'
 	usersRef.update({
 		[playerPath]: team
@@ -187,7 +204,7 @@ const updatePlayerDrafted = (state, action) => {
 
 	const usersRef = getUserRef()
 	const isDraftedPath = state.user.uid + '/leagues/' + activeLeague.id + '/players/' + id + '/isDrafted'
-
+	console.log('updatePlayerDrafted', id, isDrafted)
 	usersRef.update({
 		[isDraftedPath]: isDrafted
 	})
@@ -199,7 +216,7 @@ const updatePlayerTier = (state, action) => {
 	const { activeLeague } = state.leagues
 
 	const usersRef = getUserRef()
-	const tierPath = state.user.uid + '/leagues/' + activeLeague.id + '/players/' + id + '/tiers/' + position 
+	const tierPath = state.user.uid + '/leagues/' + activeLeague.id + '/players/' + id + '/tiers/' + position
 
 	usersRef.update({
 		[tierPath]: value
@@ -207,9 +224,10 @@ const updatePlayerTier = (state, action) => {
 }
 
 const actionHandlers = {
-	[UPDATE_PLAYER_STAT]: updateFirebaseUserPlayerStat,
+	[UPDATE_PLAYER_STATS]: updateFirebaseUserPlayerStats,
 	[UPDATE_PLAYER_COST]: updateFirebaseUserPlayerDraftPrice,
 	[UPDATE_PLAYER_FAVORITED]: updateFirebaseUserPlayerFavorited,
+	[UPDATE_PLAYER_SLEEPER_STATUS]: updateFirebaseUserPlayerSleeperStatus,
 	[UPDATE_PLAYER_NOTES]: updateFirebaseUserPlayerNotes,
 	[UPDATE_PLAYER_OWNER]: updatePlayerOwner,
 	[UPDATE_SETTING]: updateFirebaseUserSetting,

@@ -20,10 +20,34 @@ class FilteredTable extends Component {
 			searchQuery: null,
 			filter: 'batter',
 			sort: {
-				column: 'rank',
+				column: props.defaultSort,
 				direction: 1
 			}
 		}
+	}
+
+	shouldComponentUpdate (nextProps, nextState) {
+		const serializedThisProps = JSON.stringify(this.props)
+		const serializedNextProps = JSON.stringify(nextProps)
+		const serializedThisState = JSON.stringify(this.state)
+		const serializedNextState = JSON.stringify(nextState)
+		return (serializedThisProps !== serializedNextProps) || (serializedThisState !== serializedNextState)
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.defaultSort && (!this.props.sort || (nextProps.defaultSort !== this.props.sort.column))) {
+			this.setState({
+				sort: {
+					column: nextProps.defaultSort,
+					direction: this.state.sort.direction
+				}
+			})
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		console.log(this.props.data)
+		this.table.sortBy(this.state.sort)
 	}
 
 	setFilter (property, id) {

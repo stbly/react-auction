@@ -6,6 +6,7 @@ import {
 	RECEIVE_SETTINGS } from '../modules/settings'
 
 import { filterBy } from '../../helpers/filterUtils';
+import { ratioStatCalculators } from '../../helpers/statUtils'
 
 const computeRatioStats = (players, settings) => {
 	const playerTypes = Object.keys(settings.positionData)
@@ -17,30 +18,44 @@ const computeRatioStats = (players, settings) => {
 		const playersOfType = filterBy(playersArray, 'type', playerType)
 		const categoriesArray = Object.keys(categories)
 
-		const countingStatRatioModifiers = categoriesArray.filter( category => {
-			return categories[category].isCountingStatRatioModifier 
-		})
+		// to do: do away with ratio stat modifiers convention and remove them from default settings.
+		// have them be calculated here and only referenced here if possible
 
-		const cumulativeStats = categoriesArray.filter( category => {
-			return categories[category].isCumulativeStat 
+		// to do: make all ratio stats like ERA and AVG calculated here instead of projected ERA/WHIP
+		// once that's done we can get rid of cumulative stats convention
+
+		// const countingStatRatioModifiers = categoriesArray.filter( category => {
+		// 	return categories[category].isCountingStatRatioModifier
+		// })
+
+		const ratioStats = categoriesArray.filter( category => {
+			return ratioStatCalculators[category] && categories[category].isRatioStat
 		})
+		//
+		// const cumulativeStats = categoriesArray.filter( category => {
+		// 	return categories[category].isCumulativeStat
+		// })
 
 		playersOfType.forEach( player => {
 			const newPlayer = Object.assign({}, player)
 			const { stats } = player
 
-			countingStatRatioModifiers.forEach( stat => {
-				const category = categories[stat]
-				const { numerator } = category
-				newPlayer.stats[stat] = stats[numerator] / stats[categories[numerator].denominator]
+			ratioStats.forEach( stat => {
+				newPlayer.stats[stat] = ratioStatCalculators[stat](stats)
 			})
-
-			cumulativeStats.forEach( stat => {
-				const category = categories[stat]
-				const { dependentStats } = category
-				const total = dependentStats.map( id => stats[id] ).reduce( (a, b) => a + b )
-				newPlayer.stats[stat] = total
-			})
+			//
+			// countingStatRatioModifiers.forEach( stat => {
+			// 	const category = categories[stat]
+			// 	const { numerator } = category
+			// 	newPlayer.stats[stat] = stats[numerator] / stats[categories[numerator].denominator]
+			// })
+			//
+			// cumulativeStats.forEach( stat => {
+			// 	const category = categories[stat]
+			// 	const { dependentStats } = category
+			// 	const total = dependentStats.map( id => stats[id] ).reduce( (a, b) => a + b )
+			// 	newPlayer.stats[stat] = total
+			// })
 
 			newPlayers.push(newPlayer)
 		})

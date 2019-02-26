@@ -2,9 +2,11 @@ import fetch from 'isomorphic-fetch'
 import { defaultPlayers } from '../../helpers/constants/defaultPlayers'
 import { mergeDeep } from '../../helpers/dataUtils'
 import { arrayCheck } from '../../helpers/arrayUtils'
-import { 
+import { getStatUpdaterFor } from '../../helpers/statUtils'
+import {
 	addPlayerToTeam,
 	removePlayerFromTeam } from './teams'
+
 
 const LOAD_PLAYERS_REQUEST = 'players/LOAD_PLAYERS_REQUEST'
 const LOAD_PLAYERS_SUCCESS = 'players/LOAD_PLAYERS_SUCCESS'
@@ -14,12 +16,14 @@ const RECEIVE_PLAYERS = 'players/RECEIVE_PLAYERS'
 const INVALIDATE_PLAYERS = 'players/INVALIDATE_PLAYERS'
 const UNSYNTHESIZE_PLAYERS = 'players/UNSYNTHESIZE_PLAYERS'
 const UPDATE_PLAYER_FAVORITED = 'players/UPDATE_PLAYER_FAVORITED'
+const UPDATE_PLAYER_SLEEPER_STATUS = 'players/UPDATE_PLAYER_SLEEPER_STATUS'
+
 const UPDATE_PLAYER_NOTES = 'players/UPDATE_PLAYER_NOTES'
 const UPDATE_PLAYER_TIER = 'players/UPDATE_PLAYER_TIER'
 const UPDATE_ACTIVE_PLAYER = 'players/UPDATE_ACTIVE_PLAYER'
 const UPDATE_PLAYER_COST = 'players/UPDATE_PLAYER_COST'
 const UPDATE_PLAYER_DRAFTED = 'players/UPDATE_PLAYER_DRAFTED'
-const UPDATE_PLAYER_STAT = 'players/UPDATE_PLAYER_STAT'
+const UPDATE_PLAYER_STATS = 'players/UPDATE_PLAYER_STATS'
 const UPDATE_PLAYER_OWNER = 'players/UPDATE_PLAYER_OWNER'
 
 
@@ -155,15 +159,15 @@ const fetchPlayersAtPath = (path) => {
 
 const formatPlayers = (players) => {
 	if (arrayCheck(players)) {
-		return Array.toObject(players)	
+		return Array.toObject(players)
 	} else {
 		return players
 	}
 }
 
-export const changePlayerStat = (id, stat, value) => {
+export const changePlayerStat = (id, stat, value, preserveRatios=true) => {
 	return (dispatch, getState) => {
-		dispatch( updatePlayerStat(id, stat, value) )
+		dispatch( updatePlayerStat(id, stat, value, preserveRatios) )
 		const players = getState().players.data
 		return dispatch( receivePlayers(players) )
 	}
@@ -172,13 +176,13 @@ export const changePlayerStat = (id, stat, value) => {
 export const changePlayerCost = (id, cost) => {
 	return (dispatch, getState) => {
 		const { owner } = getState().players.data[id]
-		if ((cost === null || cost === 0) && owner) {
-			dispatch( undraftPlayer(id, owner) )
+		console.log(id, cost)
+		if ((cost === null)) {
+			return dispatch( undraftPlayer(id, owner) )
 		} else {
-			dispatch( draftPlayer(id, cost, owner) )
+			return dispatch( draftPlayer(id, cost, owner) )
 		}
-		const players = getState().players.data
-		return dispatch( receivePlayers(players) )
+
 	}
 }
 
@@ -195,11 +199,11 @@ export const setPlayerDrafted = (id, isDrafted) => {
 export const draftPlayer = (id, cost, teamId) => {
 	return (dispatch, getState) => {
 		const { isAuctionLeague } = getState().settings.data
-		
+
 		if (isAuctionLeague) {
 			dispatch( updatePlayerCost(id, cost) )
 		}
-		
+
 		if (teamId) {
 			dispatch( updatePlayerOwner(id, teamId) )
 			dispatch( addPlayerToTeam(id, teamId) )
@@ -224,11 +228,21 @@ export const undraftPlayer = (id, teamId) => {
 			dispatch( updatePlayerOwner(id, null) )
 			dispatch( removePlayerFromTeam(id, teamId) )
 		}
-		
+
 		dispatch( updatePlayerDrafted(id, false) )
 
 		const players = getState().players.data
 		return dispatch( receivePlayers(players) )
+	}
+}
+
+export const updatePlayerStat = (id, stat, value, preserveRatios) => {
+	return (dispatch, getState) => {
+		const { stats } = getState().players.data[id]
+		const statUpdater = getStatUpdaterFor(stat, preserveRatios)
+		const newStats = statUpdater(value, stats)
+
+		return dispatch( updatePlayerStats(id, newStats) )
 	}
 }
 
@@ -248,8 +262,12 @@ export const updatePlayerFavorited = (id) => {
 	return { type: UPDATE_PLAYER_FAVORITED, payload: {id} }
 }
 
-export const updatePlayerStat= (id, stat, value) => {
-	return {type: UPDATE_PLAYER_STAT, payload: {id, stat, value}}
+export const updatePlayerSleeperStatus = (id) => {
+	return { type: UPDATE_PLAYER_SLEEPER_STATUS, payload: {id} }
+}
+
+export const updatePlayerStats = (id, stats) => {
+	return {type: UPDATE_PLAYER_STATS, payload: {id, stats}}
 }
 
 export const updatePlayerNotes = (id, notes) => {
@@ -279,7 +297,7 @@ export const updatePlayerOwner = (id, team) => {
 const reducer = (state = initialState, action) => {
 
 	const { payload } = action
-	const { players, id, cost, value, position, team, notes, stat, isDrafted } = (payload || {})
+	const { players, id, cost, value, position, team, notes, isDrafted, stats } = (payload || {})
 
 	switch (action.type) {
 		case INVALIDATE_PLAYERS:
@@ -326,6 +344,15 @@ const reducer = (state = initialState, action) => {
 				})
 			})
 
+		case UPDATE_PLAYER_SLEEPER_STATUS:
+			return Object.assign({}, state, {
+				data: Object.assign({}, state.data, {
+					[id]: Object.assign({}, state.data[id], {
+						isSleeper: !state.data[id].isSleeper
+					})
+				})
+			})
+
 		case UPDATE_PLAYER_NOTES:
 			return Object.assign({}, state, {
 				data: Object.assign({}, state.data, {
@@ -337,6 +364,7 @@ const reducer = (state = initialState, action) => {
 
 		case UPDATE_PLAYER_TIER:
 			return Object.assign({}, state, {
+				didInvalidate: true,
 				data: Object.assign({}, state.data, {
 					[id]: Object.assign({}, state.data[id], {
 						tiers: Object.assign({}, state.data[id], {
@@ -356,7 +384,7 @@ const reducer = (state = initialState, action) => {
 				didInvalidate: true,
 				data: Object.assign({}, state.data, {
 					[id]: Object.assign({}, state.data[id], {
-						cost: cost > 0 ? cost : null
+						cost
 					})
 				})
 			})
@@ -381,14 +409,18 @@ const reducer = (state = initialState, action) => {
 				})
 			})
 
-		case UPDATE_PLAYER_STAT:
+		case UPDATE_PLAYER_STATS:
+			const newStats = Object.assign({}, state.data[id].stats)
+			stats.forEach( entry => {
+				const {stat, value} = entry
+				newStats[stat] = Number(value)
+			})
+
 			return Object.assign({}, state, {
 				didInvalidate: true,
 				data: Object.assign({}, state.data, {
 					[id]: Object.assign({}, state.data[id], {
-						stats: Object.assign({}, state.data[id].stats, {
-							[stat]: Number(value)
-						})
+						stats: newStats
 					})
 				})
 			})
@@ -404,11 +436,12 @@ export {
 	INVALIDATE_PLAYERS,
 	RECEIVE_PLAYERS,
 	UPDATE_PLAYER_FAVORITED,
+	UPDATE_PLAYER_SLEEPER_STATUS,
 	UPDATE_PLAYER_NOTES,
 	UPDATE_ACTIVE_PLAYER,
 	UPDATE_PLAYER_COST,
 	UPDATE_PLAYER_DRAFTED,
-	UPDATE_PLAYER_STAT,
+	UPDATE_PLAYER_STATS,
 	UPDATE_PLAYER_OWNER,
 	UPDATE_PLAYER_TIER
 }

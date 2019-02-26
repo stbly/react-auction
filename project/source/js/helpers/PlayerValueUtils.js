@@ -1,4 +1,4 @@
-import {combineValues, sortArrayByCategory, findLastItemWithCondition} from './arrayUtils';
+import {combineValues, sortArrayByCategory, sortArrayByCategories, findLastItemWithCondition} from './arrayUtils';
 import {getPlayerList, primaryPositionFor, rankPlayers } from './PlayerListUtils';
 
 const getPlayerValue = (playerSgp, minSgp, pricePerSgp) => {
@@ -43,11 +43,18 @@ const createSgpGroups = (players, positionGroups) => {
 }
 
 const assignValuesFor = (players, sgpGroups, pricePerSgp, inflationRate) => {
-	const playersSortedBySGP = sortArrayByCategory(players,'sgp', true)
+	// const playersSortedBySGP = sortArrayByCategory(players,'sgp', true)
 	const sgpGroupPositions = sgpGroups.map( group => group.positions )
 	const sgpGroupsSortedByMinSgp = sgpGroups.sort( (a, b) => b.minSgp - a.minSgp)
 
-	return playersSortedBySGP.map( player => {
+	return players.map( (player, index) => {
+		/*if (index >= (players.length - forcedOneDollarPlayers)) {
+			return Object.assign({}, player, {
+				value: 1,
+				adjustedValue: 1,
+			})
+		}*/
+
 		const playerPosition = primaryPositionFor(player)
 
 		const sgpGroupMatch = sgpGroups.filter( sgpGroup => {
@@ -61,7 +68,7 @@ const assignValuesFor = (players, sgpGroups, pricePerSgp, inflationRate) => {
 			throw(new Error('No Sgp Group Match found'))
 		}
 		const value = getPlayerValue(player.sgp, sgpGroupMatch.minSgp, pricePerSgp)
-		const adjustedValue = inflationRate ? value * inflationRate : null
+		const adjustedValue = inflationRate ? value * inflationRate : value
 				
 		return Object.assign({}, player, {
 			value,
@@ -89,57 +96,87 @@ const getMarginalSgps = (players, sgpGroups) => {
 	return sgpGroupMarginalSgps.reduce( combineValues )
 }
 
-export const assignPlayerValues = (players, playersToDraft, dollarsToSpend, positions) => {
+export const assignPlayerValues = (players, playersToDraft, dollarsToSpend, positions, oneDollarPlayers=1) => {
 	const [
 		playersAboveReplacement,
 		playersBelowReplacement,
 		positionGroups] = getPlayerList(players, playersToDraft, positions);
 
-	const sgpGroups = createSgpGroups(playersAboveReplacement, positionGroups);
 
-	const cumulativeSgp = playersAboveReplacement.map( player => player.sgp ).reduce( combineValues )
-	const marginalSgp = getMarginalSgps(playersAboveReplacement, sgpGroups)
+	let sgpGroups = createSgpGroups(playersAboveReplacement, positionGroups);
+	let cumulativeSgp = playersAboveReplacement.map( player => player.sgp ).reduce( combineValues )
 
-	const originalCostPerSgp = dollarsToSpend / cumulativeSgp;
-	const marginalDollars = dollarsToSpend - playersToDraft;
-	const pricePerSgp = marginalDollars / marginalSgp;
+	let marginalSgp = getMarginalSgps(playersAboveReplacement, sgpGroups)
+
+	let totalDollars = dollarsToSpend
+	// let costPerSgp = totalDollars / cumulativeSgp;
+	let marginalDollars = totalDollars - playersToDraft;
+	let pricePerSgp = marginalDollars / marginalSgp;
+
+	// console.log('----------------')
+	// console.log('playersToDraft',playersToDraft)
+	// console.log('totalDollars',totalDollars)
+	// console.log('cumulativeSgp',cumulativeSgp)
+	// console.log('marginalDollars',marginalDollars)
+	// console.log('pricePerSgp',pricePerSgp)
+	// console.log('----------------')
+
+	let valuedPlayers = assignValuesFor(playersAboveReplacement, sgpGroups, pricePerSgp);
+	let totalPlayerValue = valuedPlayers.map( player => player.value ).reduce( combineValues )
+
+	if (oneDollarPlayers > 1) {
+		const valuedPlayersCopy = valuedPlayers.map(player => player)
+		const sortedValuedPlayers = sortArrayByCategory(valuedPlayersCopy, 'value', true)
+
+		const numberOfForcedOneDollarPlayers = oneDollarPlayers - positionGroups.length
+		const unforcedOneDollarsPlayers = sortedValuedPlayers.slice(0, sortedValuedPlayers.length - numberOfForcedOneDollarPlayers)
+		const forcedOneDollarsPlayers = sortedValuedPlayers.slice(sortedValuedPlayers.length - numberOfForcedOneDollarPlayers, sortedValuedPlayers.length)
+		
+		sgpGroups = createSgpGroups(unforcedOneDollarsPlayers, positionGroups);
+		cumulativeSgp = unforcedOneDollarsPlayers.map( player => player.sgp ).reduce( combineValues )
+		marginalSgp = getMarginalSgps(unforcedOneDollarsPlayers, sgpGroups)
+
+		totalDollars = totalDollars - numberOfForcedOneDollarPlayers
+		// costPerSgp = totalDollars / cumulativeSgp;
+		marginalDollars = totalDollars - unforcedOneDollarsPlayers.length;
+		pricePerSgp = marginalDollars / marginalSgp;
+
+		valuedPlayers = assignValuesFor(unforcedOneDollarsPlayers, sgpGroups, pricePerSgp);
+		valuedPlayers.push(...forcedOneDollarsPlayers.map( player => Object.assign(player, {value: 1, adjustedValue: 1, forcedOneDollar: true})))
+
+		const totalPlayerValue = valuedPlayers.map( player => player.value ).reduce( combineValues )
+	}
+
+	///
 	
-	/*console.log('----------------')
-	console.log('playersToDraft',playersToDraft)
-	console.log('dollarsToSpend',dollarsToSpend)
-	console.log('cumulativeSgp',cumulativeSgp)
-	console.log('marginalDollars',marginalDollars)
-	console.log('originalCostPerSgp',originalCostPerSgp)
-	console.log('pricePerSgp',pricePerSgp)
-	console.log('----------------')*/
+	// console.log('----------------')
+	// console.log('totalDollars',totalDollars)
+	// console.log('totalPlayerValue',totalPlayerValue)
+	// console.log('remainingValue',remainingValue)
+	// console.log('remainingDollars',remainingDollars)
+	// console.log('draftedPlayerValue',draftedPlayerValue)
+	// console.log('inflationRate',inflationRate)
+	// console.log('----------------')
 
-	const valuedPlayers = assignValuesFor(playersAboveReplacement, sgpGroups, pricePerSgp);
-
-	const totalPlayerValue = valuedPlayers.map( player => player.value ).reduce( combineValues )
-
-	const playersAlreadyDrafted = valuedPlayers.filter( player => player.cost )
+	const playersAlreadyDrafted = valuedPlayers.filter( player => (player.cost || player.cost === 0) )
 
 	const draftedPlayerValue = playersAlreadyDrafted.map( player => player.value ).reduce( combineValues, 0 )
-
 	const totalSpentOnPlayers = playersAlreadyDrafted.map( player => player.cost ).reduce( combineValues, 0 )
 
+	const unforcedOneDollarsPlayers = valuedPlayers.filter( player => !player.forcedOneDollar )
+	const draftedForcedOneDollarPlayers = playersAlreadyDrafted.filter( player => player.forcedOneDollar )
+	const undraftedForcedOneDollarPlayers = valuedPlayers.filter( player => !player.cost && player.forcedOneDollar)
 
 	const remainingValue = totalPlayerValue - draftedPlayerValue
-	const remainingDollars = dollarsToSpend - totalSpentOnPlayers;
+	const remainingDollars = totalDollars - totalSpentOnPlayers + undraftedForcedOneDollarPlayers.length
+
 	const inflationRate = remainingDollars / remainingValue;
 
-	/*console.log('----------------')
-	console.log('dollarsToSpend',dollarsToSpend)
-	console.log('totalPlayerValue',totalPlayerValue)
-	console.log('remainingValue',remainingValue)
-	console.log('remainingDollars',remainingDollars)
-	console.log('draftedPlayerValue',draftedPlayerValue)
-	console.log('inflationRate',inflationRate)
-	console.log('----------------')*/
+	valuedPlayers = assignValuesFor(unforcedOneDollarsPlayers, sgpGroups, pricePerSgp, inflationRate);
+	valuedPlayers.push(...undraftedForcedOneDollarPlayers, ...draftedForcedOneDollarPlayers)
 
 
-	const playersWithInflationValue = assignValuesFor(valuedPlayers, sgpGroups, pricePerSgp, inflationRate);
-	// console.log('valued Players: ', playersWithInflationValue)
+	const newPlayerValue = valuedPlayers.map( player => player.value ).reduce( combineValues, 0 )
 
 	/* 
 	// Make sure money values make sense
@@ -148,10 +185,10 @@ export const assignPlayerValues = (players, playersToDraft, dollarsToSpend, posi
 		return player.adjustedValue
 	}).reduce( (prev, next) => prev+next) )
 	*/
-	const belowReplacementPlayerValues = assignValuesFor(playersBelowReplacement, sgpGroups, pricePerSgp, inflationRate)
+	const belowReplacementPlayerValues = assignValuesFor(playersBelowReplacement, sgpGroups, pricePerSgp/*, inflationRate*/)
 		// console.log('below replacement Players: ', belowReplacementPlayerValues)
 
-	const combinedPlayers = rankPlayers([...playersWithInflationValue, ...belowReplacementPlayerValues],'adjustedValue');
+	const combinedPlayers = rankPlayers([...valuedPlayers, ...belowReplacementPlayerValues],'adjustedValue');
 
 	return combinedPlayers;
 }

@@ -51,7 +51,7 @@ class Team extends Component {
 		const playerObject = Array.toObject(players)
 		const categoryCells = createStatCells(displayCategories)
 		const columns = [
-			valueCellFactory('budget', 'budget', true),
+			// valueCellFactory('budget', 'budget', true),
 			cellFactory('position', {className: 'hidden', valueFunction: primaryPositionFor}),
 			cellFactory('name', {isText: true, className: 'widen'}),
 			earnedCellFactory(),
@@ -63,7 +63,7 @@ class Team extends Component {
 		]
 
 		const sorts = [ 
-			sortNumber('budget'),
+			// sortNumber('budget'),
 			sortCost(playerObject), 
 			'rank', 
 			'name', 
@@ -88,7 +88,7 @@ class Team extends Component {
 		return <Table
 			className={classNames('player-list', type)}
 			sortable={sorts}
-			defaultSort='budget'>
+			defaultSort='rank'>
 				{headers}
 				{rows} 
 				<Tfoot>
@@ -134,7 +134,7 @@ class Team extends Component {
 
 		return (
 			<tr key={'sums'}>
-				<td colSpan={2}></td>
+				<td></td>
 				{ createCells(sumObject, columns) }
 			</tr>
 		)

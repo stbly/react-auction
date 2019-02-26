@@ -7,7 +7,8 @@ class InputPlayerCost extends Component {
 	onCostChange (newCost) {
 		const { onCostChange } = this.props
 		if (onCostChange) {
-			return onCostChange(newCost)
+			const costToSend = newCost === '' ? null : newCost
+			return onCostChange(costToSend)
 		}
 	}
 	
@@ -17,13 +18,12 @@ class InputPlayerCost extends Component {
 
 	render () {
 		const { cost, disabled } = this.props
-		const costToShow = (cost === 0) ? '' : cost
 		const classes = classNames({'dollar-amount': cost > 0})
 
 		return (
 			<InputToggle
-				ref={(ref) => this.ref = ref}
-				value={costToShow}
+				ref={(ref) => this.input = ref}
+				value={cost}
 				max={100}
 				min={0}
 				disabled={disabled}

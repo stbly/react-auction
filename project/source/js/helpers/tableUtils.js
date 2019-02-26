@@ -4,6 +4,7 @@ import {Tr, Td, Thead, Th} from 'reactable-cacheable'
 
 import InputPlayerStat from '../components/InputPlayerStat.js'
 import CellPlayerCost from '../components/CellPlayerCost.js'
+import CellPlayerName from '../components/CellPlayerName.js'
 import IconButton from '../components/IconButton'
 import InputToggle from '../components/InputToggle'
 
@@ -133,20 +134,41 @@ export const costCellFactory = (handler) => {
 		className: handler ? 'can-edit' : null,
 		content: (player, index) => {
 
-			const cost = Number(player.cost || 0)
-			const hasCost = cost > 0
+			const cost = player.cost ? Number(player.cost) : null
 			const costChangeHandler = (value) => {
 				return handler ? handler(player.id, value) : null
 			}
 
 			return {
 				value: player.id,
-				colSpan: hasCost && handler ? 3 : 1,
+				colSpan: cost && handler ? 3 : 1,
 				element: (
 					<CellPlayerCost
+						id = {player.id}
 						cost = {cost}
 			        	disabled={!handler}
 			        	onCostChange = {costChangeHandler} />
+	        	)
+	        }
+		}
+	}
+}
+
+export const playerNameCellFactory = (isAuctionLeague, actions) => {
+
+	return {
+		column: 'name',
+		className: 'large-cell no-padding',
+		content: (player, index) => {
+
+			return {
+				value: player.name,
+				colSpan: 1,
+				element: (
+					<CellPlayerName
+						player={player} 
+						isAuctionLeague={isAuctionLeague}
+						{...actions} />
 	        	)
 	        }
 		}
@@ -165,7 +187,7 @@ export const tierCellFactory = (tierPosition, handler) => {
 			}
 
 			return {
-				value: player.tier,
+				value: player.id,
 				colSpan: 1,
 				element: (
 					<InputToggle
@@ -304,6 +326,24 @@ export const sortCost = (players) => {
 			const valueSort = sort(playerA.value, playerB.value, false)//, direction)
 
 			return sortMultiple( costSort, valueSort)
+		}
+	}
+}
+
+
+export const sortTier = (players, position) => {
+	return {
+		column: 'tier',
+		direction: 'desc',
+		groupRows: true,
+		sortFunction: (a,b) => {
+
+			const playerA = players[a]
+			const playerB = players[b]
+			const tierSort = sort(playerA.tiers[position], playerB.tiers[position], false, false)
+			const rankSort = sort(playerA.rank, playerB.rank, false, false)//, direction)
+
+			return sortMultiple( tierSort, rankSort)
 		}
 	}
 }

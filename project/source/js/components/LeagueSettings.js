@@ -7,7 +7,9 @@ import {
 	NUM_TEAMS,
 	createTeamSettings,
 	createLeagueSettings,
+	createBudgetSettings,
 	createPositionSettings,
+	createOneDollarPlayerSettings,
 	createCategorySettings } from '../helpers/constants/settings'
 
 import InputToggle from './InputToggle'
@@ -161,13 +163,32 @@ class LeagueSettings extends Component {
 	}
 
 	renderPositionSettings (type, positionSettingsObject, isAuctionLeague) {
+		const categoryNames = {
+			batter: 'Batting',
+			pitcher: 'Pitching'
+		}
+		const categoryName = categoryNames[type]
 		const positionSettings = createPositionSettings(type, positionSettingsObject, isAuctionLeague)
 		const categorySettings = createCategorySettings(positionSettingsObject.categories)
-		
+		const budgetSettings = createBudgetSettings(type, positionSettingsObject)
+
 		return (
 			<div key={type} className='position-settings'>
-				<h2>{type.toNormalCase()} Settings</h2>	
+				
+				{isAuctionLeague && 
+					<div>
+						<h2>{categoryName.toNormalCase()} Budget Settings</h2>	
+						<SettingsInputs settings={budgetSettings} onChange={this.settingWasChanged.bind(this)}/>
+					</div>
+				}
+				
+				<h2>{categoryName.toNormalCase()} Position Settings</h2>	
+				{isAuctionLeague && 
+					<SettingsInputs settings={createOneDollarPlayerSettings(type, positionSettingsObject)} onChange={this.settingWasChanged.bind(this)}/>
+				}
 				<SettingsInputs settings={positionSettings} onChange={this.settingWasChanged.bind(this)} />
+
+				<h2>{categoryName.toNormalCase()} Categories</h2>
 				<div className='position-settings-container'>
 					{categorySettings.map( (category, index) => {
 						return (
@@ -180,7 +201,9 @@ class LeagueSettings extends Component {
 										const endpoint = 'positionData/' + type + '/categories/' + category.label + '/scoringStat'
 										this.settingWasChanged('scoringStat', checked, endpoint)
 									}} />
+
 								<span>{category.label}</span>
+
 								{category.sgpd && category.checked &&
 									<span className='sgpd-container'>
 										<span>SGPD</span>

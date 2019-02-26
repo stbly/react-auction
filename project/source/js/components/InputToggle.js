@@ -39,7 +39,7 @@ class InputToggle extends Input {
 
 	shouldShowValue (value, allowZero) {
 		if (value || allowZero) {
-			return value > 0 || value.length > 0 || allowZero;
+			return value > 0 || (value && value.length > 0) || allowZero;
 		} else {
 			return false;
 		}
@@ -67,6 +67,7 @@ class InputToggle extends Input {
 
 	render () {
 		const { disabled } = this.props;
+		const { showValue } = this.state
 		const classes = classNames('input-toggle', {'showing-input': this.state.isEditing && !disabled}, {'is-disabled': disabled})
 		const element = (!this.state.showValue && !disabled) ? this.renderValueInput() : this.renderValueDisplay()
 		return (

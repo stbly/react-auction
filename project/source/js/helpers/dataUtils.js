@@ -1,7 +1,7 @@
 import { arrayCheck } from './arrayUtils'
 
 /**
- * Code via Salakar on Stack Overflow http://stackoverflow.com/a/34749873
+ * mergeDeep code via Salakar on Stack Overflow http://stackoverflow.com/a/34749873
  */
 
 export const isObject = (item) => {

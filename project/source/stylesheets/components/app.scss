@@ -16,6 +16,14 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
+h1,h2,h3 {
+	@include transandina-medium;
+}
+
+p,span {
+	@include transandina-light;
+}
+
 h1 {
 	font-size: 2em;
 	margin: 0 0 20px;
@@ -93,6 +101,13 @@ input[type=submit] {
 
 a {
     color: inherit;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
 .dollar-amount {

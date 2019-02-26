@@ -151,42 +151,6 @@
 					"isCumulativeStat": true,
 					"dependentStats": ["OBP","SLG"],
 					"order": 10
-				},
-				"PA_Ratio": {
-					"name": "Plate Appearances Ratio",
-					"isRatioStat": true,
-					"numerator": "PA",
-					"isCountingStatRatioModifier": true
-				},
-				"AB_Ratio": {
-					"name": "At Bats Ratio",
-					"isRatioStat": true,
-					"numerator": "AB",
-					"isCountingStatRatioModifier": true
-				},
-				"R_Ratio": {
-					"name": "Runs Ratio",
-					"isRatioStat": true,
-					"numerator": "R",
-					"isCountingStatRatioModifier": true
-				},
-				"HR_Ratio": {
-					"name": "Home Runs Ratio",
-					"isRatioStat": true,
-					"numerator": "HR",
-					"isCountingStatRatioModifier": true
-				},
-				"RBI_Ratio": {
-					"name": "Runs Batting In Ratio",
-					"isRatioStat": true,
-					"numerator": "RBI",
-					"isCountingStatRatioModifier": true
-				},
-				"SB_Ratio": {
-					"name": "Stolen Bases Ratio",
-					"isRatioStat": true,
-					"numerator": "SB",
-					"isCountingStatRatioModifier": true
 				}
 			}
 		},
@@ -255,7 +219,7 @@
 					"denominator": "G",
 					"order": 6
 				},
-				"K": {
+				"SO": {
 					"name": "Strikeouts",
 					"sgpd": 50.048,
 					"goal": 1550,
@@ -296,48 +260,6 @@
 					"isCountingStat": true,
 					"denominator": "G",
 					"order": 10
-				},
-				"GS_Ratio": {
-					"name": "Games Started Ratio",
-					"isRatioStat": true,
-					"numerator": "GS",
-					"isCountingStatRatioModifier": true
-				},
-				"IP_Ratio": {
-					"name": "Innings Pitched Ratio",
-					"isRatioStat": true,
-					"numerator": "IP",
-					"isCountingStatRatioModifier": true
-				},
-				"W_Ratio": {
-					"name": "Innings Pitched Ratio",
-					"isRatioStat": true,
-					"numerator": "W",
-					"isCountingStatRatioModifier": true
-				},
-				"SV_Ratio": {
-					"name": "Runs Ratio",
-					"isRatioStat": true,
-					"numerator": "SV",
-					"isCountingStatRatioModifier": true
-				},
-				"HD_Ratio": {
-					"name": "Home Runs Ratio",
-					"isRatioStat": true,
-					"numerator": "HD",
-					"isCountingStatRatioModifier": true
-				},
-				"K_Ratio": {
-					"name": "Runs Batting In Ratio",
-					"isRatioStat": true,
-					"numerator": "K",
-					"isCountingStatRatioModifier": true
-				},
-				"QS_Ratio": {
-					"name": "Quality Starts Ratio",
-					"isRatioStat": true,
-					"numerator": "QS",
-					"isCountingStatRatioModifier": true
 				}
 			}
 		}

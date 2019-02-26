@@ -41,3 +41,29 @@
 	}
 
 }
+
+
+
+
+.filtered-table {
+	
+	/* TEMPORARY */
+	float: left;
+	width: 82.5%;
+	/* --------- */
+}
+.favorited-player-list {
+
+	/* TEMPORARY */
+	float: right;
+	width: 16.5%;
+	/* --------- */
+	tr {
+		th,
+		td {
+			&.small-cell {
+				width: 10px;
+			}
+		}
+	}
+}

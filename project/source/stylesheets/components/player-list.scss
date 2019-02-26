@@ -32,6 +32,10 @@
 				width: 20%;
 			}
 
+			&.no-padding {
+				padding: 0;
+			}
+
 			&.small-cell {
 				width: 50px;
 			}
@@ -223,6 +227,23 @@
 			    		fill: white;
 			    	}
 			    }
+			}
+		}
+	}
+}
+
+.favorited-player-list,
+.sleeper-player-list {
+
+	/* TEMPORARY */
+	float: right;
+	width: 16.5%;
+	/* --------- */
+	tr {
+		th,
+		td {
+			&.small-cell {
+				width: 10px;
 			}
 		}
 	}

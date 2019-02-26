@@ -14,7 +14,8 @@ class Input extends Component {
 	}
 
 	shouldComponentUpdate (nextProps, nextState) {
-		return (nextProps.value !== this.props.value) || (nextState.value !== this.state.inputValue)
+		const showValueStateChanged = nextState.showValue !== this.state.showValue
+		return showValueStateChanged || (nextProps.value !== this.props.value) || (nextState.value !== this.state.inputValue)
 	}
 
 	componentDidMount() {
@@ -43,7 +44,7 @@ class Input extends Component {
 	}
 
 	getValue () {
-		return this.state.inputValue || this.props.value;
+		return this.state.inputValue || this.props.value || 0;
 	}
 
 	handleEditStart () {
@@ -89,7 +90,7 @@ class Input extends Component {
 			const min = target.getAttribute('min')
 			const max = target.getAttribute('max')
 
-			if (min || max) {
+			if (value !== '' && (min || max)) {
 				value = Number(value)
 				if (min && value < min) (value = min)
 				if (max && value > max) (value = max)

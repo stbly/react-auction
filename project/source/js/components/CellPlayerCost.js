@@ -16,15 +16,17 @@ class CellPlayerCost extends Component {
 
 	shouldComponentUpdate (nextProps, nextState) {
 		// console.log(nextProps.cost !== this.props.cost)
-		return (nextProps.cost !== this.props.cost)
+		return (
+			nextProps.id !== this.props.id ||
+			nextProps.cost !== this.props.cost
+		)
 	}
 
 	render () {
 		// console.log('updating')
 		const { cost, onCostChange, disabled } = this.props
-		const hasCost = cost > 0
-		const prefix = hasCost && !disabled ? 'Drafted:' : null
-		const classes = classNames('cell-player-cost', {'is-drafted': hasCost, 'is-disabled': disabled},)
+		const prefix = cost && !disabled ? 'Drafted:' : null
+		const classes = classNames('cell-player-cost', {'is-drafted': cost, 'is-disabled': disabled},)
 		
 		return (
 			<div className={classes}

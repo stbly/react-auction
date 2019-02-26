@@ -39,13 +39,14 @@ class TeamPlanner extends Component {
 
 		const slots = {}
 
+
 		Object.keys(positionData).map( type => {
 			const { rosterSpots, budgetPercentage } = positionData[type]
 			const amountToSpend = Math.round(teamSalary * (budgetPercentage/100))
 			const playersLeft = draftablePlayers.filter( player => !player.cost && player.type === type )
 			const playersOfType = (players || []).filter( player => player.type === type )
 
-			const slotWeights = getDistributions(amountToSpend, rosterSpots, 3.5, [0, rosterSpots - 1])
+			/*const slotWeights = getDistributions(amountToSpend, rosterSpots, 3.5, [0, rosterSpots - 1])
 			const playerSlots = slotWeights.map( slot => {
 				return {
 					budget: slot
@@ -140,6 +141,9 @@ class TeamPlanner extends Component {
 					budget: slot.budget
 				})
 			})
+			*/
+
+			slots[type] = playersOfType
 
 		})
 
@@ -239,7 +243,7 @@ class TeamPlanner extends Component {
 
 		if (undraftedPlayers.length === 0) return 
 
-		const { categories, rosterSpots } = positionData[type]
+		const { categories, positions, rosterSpots } = positionData[type]
 		const goalCategories = Object.keys(categories).filter( key => categories[key].goal )
 
 		const undraftedPlayersOfType = undraftedPlayers.filter( player => {
@@ -255,6 +259,9 @@ class TeamPlanner extends Component {
 		// ---- of roster with league average players ----- //
 		// ------------------------------------------------ //
 
+		let playersWithStats = []
+		const minPlayers = Object.keys(positions).map( pos => positions[pos].minimum ).reduce( (a,b) => a + b )
+
 		const averagePlayerStatObject = {}
 		Object.keys(categories).forEach(categoryKey => {
 			const { isRatioStat } = categories[categoryKey]
@@ -265,14 +272,16 @@ class TeamPlanner extends Component {
 			})
 		})
 
-		const playersWithStats = []
-		for (var i = 0; i < rosterSpots; i++) {
-			const playerAtSlot = playerSlots[type][i]
-			const stats = playerAtSlot.cost ? playerAtSlot.stats : averagePlayerStatObject
-			const player = Object.assign({}, playerSlots[type][i], { stats })
-			playersWithStats.push(player) 
+		if (playerSlots[type].length < minPlayers) {
+			for (var i = 0; i < minPlayers; i++) {
+				const playerAtSlot = playerSlots[type][i]
+				const stats = playerAtSlot && playerAtSlot.cost ? playerAtSlot.stats : averagePlayerStatObject
+				const player = Object.assign({}, playerSlots[type][i], { stats })
+				playersWithStats.push(player) 
+			}
+		} else {
+			playersWithStats = playerSlots[type]
 		}
-
 		const projectedTotals = getStatTotals( playersWithStats, categories )
 
 		// ------------------------------------------------ //
@@ -287,7 +296,7 @@ class TeamPlanner extends Component {
 			
 			const leagueStatTotal = getStatTotal( draftablePlayersOfType, categories[key], key ) 
 			const stat = projectedTotals[key]
-			const averageStat = isRatioStat ? stat : (stat / rosterSpots)
+			const averageStat = isRatioStat ? stat : (stat / playersWithStats.length)
 			const goal = isRatioStat ? leagueStatTotal : (leagueStatTotal / (draftablePlayersOfType.length))
 			const decimalPlaces = isRatioStat ? 3 : 0
 

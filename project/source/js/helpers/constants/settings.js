@@ -20,8 +20,12 @@ export const POSITION_UTIL = 'rosterSettings/positionUtility'
 export const POSITION_SP = 'rosterSettings/positionStartingPitcher'
 export const POSITION_RP = 'rosterSettings/positionReliefPitcher'
 export const POSITION_CP = 'rosterSettings/positionClosingPitcher'
+export const ONE_DOLLAR_BATTERS = 'rosterSettings/oneDollarBatters'
+export const ONE_DOLLAR_PITCHERS = 'rosterSettings/oneDollarPitchers'
 
 const POSITION_SETTINGS_DICTIONARY = {
+	'ONE_DOLLAR_BATTERS': ONE_DOLLAR_BATTERS,
+	'ONE_DOLLAR_PITCHERS': ONE_DOLLAR_PITCHERS,
 	'BUDGET_PITCHER': BUDGET_PITCHER,
 	'BUDGET_BATTER': BUDGET_BATTER,
 	'POSITION_C': POSITION_C,
@@ -40,10 +44,12 @@ const POSITION_SETTINGS_DICTIONARY = {
 }
 
 export const settingsEndpoints = {
-    [NUM_BATTERS]: 'positionData/batter/rosterSpots',
-    [NUM_PITCHERS]: 'positionData/pitcher/rosterSpots',
-    [NUM_TEAMS]: 'numTeams',
-    [IS_AUCTION_LEAGUE]: 'isAuctionLeague',
+	[ONE_DOLLAR_BATTERS]: 'positionData/batter/oneDollarPlayers',
+	[ONE_DOLLAR_PITCHERS]: 'positionData/pitcher/oneDollarPlayers',
+  [NUM_BATTERS]: 'positionData/batter/rosterSpots',
+  [NUM_PITCHERS]: 'positionData/pitcher/rosterSpots',
+  [NUM_TEAMS]: 'numTeams',
+  [IS_AUCTION_LEAGUE]: 'isAuctionLeague',
 	[BUDGET_PITCHER]: 'positionData/pitcher/budgetPercentage',
 	[BUDGET_BATTER]: 'positionData/batter/budgetPercentage',
 	[POSITION_C]: 'positionData/batter/positions/C/minimum',
@@ -90,18 +96,38 @@ export const createTeamSettings = (settings) => {
 	}
 }
 
-export const createPositionSettings = (type, positionSettings, isAuctionLeague) => {
-	const { positions, budgetPercentage } = positionSettings
-	const budgetKey = POSITION_SETTINGS_DICTIONARY['BUDGET_' + type.toUpperCase()]
+export const createBudgetSettings = (type, positionSettings) => {
+	const { budgetPercentage } = positionSettings
 
 	const settings = {}
+	const budgetKey = POSITION_SETTINGS_DICTIONARY['BUDGET_' + type.toUpperCase()]
 
-	if (isAuctionLeague) {
-		settings[budgetKey] = {
-			label: 'Percent of Budget',
-			value: budgetPercentage
-		}
+	settings[budgetKey] = {
+		label: 'Percent of Budget',
+		value: budgetPercentage
 	}
+
+	return settings
+}
+
+export const createOneDollarPlayerSettings = (type, positionSettings) => {
+	const { oneDollarPlayers } = positionSettings
+
+	const settings = {}
+	const budgetKey = POSITION_SETTINGS_DICTIONARY['ONE_DOLLAR_' + type.toUpperCase() + 'S']
+
+	settings[budgetKey] = {
+		label: 'One Dollar ' + type.toNormalCase() + 's p/ Team',
+		value: oneDollarPlayers
+	}
+
+	return settings
+}
+
+export const createPositionSettings = (type, positionSettings) => {
+	const { positions } = positionSettings
+
+	const settings = {}
 
 	const positionKeys = Object.keys(positions)
 
@@ -113,17 +139,15 @@ export const createPositionSettings = (type, positionSettings, isAuctionLeague) 
 			value: minimum,
 			min,
 			max
-		} 
+		}
 	})
 
 	return settings
 }
 
 export const createCategorySettings = (categories) => {
-	
-	const categoryKeys = Object.keys(categories).filter( key => {
-		return !categories[key].isCountingStatRatioModifier
-	})
+
+	const categoryKeys = Object.keys(categories)
 
 	return categoryKeys.map( key => {
 		const {name, scoringStat, sgpd} = categories[key]
@@ -131,7 +155,7 @@ export const createCategorySettings = (categories) => {
 			label: key,
 			checked: scoringStat,
 			sgpd
-		} 
+		}
 	})
 
 }

@@ -5,6 +5,10 @@ import classNames from 'classnames';
 const ICONS = {
     'watch': require('../../icons/watch.svg'),
     'avoid': require('../../icons/avoid.svg'),
+    'check': require('../../icons/check.svg'),
+    'zero': require('../../icons/zero.svg'),
+    'sleeper': require('../../icons/sleeper.svg'),
+    'keeper': require('../../icons/keeper.svg'),
     'preloader': require('../../icons/preloader.svg'),
     'add': require('../../icons/plus.svg')
 }

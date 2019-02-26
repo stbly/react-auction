@@ -62,7 +62,6 @@ export const findLastItemWithCondition = (array, conditionFunction) => {
 
 export const sort = (a, b, desc=false, allowZero=true) => {
 	const direction = desc ? -1 : 1
-	console.log(direction, a, b)
 	if (a < b) {
 		return -1 * direction
 	}else if (a > b) {
@@ -91,6 +90,16 @@ export const sortArray = (array, desc=false, allowZero=false) => {
 export const sortArrayByCategory = (array, category, desc=false, allowZero=false) => {
 	return array.sort( (a,b) => {
 		return sortByProperty(a, b, category, desc, allowZero)
+	})
+}
+
+export const sortArrayByCategories = (array, sortObjects) => {
+	return array.sort( (a,b) => {
+		const sorts = sortObjects.map( sorts => {
+			const { category, desc=false, allowZero=false } = sorts
+			return sortByProperty(a, b, category, desc, allowZero)
+		})
+		return sortMultiple(...sorts)
 	})
 }
 

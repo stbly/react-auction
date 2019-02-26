@@ -27,7 +27,7 @@ const computeAllPlayerValues = (players, settings) => {
 	const totalMoneyInPool = teamSalary * numTeams;
 
 	const valuedPlayers = positionDataTypes.map( playerType => {
-		const { categories, budgetPercentage, rosterSpots, positions, type } = playerType
+		const { categories, budgetPercentage, rosterSpots, positions, type, oneDollarPlayers=0 } = playerType
 		const playersOfType = filterBy(playersArray, 'type', type)
 		const categoriesArray = Object.toArray(categories)
 		const positionsArray = Object.toArray(positions)
@@ -35,7 +35,8 @@ const computeAllPlayerValues = (players, settings) => {
 		const dollarsToSpend = totalMoneyInPool * (budgetPercentage / 100)
 		const playersWithSGPCalculated = calculateSGPFor(playersOfType, categoriesArray, rosterSpots)
 		const normalizedPositions = normalizePositions(positionsArray, numTeams)
-		return assignPlayerValues(playersWithSGPCalculated, playersToDraft, dollarsToSpend, normalizedPositions)
+		const totalOneDollarPlayers = Math.floor(oneDollarPlayers * numTeams)
+		return assignPlayerValues(playersWithSGPCalculated, playersToDraft, dollarsToSpend, normalizedPositions, totalOneDollarPlayers)
 	})
 
 	const combinedPlayers = Array.concat.apply([],valuedPlayers)
@@ -44,7 +45,7 @@ const computeAllPlayerValues = (players, settings) => {
 	/*if (!isAuctionLeague) {
 		rankedPlayers.forEach( player => {
 			const round = player.rank % numTeams
-			player.rank = 
+			player.rank =
 		})
 	}*/
 
@@ -77,14 +78,15 @@ const teamsWidthBudgetData = (teams, players, settings) => {
 		let spent = 0;
 
 		Object.keys(positionData).forEach( type => {
-
-			const playerIdsOfType = playerIds.filter( id => players[id].type === type)
+			const playerIdsOfType = playerIds.filter( id => {
+				return players[id].type === type
+			})
 			const playersOfType = playerIdsOfType.map( id => players[id] )
 			const positionTypeSalary = (positionData[type].budgetPercentage / 100) * teamSalary
 			const rosterSpotsOfType = positionData[type].rosterSpots
 
 			let spentOnType = 0;
-			
+
 
 			const spentOnPlayers = playersOfType.forEach( player => {
 				spent += player.cost
@@ -110,8 +112,8 @@ const teamsWidthBudgetData = (teams, players, settings) => {
 		const maxBid = remainingBudget - spotsLeft + 1
 		const averageBid = remainingBudget / spotsLeft;
 
-		teamsCopy[teamId].budgetData = Object.assign( budgetData, { 
-			remainingBudget, 
+		teamsCopy[teamId].budgetData = Object.assign( budgetData, {
+			remainingBudget,
 			averageBid,
 			maxBid
 		});
@@ -131,6 +133,7 @@ const valuationMiddlware = ({ dispatch, getState }) => {
 			case RECEIVE_PLAYERS:
 				const actionPlayerData = action.payload.players
 				if (actionPlayerData && players.didInvalidate) {
+					console.log('player data changed, recomputing values')
 					action.payload.players = computeAllPlayerValues(actionPlayerData, settingsData)
 				}
 				break
@@ -144,9 +147,9 @@ const valuationMiddlware = ({ dispatch, getState }) => {
 				}
 				break
 
-			case RECEIVE_TEAMS: 
+			case RECEIVE_TEAMS:
 				let { teams } = action.payload;
-				action.payload.teams = teamsWidthBudgetData(teams, playerData, settingsData)	
+				action.payload.teams = teamsWidthBudgetData(teams, playerData, settingsData)
 				break
 
 			// case RECEIVE_TEAM_PLAYERS:

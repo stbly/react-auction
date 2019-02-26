@@ -31,14 +31,13 @@ const createPlayerTiers = (players, settings) => {
 					continue
 				}
 
-				if ( i !== (playersAtPosition.length - 1)) {
-					player.tiers = player.tiers || {}	
-					if (firstPlayerAtTier.adjustedValue - player.adjustedValue > tierValueLimit) {
-						currentTier++
-						firstPlayerAtTier = player
-					}
-					player.tiers[posId] = player.tiers[posId] || currentTier;
+				player.tiers = player.tiers || {}	
+				if (firstPlayerAtTier.adjustedValue - player.adjustedValue > tierValueLimit) {
+					currentTier++
+					firstPlayerAtTier = player
 				}
+				player.tiers[posId] = player.tiers[posId] || currentTier;
+				
 			}
 		})
 	})
