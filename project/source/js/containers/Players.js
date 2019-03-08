@@ -20,7 +20,7 @@ class Players extends Component {
 		super(props)
 		this.state = {
 			hideDraftedPlayers: false,
-			showRatios: false,
+			// showRatios: false,
 			showPlayersBelowReplacement: false,
 			preserveRatios: true
 		}
@@ -74,7 +74,7 @@ class Players extends Component {
 	}
 
 	render() {
-		const { hideDraftedPlayers, showPlayersBelowReplacement, showRatios, preserveRatios } = this.state
+		const { hideDraftedPlayers, showPlayersBelowReplacement, preserveRatios } = this.state
 		const { teams, isAuctionLeague, positionData, playerActions } = this.props
 		const toggleState = this.toggleState.bind(this)
 		return (
@@ -102,13 +102,13 @@ class Players extends Component {
 							onChange={() => toggleState('showPlayersBelowReplacement')} />
 						<span className='hide-selected-text'>Show Replacement Players</span>
 					</div>
-					<div className='show-ratios-container'>
+					{/*<div className='show-ratios-container'>
 						<input className='show-ratios-toggle'
 							type="checkbox"
 							checked={showRatios}
 							onChange={() => toggleState('showRatios')} />
 						<span className='hide-selected-text'>Show Stat Ratios</span>
-					</div>
+					</div>*/}
 					<div className='preserve-ratios-container'>
 						<input className='preserve-ratios-toggle'
 							type="checkbox"
@@ -121,7 +121,6 @@ class Players extends Component {
 				<div className='combined-rankings'>
 					<PlayerList
 						players={ this.getPlayersToDisplay() }
-						showRatios={showRatios}
 						isAuctionLeague={isAuctionLeague}
 						preserveRatios={preserveRatios}
 						positionData={positionData}

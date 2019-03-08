@@ -18,12 +18,12 @@ export const rankPlayers = (players, category, descending=true) => {
 	const aboveReplacement = sortedPlayers.filter( player => player.isAboveReplacement )
 	const belowReplacement = sortedPlayers.filter( player => !player.isAboveReplacement )
 	let lastIndex = 0
-	const ranker = (players) => { 
+	const ranker = (players) => {
 		return players.map( (player) => {
 			lastIndex += 1
 			player.rank = lastIndex
 			return player
-		}) 
+		})
 	}
 
 	const unforcedOneDollarPlayers = aboveReplacement.filter( player => !player.forcedOneDollar)
@@ -44,11 +44,9 @@ export const rankPlayers = (players, category, descending=true) => {
 
 export const getCategories = (categories, showRatios) => {
 	const categoryArray = Object.keys(categories)
-	categoryArray.sort( (a,b) => (categories[a].order || a) - (categories[b].order || b) )
+	categoryArray.sort( (a,b) => (categories[a].order || a) - (categories[b].order || b))
 
-	const scoringCategories = categoryArray.filter( category => {
-		return categories[category].scoringStat
-	})
+	const scoringCategories = categoryArray.filter( category => categories[category].scoringStat)
 
 	const parentCategories = [];
 	categoryArray.forEach( category => {
@@ -57,7 +55,9 @@ export const getCategories = (categories, showRatios) => {
 			parentCategories.push(denominator)
 		}
 	})
-	parentCategories.sort((a,b) => (categories[a].order || a) - (categories[b].order || b))
+	parentCategories.sort((a,b) => {
+		return (categories[a].order || a) - (categories[b].order || b)
+	})
 	const combinedCategories = [...parentCategories, ...scoringCategories]
 	const displayCategories = {}
 	combinedCategories.forEach( category => {
@@ -94,7 +94,7 @@ const orderPositions = (positions, desc=false) => {
 }
 
 const getPositionGroups = (players, positions, rareIfEqualToMinimum=false) => {
-	// technically already ordered when called from getPlayerList, 
+	// technically already ordered when called from getPlayerList,
 	// but ordering just to be safe
 	const orderedPositions = orderPositions(positions)
 	const positionIds = orderedPositions.map( position => position.id )
@@ -108,8 +108,8 @@ const getPositionGroups = (players, positions, rareIfEqualToMinimum=false) => {
 	let playerPool = players
 	const scarcePurePositions = purePositions.filter( position => {
 		const currentPlayersOfType = filterByPosition(playerPool, position.id)
-		
-		// exclude all current players of type from next 
+
+		// exclude all current players of type from next
 		// iteration so players aren't counted twice
 		playerPool = playerPool.filter( player => !currentPlayersOfType.includes( player ))
 
@@ -129,11 +129,11 @@ const getPositionGroups = (players, positions, rareIfEqualToMinimum=false) => {
 			combinedPlayers.push( ...playersAtPosition )
 		})
 
-		return isScarce(combinedPlayers.length, combinedMinimum); 
+		return isScarce(combinedPlayers.length, combinedMinimum);
 	})
 
 	const scarcePositionIds = [...scarcePurePositions, ...scarceCombinedPositions].map( position => position.id )
-	
+
 	const normalPositions = purePositions.filter( position => {
 		return scarcePositionIds.indexOf( position.id ) < 0
 	})
@@ -155,7 +155,7 @@ export const getPlayerList = (players, listSize, positions) => {
 	let playersBelowReplacement = playersSortedBySGP.slice(listSize, 1000)
 
 	const [
-		scarcePurePositions, normalPurePositions, 
+		scarcePurePositions, normalPurePositions,
 		scarceCombinedPositions, normalCombinedPositions
 	] = getPositionGroups(playersAboveReplacement, orderedPositions)
 
@@ -168,10 +168,10 @@ export const getPlayerList = (players, listSize, positions) => {
 
 	// -------------------------- //
 	// function for swapping above replacement level players with below replacement
-	// level players when the minimum number of players at each position hasn't 
+	// level players when the minimum number of players at each position hasn't
 	// been satisfied
 	// -------------------------- //
-	
+
 	const swapPlayers = (playersToSwap ) => {
 		let removeIndex = playersAboveReplacement.length-1
 		let difference = playersToSwap.length
@@ -214,10 +214,10 @@ export const getPlayerList = (players, listSize, positions) => {
 		const currentPlayersOfType = filterByPosition(playersAboveReplacement, id)
 		const selectableUnusedPlayers = filterByPosition(playersBelowReplacement, id)
 		const difference = minimum - currentPlayersOfType.length
-		const playersToAdd = selectableUnusedPlayers.slice(0, difference)		
+		const playersToAdd = selectableUnusedPlayers.slice(0, difference)
 
 		swapPlayers(playersToAdd)
-	})	
+	})
 
 	scarceCombinedPositions.forEach( condition => {
 		const {id, minimum, associatedPositions} = condition
@@ -235,7 +235,7 @@ export const getPlayerList = (players, listSize, positions) => {
 		})
 		difference = totalMinimum - currentPlayersOfType.length
 		selectableUnusedPlayers = sortArrayByCategory(selectableUnusedPlayers, 'sgp', true)
-		
+
 		const playersToAdd = selectableUnusedPlayers.slice(0, difference)
 		swapPlayers(playersToAdd)
 	})
@@ -258,7 +258,7 @@ export const getPlayerList = (players, listSize, positions) => {
 				} else if ( normalPositionIndex < 0 ) {
 					newNormalPositionIds.push(positionId)
 				}
-			} 
+			}
 		})
 	})
 
@@ -273,4 +273,3 @@ export const getPlayerList = (players, listSize, positions) => {
 		positionGroups
 	]
 }
-

@@ -12,7 +12,8 @@ import {
 	UPDATE_PLAYER_OWNER,
 	UPDATE_PLAYER_DRAFTED,
 	UPDATE_PLAYER_SLEEPER_STATUS,
-	UPDATE_PLAYER_TIER } from '../modules/players'
+	UPDATE_PLAYER_TIER,
+	UPDATE_PLAYER_TEMP } from '../modules/players'
 
 import {
 	UPDATE_SETTING } from '../modules/settings'
@@ -159,7 +160,6 @@ const createDefaultTeams = (numTeams) => {
 	return teams
 }
 
-
 const updatePlayerOwner = (state, action) => {
 	const { payload } = action
 	const { id, team } = payload
@@ -169,6 +169,17 @@ const updatePlayerOwner = (state, action) => {
 	const playerPath = state.user.uid + '/leagues/' + activeLeague.id + '/players/' + id + '/owner/'
 	usersRef.update({
 		[playerPath]: team
+	})
+}
+
+const updatePlayerTemp = (state, action) => {
+	const { payload } = action
+	const { id, temp } = payload
+	const usersRef = getUserRef()
+	console.log('updatePlayerTemp on firebase')
+	const playerPath = state.user.uid + '/players/' + id + '/temp/'
+	usersRef.update({
+		[playerPath]: temp
 	})
 }
 
@@ -236,7 +247,8 @@ const actionHandlers = {
 	[CHANGE_TEAM_NAME]: updateTeamName,
 	[RECEIVE_TEAM_PLAYERS]: updateTeamPlayers,
 	[UPDATE_PLAYER_DRAFTED]: updatePlayerDrafted,
-	[UPDATE_PLAYER_TIER]: updatePlayerTier
+	[UPDATE_PLAYER_TIER]: updatePlayerTier,
+	[UPDATE_PLAYER_TEMP]: updatePlayerTemp
 }
 
 export default function firebaseMiddleware({ dispatch, getState }) {

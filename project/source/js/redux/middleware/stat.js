@@ -75,7 +75,14 @@ const statMiddleware = ({ dispatch, getState }) => {
 			case RECEIVE_PLAYERS:
 				const actionPlayerData = action.payload.players
 				if (actionPlayerData && players.didInvalidate) {
-					action.payload.players = computeRatioStats(actionPlayerData, settingsData)
+					console.log(action.payload.players)
+					// --------------------- //
+					// this is for computing ratio stats from counting stats;
+					// disabling for now since the tool isn't set up yet to infer
+					// all ratio stat information from counting stats.
+					// --------------------- //
+
+					// action.payload.players = computeRatioStats(actionPlayerData, settingsData)
 				}
 				break
 		}

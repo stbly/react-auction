@@ -38,8 +38,5 @@ export const defaultTeams = {
     },
     "team12": {
         name: "Team 13"
-    },
-    "team13": {
-        name: "Team 14"
-    },
+    }
 }

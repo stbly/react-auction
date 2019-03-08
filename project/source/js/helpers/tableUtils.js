@@ -5,6 +5,7 @@ import {Tr, Td, Thead, Th} from 'reactable-cacheable'
 import InputPlayerStat from '../components/InputPlayerStat.js'
 import CellPlayerCost from '../components/CellPlayerCost.js'
 import CellPlayerName from '../components/CellPlayerName.js'
+import CellPlayerRank from '../components/CellPlayerRank.js'
 import IconButton from '../components/IconButton'
 import InputToggle from '../components/InputToggle'
 
@@ -16,7 +17,6 @@ export const renderHeaderCells = (columns) => {
 	return columns.map( (object, index) => {
 		const {column, className} = object
 		const classes = classNames(className || column)
-
 		return (
 			<Th key={index} className={classes} column={column}>
 				{column}
@@ -34,13 +34,14 @@ export const createHeaderRow = (columns) => {
 	)
 }
 
-export const createRows = (data, columns, classFunctions, actions={}) => {
-	
+export const createRows = (data, columns, params={}) => {
+	const { classFunction, styleFunction, onClick } = params
 	const returnData = data.map( (item, index) => {
-		const classes = classFunctions ? classFunctions(item) : null
-		const { onClick } = actions
+		const classes = classFunction ? classFunction(item, index) : null
+		const style = styleFunction ? styleFunction(item, index) : null
+
 		return (
-			<Tr className={classes} key={index} onClick={ onClick ? (onClick).bind(this, item) : null}>
+			<Tr className={classes} key={index} onClick={ onClick ? (onClick).bind(this, item) : null} style={style} >
 				{ createCells(item, columns) }
 			</Tr>
 		)
@@ -56,7 +57,7 @@ export const createCells = (item, columns) => {
 		const data = (element || value)
 
 		const classes = classNames(className, cellClass)
-		
+
 		return (
 			<Td colSpan={colSpan} key={index} className={classes} column={column} value={value}>
 				{ data }
@@ -85,7 +86,7 @@ export const cellFactory = (property, params={}) => {
 
 			const handleClick = onClick ? () => { onClick(object) } : null
 			const value = valueFunction ? valueFunction(object) : (object[property] || (isText ? '' : 0))
-			const element = elementFunction ? elementFunction(object) : 
+			const element = elementFunction ? elementFunction(object) :
 				onClick ? <span onClick={ handleClick }> {value} </span> : null
 
 			return {
@@ -154,20 +155,18 @@ export const costCellFactory = (handler) => {
 	}
 }
 
-export const playerNameCellFactory = (isAuctionLeague, actions) => {
+export const playerNameCellFactory = (actions) => {
 
 	return {
 		column: 'name',
 		className: 'large-cell no-padding',
 		content: (player, index) => {
-
 			return {
 				value: player.name,
 				colSpan: 1,
 				element: (
 					<CellPlayerName
-						player={player} 
-						isAuctionLeague={isAuctionLeague}
+						player={player}
 						{...actions} />
 	        	)
 	        }
@@ -175,6 +174,24 @@ export const playerNameCellFactory = (isAuctionLeague, actions) => {
 	}
 }
 
+export const playerRankCellFactory = (isAuctionLeague, actions) => {
+	return {
+		column: 'rank',
+		className: 'small-cell',
+		content: (player, index) => {
+			return {
+				value: player.rank,
+				colSpan: 1,
+				element: (
+					<CellPlayerRank
+						player={player}
+						isAuctionLeague={isAuctionLeague}
+						{...actions} />
+	        	)
+	        }
+		}
+	}
+}
 export const tierCellFactory = (tierPosition, handler) => {
 
 	return {
@@ -216,7 +233,7 @@ export const isDraftedCellFactory = (handler) => {
 			return {
 				element: (
 					<input className='setting-toggle'
-						type="checkbox" 
+						type="checkbox"
 						checked={player.isDrafted || false}
 						onChange={ isDraftedHandler } />
 	        	)
@@ -280,8 +297,8 @@ export const favoriteCellFactory = (handler) => {
 }
 
 export const createNameMatchFilter = (column, matches, params={}) => {
-	const { heading, substring } = params
-	const filterFunction = (contents, filter) => {
+	const { heading, substring, filterFunction } = params
+	const defaultFilter = (contents, filter) => {
 		// console.log('createNameMatchFilter', contents, filter)
 		const string = contents.toLowerCase()
 		return substring ? string.indexOf(filter) > -1 : string === filter
@@ -290,21 +307,23 @@ export const createNameMatchFilter = (column, matches, params={}) => {
 		column,
 		heading,
 		label: matches,
-		filterFunction
+		filterFunction: filterFunction || defaultFilter
 	}
 }
 
 // Sorting Functions //
 
-export const sortPosition = (players) => {
+export const sortPosition = (players, position) => {
 	return {
 		column: 'pos',
 		direction: 'desc',
 		sortFunction: (playerIdA, playerIdB) => {
-			const posA = primaryPositionFor( players[playerIdA] )
-			const posB = primaryPositionFor( players[playerIdB] )
-			const valueA = players[playerIdA].adjustedValue
-			const valueB = players[playerIdB].adjustedValue
+			const playerA = players[playerIdA]
+			const playerB = players[playerIdB]
+			const posA = position ? playerA.positions[position] : primaryPositionFor(playerA)
+			const posB = position ? playerB.positions[position] : primaryPositionFor(playerB)
+			const valueA = playerA.adjustedValue
+			const valueB = playerB.adjustedValue
 			// const descending = direction === 1 ? false : true
 			const comparePosition = sort(posA, posB, false, false)
 			const compareValue = sort(valueA, valueB, true) //descending)

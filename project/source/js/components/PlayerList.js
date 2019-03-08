@@ -68,10 +68,10 @@ class PlayerList extends Component {
 
 	getCategories () {
 		const { listType } = this.state
-		const { positionData, showRatios } = this.props
+		const { positionData } = this.props
 		const { categories } = positionData[listType]
 
-		return getCategories(categories, showRatios)
+		return getCategories(categories)
 	}
 
 	getPlayers () {
@@ -186,15 +186,26 @@ class PlayerList extends Component {
 		updateActivePlayer(playerId)
 	}
 
-	makePlayerNameCell () {
+	makePlayerRankCell () {
 		const { isAuctionLeague, actions } = this.props
-		const { updatePlayerSleeperStatus, updatePlayerFavorited, setPlayerDrafted, changePlayerCost} = actions
+		const { setPlayerDrafted, changePlayerCost} = actions
 		return (
-			tableUtils.playerNameCellFactory(isAuctionLeague, {
+			tableUtils.playerRankCellFactory(isAuctionLeague, {
 				handleIsDraftedClick: isAuctionLeague ? changePlayerCost : setPlayerDrafted,
+			})
+		)
+	}
+
+	makePlayerNameCell () {
+		const { actions } = this.props
+		const { updatePlayerSleeperStatus, updatePlayerFavorited, changePlayerTemp } = actions
+		return (
+			tableUtils.playerNameCellFactory({
 				handleInformationClick: this.makeActive,
 				handleSleeperClick: updatePlayerSleeperStatus,
-				handleFavoriteClick: updatePlayerFavorited
+				handleFavoriteClick: updatePlayerFavorited,
+				handleAtBatChange: (id, value) => this.changePlayerStat(id, 'PA', value),
+				handleTempChange: (id, temp) => changePlayerTemp(id, temp)
 			})
 		)
 	}
@@ -225,11 +236,11 @@ class PlayerList extends Component {
 		] : []
 
 		return [
-			tableUtils.cellFactory('rank', {className: 'small-cell'}),
+			this.makePlayerRankCell(),
 			// ...draftedCells,
 			...tierCells,
-			tableUtils.cellFactory('position', {className: 'small-cell hidden', valueFunction: primaryPositionFor}),
-			tableUtils.cellFactory('pos', {className: 'small-cell', valueFunction: player => player.id, elementFunction: player => primaryPositionFor(player) }),
+			tableUtils.cellFactory('position', {className: 'small-cell hidden', valueFunction: (player) => player.positions}),
+			tableUtils.cellFactory('pos', {className: 'small-cell', valueFunction: player => player.id, elementFunction: player => player.positions.join(', ') }),
 			// tableUtils.favoriteCellFactory(updatePlayerFavorited),
 			this.makePlayerNameCell(),
 			tableUtils.cellFactory('type', {className: 'hidden'}),
@@ -273,7 +284,7 @@ class PlayerList extends Component {
 
 	getFilters () {
 		const positionTypes = this.getPositionTypes()
-		const { positionData } = this.props
+		const { positionData, players } = this.props
 
 		const filters = [
 			tableUtils.createNameMatchFilter('type', ['batter', 'pitcher'], {heading: 'All Players'})
@@ -282,18 +293,18 @@ class PlayerList extends Component {
 		const positions = positionTypes.forEach( type => {
 			const typeFilter = tableUtils.createNameMatchFilter('type', type)
 			const positions = Object.keys(positionData[type].positions)
-			const positionFilters = positions.map( positionId => tableUtils.createNameMatchFilter('position', positionId) )
+			const positionFilters = positions.map( positionId => tableUtils.createNameMatchFilter('position', positionId, { substring: true }))
 			filters.push(typeFilter, ...positionFilters)
 		})
 
-		// var flattenedFilters = flatten(filters)
 		return filters
 	}
 
 	render () {
 		const { listType, filteredPosition } = this.state
 		const { players } = this.props
-		const rowClassFunction = (item) => classNames( item.type, {'selected': item.cost || item.isDrafted === true } )
+		const classFunction = (item) => classNames( item.type, {'selected': item.cost || item.isDrafted === true } )
+		const styleFunction = (item, index) => this.getRowBackground(item,index)
 		const classes = classNames('player-list')
 		return (
 			<div>
@@ -306,11 +317,33 @@ class PlayerList extends Component {
 					sortingFunctions={this.getSortingFunctions()}
 					defaultSort={ filteredPosition ? 'tier' : 'rank' }
 					onFilter={this.dataWasFiltered.bind(this)}
-					rowClassFunction={rowClassFunction} />
-				{ this.renderFavoritePlayerList() }
-				{ this.renderSleeperList() }
+					classFunction={classFunction}
+					styleFunction={styleFunction} />
+				{/* { this.renderFavoritePlayerList() } */}
+				{/* { this.renderSleeperList() } */}
 			</div>
 		)
+	}
+
+	getRowBackground(player, index) {
+		const { type, temp, isDrafted } = player
+		let color
+		switch (true) {
+			case isDrafted:
+				color = '#cccccc'
+				break;
+			case temp && (temp > 0 || temp < 0):
+				const absVal = Math.abs(temp) / 5
+				if (temp > 0) {
+					color = `rgba(196,213,239, ${absVal})`
+				} else {
+					color = `rgba(247,187,178, ${absVal})`
+				}
+				break;
+		}
+		if (color) {
+			return {background: color}
+		}
 	}
 
 	renderFavoritePlayerList () {
@@ -320,7 +353,7 @@ class PlayerList extends Component {
 
 		const { setPlayerDrafted } = actions
 		const { cellFactory, favoriteCellFactory, valueCellFactory, isDraftedCellFactory } = tableUtils
-		const rowClassFunction = (item) => classNames( item.type, {'selected': item.cost || item.isDrafted } )
+		const classFunction = (item) => classNames( item.type, {'selected': item.cost || item.isDrafted } )
 
 		const columns = [
 			tableUtils.cellFactory('rank', {className: 'small-cell'}),
@@ -332,12 +365,12 @@ class PlayerList extends Component {
 		const { sortPosition } = tableUtils
 		const sorts = [
 			'rank',
-			sortPosition(playerObject),
+			sortPosition(playerObject, filteredPosition),
 			'name'
 		]
 
 		const headers = tableUtils.createHeaderRow(columns)
-		const rows = tableUtils.createRows(favoritedPlayers, columns, rowClassFunction)
+		const rows = tableUtils.createRows(favoritedPlayers, columns, {classFunction})
 		return (
 			<div className='favorited-player-list'>
 				<h2>Watch List</h2>
@@ -358,7 +391,7 @@ class PlayerList extends Component {
 
 		const { setPlayerDrafted } = actions
 		const { cellFactory, favoriteCellFactory, valueCellFactory, isDraftedCellFactory } = tableUtils
-		const rowClassFunction = (item) => classNames( item.type, {'selected': item.cost || item.isDrafted } )
+		const classFunction = (item) => classNames( item.type, {'selected': item.cost || item.isDrafted } )
 
 		const columns = [
 			tableUtils.cellFactory('rank', {className: 'small-cell'}),
@@ -375,7 +408,7 @@ class PlayerList extends Component {
 		]
 
 		const headers = tableUtils.createHeaderRow(columns)
-		const rows = tableUtils.createRows(sleepers, columns, rowClassFunction)
+		const rows = tableUtils.createRows(sleepers, columns, {classFunction})
 		return (
 			<div className='sleeper-player-list'>
 				<h2>Keepers</h2>
@@ -396,7 +429,6 @@ PlayerList.propTypes = {
 	teams: PropTypes.array,
 	isLoading: PropTypes.bool,
 	isAuctionLeague: PropTypes.bool,
-	showRatios:PropTypes.bool,
 	preserveRatios:PropTypes.bool,
 	actions: PropTypes.object
 }

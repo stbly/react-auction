@@ -80,6 +80,11 @@ export const calculateSGPFor = (players, categories, rosterSpots) => {
 
 	const categoriesWithSgps = categories.filter( category => category.sgpd && category.scoringStat )
 	return playersWithStats.map( player => {
+
+		// const isReliever = player.position.indexOf('RP') > -1
+		// const isCloser = player.position.indexOf('CP') > -1
+		// const relieverException = isReliever || isCloser
+
 		const sgp = categoriesWithSgps.map( category => {
 			const {id, sgpd} = category
 			const {stats} = player

@@ -25,6 +25,7 @@ const UPDATE_PLAYER_COST = 'players/UPDATE_PLAYER_COST'
 const UPDATE_PLAYER_DRAFTED = 'players/UPDATE_PLAYER_DRAFTED'
 const UPDATE_PLAYER_STATS = 'players/UPDATE_PLAYER_STATS'
 const UPDATE_PLAYER_OWNER = 'players/UPDATE_PLAYER_OWNER'
+const UPDATE_PLAYER_TEMP = 'players/UPDATE_PLAYER_TEMP'
 
 
 let initialState = {
@@ -173,6 +174,14 @@ export const changePlayerStat = (id, stat, value, preserveRatios=true) => {
 	}
 }
 
+export const changePlayerTemp = (id, temp) => {
+	return (dispatch, getState) => {
+		dispatch( updatePlayerTemp(id, temp) )
+		const players = getState().players.data
+		return dispatch( receivePlayers(players) )
+	}
+}
+
 export const changePlayerCost = (id, cost) => {
 	return (dispatch, getState) => {
 		const { owner } = getState().players.data[id]
@@ -294,10 +303,15 @@ export const updatePlayerOwner = (id, team) => {
 	return { type: UPDATE_PLAYER_OWNER, payload: {id, team} }
 }
 
+export const updatePlayerTemp = (id, temp) => {
+	return { type: UPDATE_PLAYER_TEMP, payload: {id, temp} }
+}
+
+
 const reducer = (state = initialState, action) => {
 
 	const { payload } = action
-	const { players, id, cost, value, position, team, notes, isDrafted, stats } = (payload || {})
+	const { players, id, cost, value, position, team, notes, isDrafted, stats, temp } = (payload || {})
 
 	switch (action.type) {
 		case INVALIDATE_PLAYERS:
@@ -409,6 +423,18 @@ const reducer = (state = initialState, action) => {
 				})
 			})
 
+
+
+		case UPDATE_PLAYER_TEMP:
+		return Object.assign({}, state, {
+			didInvalidate: true,
+			data: Object.assign({}, state.data, {
+				[id]: Object.assign({}, state.data[id], {
+					temp: temp
+				})
+			})
+		})
+
 		case UPDATE_PLAYER_STATS:
 			const newStats = Object.assign({}, state.data[id].stats)
 			stats.forEach( entry => {
@@ -443,5 +469,6 @@ export {
 	UPDATE_PLAYER_DRAFTED,
 	UPDATE_PLAYER_STATS,
 	UPDATE_PLAYER_OWNER,
-	UPDATE_PLAYER_TIER
+	UPDATE_PLAYER_TIER,
+	UPDATE_PLAYER_TEMP
 }

@@ -44,7 +44,7 @@ class Teams extends Component {
 		const { activeTeam } = this.props
 		draftPlayer(playerId, playerCost, activeTeam)
 	}
-	
+
 	removeAllPlayers (teamId) {
 		const players = this.props.teams[teamId].players;
 		if (!players) return;
@@ -69,7 +69,7 @@ class Teams extends Component {
 	renderTeams () {
 		const { teamActions, leagues, teams, activeTeam } = this.props
 
-		return (			
+		return (
 			<div>
 				<section className='section-with-sidebar'>
 					<div className='sidebar'>
@@ -88,7 +88,7 @@ class Teams extends Component {
 						</div>
 					</div>
 				</section>
-				
+
 				<div className='clear-both'></div>
 			</div>
 		)
@@ -102,7 +102,7 @@ class Teams extends Component {
 			var isActive = activeTeam === key;
 			return (
 				<li
-					key={key} 
+					key={key}
 					onClick={this.makeTeamActive.bind(this,key)}
 					className={classNames('team-tab', {'active': isActive})}>
 						{teams[key].name}
@@ -119,7 +119,7 @@ class Teams extends Component {
 		const { positionData, teamSalary } = settings
 		const team = this.props.teams[id]
 		const { players, name, budgetData } = team
-		
+
 		const teamPlayers = players ? this.getPlayersFromIds( players ) : null
 
 		const draftablePlayers = Object.keys(playerData)
@@ -128,10 +128,9 @@ class Teams extends Component {
 
 		const undraftPlayerFromTeam = (playerId) => {
 			undraftPlayer(playerId, id)
-		} 
-
+			}
 		return <TeamPlanner
-			name={name} 
+			name={name}
 			teamPlayers={teamPlayers}
 			draftablePlayers={draftablePlayers}
 			budgetData={budgetData}
@@ -168,7 +167,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps (state,ownProps) {
 	const { teams, user, leagues, players, settings } = state
 	const { activeLeague } = leagues
-	
+
 	return {
 		activeLeague,
 		user,

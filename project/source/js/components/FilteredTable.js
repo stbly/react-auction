@@ -15,10 +15,11 @@ import '../../stylesheets/components/filtered-table.scss'
 class FilteredTable extends Component {
 	constructor(props) {
 		super(props)
-		
+
 		this.state = {
 			searchQuery: null,
 			filter: 'batter',
+			tableLocked: false,
 			sort: {
 				column: props.defaultSort,
 				direction: 1
@@ -31,6 +32,7 @@ class FilteredTable extends Component {
 		const serializedNextProps = JSON.stringify(nextProps)
 		const serializedThisState = JSON.stringify(this.state)
 		const serializedNextState = JSON.stringify(nextState)
+		// console.log('should filtered table update',(serializedThisProps !== serializedNextProps) || (serializedThisState !== serializedNextState))
 		return (serializedThisProps !== serializedNextProps) || (serializedThisState !== serializedNextState)
 	}
 
@@ -46,7 +48,7 @@ class FilteredTable extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		console.log(this.props.data)
+		// console.log(this.props.data)
 		this.table.sortBy(this.state.sort)
 	}
 
@@ -65,8 +67,9 @@ class FilteredTable extends Component {
 
 	onSort ( sort ) {
 		const { data } = this.props
+
 		this.setState({
-			sort	
+			sort
 		})
 	}
 
@@ -107,12 +110,20 @@ class FilteredTable extends Component {
 		return valueMatch(stringQuery, searchQuery, false)
 	}
 
-	getRows (data, columns, rowClassFunction) {
-		return createRows(data, columns, rowClassFunction)
+	getRows (data, columns, params) {
+		return createRows(data, columns, params)
+	}
+
+	toggleLock () {
+		const { tableLocked } = this.state
+
+		this.setState({
+			tableLocked: !tableLocked
+		})
 	}
 
 	render () {
-		const { searchQuery, filter } = this.state
+		const { searchQuery, filter, tableLocked } = this.state
 		const { filters } = this.props
 
 		const table = this.renderTable()
@@ -121,6 +132,13 @@ class FilteredTable extends Component {
 		return (
 			<section className='filtered-table section-with-sidebar'>
 				<div className='sidebar'>
+					<div>
+						<input className='lock-toggle'
+							type="checkbox"
+							checked={tableLocked}
+							onChange={() => this.toggleLock()} />
+						<span>Lock Table</span>
+					</div>
 					<ListFilters
 						activeFilter={filter}
 						searchQuery={searchQuery}
@@ -128,7 +146,6 @@ class FilteredTable extends Component {
 						filterSelected={this.setFilter.bind(this)}
 						filters={filters} />
 				</div>
-
 				<div className='main'>
 					{table}
 				</div>
@@ -145,13 +162,14 @@ class FilteredTable extends Component {
 	}
 
 	renderTable () {
-		const { data, columns, className, sortingFunctions, rowClassFunction } = this.props
-		const { filter, sort } = this.state
+		const { data, columns, className, sortingFunctions, classFunction, styleFunction } = this.props
+		const { filter, sort, tableLocked } = this.state
 		const filters = this.getFilters()
 
 		const headers = createHeaderRow(columns)
-		const rows = this.getRows(data, columns, rowClassFunction)
+		const rows = this.getRows(data, columns, {classFunction, styleFunction})
 
+		// console.log(tableLocked)
 		return (
 			<Table
 				ref={(ref) => this.table = ref}
@@ -159,7 +177,9 @@ class FilteredTable extends Component {
 				sortable={sortingFunctions}
 				filterable={filters}
 				defaultSort={sort}
+				noCaching={true}
 				filterBy={filter}
+				freezeData={tableLocked ? 'name' : null}
 				onSort={ this.onSort.bind(this) }
 				onFilter={ this.onFilter.bind(this) }
 				hideFilterInput >
@@ -178,7 +198,8 @@ FilteredTable.propTypes = {
 	searchKey: PropTypes.string.isRequired,
 	onDataFiltered: PropTypes.func,
 	className: PropTypes.string,
-	rowClassFunction: PropTypes.func
+	classFunction: PropTypes.func,
+	styleFunction: PropTypes.func
 }
 
 export default FilteredTable

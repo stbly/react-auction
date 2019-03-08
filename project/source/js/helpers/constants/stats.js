@@ -1,5 +1,8 @@
 export const AB = 'AB';
 export const PA = 'PA';
+export const G = 'G';
+export const Gp = 'Gp';
+export const GS = 'GS';
 export const R = 'R';
 export const H = 'H';
 export const DOUBLES = '2B';

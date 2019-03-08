@@ -98,7 +98,7 @@ class TeamPlanner extends Component {
 
 				const slotsToRecalculate = playerSlots.filter( slot => !slot.player )
 				const slotsWithPlayers = playerSlots.filter( slot => slot.player )
-				const spent = slotsWithPlayers.length > 0 ? 
+				const spent = slotsWithPlayers.length > 0 ?
 					slotsWithPlayers.map( slot => slot.player.cost ).reduce( (a,b) => a + b ) :
 					null
 
@@ -110,7 +110,7 @@ class TeamPlanner extends Component {
 				const forcedValues = slotsWithPlayers.map( slot => {
 					return {
 						value: slot.budget,
-						index: playerSlots.indexOf(slot) 
+						index: playerSlots.indexOf(slot)
 					}
 				})
 
@@ -133,7 +133,7 @@ class TeamPlanner extends Component {
 				// ------------------------------------------------ //
 
 			}
-			
+
 			slots[type] = playerSlots.map( slot => {
 				const player = slot.player || newPlayer()
 				// console.log(player)
@@ -153,7 +153,7 @@ class TeamPlanner extends Component {
 	render() {
 		const { name, teamPlayers, onChangeTeamName, onResetPlayers, positionData } = this.props
 		const classes = classNames('team', 'team-' + name)
-		
+
 		const playerCosts = teamPlayers ? teamPlayers.filter( player => player.cost ) : null
 		const renderPlayers = teamPlayers ? (playerCosts.length === teamPlayers.length) : true
 
@@ -181,16 +181,16 @@ class TeamPlanner extends Component {
 
 			return (
 				<div className='roster-container'>
-					<Team 
-						players={players} 
+					<Team
+						players={players}
 						type={type}
-						positionData={positionData[type]} 
+						positionData={positionData[type]}
 						onChangeTeamName={onChangeTeamName}
 						onResetPlayers={onResetPlayers}
 						onRowClick={undraftPlayer} />
-					
+
 					{ this.renderTrackersForCategories(type) }
-					
+
 				</div>
 			)
 		})
@@ -205,26 +205,26 @@ class TeamPlanner extends Component {
 			const averageBidOfType = budgetData[type].averageBid
 			if (!remainingBudgetOfType || !averageBidOfType ) return
 
-			return <ValueSubValueDisplay 
+			return <ValueSubValueDisplay
 				key={type}
-				value={remainingBudgetOfType} 
+				value={remainingBudgetOfType.toFixed(2)} 
 				className={type}
 				heading={'Remaining ' + type + ' Budget'}
 				subValue={averageBidOfType.toFixed(2)}
 				subValueHeading={'Avg ' + type + ' Bid'}
-				valueIsDollarAmount={true} 
+				valueIsDollarAmount={true}
 				subValueIsDollarAmount={true} />
 		})
 
 		return (
 			<div className='budget-tracker'>
-				
-				<ValueSubValueDisplay 
-					value={remainingBudget} 
-					heading='Remaining Budget' 
+
+				<ValueSubValueDisplay
+					value={remainingBudget}
+					heading='Remaining Budget'
 					subValue={averageBid.toFixed(2)}
 					subValueHeading='Avg Bid'
-					valueIsDollarAmount={true} 
+					valueIsDollarAmount={true}
 					subValueIsDollarAmount={true} />
 
 				{ budgetDisplaysForEachType }
@@ -241,7 +241,7 @@ class TeamPlanner extends Component {
 			return !drafted  && player.type === type
 		})
 
-		if (undraftedPlayers.length === 0) return 
+		if (undraftedPlayers.length === 0) return
 
 		const { categories, positions, rosterSpots } = positionData[type]
 		const goalCategories = Object.keys(categories).filter( key => categories[key].goal )
@@ -265,7 +265,7 @@ class TeamPlanner extends Component {
 		const averagePlayerStatObject = {}
 		Object.keys(categories).forEach(categoryKey => {
 			const { isRatioStat } = categories[categoryKey]
-			const leagueStatTotal = getStatTotal( undraftedPlayersOfType, categories[categoryKey], categoryKey ) 
+			const leagueStatTotal = getStatTotal( undraftedPlayersOfType, categories[categoryKey], categoryKey )
 			const leagueStatAverage = isRatioStat ? leagueStatTotal : (leagueStatTotal / (undraftedPlayersOfType.length))
 			Object.assign(averagePlayerStatObject, {
 				[categoryKey]: leagueStatAverage
@@ -277,7 +277,7 @@ class TeamPlanner extends Component {
 				const playerAtSlot = playerSlots[type][i]
 				const stats = playerAtSlot && playerAtSlot.cost ? playerAtSlot.stats : averagePlayerStatObject
 				const player = Object.assign({}, playerSlots[type][i], { stats })
-				playersWithStats.push(player) 
+				playersWithStats.push(player)
 			}
 		} else {
 			playersWithStats = playerSlots[type]
@@ -293,8 +293,8 @@ class TeamPlanner extends Component {
 
 		const categoryTrackers = goalCategories.map( key => {
 			const { isRatioStat } = categories[key]
-			
-			const leagueStatTotal = getStatTotal( draftablePlayersOfType, categories[key], key ) 
+
+			const leagueStatTotal = getStatTotal( draftablePlayersOfType, categories[key], key )
 			const stat = projectedTotals[key]
 			const averageStat = isRatioStat ? stat : (stat / playersWithStats.length)
 			const goal = isRatioStat ? leagueStatTotal : (leagueStatTotal / (draftablePlayersOfType.length))
@@ -302,9 +302,9 @@ class TeamPlanner extends Component {
 
 			return (
 				<div className={classNames('goal', key)}>
-					<ValueSubValueDisplay 
+					<ValueSubValueDisplay
 						key={key + '_total'}
-						value={averageStat.toFixed(decimalPlaces)} 
+						value={averageStat.toFixed(decimalPlaces)}
 						heading={key}
 						subValue={goal.toFixed(decimalPlaces)}
 						subValueHeading='Goal' />

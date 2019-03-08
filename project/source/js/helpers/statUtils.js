@@ -1,4 +1,4 @@
-import { AB, PA, H, SINGLES, DOUBLES, TRIPLES, HR, RBI, BBb, SOb, SB, CS, HBP, SF, AVG, OBP, SLG, OPS, R, IP, W, ER, Hp, Rp, SV, HD, SO,BB, ERA, WHIP, QS } from './constants/stats'
+import { G, Gp, GS, AB, PA, H, SINGLES, DOUBLES, TRIPLES, HR, RBI, BBb, SOb, SB, CS, HBP, SF, AVG, OBP, SLG, OPS, R, IP, W, ER, Hp, Rp, SV, HD, SO,BB, ERA, WHIP, QS } from './constants/stats'
 
 export const deduceStatFromRatio = (numerator, denominator, perPeriod=1) => {
 	return ((numerator * denominator) / perPeriod);
@@ -83,8 +83,18 @@ const createStatValue = (stat, value) => {
 }
 
 const statChangers = {
+	[PA]: (value, stats) => {
+		const statsToChange = [G, AB, H, DOUBLES, TRIPLES, HR, RBI, BBb, SOb, SB, CS, HBP, R].filter( stat => stats[stat] )
+		const existingPas = stats[PA]
+		const statChanges = statsToChange.map( stat => {
+			let statValue = stats[stat];
+			statValue = (value * ((statValue / existingPas)))
+			return createStatValue(stat, statValue)
+		})
+		return [createStatValue(PA, value), ...statChanges]
+	},
 	[AB]: (value, stats) => {
-		const statsToChange = [PA, H, DOUBLES, TRIPLES, HR, RBI, BBb, SOb, SB, CS, HBP, R].filter( stat => stats[stat] )
+		const statsToChange = [G, PA, H, DOUBLES, TRIPLES, HR, RBI, BBb, SOb, SB, CS, HBP, R].filter( stat => stats[stat] )
 		const existingAbs = stats[AB]
 		const statChanges = statsToChange.map( stat => {
 			let statValue = stats[stat];
@@ -93,21 +103,51 @@ const statChangers = {
 		})
 		return [createStatValue(AB, value), ...statChanges]
 	},
-	[HR]: (value, stats) => {
-		const statsToChange = [H, R, RBI]
-		const newHomeRuns= (value - stats[HR])
-		const newHits = stats[H] + newHomeRuns
-		const newRuns = stats[R] + newHomeRuns
-		const rbiRatio = (0.33 * (stats[RBI] - stats[HR])) / stats[HR]
-		const newRbis = stats[RBI] + (newHomeRuns + (newHomeRuns * rbiRatio))
+	[IP]: (value, stats, includeGps=true) => {
+		const statsToChange = [W, ER, Hp, Rp, SV, HD, SO, BB, QS].filter( stat => stats[stat] )
+		if (includeGps) {
+			statsToChange.push(Gp)
+			statsToChange.push(GS)
+		}
+		const existingIPs = stats[IP]
+		const statChanges = statsToChange.map( stat => {
+			let statValue = stats[stat];
+			statValue = (value * ((statValue / existingIPs)))
+			return createStatValue(stat, statValue)
+		})
+		return [createStatValue(IP, value), ...statChanges]
+	},
+	[Gp]: (value, stats) => {
+		const existingGPs = stats[Gp]
+		const newIPs = (stats[IP] / existingGPs) * value
+		const newGSs = (stats[GS] / existingGPs) * value
+		const statChanges = statChangers[IP](newIPs, stats, false)
 
-		return [
-			createStatValue(H, newHits),
-			createStatValue(R, newRuns),
-			createStatValue(HR, value),
-			createStatValue(RBI, newRbis),
-		]
-	}
+		return [createStatValue(Gp, value), createStatValue(GS, newGSs), ...statChanges]
+	},
+	[GS]: (value, stats) => {
+		const existingGSs = stats[GS]
+		const newIPs = (stats[IP] / existingGSs) * value
+		const newGps = (stats[Gp] / existingGSs) * value
+		const statChanges = statChangers[IP](newIPs, stats, false)
+
+		return [createStatValue(GS, value), createStatValue(Gp, newGps), ...statChanges]
+	},
+	// [HR]: (value, stats) => {
+	// 	const statsToChange = [H, R, RBI]
+	// 	const newHomeRuns= (value - stats[HR])
+	// 	const newHits = stats[H] + newHomeRuns
+	// 	const newRuns = stats[R] + newHomeRuns
+	// 	const rbiRatio = (0.33 * (stats[RBI] - stats[HR])) / stats[HR]
+	// 	const newRbis = stats[RBI] + (newHomeRuns + (newHomeRuns * rbiRatio))
+	//
+	// 	return [
+	// 		createStatValue(H, newHits),
+	// 		createStatValue(R, newRuns),
+	// 		createStatValue(HR, value),
+	// 		createStatValue(RBI, newRbis),
+	// 	]
+	// }
 }
 
 const defaultStatUpdater = (stat) => {
@@ -117,13 +157,8 @@ const defaultStatUpdater = (stat) => {
 export const getStatUpdaterFor = (stat, preserveRatios=true) => {
 	let statUpdater = defaultStatUpdater(stat)
 
-	switch(stat) {
-		case 'AB':
-		case 'HR':
-			const statChanger = statChangers[stat]
-			if (preserveRatios && statChanger) {
-					statUpdater = statChangers[stat]
-			}
+	if (statChangers[stat] && preserveRatios) {
+		statUpdater = statChangers[stat]
 	}
 
 	return statUpdater

@@ -7,9 +7,8 @@
 	height: auto;
 	min-height: 30px;
 	margin-bottom: 10px;
-
+	// background: $color-neutral;
 	table-layout: fixed;
-
 	font-size: 12px;
 
 	.position {
@@ -18,6 +17,22 @@
 
 	.hidden {
 		display: none;
+	}
+
+	& > tbody > tr {
+		&:nth-child(even) {
+			background: #f9f9f9;
+		}
+		&.has-stale-data {
+			opacity: 0.25;
+			pointer-events: none;
+		}
+
+		&:hover {
+			td {
+				background-color: rgba($color-batter-default,0.25);
+			}
+		}
 	}
 
 	tr {
@@ -43,10 +58,10 @@
 			outline: none;
 
 			/* ---- TEMPORARY ---- */
-			&[label="PA"],
-			&.reactable-th-pa {
-				display: none;
-			}
+			// &[label="PA"],
+			// &.reactable-th-pa {
+			// 	display: none;
+			// }
 			/* ------------------- */
 		}
 
@@ -55,28 +70,27 @@
 			@include transandina-medium;
 			text-transform: uppercase;
 			position: relative;
-			background: $color-batter-alt;
 			cursor: pointer;
+			background: $color-neutral;
 
 			padding: 8px 0;
 
 			&:hover {
-				background: $color-grey-medium;
 			}
 
-			&:after {
-				content: '';
-				display: block;
-				position: absolute;
-				width: 100%;
-				height: 50%;
-				bottom: 0;
-				left: 0;
-				border-style: solid;
-				border-width: 0 1px 5px 0;
-				border-color: #bdc2c9;
-				z-index: 1;
-			}
+			// &:after {
+			// 	content: '';
+			// 	display: block;
+			// 	position: absolute;
+			// 	width: 100%;
+			// 	height: 50%;
+			// 	bottom: 0;
+			// 	left: 0;
+			// 	border-style: solid;
+			// 	border-width: 0 1px 5px 0;
+			// 	border-color: #bdc2c9;
+			// 	z-index: 1;
+			// }
 
 			&:last-child {
 				&:after {
@@ -88,7 +102,7 @@
 		td {
 			vertical-align: middle;
 
-		    padding: 15px 5px;
+	    padding: 15px 5px;
 			border: solid;
 			border-width: 0;
 
@@ -103,9 +117,6 @@
 				cursor: pointer;
 			}
 			&.can-edit {
-				&:hover {
-					background: $color-batter-input-hover;
-				}
 			}
 			&.no-value {
 				span {
@@ -116,21 +127,17 @@
 
 		&.selected {
 			td {
-				background: $color-batter-dark-grey;
 				&.can-edit {
 					&:hover {
-						background: $color-batter-dark-grey;
 					}
 				}
 			}
 
 			.dark {
-				background: $color-batter-dark-grey;
 			}
 
 			&:hover {
 				td {
-					background: $color-batter-dark-grey;
 				}
 			}
 		}
@@ -166,69 +173,69 @@
 			}
 		}*/
 
-		&.batter {
-			background: $color-batter-default;
-
-			&:nth-child(odd) {
-				background: $color-batter-alt;
-			}
-
-			.dark {
-				background: $color-batter-muted
-			}
-
-			&:hover {
-				background: $color-batter-highlight;
-
-				.dark {
-					background: $color-batter-highlight;
-				}
-			}
-		}
-
-		&.pitcher {
-			background: $color-pitcher-default;
-
-			&:nth-child(odd) {
-				background: $color-pitcher-alt;
-			}
-
-			.dark {
-				background: $color-pitcher-muted;
-			}
-
-			&:hover {
-				background: $color-pitcher-highlight;
-
-				.dark {
-					background: $color-pitcher-highlight;
-				}
-			}
-
-			.icon-button {
-				border-color: $color-pitcher-dark-purple;
-
-				svg {
-					fill: $color-pitcher-dark-purple;
-				}
-
-				&.active,
-				&:hover {
-					background: $color-pitcher-dark-purple;
-					svg {
-						fill: $color-pitcher-alt;
-					}
-				}
-
-				&.active {
-					border-color: $color-pitcher-dark-purple;
-			    	background: $color-pitcher-dark-purple;
-			    	svg {
-			    		fill: white;
-			    	}
-			    }
-			}
-		}
+		// &.batter {
+		// 	background: $color-batter-default;
+		//
+		// 	&:nth-child(odd) {
+		// 		background: $color-batter-alt;
+		// 	}
+		//
+		// 	.dark {
+		// 		background: $color-batter-muted
+		// 	}
+		//
+		// 	&:hover {
+		// 		background: $color-batter-highlight;
+		//
+		// 		.dark {
+		// 			background: $color-batter-highlight;
+		// 		}
+		// 	}
+		// }
+		//
+		// &.pitcher {
+		// 	background: $color-pitcher-default;
+		//
+		// 	&:nth-child(odd) {
+		// 		background: $color-pitcher-alt;
+		// 	}
+		//
+		// 	.dark {
+		// 		background: $color-pitcher-muted;
+		// 	}
+		//
+		// 	&:hover {
+		// 		background: $color-pitcher-highlight;
+		//
+		// 		.dark {
+		// 			background: $color-pitcher-highlight;
+		// 		}
+		// 	}
+		//
+		// 	.icon-button {
+		// 		border-color: $color-pitcher-dark-purple;
+		//
+		// 		svg {
+		// 			fill: $color-pitcher-dark-purple;
+		// 		}
+		//
+		// 		&.active,
+		// 		&:hover {
+		// 			background: $color-pitcher-dark-purple;
+		// 			svg {
+		// 				fill: $color-pitcher-alt;
+		// 			}
+		// 		}
+		//
+		// 		&.active {
+		// 			border-color: $color-pitcher-dark-purple;
+		// 	    	background: $color-pitcher-dark-purple;
+		// 	    	svg {
+		// 	    		fill: white;
+		// 	    	}
+		// 	    }
+		// 	}
+		// }
 	}
 }
 

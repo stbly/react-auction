@@ -175,7 +175,7 @@
 				}
 			},
 			"categories": {
-				"G": {
+				"Gp": {
 					"name": "Games Played",
 					"isCountingStat": true,
 					"order": 1
@@ -183,14 +183,14 @@
 				"GS": {
 					"name": "Games Start",
 					"isCountingStat": true,
-					"denominator": "G",
+					"denominator": "Gp",
 					"order": 2
 				},
 				"IP": {
 					"name": "Innings Pitched",
 					"average": 160,
 					"isCountingStat": true,
-					"denominator": "G",
+					"denominator": "Gp",
 					"order": 3
 				},
 				"W": {
@@ -199,7 +199,7 @@
 					"goal": 120,
 					"scoringStat": true,
 					"isCountingStat": true,
-					"denominator": "G",
+					"denominator": "Gp",
 					"order": 4
 				},
 				"SV": {
@@ -208,7 +208,7 @@
 					"goal": 100,
 					"scoringStat": true,
 					"isCountingStat": true,
-					"denominator": "G",
+					"denominator": "Gp",
 					"order": 5
 				},
 				"HD": {
@@ -216,7 +216,7 @@
 					"sgpd": 20.01,
 					"goal": 60,
 					"isCountingStat": true,
-					"denominator": "G",
+					"denominator": "Gp",
 					"order": 6
 				},
 				"SO": {
@@ -258,7 +258,7 @@
 					"sgpd": 4.796,
 					"goal": 130,
 					"isCountingStat": true,
-					"denominator": "G",
+					"denominator": "GS",
 					"order": 10
 				}
 			}

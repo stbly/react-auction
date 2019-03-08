@@ -33,6 +33,7 @@ const computeAllPlayerValues = (players, settings) => {
 		const positionsArray = Object.toArray(positions)
 		const playersToDraft = rosterSpots * numTeams
 		const dollarsToSpend = totalMoneyInPool * (budgetPercentage / 100)
+		console.log(playerType, dollarsToSpend)
 		const playersWithSGPCalculated = calculateSGPFor(playersOfType, categoriesArray, rosterSpots)
 		const normalizedPositions = normalizePositions(positionsArray, numTeams)
 		const totalOneDollarPlayers = Math.floor(oneDollarPlayers * numTeams)

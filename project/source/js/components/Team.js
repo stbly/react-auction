@@ -6,17 +6,17 @@ import classNames from 'classnames';
 import { Table, Tfoot } from 'reactable-cacheable'
 import { primaryPositionFor, getCategories } from '../helpers/PlayerListUtils'
 
-import { 
-		createRows, 
-		createHeaderRow, 
+import {
+		createRows,
+		createHeaderRow,
 		createCells,
-		sortCost, 
-		sortNumber, 
-		sortPosition, 
-		cellFactory, 
+		sortCost,
+		sortNumber,
+		sortPosition,
+		cellFactory,
 		earnedCellFactory,
-		valueCellFactory, 
-		costCellFactory, 
+		valueCellFactory,
+		costCellFactory,
 		createStatCells} from '../helpers/tableUtils'
 
 import { getStatTotals } from '../helpers/statUtils'
@@ -34,7 +34,7 @@ class Team extends Component {
 	render() {
 		const { players } = this.props
 		const classes = classNames('roster')
-		
+
 		return (
 			<div className={classes}>
 				{ players ? this.renderPlayers() : null}
@@ -62,12 +62,12 @@ class Team extends Component {
 			...categoryCells
 		]
 
-		const sorts = [ 
+		const sorts = [
 			// sortNumber('budget'),
-			sortCost(playerObject), 
-			'rank', 
-			'name', 
-			'earned', 
+			sortCost(playerObject),
+			'rank',
+			'name',
+			'earned',
 			// sortNumber('bid'),
 			sortNumber('val'),
 			sortPosition(playerObject),
@@ -75,11 +75,11 @@ class Team extends Component {
 		]
 
 		const headers = createHeaderRow(columns)
-		const rows = createRows(players, columns, null, { 
-			onClick: (player) => { 
+		const rows = createRows(players, columns, {
+			onClick: (player) => {
 				if (!player) return 
 				const { id } = player;
-				(onRowClick && id) ? onRowClick(id) : null 
+				(onRowClick && id) ? onRowClick(id) : null
 			}
 		})
 
@@ -90,15 +90,15 @@ class Team extends Component {
 			sortable={sorts}
 			defaultSort='rank'>
 				{headers}
-				{rows} 
+				{rows}
 				<Tfoot>
 					{sumRow}
 				</Tfoot>
-		</Table> 
+		</Table>
 	}
 
 	getSumRow (playerRows, categories) {
-		if (playerRows.length === 0) return 
+		if (playerRows.length === 0) return
 		const playersWithValue = playerRows.filter( row => row.value )
 		if (!playersWithValue || playersWithValue.length === 0) return
 
@@ -114,7 +114,7 @@ class Team extends Component {
 
 		const sumObject = {}
 		const valueCategories = ['cost', 'adjustedValue', 'value'];
-	
+
 		if (playersWithValue.length > 0) {
 			valueCategories.forEach( category => {
 				sumObject[category] = playersWithValue.map( player => {
@@ -130,7 +130,7 @@ class Team extends Component {
 
 		const statTotals = getStatTotals(playersWithValue, categories)
 
-		sumObject.stats = statTotals;	
+		sumObject.stats = statTotals;
 
 		return (
 			<tr key={'sums'}>
